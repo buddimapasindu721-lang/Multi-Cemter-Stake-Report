@@ -4,196 +4,489 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DAILY STAKE REPORT</title>
+<title>DAILY STAKE REPORT - COLOMBO NORTH OUTER</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
+:root{
+ --bg:#070910;--panel:#111725;--panel2:#192235;
+ --purple:#a855f7;--green:#00e69a;--orange:#ff9d42;
+ --red:#f04462;--muted:#9ba8bb;--border:#34314b;
+}
 *{box-sizing:border-box}
-body{margin:0;background:#080b12;color:white;font-family:Arial,sans-serif}
-header{text-align:center;padding:24px 10px;background:#10101b;border-bottom:2px solid #a855f7}
-header h1{color:#c084fc;letter-spacing:2px;margin:0}
-header p{color:#4ade80;letter-spacing:3px}
-main{max-width:850px;margin:auto;padding:15px}
-.card{background:#151b29;border:1px solid #39304f;border-radius:16px;padding:18px;margin:15px 0}
-h2{color:#c084fc}
-input{width:100%;padding:14px;background:#090e18;border:1px solid #55446f;color:white;border-radius:9px;margin:7px 0;font-size:16px}
-button{padding:13px 18px;border:0;border-radius:9px;font-weight:bold;margin:5px;cursor:pointer}
-.purple{background:#9333ea;color:white}
-.green{background:#00c982;color:#001b12}
-.gray{background:#475569;color:white}
+body{
+ margin:0;min-height:100vh;color:#fff;
+ font-family:Arial,sans-serif;
+ background:radial-gradient(circle at 15% 10%,#25123b 0,transparent 35%),
+ radial-gradient(circle at 90% 90%,#063a2e 0,transparent 35%),var(--bg);
+}
+header{
+ text-align:center;padding:24px 12px 20px;
+ background:#090c15;border-bottom:1px solid #7041a5;
+ position:relative;overflow:hidden;
+}
+header:after{
+ content:"";position:absolute;left:-50%;top:0;width:200%;height:2px;
+ background:linear-gradient(90deg,transparent,var(--purple),var(--green),transparent);
+ animation:shine 5s linear infinite;
+}
+@keyframes shine{to{transform:translateX(40%)}}
+.logo{font-size:38px;filter:drop-shadow(0 0 12px #a855f7)}
+header h1{font-size:24px;letter-spacing:2px;color:#d5aaff;margin:5px 0}
+header p{font-size:12px;letter-spacing:4px;color:var(--green);margin:7px 0}
+.container{max-width:900px;margin:auto;padding:12px}
+.card{
+ background:linear-gradient(145deg,#151c2b,#101522);
+ border:1px solid var(--border);border-radius:17px;
+ padding:17px;margin:13px 0;box-shadow:0 8px 25px #0006;
+}
+h2{color:#d1a3ff;font-size:19px;margin:0 0 14px}
+h3{font-size:15px;color:#b9c5d7}
+input,select{
+ width:100%;padding:13px;margin:6px 0;
+ background:#080e19;color:white;border:1px solid #4b4565;
+ border-radius:10px;font-size:15px;outline:none;
+}
+input:focus,select:focus{border-color:var(--purple)}
+button{
+ border:0;border-radius:10px;padding:13px 16px;
+ font-weight:bold;cursor:pointer;margin:4px;font-size:13px;
+}
+button:active{transform:scale(.97)}
+.purple{background:linear-gradient(100deg,#9333ea,#b45cff);color:white}
+.green{background:linear-gradient(100deg,#00a96c,#00e69a);color:#001b11}
+.orange{background:#f59e0b;color:#241500}
+.gray{background:#39465b;color:white}
+.red{background:#bd2948;color:white}
+.full{width:100%}
+.hidden{display:none!important}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.item{background:#20283a;padding:12px;border-radius:10px}
-.total{font-size:25px;color:#4ade80;font-weight:bold}
-.hidden{display:none}
-.record{background:#20283a;border-radius:10px;padding:12px;margin:9px 0}
-.small{color:#aaa;font-size:12px}
-.center{display:block;width:100%;text-align:left;background:#20283a;color:white}
+.field{background:#1b2537;border-radius:12px;padding:12px;border:1px solid #303d52}
+.field label{font-size:13px;font-weight:bold;display:block;margin-bottom:5px}
+.field input{margin:0}
+.totalbox{
+ background:linear-gradient(120deg,#092c26,#12372d);
+ border:1px solid #087b59;border-radius:13px;padding:16px;margin-top:12px;
+}
+.total{font-size:27px;color:var(--green);font-weight:bold;margin-top:7px}
+.dueTotal{font-size:18px;color:#ffbd63;font-weight:bold}
+.muted{font-size:12px;color:var(--muted)}
+.record{
+ background:#1b2638;border:1px solid #34415a;
+ border-radius:12px;padding:13px;margin:10px 0;
+}
+.record h3{margin:0 0 9px;color:#e0c7ff}
+.record p{margin:6px 0;font-size:13px;color:#d5deeb}
+.record .recordTotal{color:var(--green);font-weight:bold;font-size:16px}
+.centerBtn{
+ width:100%;text-align:left;background:#1c2638;color:white;
+ border:1px solid #38445d;margin:5px 0;
+}
+.centerBtn:active{background:#473064}
+.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{
+ background:#202b3d;padding:13px;border-radius:12px;
+ border:1px solid #3a4357;
+}
+.stat small{color:#aab6c9}
+.stat strong{display:block;font-size:20px;color:var(--green);margin-top:6px}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
+.tabs button{flex:1;min-width:100px}
+.activeTab{outline:2px solid var(--green)}
+.reportHead{text-align:center;padding:12px 5px}
+.reportHead .horse{font-size:42px}
+.reportHead h2{margin:5px 0;color:#d9b4ff}
+.reportHead p{color:#91a3b8;font-size:12px;letter-spacing:2px}
+.reportFoot{text-align:center;color:#8290a6;font-size:11px;margin-top:15px}
+hr{border:0;border-top:1px solid #343d51;margin:14px 0}
+#toast{
+ position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+ background:#172a25;border:1px solid var(--green);padding:12px 18px;
+ border-radius:10px;display:none;z-index:10;
+}
+@media(max-width:420px){
+ header h1{font-size:20px}
+ .container{padding:8px}
+ .card{padding:13px}
+ button{padding:12px 10px}
+ .total{font-size:23px}
+}
 </style>
 </head>
 <body>
+
 <header>
-<h1>DAILY STAKE REPORT</h1>
-<p>COLOMBO NORTH OUTER</p>
+ <div class="logo">🏇</div>
+ <h1>DAILY STAKE REPORT</h1>
+ <p>COLOMBO NORTH OUTER</p>
 </header>
-<main>
-<div id="login" class="card">
-<h2>Welcome</h2>
-<input id="centerName" placeholder="Enter Center Name">
-<button class="purple" style="width:100%" onclick="login()">CONTINUE</button>
-</div>
 
-<div id="dashboard" class="hidden">
-<div class="card">
-<button class="gray" style="float:right" onclick="logout()">LOG OUT</button>
-<h2 id="welcome"></h2>
-<div id="date" class="small"></div>
-<div style="clear:both"></div>
-</div>
+<main class="container">
 
-<div id="entry" class="card">
-<h2>Daily Stake Entry</h2>
-<div class="grid">
-<div class="item">🇦🇺 Australian<input type="number" id="australian" min="0" value="0"></div>
-<div class="item">🏴 England<input type="number" id="england" min="0" value="0"></div>
-<div class="item">🏇 Trackside<input type="number" id="trackside" min="0" value="0"></div>
-<div class="item">💰 Due<input type="number" id="due" min="0" value="0"></div>
-</div>
-<p>Total Stake</p>
-<div class="total" id="total">LKR 0.00</div>
-<p class="small">Due is excluded from Total</p>
-<button class="green" style="width:100%" onclick="saveStake()">SAVE STAKE</button>
-</div>
+<section id="login" class="card">
+ <div class="reportHead">
+  <div class="horse">🏇</div>
+  <h2>WELCOME</h2>
+  <p>DAILY STAKE MANAGEMENT SYSTEM</p>
+ </div>
+ <label>Center Name</label>
+ <input id="centerName" placeholder="Enter your Center Name">
+ <button class="purple full" onclick="login()">CONTINUE →</button>
+ <p class="muted">Your Center Name will be remembered on this phone.</p>
+</section>
 
-<div class="card">
-<h2>My Records</h2>
-<div id="records">Loading...</div>
-</div>
+<section id="dashboard" class="hidden">
+ <div class="card">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+   <div>
+    <div class="muted">LOGGED IN AS</div>
+    <h2 id="welcome" style="margin:5px 0">CENTER</h2>
+    <div id="businessDate" class="muted"></div>
+   </div>
+   <button class="gray" onclick="logout()">LOG OUT</button>
+  </div>
+ </div>
 
-<div id="admin" class="hidden">
-<div class="card">
-<h2>Admin Dashboard</h2>
-<div id="summary"></div>
-</div>
-<div class="card">
-<h2>All Centers</h2>
-<div id="centers"></div>
-</div>
-<div class="card">
-<h2>Center Report</h2>
-<div id="centerReport">Select a Center</div>
-</div>
-</div>
-</div>
+ <section id="entry" class="card">
+  <h2>🏇 Daily Stake Entry</h2>
+  <div class="grid">
+   <div class="field">
+    <label>🇦🇺 AUSTRALIAN</label>
+    <input type="number" min="0" id="australian" placeholder="0">
+   </div>
+   <div class="field">
+    <label>🇬🇧 ENGLAND</label>
+    <input type="number" min="0" id="england" placeholder="0">
+   </div>
+   <div class="field">
+    <label>🏇 TRACKSIDE</label>
+    <input type="number" min="0" id="trackside" placeholder="0">
+   </div>
+   <div class="field">
+    <label>💸 DUE</label>
+    <input type="number" min="0" id="due" placeholder="0">
+   </div>
+  </div>
+  <div class="totalbox">
+   <div class="muted">TOTAL DAILY STAKE (DUE EXCLUDED)</div>
+   <div class="total" id="liveTotal">LKR 0.00</div>
+   <hr>
+   <div class="muted">DUE AMOUNT</div>
+   <div class="dueTotal" id="liveDue">LKR 0.00</div>
+  </div>
+  <button class="green full" onclick="saveStake()">SAVE DAILY STAKE</button>
+ </section>
+
+ <section class="card" id="myReport">
+  <div class="reportHead">
+   <div class="horse">🏇</div>
+   <h2>DAILY STAKE REPORT</h2>
+   <p>COLOMBO NORTH OUTER</p>
+  </div>
+  <h2>📊 My Records</h2>
+  <div class="tabs">
+   <button class="gray" onclick="filterMy('today')">TODAY</button>
+   <button class="gray" onclick="filterMy('all')">ALL RECORDS</button>
+  </div>
+  <div id="myRecords">Loading records...</div>
+  <div class="reportFoot">DAILY STAKE REPORT • COLOMBO NORTH OUTER</div>
+  <button class="purple full" onclick="takeScreenshot('myReport','Center-Report')">📸 SAVE REPORT SCREENSHOT</button>
+ </section>
+
+ <section id="adminArea" class="hidden">
+  <div class="card" id="adminReport">
+   <div class="reportHead">
+    <div class="horse">🏇</div>
+    <h2>ADMIN DASHBOARD</h2>
+    <p>COLOMBO NORTH OUTER</p>
+   </div>
+   <div id="adminStats" class="statgrid"></div>
+   <hr>
+   <h2>🏢 All Centers</h2>
+   <input id="centerSearch" placeholder="Search Center..." oninput="renderCenters()">
+   <div id="centerList"></div>
+   <div class="reportFoot">DAILY STAKE REPORT • ADMIN</div>
+  </div>
+
+  <div class="card" id="adminCenterReport">
+   <h2>📋 Selected Center Report</h2>
+   <div id="selectedCenterName" class="muted">Select a Center above</div>
+   <div class="tabs">
+    <button class="gray" onclick="filterAdmin('today')">TODAY</button>
+    <button class="gray" onclick="filterAdmin('all')">ALL RECORDS</button>
+   </div>
+   <div id="selectedRecords">No Center selected</div>
+   <button class="purple full" onclick="takeScreenshot('adminCenterReport','Center-Detail-Report')">📸 SAVE CENTER REPORT</button>
+  </div>
+ </section>
+</section>
 </main>
 
+<div id="toast"></div>
+
 <script>
-const API="https://script.google.com/macros/s/AKfycby9hGuA6_G0Mx66Z3yg44S3OyV9G2VZAuk3z5fp9RWXGKoqZDc6gdnYJ02ta7dpmvWQRA/exec";
-let center="",admin=false,records=[];
+const API_URL="https://script.google.com/macros/s/AKfycby9hGuA6_G0Mx66Z3yg44S3OyV9G2VZAuk3z5fp9RWXGKoqZDc6gdnYJ02ta7dpmvWQRA/exec";
+
+let currentCenter="";
+let isAdmin=false;
+let allRecords=[];
+let allCenters=[];
+let selectedCenter="";
+let myFilter="today";
+let adminFilter="today";
 
 const $=id=>document.getElementById(id);
-const fmt=n=>"LKR "+Number(n||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+
+function money(n){
+ return "LKR "+Number(n||0).toLocaleString("en-US",{
+  minimumFractionDigits:2,maximumFractionDigits:2
+ });
+}
+function toast(msg){
+ $("toast").textContent=msg;
+ $("toast").style.display="block";
+ setTimeout(()=>$("toast").style.display="none",2800);
+}
+function safe(s){
+ return String(s??"").replace(/[&<>"']/g,c=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
+}
+function safeJS(s){
+ return String(s??"").replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/</g,"\\x3c");
+}
 
 function calc(){
- let sum=["australian","england","trackside"].reduce((s,id)=>s+(Number($(id).value)||0),0);
- $("total").textContent=fmt(sum);
+ let a=Number($("australian").value)||0;
+ let e=Number($("england").value)||0;
+ let t=Number($("trackside").value)||0;
+ let d=Number($("due").value)||0;
+ $("liveTotal").textContent=money(a+e+t);
+ $("liveDue").textContent=money(d);
 }
-["australian","england","trackside"].forEach(id=>$(id).addEventListener("input",calc));
+["australian","england","trackside","due"].forEach(id=>{
+ $(id).addEventListener("input",calc);
+});
 
-async function get(params){
- let r=await fetch(API+"?"+new URLSearchParams(params));
- return r.json();
+async function apiGet(params){
+ const response=await fetch(API_URL+"?"+new URLSearchParams(params));
+ return await response.json();
 }
-async function post(data){
- let r=await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(data)});
- return r.json();
+async function apiPost(data){
+ const response=await fetch(API_URL,{
+  method:"POST",
+  headers:{"Content-Type":"text/plain;charset=utf-8"},
+  body:JSON.stringify(data)
+ });
+ return await response.json();
 }
+
+function openDashboard(){
+ $("login").classList.add("hidden");
+ $("dashboard").classList.remove("hidden");
+ $("welcome").textContent=isAdmin?"ADMIN DASHBOARD":currentCenter;
+ if(isAdmin){
+  $("entry").classList.add("hidden");
+  $("adminArea").classList.remove("hidden");
+ }else{
+  $("entry").classList.remove("hidden");
+  $("adminArea").classList.add("hidden");
+ }
+}
+
 async function login(){
- let name=$("centerName").value.trim();
- if(!name)return alert("Enter Center Name");
+ const name=$("centerName").value.trim();
+ if(!name)return alert("Please enter Center Name");
 
  if(name.toUpperCase()==="ADMIN"){
-  let pw=prompt("Admin Password");
-  if(pw===null)return;
-  let r=await post({action:"adminLogin",password:pw});
-  if(!r.success)return alert("Wrong Password");
-  admin=true;center="ADMIN";
-  $("entry").classList.add("hidden");
-  $("admin").classList.remove("hidden");
-  open();
-  await loadAdmin();
+  const password=prompt("Enter Admin Password");
+  if(password===null)return;
+  try{
+   const result=await apiPost({action:"adminLogin",password:password});
+   if(!result.success)return alert("Incorrect Admin Password");
+   isAdmin=true;
+   currentCenter="ADMIN";
+   openDashboard();
+   await loadAdmin();
+  }catch(err){alert("Connection error: "+err.message);}
   return;
  }
+
  if(name.toLowerCase()==="dematagoda"){
   location.href="https://buddimapasindu721-lang.github.io/Daily-Satake-Dematagoda/";
   return;
  }
- center=name;
- localStorage.setItem("stakeCenter",center);
- open();
- await loadMine();
+
+ currentCenter=name;
+ localStorage.setItem("stakeCenter",name);
+ isAdmin=false;
+ openDashboard();
+ await loadMyRecords();
 }
-function open(){
- $("login").classList.add("hidden");
- $("dashboard").classList.remove("hidden");
- $("welcome").textContent=admin?"ADMIN DASHBOARD":center;
-}
+
 function logout(){
  localStorage.removeItem("stakeCenter");
+ currentCenter="";
  location.reload();
 }
-function showRecords(rows,target){
- if(!rows.length){$(target).innerHTML="<p>No records found</p>";return;}
- $(target).innerHTML=rows.map(r=>`
+
+function recordHTML(r){
+ return `
  <div class="record">
- <b>${esc(r.center)} - ${esc(r.date)}</b>
- <p>Australian: ${fmt(r.australian)}</p>
- <p>England: ${fmt(r.england)}</p>
- <p>Trackside: ${fmt(r.trackside)}</p>
- <p>Due: ${fmt(r.due)}</p>
- <b style="color:#4ade80">Total: ${fmt(r.total)}</b>
- </div>`).join("");
+  <h3>🏢 ${safe(r.center)}</h3>
+  <div class="muted">${safe(r.date)}</div>
+  <p>🇦🇺 Australian: ${money(r.australian)}</p>
+  <p>🇬🇧 England: ${money(r.england)}</p>
+  <p>🏇 Trackside: ${money(r.trackside)}</p>
+  <p>💸 Due: ${money(r.due)}</p>
+  <div class="recordTotal">TOTAL STAKE: ${money(r.total)}</div>
+ </div>`;
 }
-async function loadMine(){
+
+function renderMyRecords(){
+ let rows=myFilter==="today"
+  ?allRecords.filter(r=>r.date===businessDate)
+  :allRecords;
+ $("myRecords").innerHTML=rows.length
+  ?rows.map(recordHTML).join("")
+  :"<p class='muted'>No records found for this date.</p>";
+}
+let businessDate="";
+
+function filterMy(mode){
+ myFilter=mode;
+ renderMyRecords();
+}
+
+async function loadMyRecords(){
  try{
-  let r=await get({action:"records",center});
-  if(!r.success)throw Error(r.message);
-  $("date").textContent="Business Date: "+r.businessDate;
-  showRecords(r.records||[],"records");
- }catch(e){$("records").textContent="Loading error: "+e.message;}
+  const result=await apiGet({action:"records",center:currentCenter});
+  if(!result.success)throw new Error(result.message);
+  allRecords=result.records||[];
+  businessDate=result.businessDate||"";
+  $("businessDate").textContent="Business Date: "+businessDate+" • 03:45 AM reset";
+  renderMyRecords();
+ }catch(err){
+  $("myRecords").textContent="Unable to load records: "+err.message;
+ }
 }
+
 async function saveStake(){
- let v=["australian","england","trackside","due"].map(id=>Number($(id).value)||0);
- if(v.some(n=>n<0))return alert("Invalid amount");
+ const values=["australian","england","trackside","due"].map(id=>Number($(id).value)||0);
+ if(values.some(n=>!Number.isFinite(n)||n<0))return alert("Invalid amount");
+ if(!confirm("Save today's stake report?"))return;
+
  try{
-  let r=await post({action:"save",center,australian:v[0],england:v[1],trackside:v[2],due:v[3]});
-  if(!r.success)throw Error(r.message);
-  alert("Saved successfully");
-  ["australian","england","trackside","due"].forEach(id=>$(id).value=0);
-  calc();await loadMine();
- }catch(e){alert("Save error: "+e.message);}
+  const result=await apiPost({
+   action:"save",
+   center:currentCenter,
+   australian:values[0],
+   england:values[1],
+   trackside:values[2],
+   due:values[3]
+  });
+  if(!result.success)throw new Error(result.message);
+  toast("Daily Stake Saved Successfully");
+  ["australian","england","trackside","due"].forEach(id=>$(id).value="");
+  calc();
+  await loadMyRecords();
+ }catch(err){
+  alert("Save failed: "+err.message);
+ }
 }
+
 async function loadAdmin(){
  try{
-  let r=await get({action:"records",admin:"1",key:"2026"});
-  if(!r.success)throw Error(r.message);
-  records=r.records||[];
-  let today=records.filter(x=>x.date===r.businessDate);
-  let sum=today.reduce((s,x)=>s+Number(x.total||0),0);
-  $("summary").innerHTML=`<h2>${fmt(sum)}</h2><p>Centers with stake: ${today.length}</p><p>Date: ${esc(r.businessDate)}</p>`;
-  $("centers").innerHTML=(r.centers||[]).map(c=>`<button class="center" onclick="selectCenter('${js(c)}')">${esc(c)}</button>`).join("")||"No Centers";
- }catch(e){$("summary").textContent="Error: "+e.message;}
+  const result=await apiGet({action:"records",admin:"1",key:"2026"});
+  if(!result.success)throw new Error(result.message);
+  allRecords=result.records||[];
+  allCenters=result.centers||[];
+  businessDate=result.businessDate||"";
+  $("businessDate").textContent="Business Date: "+businessDate;
+  renderAdminStats();
+  renderCenters();
+ }catch(err){
+  $("adminStats").textContent="Unable to load dashboard: "+err.message;
+ }
 }
-function selectCenter(c){
- showRecords(records.filter(r=>r.center.toLowerCase()===c.toLowerCase()),"centerReport");
-}
-function esc(s){
- return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-}
-function js(s){return String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/</g,"\\x3c");}
 
-window.addEventListener("load",()=>{
- let saved=localStorage.getItem("stakeCenter");
- if(saved){center=saved;open();loadMine();}
+function renderAdminStats(){
+ const today=allRecords.filter(r=>r.date===businessDate);
+ const total=today.reduce((s,r)=>s+Number(r.total||0),0);
+ const due=today.reduce((s,r)=>s+Number(r.due||0),0);
+ $("adminStats").innerHTML=`
+ <div class="stat"><small>Today's Total Stake</small><strong>${money(total)}</strong></div>
+ <div class="stat"><small>Centers With Records</small><strong>${new Set(today.map(r=>r.center.toLowerCase())).size}</strong></div>
+ <div class="stat"><small>Today's Due</small><strong style="color:#ffbd63">${money(due)}</strong></div>
+ <div class="stat"><small>Registered Centers</small><strong>${allCenters.length}</strong></div>`;
+}
+
+function renderCenters(){
+ const query=$("centerSearch").value.trim().toLowerCase();
+ const filtered=allCenters.filter(c=>c.toLowerCase().includes(query));
+ $("centerList").innerHTML=filtered.length
+ ?filtered.map(c=>`
+ <button class="centerBtn" onclick="selectCenter('${safeJS(c)}')">
+ 🏢 ${safe(c)}
+ </button>`).join("")
+ :"<p class='muted'>No Centers found.</p>";
+}
+
+function selectCenter(name){
+ selectedCenter=name;
+ $("selectedCenterName").textContent="Selected Center: "+name;
+ renderSelectedRecords();
+ $("adminCenterReport").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function filterAdmin(mode){
+ adminFilter=mode;
+ renderSelectedRecords();
+}
+function renderSelectedRecords(){
+ if(!selectedCenter){
+  $("selectedRecords").textContent="Select a Center";
+  return;
+ }
+ let rows=allRecords.filter(r=>
+  r.center.toLowerCase()===selectedCenter.toLowerCase()
+ );
+ if(adminFilter==="today")rows=rows.filter(r=>r.date===businessDate);
+ $("selectedRecords").innerHTML=rows.length
+  ?rows.map(recordHTML).join("")
+  :"<p class='muted'>No records found for selected date.</p>";
+}
+
+async function takeScreenshot(id,fileName){
+ const area=$(id);
+ if(!area)return alert("Report not found");
+ if(typeof html2canvas==="undefined")return alert("Screenshot library not loaded. Check internet connection.");
+
+ try{
+  const canvas=await html2canvas(area,{
+   backgroundColor:"#111725",
+   scale:2,
+   useCORS:true,
+   logging:false
+  });
+  const link=document.createElement("a");
+  link.download=fileName+"-"+new Date().toISOString().slice(0,10)+".png";
+  link.href=canvas.toDataURL("image/png");
+  link.click();
+  toast("Report Screenshot Downloaded");
+ }catch(err){
+  alert("Screenshot failed: "+err.message);
+ }
+}
+
+window.addEventListener("load",async()=>{
+ const saved=localStorage.getItem("stakeCenter");
+ if(saved){
+  currentCenter=saved;
+  isAdmin=false;
+  openDashboard();
+  await loadMyRecords();
+ }
 });
 </script>
 </body>
 </html>
-
