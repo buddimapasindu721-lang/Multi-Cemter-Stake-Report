@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Daily Stake - Colombo North Outler</title>
+<title>Daily Stake - Multi Center</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
@@ -140,18 +140,17 @@ input[type=number]{color:var(--green);font-weight:bold}
   <div class="logo"><span>DS</span></div>
   <h1>DAILY STAKE</h1>
   <p style="color:var(--green);letter-spacing:3px">MULTI CENTER</p>
-  <h3>CENTER LOGIN</h3>
+  <h3>LOGIN</h3>
 
   <div id="centerNameArea">
    <label>Center Name</label>
-   <input id="centerName" type="text" placeholder="Enter Center Name">
+   <input id="centerName" type="text" placeholder="Enter Center Name" autocomplete="off">
   </div>
 
   <div id="savedCenterArea" class="hidden">
    <label>SAVED CENTER</label>
    <input id="savedCenterDisplay" type="text" readonly>
    <button type="button" class="btn gray-btn" onclick="changeCenter()" style="width:100%;margin-top:8px">CHANGE CENTER</button>
-   <button type="button" class="btn" onclick="showAdminLogin()" style="width:100%;margin-top:8px">ADMIN LOGIN</button>
   </div>
 
   <div id="adminPasswordArea" class="hidden">
@@ -354,7 +353,7 @@ function loadSavedCenter(){
  const saved=localStorage.getItem(CENTER_STORAGE_KEY);
 
  if(saved){
-  document.getElementById("centerName").value=saved;
+  document.getElementById("centerName").value="";
   document.getElementById("savedCenterDisplay").value=saved;
   document.getElementById("centerNameArea").classList.add("hidden");
   document.getElementById("savedCenterArea").classList.remove("hidden");
@@ -370,17 +369,9 @@ function changeCenter(){
  document.getElementById("centerNameArea").classList.remove("hidden");
  document.getElementById("savedCenterArea").classList.add("hidden");
  document.getElementById("adminPasswordArea").classList.add("hidden");
+ document.getElementById("adminPassword").value="";
  document.getElementById("loginStatus").textContent="";
  document.getElementById("centerName").focus();
-}
-
-function showAdminLogin(){
- document.getElementById("savedCenterArea").classList.add("hidden");
- document.getElementById("centerNameArea").classList.remove("hidden");
- document.getElementById("centerName").value="admin";
- document.getElementById("adminPasswordArea").classList.remove("hidden");
- document.getElementById("adminPassword").focus();
- document.getElementById("loginStatus").textContent="";
 }
 
 /* SRI LANKA DATE */
@@ -551,19 +542,29 @@ function updateReport(){
 fields.forEach(id=>document.getElementById(id).addEventListener("input",updateTotal));
 document.getElementById("date").addEventListener("change",updateReport);
 
-/* LOGIN FIELD */
+/* LOGIN FIELD - SHOW PASSWORD ONLY WHEN NAME IS ADMIN */
 document.getElementById("centerName").addEventListener("input",()=>{
  const name=document.getElementById("centerName").value.trim().toLowerCase();
  const area=document.getElementById("adminPasswordArea");
+
  area.classList.toggle("hidden",name!=="admin");
+
+ if(name!=="admin"){
+  document.getElementById("adminPassword").value="";
+ }
+
  document.getElementById("loginStatus").textContent="";
 });
 
 document.getElementById("centerName").addEventListener("keydown",e=>{
  if(e.key==="Enter"){
   const name=document.getElementById("centerName").value.trim().toLowerCase();
-  if(name==="admin")document.getElementById("adminPassword").focus();
-  else login();
+
+  if(name==="admin"){
+   document.getElementById("adminPassword").focus();
+  }else{
+   login();
+  }
  }
 });
 
@@ -629,7 +630,7 @@ async function login(){
   adminSelectedCenter="ALL";
   allRecords=recordsResult.records||[];
 
-  /* SAVE CENTER ONLY AFTER SUCCESSFUL LOGIN */
+  /* SAVE CENTER ONLY AFTER SUCCESSFUL CENTER LOGIN */
   if(!adminMode){
    localStorage.setItem(CENTER_STORAGE_KEY,name);
   }
