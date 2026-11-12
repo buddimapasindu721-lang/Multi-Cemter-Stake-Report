@@ -4,153 +4,136 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Daily Stake - Dematagoda</title>
+<title>Daily Stake Report - Colombo North Outer</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root{--bg:#050609;--panel:#0b0d13;--purple:#a855f7;--green:#39ff75;--orange:#ffb52e;--red:#ff4565;--text:#f5f3ff;--muted:#9295a3}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 65% 0%,#26103b 0,transparent 36%),radial-gradient(ellipse at 5% 90%,#063421 0,transparent 35%),#050609;color:var(--text);font-family:Arial,sans-serif;min-height:100vh}
-button,input{font:inherit}
-button{cursor:pointer}
-.hidden{display:none!important}
+body{margin:0;background:radial-gradient(ellipse at 65% 0%,#26103b,transparent 36%),radial-gradient(ellipse at 5% 90%,#063421,transparent 35%),#050609;color:var(--text);font-family:Arial,sans-serif;min-height:100vh}
+button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}
 .app{max-width:1600px;margin:auto;padding:13px}
 .login-card,.sidebar,.panel{background:rgba(12,14,20,.97);border:1px solid #30263c;border-radius:17px}
-.login-card{max-width:440px;margin:10vh auto 0;padding:30px;text-align:center}
-.logo{width:53px;height:53px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,#7025bd,#101426 58%,#087a43);border:1px solid #b76aff;box-shadow:0 0 20px #a855f766;color:white;font-weight:900;font-size:22px;letter-spacing:-2px;position:relative;overflow:hidden}
-.logo:after{content:"";position:absolute;right:7px;bottom:7px;width:8px;height:8px;border-radius:50%;background:#39ff75;box-shadow:0 0 10px #39ff75}
-.logo span{position:relative;z-index:1}
-.login-card .logo{margin:auto;width:82px;height:82px;font-size:32px;border-radius:22px}
-.login-card h1{margin:18px 0 5px}
-.brand small{color:var(--green);letter-spacing:3px}
+.login-card{max-width:440px;margin:8vh auto 0;padding:28px;text-align:center}
+.logo{width:55px;height:55px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,#7025bd,#101426 58%,#087a43);border:1px solid #b76aff;box-shadow:0 0 20px #a855f766;color:white;font-weight:900;font-size:22px}
+.login-card .logo{margin:auto;width:82px;height:82px;font-size:32px}
+.login-card h1{margin:17px 0 5px;font-size:23px}
+.login-card small{color:var(--green);letter-spacing:3px}
+.login-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:22px 0 12px}
+.login-tabs button{padding:12px;border:1px solid #49345b;border-radius:9px;background:#11101a;color:#ccc}
+.login-tabs button.active{background:#542080;color:white;border-color:#b66aff}
 .workspace{display:grid;grid-template-columns:248px minmax(0,1fr);gap:15px}
 .sidebar{padding:13px;min-height:calc(100vh - 26px);height:max-content;position:sticky;top:13px}
 .brand{display:flex;align-items:center;gap:11px;padding:8px 5px 17px;border-bottom:1px solid #282331;margin-bottom:14px}
-.brand h1{font-size:19px;margin:0 0 4px}
-.brand small{font-size:10px}
+.brand h1{font-size:18px;margin:0 0 4px}.brand small{font-size:9px;color:var(--green);letter-spacing:2px}
 .nav{display:flex;align-items:center;gap:13px;width:100%;text-align:left;border:1px solid transparent;padding:15px 13px;margin:6px 0;border-radius:11px;color:#c9c4d3;background:transparent;font-weight:bold;font-size:14px}
 .nav .ico{font-size:20px;width:23px;text-align:center}
 .nav.active,.nav:hover{background:linear-gradient(100deg,#5814a6,#2d0750);border-color:#7740a1;color:white;box-shadow:0 0 15px #8b32df44}
 .nav.logout{color:#ff586b;margin-top:10px}
 .sidehorse{margin-top:18px;border-radius:14px;border:1px solid #34413d;overflow:hidden;background:linear-gradient(145deg,#160d27,#071c13);text-align:center}
-.side-emblem{height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.side-emblem{height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
 .side-emblem:before,.side-emblem:after{content:"";position:absolute;border:1px solid #a855f755;border-radius:50%;width:180px;height:180px}
 .side-emblem:after{width:140px;height:140px;border-color:#39ff7555}
-.side-emblem strong{z-index:1;font-size:66px;letter-spacing:-7px;color:white;text-shadow:0 0 20px #a855f7}
-.side-emblem span{z-index:1;font-size:10px;letter-spacing:4px;color:var(--green);margin-top:8px}
-.sidehorse .day-label{padding:12px 8px 16px;background:linear-gradient(0deg,#020504,#10121b)}
-.sidehorse p{font-size:11px;color:#c084fc;letter-spacing:1.5px;margin:0 0 7px}
-.sidehorse strong{font-size:28px;color:var(--green);text-shadow:0 0 14px #39ff75aa}
-.sidehorse small{display:block;color:#c7c2d1;letter-spacing:2px;margin-top:8px;font-size:10px}
+.side-emblem strong{z-index:1;font-size:62px;letter-spacing:-6px;text-shadow:0 0 20px #a855f7}
+.side-emblem span{z-index:1;font-size:9px;letter-spacing:3px;color:var(--green);margin-top:8px}
+.sidehorse .day-label{padding:12px;background:#080b0c}
+.sidehorse p{font-size:10px;color:#c084fc;letter-spacing:1.5px;margin:0 0 7px}
+.sidehorse strong{font-size:25px;color:var(--green)}
+.sidehorse small{display:block;color:#c7c2d1;letter-spacing:2px;margin-top:8px;font-size:9px}
 .maincol{min-width:0}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:15px 22px;background:#0b0d13;border:1px solid #292b3a;border-radius:17px;margin-bottom:13px}
 .timeblock,.dateblock{display:flex;align-items:center;gap:13px}
-.time-icon{font-size:29px;color:#58a8ff}
+.time-icon,.date-icon{font-size:28px;color:#58a8ff}
 .timeblock small,.dateblock small{display:block;color:#b58ae8;font-size:10px;letter-spacing:1px}
-.timeblock strong{display:block;color:var(--green);font-size:25px;margin:3px 0}
-.dateblock strong{display:block;color:var(--green);font-size:20px;margin-top:5px}
-.date-icon{font-size:27px;color:#58a8ff}
-.hero{height:290px;border:1px solid #52356c;border-radius:17px;margin-bottom:15px;overflow:hidden;background:#080811 url("daily_stake_racing_banner.jpg") center center/cover no-repeat;box-shadow:0 8px 28px #0008}
-.hero-overlay{height:100%;display:flex;align-items:flex-end;padding:20px 24px;background:linear-gradient(90deg,#08061055,transparent 70%),linear-gradient(0deg,#05060966,transparent 55%)}
-.hero-tag{color:#fff;text-transform:uppercase;letter-spacing:3px;font-size:11px;text-shadow:0 2px 8px #000}
+.timeblock strong{display:block;color:var(--green);font-size:24px;margin:3px 0}
+.dateblock strong{display:block;color:var(--green);font-size:18px;margin-top:5px}
+.hero{height:270px;border:1px solid #52356c;border-radius:17px;margin-bottom:15px;overflow:hidden;background:linear-gradient(110deg,#0b0615dd,#0b061544),url("daily_stake_racing_banner.jpg") center/cover no-repeat;box-shadow:0 8px 28px #0008}
+.hero-overlay{height:100%;display:flex;align-items:flex-end;padding:20px 24px;background:linear-gradient(0deg,#05060988,transparent 65%)}
+.hero-tag{color:white;text-transform:uppercase;letter-spacing:3px;font-size:11px}
 .section-title{display:flex;align-items:center;justify-content:space-between;margin:5px 0 13px;gap:10px}
-.section-title h2{margin:0;font-size:20px}
-.section-title p{font-size:12px;color:var(--muted)}
+.section-title h2{margin:0;font-size:20px}.section-title p{font-size:12px;color:var(--muted)}
 .stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
-.stat{position:relative;overflow:hidden;padding:17px 15px;border-radius:15px;background:linear-gradient(145deg,#0d1119,#080a10);border:1px solid #303747;min-width:0}
+.stat{padding:17px 14px;border-radius:15px;background:linear-gradient(145deg,#0d1119,#080a10);border:1px solid #303747;min-width:0;position:relative;overflow:hidden}
 .stat:after{content:"";position:absolute;bottom:0;left:20%;width:60%;height:3px;background:var(--glow,#39ff75);box-shadow:0 0 14px var(--glow,#39ff75)}
-.stat small{color:#d1cfda;font-size:10px;letter-spacing:.8px;line-height:1.4}
-.stat strong{display:block;font-size:23px;margin-top:14px;overflow-wrap:anywhere}
-.stat-icon{float:right;font-size:25px}
-.stat.blue-card{--glow:#3999ff;border-color:#183c65}
-.stat.pink-card{--glow:#ff168e;border-color:#572044}
-.stat.green-card{--glow:#39ff75;border-color:#17482d}
-.stat.orange-card{--glow:#ff9d18;border-color:#604016}
-.blue{color:#5ebaff}.purple{color:#c17aff}.green{color:var(--green)}.orange{color:var(--orange)}.pink{color:#ff168e}
-.panel{padding:18px;margin:15px 0}
-.panel h3{margin:0 0 15px;color:#c17aff;font-size:17px}
+.stat small{color:#d1cfda;font-size:10px;letter-spacing:.5px;line-height:1.4}
+.stat strong{display:block;font-size:21px;margin-top:14px;overflow-wrap:anywhere}
+.stat-icon{float:right;font-size:23px}
+.blue-card{--glow:#3999ff;border-color:#183c65}.pink-card{--glow:#ff168e;border-color:#572044}.green-card{--glow:#39ff75;border-color:#17482d}.orange-card{--glow:#ff9d18;border-color:#604016}
+.blue{color:#5ebaff}.pink{color:#ff168e}.green{color:var(--green)}.orange{color:var(--orange)}.purple{color:#c17aff}
+.panel{padding:18px;margin:15px 0}.panel h3{margin:0 0 15px;color:#c17aff;font-size:17px}
 .quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}
 .quick{text-align:left;padding:16px;border-radius:13px;background:#160e24;color:white;border:1px solid #603a81}
-.quick strong{display:block;font-size:14px;margin-bottom:7px}
-.quick span{color:#aaa;font-size:11px}
-.quick:hover{border-color:var(--green);transform:translateY(-2px)}
-.entry{padding:16px;margin:13px 0;border-radius:13px;background:#090d12;border:1px solid #393044}
-.entry.australian{border-left:4px solid #4da8ff}
-.entry.england{border-left:4px solid #ff4565}
-.entry.trackside{border-left:4px solid var(--green)}
-.entry.due{border-left:4px solid var(--orange)}
-.entry-head{display:flex;align-items:center;gap:10px;font-weight:bold}
-.entry-head span{font-size:24px}
+.quick strong{display:block;font-size:14px;margin-bottom:7px}.quick span{color:#aaa;font-size:11px}
+.entry{padding:15px;margin:13px 0;border-radius:13px;background:#090d12;border:1px solid #393044}
+.entry.australian{border-left:4px solid #4da8ff}.entry.england{border-left:4px solid #ff4565}.entry.trackside{border-left:4px solid var(--green)}.entry.due{border-left:4px solid var(--orange)}
+.entry-head{display:flex;align-items:center;gap:10px;font-weight:bold}.entry-head span{font-size:23px}
 label{display:block;font-size:13px;color:#ddd0ef;font-weight:bold;margin:13px 0 7px}
-input{width:100%;padding:14px;border-radius:10px;border:1px solid #42334f;background:#080a10;color:white;outline:none;font-size:17px}
+input{width:100%;padding:13px;border-radius:10px;border:1px solid #42334f;background:#080a10;color:white;outline:none;font-size:16px}
 input:focus{border-color:var(--green);box-shadow:0 0 10px #39ff8833}
 input[type=number]{color:var(--green);font-weight:bold}
-.total-box{padding:19px;text-align:center;margin:16px 0;background:linear-gradient(110deg,#082719,#160c29);border:1px solid var(--green);border-radius:14px}
-.total-box small{color:#b6ffce;letter-spacing:2px}
-.total-box strong{display:block;font-size:34px;color:var(--green);margin-top:9px}
+.total-box{padding:18px;text-align:center;margin:16px 0;background:linear-gradient(110deg,#082719,#160c29);border:1px solid var(--green);border-radius:14px}
+.total-box small{color:#b6ffce;letter-spacing:2px}.total-box strong{display:block;font-size:32px;color:var(--green);margin-top:9px}
 .actions{display:flex;gap:10px;flex-wrap:wrap}
-.btn{flex:1;min-width:120px;padding:14px;border:0;border-radius:10px;font-weight:bold;color:white;background:linear-gradient(100deg,#6415ae,#a855f7)}
-.green-btn{background:linear-gradient(100deg,#087b42,#39d875);color:#04160b}
-.gray-btn{background:#292a36}
-.red-btn{background:#a51d39}
-.btn:disabled{opacity:.5;cursor:wait}
-.report{padding:23px;border-radius:15px;background:linear-gradient(145deg,#101020,#21113b,#09291c);border:2px solid var(--purple);color:white}
+.btn{flex:1;min-width:115px;padding:14px;border:0;border-radius:10px;font-weight:bold;color:white;background:linear-gradient(100deg,#6415ae,#a855f7)}
+.green-btn{background:linear-gradient(100deg,#087b42,#39d875);color:#04160b}.gray-btn{background:#292a36}.red-btn{background:#a51d39}
+.btn:disabled{opacity:.5}
+.report{padding:22px;border-radius:15px;background:linear-gradient(145deg,#101020,#21113b,#09291c);border:2px solid var(--purple);color:white}
 .report-head{text-align:center;padding-bottom:15px;border-bottom:1px solid #ffffff33}
-.report-logo{width:85px;height:75px;margin:auto;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#7025bd,#101426 58%,#087a43);border:1px solid #b76aff;color:white;font-size:30px;font-weight:900;letter-spacing:-3px;box-shadow:0 0 18px #a855f755}
-.report-head h2{color:#d8b4fe;margin:7px 0}
-.report-date{color:var(--green);font-size:13px}
-.report-line{display:flex;justify-content:space-between;gap:10px;padding:14px 2px;border-bottom:1px solid #ffffff20;font-size:14px}
+.report-logo{width:78px;height:70px;margin:auto;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#7025bd,#101426 58%,#087a43);border:1px solid #b76aff;color:white;font-size:29px;font-weight:900}
+.report-head h2{color:#d8b4fe;margin:8px 0}.report-date{color:var(--green);font-size:13px}
+.report-line{display:flex;justify-content:space-between;gap:10px;padding:13px 2px;border-bottom:1px solid #ffffff20;font-size:14px}
 .report-line strong{color:var(--green);text-align:right}
 .report-total{padding:17px;margin-top:16px;text-align:center;background:#092719;border:1px solid var(--green);border-radius:12px}
-.report-total small{letter-spacing:2px;color:#b6ffce}
-.report-total strong{display:block;font-size:29px;color:var(--green);margin-top:9px}
+.report-total small{letter-spacing:2px;color:#b6ffce}.report-total strong{display:block;font-size:28px;color:var(--green);margin-top:9px}
 .report-footer{text-align:center;color:#b6a9ce;font-size:11px;margin-top:16px}
-.record{padding:15px;margin:12px 0;border:1px solid #42304f;background:#090d12;border-radius:12px}
-.record h4{margin:0 0 10px;color:#d8b4fe}
-.record p{font-size:13px;line-height:1.7;color:#c9c5d3}
-.record-total{color:var(--green)!important;font-size:18px!important;font-weight:bold}
-.record-table-wrap{overflow-x:auto}
-.record-table{width:100%;border-collapse:collapse;min-width:680px;font-size:13px}
-.record-table th{color:#bfb8cd;text-align:left;padding:12px 9px;border-bottom:1px solid #45364e}
-.record-table td{padding:12px 9px;border-bottom:1px solid #292632}
-.record-table td:nth-child(2){color:#5ebaff}
-.record-table td:nth-child(3){color:#ff168e}
-.record-table td:nth-child(4){color:var(--green)}
-.record-table td:nth-child(5){color:var(--orange)}
-.record-table td:nth-child(6){color:var(--green);font-weight:bold}
-.small-del{background:transparent;border:0;color:#ff4565;font-size:19px}
+.table-wrap{overflow-x:auto}.data-table{width:100%;border-collapse:collapse;min-width:680px;font-size:12px}
+.data-table th{color:#bfb8cd;text-align:left;padding:12px 8px;border-bottom:1px solid #45364e}
+.data-table td{padding:12px 8px;border-bottom:1px solid #292632}
+.data-table td:nth-child(2){color:#5ebaff}.data-table td:nth-child(3){color:#ff168e}.data-table td:nth-child(4){color:var(--green)}.data-table td:nth-child(5){color:var(--orange)}.data-table td:nth-child(6){color:var(--green);font-weight:bold}
+.small-del{background:transparent;border:0;color:#ff4565;font-size:18px}
 .empty{text-align:center;padding:25px;color:var(--muted)}
 #status,#loginStatus{color:var(--green);text-align:center;font-size:13px;min-height:20px;margin-top:12px}
 .footer{text-align:center;color:#777;font-size:11px;padding:20px}
 @media(max-width:1100px){.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.quick-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:800px){.workspace{grid-template-columns:1fr}.sidebar{position:static;min-height:0;display:flex;gap:4px;overflow-x:auto;padding:7px}.brand,.sidehorse{display:none}.nav{width:auto;min-width:max-content;margin:0;padding:12px}.nav .ico{width:auto}.topbar{margin-top:8px}}
-@media(max-width:550px){.app{padding:7px}.topbar{padding:10px 12px}.timeblock,.dateblock{gap:7px}.time-icon,.date-icon{font-size:20px}.timeblock small,.dateblock small{font-size:8px}.timeblock strong{font-size:17px}.dateblock strong{font-size:14px}.hero{height:175px;background-position:center center}.hero-overlay{padding:12px}.hero-tag{font-size:9px}.section-title h2{font-size:17px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.stat{padding:12px}.stat strong{font-size:18px;margin-top:9px}.stat small{font-size:9px}.stat-icon{font-size:20px}.panel{padding:13px}.quick-grid{grid-template-columns:1fr 1fr}.quick{padding:12px}.actions{flex-direction:column}.actions .btn{width:100%}.login-card{margin-top:8vh;padding:23px}}
+@media(max-width:800px){.workspace{grid-template-columns:1fr}.sidebar{position:static;min-height:0;display:flex;gap:4px;overflow-x:auto;padding:7px}.brand,.sidehorse{display:none}.nav{width:auto;min-width:max-content;margin:0;padding:12px}.nav .ico{width:auto}}
+@media(max-width:550px){.app{padding:7px}.topbar{padding:10px 12px}.timeblock,.dateblock{gap:7px}.time-icon,.date-icon{font-size:20px}.timeblock small,.dateblock small{font-size:8px}.timeblock strong{font-size:17px}.dateblock strong{font-size:13px}.hero{height:170px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.stat{padding:12px}.stat strong{font-size:17px;margin-top:9px}.stat small{font-size:9px}.panel{padding:13px}.quick{padding:12px}.actions{flex-direction:column}.actions .btn{width:100%}.login-card{margin-top:6vh;padding:22px}}
 </style>
 </head>
 <body>
 
 <div id="loginPanel" class="app">
  <div class="login-card">
-  <div class="logo"><span>DS</span></div>
-  <h1>DAILY STAKE</h1>
-  <p style="color:var(--green);letter-spacing:3px">DEMATAGODA</p>
-  <h3>ADMIN LOGIN</h3>
-  <label>Password</label>
-  <input id="password" type="password" placeholder="Enter password">
-  <button class="btn" id="loginBtn" style="width:100%;margin-top:15px" onclick="login()">LOGIN</button>
+  <div class="logo">DS</div>
+  <h1>DAILY STAKE REPORT</h1>
+  <small>COLOMBO NORTH OUTER</small>
+  <div class="login-tabs">
+   <button id="centerTab" class="active" onclick="setLoginMode('center')">CENTER LOGIN</button>
+   <button id="adminTab" onclick="setLoginMode('admin')">ADMIN LOGIN</button>
+  </div>
+  <div id="centerLogin">
+   <label>Center Name</label>
+   <input id="centerName" placeholder="Enter your center name" autocomplete="organization">
+   <button class="btn" style="width:100%;margin-top:15px" onclick="loginCenter()">ENTER CENTER</button>
+  </div>
+  <div id="adminLogin" class="hidden">
+   <label>Admin Password</label>
+   <input id="adminPassword" type="password" placeholder="Enter admin password">
+   <button class="btn" style="width:100%;margin-top:15px" onclick="loginAdmin()">ADMIN LOGIN</button>
+  </div>
   <p id="loginStatus"></p>
+  <p style="font-size:11px;color:#888">Dematagoda users: enter Dematagoda to open the existing website.</p>
  </div>
 </div>
 
 <div id="app" class="app hidden">
  <div class="workspace">
   <aside class="sidebar">
-   <div class="brand"><div class="logo"><span>DS</span></div><div><h1>DAILY STAKE</h1><small>DEMATAGODA</small></div></div>
+   <div class="brand"><div class="logo">DS</div><div><h1>DAILY STAKE</h1><small>COLOMBO NORTH OUTER</small></div></div>
    <button class="nav active" data-page="dashboard" onclick="showPage('dashboard',this)"><span class="ico">⌂</span>Dashboard</button>
    <button class="nav" data-page="newstake" onclick="showPage('newstake',this)"><span class="ico">＋</span>New Stake</button>
    <button class="nav" data-page="records" onclick="showPage('records',this)"><span class="ico">▤</span>Records</button>
    <button class="nav" data-page="reports" onclick="showPage('reports',this)"><span class="ico">▥</span>Reports</button>
    <button class="nav logout" onclick="logout()"><span class="ico">⇥</span>Logout</button>
-   <div class="sidehorse"><div class="side-emblem"><strong>DS</strong><span>DAILY STAKE</span></div><div class="day-label"><p>NEXT DAY START</p><strong>12:00 AM</strong><small>SRI LANKAN TIME</small></div></div>
+   <div class="sidehorse"><div class="side-emblem"><strong>DS</strong><span>DAILY STAKE REPORT</span></div><div class="day-label"><p>NEW BUSINESS DAY</p><strong>03:45 AM</strong><small>SRI LANKAN TIME</small></div></div>
   </aside>
 
   <main class="maincol">
@@ -167,21 +150,23 @@ input[type=number]{color:var(--green);font-weight:bold}
      <div class="stat pink-card"><span class="stat-icon">🇬🇧</span><small>ENGLAND TOTAL</small><strong class="pink" id="dashEngland">0.00</strong></div>
      <div class="stat green-card"><span class="stat-icon">🏇</span><small>TRACKSIDE TOTAL</small><strong class="green" id="dashTrackside">0.00</strong></div>
      <div class="stat orange-card"><span class="stat-icon">💰</span><small>DUE TOTAL</small><strong class="orange" id="dashDue">0.00</strong></div>
-     <div class="stat green-card"><span class="stat-icon">💵</span><small>DISPLAYED DAY'S TOTAL STAKE</small><strong class="green" id="dashStake">0.00</strong></div>
+     <div class="stat green-card"><span class="stat-icon">💵</span><small>TOTAL DAILY STAKE</small><strong class="green" id="dashStake">0.00</strong></div>
     </div>
     <div class="panel"><h3>⚡ QUICK ACTIONS</h3><div class="quick-grid">
-     <button class="quick" onclick="showPage('newstake')"><strong>＋ New Stake</strong><span>Enter today's amounts</span></button>
-     <button class="quick" onclick="showPage('records')"><strong>▤ View Records</strong><span>Find saved records</span></button>
-     <button class="quick" onclick="showPage('reports')"><strong>▥ Reports</strong><span>View monthly totals</span></button>
+     <button class="quick" onclick="showPage('newstake')"><strong>＋ New Stake</strong><span>Enter daily amounts</span></button>
+     <button class="quick" onclick="showPage('records')"><strong>▤ View Records</strong><span>Saved center records</span></button>
+     <button class="quick" onclick="showPage('reports')"><strong>▥ Reports</strong><span>Monthly totals</span></button>
      <button class="quick" onclick="showPage('newstake')"><strong>📸 Screenshot</strong><span>Create report image</span></button>
     </div></div>
-    <div class="panel"><h3>📋 DASHBOARD RECORDS</h3><div id="recentRecords" class="empty">Loading records...</div></div>
+    <div class="panel"><h3>📋 TODAY'S CENTER RECORDS</h3><div id="recentRecords" class="empty">Loading records...</div></div>
    </section>
 
    <section id="page-newstake" class="page hidden">
-    <div class="section-title"><div><h2>＋ NEW STAKE</h2><p>Enter today's daily stake details</p></div></div>
+    <div class="section-title"><div><h2>＋ NEW STAKE</h2><p>Enter daily stake details</p></div></div>
     <div class="panel">
      <h3>📅 STAKE DETAILS</h3>
+     <div id="adminCenterField" class="hidden"><label>Center Name</label><input id="entryCenter" placeholder="Enter center name"></div>
+     <div id="currentCenterLabel" style="color:var(--green);margin:8px 0;font-size:13px"></div>
      <label>Business Date</label><input id="date" type="date">
      <div class="entry australian"><div class="entry-head"><span>🇦🇺</span> AUSTRALIAN</div><label>Australian Amount (LKR)</label><input id="australian" type="number" min="0" step="any" value="0" inputmode="decimal"></div>
      <div class="entry england"><div class="entry-head"><span>🇬🇧</span> ENGLAND</div><label>England Amount (LKR)</label><input id="england" type="number" min="0" step="any" value="0" inputmode="decimal"></div>
@@ -189,7 +174,7 @@ input[type=number]{color:var(--green);font-weight:bold}
      <div class="entry due"><div class="entry-head"><span>💸</span> DUE</div><label>Due Amount (LKR)</label><input id="due" type="number" min="0" step="any" value="0" inputmode="decimal"></div>
      <div class="total-box"><small>TOTAL DAILY STAKE (WITHOUT DUE)</small><strong id="total">0.00</strong></div>
      <div class="actions">
-      <button class="btn" id="screenshotBtn" onclick="takeScreenshot()">📸 SCREENSHOT REPORT</button>
+      <button class="btn" onclick="takeScreenshot()">📸 SCREENSHOT REPORT</button>
       <button class="btn green-btn" id="saveBtn" onclick="saveRecord()">✓ SAVE STAKE</button>
       <button class="btn gray-btn" onclick="clearAmounts()">↻ CLEAR</button>
      </div>
@@ -197,14 +182,14 @@ input[type=number]{color:var(--green);font-weight:bold}
     </div>
     <div class="panel"><h3>📸 REPORT PREVIEW</h3>
      <div id="report" class="report">
-      <div class="report-head"><div class="report-logo">DS</div><h2>DAILY STAKE REPORT</h2><div style="letter-spacing:3px;font-size:12px">DEMATAGODA</div><div class="report-date" id="reportDate">Date: -</div></div>
+      <div class="report-head"><div class="report-logo">DS</div><h2>DAILY STAKE REPORT</h2><div style="letter-spacing:3px;font-size:12px">COLOMBO NORTH OUTER</div><div id="reportCenter" style="color:#d8b4fe;margin-top:7px">Center: -</div><div class="report-date" id="reportDate">Date: -</div></div>
       <div class="report-line"><span>🇦🇺 Australian</span><strong id="reportAustralian">0.00</strong></div>
       <div class="report-line"><span>🇬🇧 England</span><strong id="reportEngland">0.00</strong></div>
       <div class="report-line"><span>🏇 Trackside</span><strong id="reportTrackside">0.00</strong></div>
       <div class="report-line"><span>💸 Due</span><strong id="reportDue">0.00</strong></div>
       <div class="report-total"><small>TOTAL DAILY STAKE</small><strong id="reportTotal">0.00</strong></div>
       <div style="text-align:center;color:#b6a9ce;font-size:11px;margin-top:12px">Due is separate and not included in Total Stake.</div>
-      <div class="report-footer">DAILY STAKE • DEMATAGODA</div>
+      <div class="report-footer">DAILY STAKE REPORT • COLOMBO NORTH OUTER</div>
      </div>
     </div>
    </section>
@@ -212,6 +197,7 @@ input[type=number]{color:var(--green);font-weight:bold}
    <section id="page-records" class="page hidden">
     <div class="section-title"><h2>▤ SAVED RECORDS</h2></div>
     <div class="panel">
+     <div id="recordCenterField" class="hidden"><label>Search Center</label><input id="recordCenter" placeholder="Leave blank for all centers"></div>
      <label>Search by date</label><input id="searchDate" type="date">
      <div class="actions" style="margin-top:12px"><button class="btn" onclick="showRecords()">🔎 SEARCH</button><button class="btn gray-btn" onclick="loadAllRecords()">ALL RECORDS</button></div>
      <div id="records" class="empty">Select a date and search.</div>
@@ -222,6 +208,7 @@ input[type=number]{color:var(--green);font-weight:bold}
     <div class="section-title"><h2>📊 REPORTS</h2></div>
     <div class="panel">
      <h3>MONTHLY REPORT</h3>
+     <div id="reportCenterField2" class="hidden"><label>Center Name (optional)</label><input id="monthlyCenter" placeholder="Leave blank for all centers"></div>
      <label>Select Month</label><input type="month" id="reportMonth">
      <button class="btn" style="width:100%;margin-top:12px" onclick="monthlyReport()">VIEW MONTHLY REPORT</button>
      <div id="monthlyResult" class="empty">Select a month to view totals.</div>
@@ -230,11 +217,14 @@ input[type=number]{color:var(--green);font-weight:bold}
   </main>
  </div>
 </div>
-<div class="footer">© DAILY STAKE - DEMATAGODA</div>
+<div class="footer">© DAILY STAKE REPORT • COLOMBO NORTH OUTER</div>
 
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbxweNwVKbgMgK187bpmFaDdR3tcalJjSLs65CEoCsvDqi7QVi4e_ny_63ToeUpf9QcBWg/exec";
-let adminPassword="";
+const API_URL="https://script.google.com/macros/s/AKfycby9hGuA6_G0Mx66Z3yg44S3OyV9G2VZAuk3z5fp9RWXGKoqZDc6gdnYJ02ta7dpmvWQRA/exec";
+const OLD_DEMATAGODA_URL="https://buddimapasindu721-lang.github.io/Daily-Satake-Dematagoda/";
+let mode="center";
+let centerName="";
+let adminKey="";
 let allRecords=[];
 let lastBusinessDate="";
 let recordsPromise=null;
@@ -242,17 +232,11 @@ const fields=["australian","england","tackside","due"];
 
 function jsonp(params){
  return new Promise((resolve,reject)=>{
-  const callback="dsCallback_"+Date.now()+"_"+Math.floor(Math.random()*999999);
+  const callback="stakeCallback_"+Date.now()+"_"+Math.floor(Math.random()*999999);
   const script=document.createElement("script");
   const query=new URLSearchParams({...params,callback});
   const timeout=setTimeout(()=>{cleanup();reject(new Error("API timeout"));},20000);
-
-  function cleanup(){
-   clearTimeout(timeout);
-   delete window[callback];
-   script.remove();
-  }
-
+  function cleanup(){clearTimeout(timeout);delete window[callback];script.remove();}
   window[callback]=data=>{cleanup();resolve(data);};
   script.onerror=()=>{cleanup();reject(new Error("API connection failed"));};
   script.src=API_URL+"?"+query.toString();
@@ -260,35 +244,140 @@ function jsonp(params){
  });
 }
 
-/* CALENDAR DATE */
+function setLoginMode(next){
+ mode=next;
+ document.getElementById("centerLogin").classList.toggle("hidden",mode!=="center");
+ document.getElementById("adminLogin").classList.toggle("hidden",mode!=="admin");
+ document.getElementById("centerTab").classList.toggle("active",mode==="center");
+ document.getElementById("adminTab").classList.toggle("active",mode==="admin");
+ document.getElementById("loginStatus").textContent="";
+}
+
+function cleanName(s){return String(s||"").trim().replace(/\s+/g," ").slice(0,80);}
+function isDematagoda(s){return cleanName(s).toLowerCase()==="dematagoda";}
+
+async function loginCenter(){
+ const name=cleanName(document.getElementById("centerName").value);
+ const status=document.getElementById("loginStatus");
+ if(!name){status.textContent="Please enter your center name.";return;}
+ if(isDematagoda(name)){location.href=OLD_DEMATAGODA_URL;return;}
+ status.textContent="Connecting...";
+ try{
+  const r=await jsonp({action:"login",mode:"center",center:name});
+  if(!r.success)throw new Error(r.error||"Login failed");
+  centerName=name;
+  adminKey="";
+  localStorage.setItem("stake_center_name",name);
+  await enterApp();
+ }catch(e){status.textContent="Connection error: "+e.message;}
+}
+
+async function loginAdmin(){
+ const key=document.getElementById("adminPassword").value.trim();
+ const status=document.getElementById("loginStatus");
+ if(!key){status.textContent="Enter admin password.";return;}
+ status.textContent="Checking admin access...";
+ try{
+  const r=await jsonp({action:"login",mode:"admin",key});
+  if(!r.success)throw new Error("Wrong admin password");
+  adminKey=key;
+  centerName="";
+  await enterApp();
+ }catch(e){status.textContent=e.message;}
+}
+
+async function enterApp(){
+ try{
+  await refreshRecords();
+  document.getElementById("loginPanel").classList.add("hidden");
+  document.getElementById("app").classList.remove("hidden");
+  document.getElementById("adminCenterField").classList.toggle("hidden",!adminKey);
+  document.getElementById("recordCenterField").classList.toggle("hidden",!adminKey);
+  document.getElementById("reportCenterField2").classList.toggle("hidden",!adminKey);
+  document.getElementById("currentCenterLabel").textContent=adminKey?"ADMIN MODE • Choose a center below":("CENTER: "+centerName);
+  initializeDates();
+  updateTotal();
+  renderDashboard();
+  showPage("dashboard");
+ }catch(e){
+  document.getElementById("loginStatus").textContent="Connection error: "+e.message;
+  throw e;
+ }
+}
+
+function logout(){
+ adminKey="";
+ centerName="";
+ allRecords=[];
+ document.getElementById("app").classList.add("hidden");
+ document.getElementById("loginPanel").classList.remove("hidden");
+ document.getElementById("adminPassword").value="";
+ document.getElementById("loginStatus").textContent="";
+ setLoginMode("center");
+}
+
 function today(){
- const p=new Intl.DateTimeFormat("en-CA",{
+ const parts=new Intl.DateTimeFormat("en-CA",{
   timeZone:"Asia/Colombo",year:"numeric",month:"2-digit",day:"2-digit"
  }).formatToParts(new Date());
- const get=n=>p.find(x=>x.type===n).value;
+ const get=n=>parts.find(x=>x.type===n).value;
  return get("year")+"-"+get("month")+"-"+get("day");
 }
 
-/* BUSINESS DATE CHANGES AT MIDNIGHT */
-function businessToday(){return today();}
-
-function recordDate(value){
- if(value===null||value===undefined||value==="")return "";
- const s=String(value).trim();
- if(/^\d{4}-\d{2}-\d{2}$/.test(s))return s;
- const parsed=new Date(s);
- if(!Number.isNaN(parsed.getTime())){
-  return new Intl.DateTimeFormat("en-CA",{
-   timeZone:"Asia/Colombo",year:"numeric",month:"2-digit",day:"2-digit"
-  }).format(parsed);
+function businessToday(){
+ const now=new Date();
+ const time=new Intl.DateTimeFormat("en-GB",{
+  timeZone:"Asia/Colombo",hour:"2-digit",minute:"2-digit",hourCycle:"h23"
+ }).format(now);
+ let d=today();
+ if(time<"03:45"){
+  const p=d.split("-").map(Number);
+  d=new Date(Date.UTC(p[0],p[1]-1,p[2]-1)).toISOString().slice(0,10);
  }
- return s.slice(0,10);
+ return d;
 }
 
-function getRecordDate(r){return recordDate(r.date??r.Date??r.businessDate??"");}
+function recordDate(value){
+ if(!value)return "";
+ const s=String(value).trim();
+ if(/^\d{4}-\d{2}-\d{2}$/.test(s))return s;
+ const d=new Date(s);
+ if(!Number.isNaN(d.getTime()))return new Intl.DateTimeFormat("en-CA",{
+  timeZone:"Asia/Colombo",year:"numeric",month:"2-digit",day:"2-digit"
+ }).format(d);
+ return s.slice(0,10);
+}
+function getRecordDate(r){return recordDate(r.date||"");}
 function money(v){return Number(v||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});}
 function amount(id){return Math.max(0,Number(document.getElementById(id).value)||0);}
 function totalStake(){return amount("australian")+amount("england")+amount("tackside");}
+function targetCenter(){
+ return adminKey?cleanName(document.getElementById("entryCenter").value):centerName;
+}
+function updateTotal(){
+ document.getElementById("total").textContent=money(totalStake());
+ updateReport();
+}
+function updateReport(){
+ const date=document.getElementById("date").value||businessToday();
+ document.getElementById("reportDate").textContent="Date: "+date;
+ document.getElementById("reportCenter").textContent="Center: "+(targetCenter()||"Not selected");
+ document.getElementById("reportAustralian").textContent=money(amount("australian"));
+ document.getElementById("reportEngland").textContent=money(amount("england"));
+ document.getElementById("reportTrackside").textContent=money(amount("tackside"));
+ document.getElementById("reportDue").textContent=money(amount("due"));
+ document.getElementById("reportTotal").textContent=money(totalStake());
+}
+fields.forEach(id=>document.getElementById(id).addEventListener("input",updateTotal));
+document.getElementById("date").addEventListener("change",updateReport);
+document.getElementById("entryCenter").addEventListener("input",updateReport);
+
+function initializeDates(){
+ const d=businessToday();
+ ["date","searchDate"].forEach(id=>document.getElementById(id).value=d);
+ document.getElementById("reportMonth").value=d.slice(0,7);
+ lastBusinessDate=d;
+}
 
 function updateClock(){
  const now=new Date();
@@ -298,81 +387,30 @@ function updateClock(){
  document.getElementById("todayText").textContent=new Intl.DateTimeFormat("en-GB",{
   timeZone:"Asia/Colombo",weekday:"long",day:"numeric",month:"short",year:"numeric"
  }).format(now);
-
  const bd=businessToday();
  document.getElementById("businessDate").textContent=bd;
-
  if(bd!==lastBusinessDate){
   lastBusinessDate=bd;
-  document.getElementById("date").value=bd;
-  document.getElementById("searchDate").value=bd;
-  document.getElementById("reportMonth").value=bd.slice(0,7);
+  if(document.getElementById("date"))document.getElementById("date").value=bd;
+  if(document.getElementById("searchDate"))document.getElementById("searchDate").value=bd;
+  if(document.getElementById("reportMonth"))document.getElementById("reportMonth").value=bd.slice(0,7);
   clearAmountsForNewDay();
-  if(adminPassword)refreshRecords().catch(console.error);
+  if(adminKey||centerName)refreshRecords().catch(console.error);
  }
 }
-
 setInterval(updateClock,1000);
 
-function updateTotal(){
- document.getElementById("total").textContent=money(totalStake());
- updateReport();
-}
-
-function updateReport(){
- const date=document.getElementById("date").value||businessToday();
- document.getElementById("reportDate").textContent="Date: "+date;
- document.getElementById("reportAustralian").textContent=money(amount("australian"));
- document.getElementById("reportEngland").textContent=money(amount("england"));
- document.getElementById("reportTrackside").textContent=money(amount("tackside"));
- document.getElementById("reportDue").textContent=money(amount("due"));
- document.getElementById("reportTotal").textContent=money(totalStake());
-}
-
-fields.forEach(id=>document.getElementById(id).addEventListener("input",updateTotal));
-document.getElementById("date").addEventListener("change",updateReport);
-
-async function login(){
- const password=document.getElementById("password").value.trim();
- const status=document.getElementById("loginStatus");
- const button=document.getElementById("loginBtn");
- if(!password){status.textContent="Please enter password.";return;}
-
- button.disabled=true;
- status.textContent="Checking login...";
-
- try{
-  const result=await jsonp({action:"login",password});
-  if(!result.success){status.textContent="Wrong password.";return;}
-
-  adminPassword=password;
-  await refreshRecords();
-
-  document.getElementById("loginPanel").classList.add("hidden");
-  document.getElementById("app").classList.remove("hidden");
-
-  initializeDates();
-  updateTotal();
+async function refreshRecords(){
+ if(recordsPromise)return recordsPromise;
+ recordsPromise=(async()=>{
+  const params=adminKey?{action:"records",key:adminKey}:{action:"records",center:centerName};
+  const r=await jsonp(params);
+  if(!r.success)throw new Error(r.error||"Records could not load");
+  allRecords=r.records||[];
   renderDashboard();
-  showPage("dashboard");
- }catch(e){
-  status.textContent="Connection error: "+e.message;
- }finally{
-  button.disabled=false;
- }
-}
-
-document.getElementById("password").addEventListener("keydown",e=>{
- if(e.key==="Enter")login();
-});
-
-function logout(){
- adminPassword="";
- allRecords=[];
- document.getElementById("password").value="";
- document.getElementById("app").classList.add("hidden");
- document.getElementById("loginPanel").classList.remove("hidden");
- document.getElementById("loginStatus").textContent="";
+  return allRecords;
+ })();
+ try{return await recordsPromise;}finally{recordsPromise=null;}
 }
 
 function showPage(page,button){
@@ -391,275 +429,171 @@ function clearAmounts(){
  updateTotal();
  document.getElementById("status").textContent="Amounts cleared. Saved records are unchanged.";
 }
-
 function clearAmountsForNewDay(){
  fields.forEach(id=>document.getElementById(id).value=0);
  updateTotal();
  renderDashboard();
 }
 
-async function takeScreenshot(){
- const button=document.getElementById("screenshotBtn");
+async function saveRecord(){
+ const center=targetCenter();
+ const date=document.getElementById("date").value;
  const status=document.getElementById("status");
+ const btn=document.getElementById("saveBtn");
+ if(!center){status.textContent="Please enter a center name.";return;}
+ if(isDematagoda(center)){status.textContent="Dematagoda uses the old website.";return;}
+ if(!date){status.textContent="Select a date.";return;}
+ if(date>businessToday()){status.textContent="Future dates are not allowed.";return;}
+
+ btn.disabled=true;status.textContent="Saving record...";
+ try{
+  const r=await jsonp({
+   action:"save",key:adminKey,center,date,
+   australian:amount("australian"),england:amount("england"),
+   tackside:amount("tackside"),due:amount("due")
+  });
+  if(!r.success)throw new Error(r.error||"Save failed");
+  status.textContent="Saved successfully!";
+  document.getElementById("searchDate").value=date;
+  await refreshRecords();
+ }catch(e){status.textContent="Save error: "+e.message;}
+ finally{btn.disabled=false;}
+}
+
+async function takeScreenshot(){
  updateReport();
-
- if(typeof html2canvas==="undefined"){
-  status.textContent="Screenshot library not loaded.";
-  return;
- }
-
- button.disabled=true;
- button.textContent="Preparing report...";
-
+ const status=document.getElementById("status");
  try{
   const canvas=await html2canvas(document.getElementById("report"),{
    backgroundColor:"#101020",scale:2,useCORS:true
   });
   const link=document.createElement("a");
-  link.download="Daily-Stake-"+(document.getElementById("date").value||businessToday())+".png";
+  const center=(targetCenter()||"All-Centers").replace(/[^a-z0-9-_]/gi,"-");
+  link.download="Stake-Report-"+center+"-"+(document.getElementById("date").value||businessToday())+".png";
   link.href=canvas.toDataURL("image/png");
-  document.body.appendChild(link);
   link.click();
-  link.remove();
-  status.textContent="Screenshot downloaded successfully!";
- }catch(e){
-  status.textContent="Screenshot failed: "+e.message;
- }finally{
-  button.disabled=false;
-  button.textContent="📸 SCREENSHOT REPORT";
- }
+  status.textContent="Screenshot downloaded.";
+ }catch(e){status.textContent="Screenshot error: "+e.message;}
 }
 
-async function saveRecord(){
- const date=document.getElementById("date").value;
- const status=document.getElementById("status");
- const button=document.getElementById("saveBtn");
-
- if(!date){status.textContent="Please select a date.";return;}
- if(date>businessToday()){status.textContent="Future dates are not allowed.";return;}
-
- const data={
-  action:"save",
-  password:adminPassword,
-  date,
-  australian:amount("australian"),
-  england:amount("england"),
-  tackside:amount("tackside"),
-  due:amount("due")
- };
-
- button.disabled=true;
- status.textContent="Saving...";
-
- try{
-  const result=await jsonp(data);
-  if(!result.success)throw new Error(result.error||"Save failed");
-
-  document.getElementById("searchDate").value=date;
-  status.textContent="Record saved successfully!";
-  await refreshRecords();
-  renderDashboard();
- }catch(e){
-  status.textContent="Save error: "+e.message;
- }finally{
-  button.disabled=false;
- }
-}
-
-async function refreshRecords(){
- if(recordsPromise)return recordsPromise;
- recordsPromise=(async()=>{
-  const result=await jsonp({action:"records",password:adminPassword});
-  if(!result.success)throw new Error(result.error||"Records failed");
-  allRecords=result.records||[];
-  renderDashboard();
-  return allRecords;
- })();
- try{return await recordsPromise;}
- finally{recordsPromise=null;}
+function visibleRecords(){
+ if(!adminKey)return allRecords;
+ const filter=cleanName(document.getElementById("recordCenter").value).toLowerCase();
+ return filter?allRecords.filter(r=>r.center.toLowerCase()===filter):allRecords;
 }
 
 async function showRecords(){
  const date=document.getElementById("searchDate").value;
- const container=document.getElementById("records");
- if(!date){container.textContent="Please select a date.";return;}
- container.textContent="Loading...";
-
+ const box=document.getElementById("records");
+ if(!date){box.textContent="Select a date.";return;}
+ box.textContent="Loading...";
  try{
   await refreshRecords();
-  renderRecords(allRecords.filter(r=>getRecordDate(r)===date));
- }catch(e){
-  container.textContent="Could not load records: "+e.message;
- }
+  renderRecords(visibleRecords().filter(r=>getRecordDate(r)===date));
+ }catch(e){box.textContent="Records error: "+e.message;}
 }
 
 async function loadAllRecords(){
- const container=document.getElementById("records");
- container.textContent="Loading...";
- try{
-  await refreshRecords();
-  renderRecords(allRecords);
- }catch(e){
-  container.textContent="Could not load records: "+e.message;
- }
+ const box=document.getElementById("records");
+ box.textContent="Loading...";
+ try{await refreshRecords();renderRecords(visibleRecords());}
+ catch(e){box.textContent="Records error: "+e.message;}
 }
 
-async function deleteRecord(date,button){
- if(!confirm("Delete saved record for "+date+"?"))return;
+async function deleteRecord(center,date,button){
+ if(!confirm("Delete "+center+" record for "+date+"?"))return;
  button.disabled=true;
-
  try{
-  const result=await jsonp({action:"delete",password:adminPassword,date});
-  if(!result.success)throw new Error(result.error||"Delete failed");
+  const r=await jsonp({
+   action:"delete",key:adminKey,center,date
+  });
+  if(!r.success)throw new Error(r.error||"Delete failed");
   await refreshRecords();
-  renderRecords(allRecords.filter(r=>getRecordDate(r)===date));
-  alert("Record deleted successfully.");
- }catch(e){
-  alert("Delete failed: "+e.message);
-  button.disabled=false;
- }
+  renderRecords(visibleRecords());
+ }catch(e){alert("Delete error: "+e.message);button.disabled=false;}
 }
 
 function renderRecords(records){
- const container=document.getElementById("records");
- container.replaceChildren();
-
- if(!records.length){
-  container.className="empty";
-  container.textContent="No records found.";
-  return;
- }
-
- container.className="record-table-wrap";
+ const box=document.getElementById("records");
+ box.replaceChildren();
+ if(!records.length){box.className="empty";box.textContent="No records found.";return;}
+ box.className="table-wrap";
  const table=document.createElement("table");
- table.className="record-table";
- table.innerHTML="<thead><tr><th>DATE</th><th>AUSTRALIAN</th><th>ENGLAND</th><th>TRACKSIDE</th><th>DUE</th><th>TOTAL STAKE</th><th></th></tr></thead>";
+ table.className="data-table";
+ table.innerHTML="<thead><tr><th>CENTER</th><th>DATE</th><th>AUSTRALIAN</th><th>ENGLAND</th><th>TRACKSIDE</th><th>DUE</th><th>TOTAL</th><th></th></tr></thead>";
  const body=document.createElement("tbody");
-
  records.slice().sort((a,b)=>getRecordDate(b).localeCompare(getRecordDate(a))).forEach(r=>{
   const tr=document.createElement("tr");
-  const stake=Number(r.australian||0)+Number(r.england||0)+Number(r.tackside||0);
-
-  [getRecordDate(r),money(r.australian),money(r.england),money(r.tackside),money(r.due),money(stake)].forEach(v=>{
-   const td=document.createElement("td");
-   td.textContent=v;
-   tr.appendChild(td);
-  });
-
+  const vals=[r.center,getRecordDate(r),money(r.australian),money(r.england),money(r.tackside),money(r.due),money(Number(r.australian||0)+Number(r.england||0)+Number(r.tackside||0))];
+  vals.forEach(v=>{const td=document.createElement("td");td.textContent=v;tr.appendChild(td);});
   const td=document.createElement("td");
-  const del=document.createElement("button");
-  del.className="small-del";
-  del.textContent="✕";
-  del.title="Delete";
-  del.onclick=()=>deleteRecord(getRecordDate(r),del);
-  td.appendChild(del);
-  tr.appendChild(td);
-  body.appendChild(tr);
+  const del=document.createElement("button");del.className="small-del";del.textContent="✕";del.title="Delete";
+  del.onclick=()=>deleteRecord(r.center,getRecordDate(r),del);
+  td.appendChild(del);tr.appendChild(td);body.appendChild(tr);
  });
-
- table.appendChild(body);
- container.appendChild(table);
+ table.appendChild(body);box.appendChild(table);
 }
 
 function renderDashboard(){
- const current=businessToday();
- const displayed=allRecords.filter(r=>getRecordDate(r)===current);
- document.getElementById("dashboardDate").textContent="BUSINESS DATE • "+current;
+ const date=businessToday();
+ const records=allRecords.filter(r=>getRecordDate(r)===date);
+ const sum=key=>records.reduce((s,r)=>s+Number(r[key]||0),0);
+ const a=sum("australian"),e=sum("england"),t=sum("tackside"),d=sum("due");
+ document.getElementById("dashboardDate").textContent="BUSINESS DATE • "+date+(adminKey?" • ALL CENTERS":" • "+centerName);
+ document.getElementById("dashAustralian").textContent=money(a);
+ document.getElementById("dashEngland").textContent=money(e);
+ document.getElementById("dashTrackside").textContent=money(t);
+ document.getElementById("dashDue").textContent=money(d);
+ document.getElementById("dashStake").textContent=money(a+e+t);
 
- const sum=key=>displayed.reduce((s,r)=>s+Number(r[key]||0),0);
- const australian=sum("australian");
- const england=sum("england");
- const trackside=sum("tackside");
- const due=sum("due");
- const stake=australian+england+trackside;
-
- document.getElementById("dashAustralian").textContent=money(australian);
- document.getElementById("dashEngland").textContent=money(england);
- document.getElementById("dashTrackside").textContent=money(trackside);
- document.getElementById("dashDue").textContent=money(due);
- document.getElementById("dashStake").textContent=money(stake);
-
- const recent=document.getElementById("recentRecords");
- recent.replaceChildren();
-
- if(!displayed.length){
-  recent.className="empty";
-  recent.textContent="No saved records for this business date yet.";
-  return;
- }
-
- recent.className="record-table-wrap";
- const table=document.createElement("table");
- table.className="record-table";
- table.innerHTML="<thead><tr><th>DATE</th><th>AUSTRALIAN</th><th>ENGLAND</th><th>TRACKSIDE</th><th>DUE</th><th>TOTAL STAKE</th></tr></thead>";
+ const box=document.getElementById("recentRecords");
+ box.replaceChildren();
+ if(!records.length){box.className="empty";box.textContent="No records for this business date yet.";return;}
+ box.className="table-wrap";
+ const table=document.createElement("table");table.className="data-table";
+ table.innerHTML="<thead><tr><th>CENTER</th><th>DATE</th><th>AUSTRALIAN</th><th>ENGLAND</th><th>TRACKSIDE</th><th>DUE</th><th>TOTAL</th></tr></thead>";
  const body=document.createElement("tbody");
-
- displayed.slice().reverse().forEach(r=>{
+ records.forEach(r=>{
   const tr=document.createElement("tr");
-  const rowStake=Number(r.australian||0)+Number(r.england||0)+Number(r.tackside||0);
-  [getRecordDate(r),money(r.australian),money(r.england),money(r.tackside),money(r.due),money(rowStake)].forEach(v=>{
-   const td=document.createElement("td");
-   td.textContent=v;
-   tr.appendChild(td);
+  [r.center,getRecordDate(r),money(r.australian),money(r.england),money(r.tackside),money(r.due),money(Number(r.australian||0)+Number(r.england||0)+Number(r.tackside||0))].forEach(v=>{
+   const td=document.createElement("td");td.textContent=v;tr.appendChild(td);
   });
   body.appendChild(tr);
  });
- table.appendChild(body);
- recent.appendChild(table);
+ table.appendChild(body);box.appendChild(table);
 }
 
 async function monthlyReport(){
  const month=document.getElementById("reportMonth").value;
- const result=document.getElementById("monthlyResult");
- if(!month){result.textContent="Please select a month.";return;}
-
- result.textContent="Loading monthly records...";
+ const box=document.getElementById("monthlyResult");
+ if(!month){box.textContent="Select a month.";return;}
+ box.textContent="Loading...";
  try{
   await refreshRecords();
-  const records=allRecords.filter(r=>getRecordDate(r).slice(0,7)===month);
-  const sum=key=>records.reduce((s,r)=>s+Number(r[key]||0),0);
-  const values=[
-   ["AUSTRALIAN",sum("australian"),"blue"],
-   ["ENGLAND",sum("england"),"purple"],
-   ["TRACKSIDE",sum("tackside"),"green"],
-   ["DUE",sum("due"),"orange"],
-   ["TOTAL STAKE",sum("australian")+sum("england")+sum("tackside"),"green"]
-  ];
-
-  result.replaceChildren();
-  const grid=document.createElement("div");
-  grid.className="stats";
-
-  values.forEach(([name,value,color])=>{
-   const box=document.createElement("div");
-   box.className="stat";
-   const small=document.createElement("small");
-   small.textContent=name;
-   const strong=document.createElement("strong");
-   strong.className=color;
-   strong.textContent=money(value);
-   box.append(small,strong);
-   grid.appendChild(box);
+  const filter=adminKey?cleanName(document.getElementById("monthlyCenter").value).toLowerCase():"";
+  const records=allRecords.filter(r=>getRecordDate(r).slice(0,7)===month&&(!filter||r.center.toLowerCase()===filter));
+  const sum=k=>records.reduce((s,r)=>s+Number(r[k]||0),0);
+  const a=sum("australian"),e=sum("england"),t=sum("tackside"),d=sum("due");
+  box.replaceChildren();
+  const grid=document.createElement("div");grid.className="stats";
+  [["AUSTRALIAN",a,"blue"],["ENGLAND",e,"pink"],["TRACKSIDE",t,"green"],["DUE",d,"orange"],["TOTAL STAKE",a+e+t,"green"]].forEach(([name,value,color])=>{
+   const card=document.createElement("div");card.className="stat";
+   const small=document.createElement("small");small.textContent=name;
+   const strong=document.createElement("strong");strong.className=color;strong.textContent=money(value);
+   card.append(small,strong);grid.appendChild(card);
   });
-
-  result.appendChild(grid);
-  const count=document.createElement("p");
-  count.style.color="#aaa";
-  count.textContent="Records: "+records.length+" | Month: "+month;
-  result.appendChild(count);
- }catch(e){
-  result.textContent="Monthly report error: "+e.message;
- }
+  box.appendChild(grid);
+  const count=document.createElement("p");count.style.color="#aaa";
+  count.textContent="Records: "+records.length+" | Month: "+month+(filter?" | Center: "+filter:"");
+  box.appendChild(count);
+ }catch(e){box.textContent="Report error: "+e.message;}
 }
 
-function initializeDates(){
- const bd=businessToday();
- document.getElementById("date").value=bd;
- document.getElementById("searchDate").value=bd;
- document.getElementById("reportMonth").value=bd.slice(0,7);
- lastBusinessDate=bd;
-}
+document.getElementById("centerName").addEventListener("keydown",e=>{if(e.key==="Enter")loginCenter();});
+document.getElementById("adminPassword").addEventListener("keydown",e=>{if(e.key==="Enter")loginAdmin();});
 
+const remembered=localStorage.getItem("stake_center_name");
+if(remembered)document.getElementById("centerName").value=remembered;
 initializeDates();
 updateClock();
 updateTotal();
