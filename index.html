@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Daily Stake - Colombo North Outler</title>
+<title>COLOMBO NORTH OUTLET</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
@@ -353,11 +353,14 @@ function loadSavedCenter(){
  const saved=localStorage.getItem(CENTER_STORAGE_KEY);
 
  if(saved){
-  document.getElementById("centerName").value="";
+  document.getElementById("centerName").value=saved;
   document.getElementById("savedCenterDisplay").value=saved;
   document.getElementById("centerNameArea").classList.add("hidden");
   document.getElementById("savedCenterArea").classList.remove("hidden");
   document.getElementById("adminPasswordArea").classList.add("hidden");
+ }else{
+  document.getElementById("centerNameArea").classList.remove("hidden");
+  document.getElementById("savedCenterArea").classList.add("hidden");
  }
 }
 
@@ -366,9 +369,11 @@ function changeCenter(){
 
  document.getElementById("centerName").value="";
  document.getElementById("savedCenterDisplay").value="";
+
  document.getElementById("centerNameArea").classList.remove("hidden");
  document.getElementById("savedCenterArea").classList.add("hidden");
  document.getElementById("adminPasswordArea").classList.add("hidden");
+
  document.getElementById("adminPassword").value="";
  document.getElementById("loginStatus").textContent="";
  document.getElementById("centerName").focus();
@@ -572,9 +577,14 @@ document.getElementById("adminPassword").addEventListener("keydown",e=>{
  if(e.key==="Enter")login();
 });
 
-/* LOGIN */
+/* LOGIN - FIXED SAVED CENTER NAME */
 async function login(){
- const name=document.getElementById("centerName").value.trim();
+ const savedArea=document.getElementById("savedCenterArea");
+
+ const name=savedArea.classList.contains("hidden")
+  ? document.getElementById("centerName").value.trim()
+  : document.getElementById("savedCenterDisplay").value.trim();
+
  const password=document.getElementById("adminPassword").value;
  const status=document.getElementById("loginStatus");
  const button=document.getElementById("loginBtn");
