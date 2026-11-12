@@ -1,1 +1,199 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DAILY STAKE REPORT</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080b12;color:white;font-family:Arial,sans-serif}
+header{text-align:center;padding:24px 10px;background:#10101b;border-bottom:2px solid #a855f7}
+header h1{color:#c084fc;letter-spacing:2px;margin:0}
+header p{color:#4ade80;letter-spacing:3px}
+main{max-width:850px;margin:auto;padding:15px}
+.card{background:#151b29;border:1px solid #39304f;border-radius:16px;padding:18px;margin:15px 0}
+h2{color:#c084fc}
+input{width:100%;padding:14px;background:#090e18;border:1px solid #55446f;color:white;border-radius:9px;margin:7px 0;font-size:16px}
+button{padding:13px 18px;border:0;border-radius:9px;font-weight:bold;margin:5px;cursor:pointer}
+.purple{background:#9333ea;color:white}
+.green{background:#00c982;color:#001b12}
+.gray{background:#475569;color:white}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.item{background:#20283a;padding:12px;border-radius:10px}
+.total{font-size:25px;color:#4ade80;font-weight:bold}
+.hidden{display:none}
+.record{background:#20283a;border-radius:10px;padding:12px;margin:9px 0}
+.small{color:#aaa;font-size:12px}
+.center{display:block;width:100%;text-align:left;background:#20283a;color:white}
+</style>
+</head>
+<body>
+<header>
+<h1>DAILY STAKE REPORT</h1>
+<p>COLOMBO NORTH OUTER</p>
+</header>
+<main>
+<div id="login" class="card">
+<h2>Welcome</h2>
+<input id="centerName" placeholder="Enter Center Name">
+<button class="purple" style="width:100%" onclick="login()">CONTINUE</button>
+</div>
+
+<div id="dashboard" class="hidden">
+<div class="card">
+<button class="gray" style="float:right" onclick="logout()">LOG OUT</button>
+<h2 id="welcome"></h2>
+<div id="date" class="small"></div>
+<div style="clear:both"></div>
+</div>
+
+<div id="entry" class="card">
+<h2>Daily Stake Entry</h2>
+<div class="grid">
+<div class="item">🇦🇺 Australian<input type="number" id="australian" min="0" value="0"></div>
+<div class="item">🏴 England<input type="number" id="england" min="0" value="0"></div>
+<div class="item">🏇 Trackside<input type="number" id="trackside" min="0" value="0"></div>
+<div class="item">💰 Due<input type="number" id="due" min="0" value="0"></div>
+</div>
+<p>Total Stake</p>
+<div class="total" id="total">LKR 0.00</div>
+<p class="small">Due is excluded from Total</p>
+<button class="green" style="width:100%" onclick="saveStake()">SAVE STAKE</button>
+</div>
+
+<div class="card">
+<h2>My Records</h2>
+<div id="records">Loading...</div>
+</div>
+
+<div id="admin" class="hidden">
+<div class="card">
+<h2>Admin Dashboard</h2>
+<div id="summary"></div>
+</div>
+<div class="card">
+<h2>All Centers</h2>
+<div id="centers"></div>
+</div>
+<div class="card">
+<h2>Center Report</h2>
+<div id="centerReport">Select a Center</div>
+</div>
+</div>
+</div>
+</main>
+
+<script>
+const API="https://script.google.com/macros/s/AKfycby9hGuA6_G0Mx66Z3yg44S3OyV9G2VZAuk3z5fp9RWXGKoqZDc6gdnYJ02ta7dpmvWQRA/exec";
+let center="",admin=false,records=[];
+
+const $=id=>document.getElementById(id);
+const fmt=n=>"LKR "+Number(n||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+
+function calc(){
+ let sum=["australian","england","trackside"].reduce((s,id)=>s+(Number($(id).value)||0),0);
+ $("total").textContent=fmt(sum);
+}
+["australian","england","trackside"].forEach(id=>$(id).addEventListener("input",calc));
+
+async function get(params){
+ let r=await fetch(API+"?"+new URLSearchParams(params));
+ return r.json();
+}
+async function post(data){
+ let r=await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(data)});
+ return r.json();
+}
+async function login(){
+ let name=$("centerName").value.trim();
+ if(!name)return alert("Enter Center Name");
+
+ if(name.toUpperCase()==="ADMIN"){
+  let pw=prompt("Admin Password");
+  if(pw===null)return;
+  let r=await post({action:"adminLogin",password:pw});
+  if(!r.success)return alert("Wrong Password");
+  admin=true;center="ADMIN";
+  $("entry").classList.add("hidden");
+  $("admin").classList.remove("hidden");
+  open();
+  await loadAdmin();
+  return;
+ }
+ if(name.toLowerCase()==="dematagoda"){
+  location.href="https://buddimapasindu721-lang.github.io/Daily-Satake-Dematagoda/";
+  return;
+ }
+ center=name;
+ localStorage.setItem("stakeCenter",center);
+ open();
+ await loadMine();
+}
+function open(){
+ $("login").classList.add("hidden");
+ $("dashboard").classList.remove("hidden");
+ $("welcome").textContent=admin?"ADMIN DASHBOARD":center;
+}
+function logout(){
+ localStorage.removeItem("stakeCenter");
+ location.reload();
+}
+function showRecords(rows,target){
+ if(!rows.length){$(target).innerHTML="<p>No records found</p>";return;}
+ $(target).innerHTML=rows.map(r=>`
+ <div class="record">
+ <b>${esc(r.center)} - ${esc(r.date)}</b>
+ <p>Australian: ${fmt(r.australian)}</p>
+ <p>England: ${fmt(r.england)}</p>
+ <p>Trackside: ${fmt(r.trackside)}</p>
+ <p>Due: ${fmt(r.due)}</p>
+ <b style="color:#4ade80">Total: ${fmt(r.total)}</b>
+ </div>`).join("");
+}
+async function loadMine(){
+ try{
+  let r=await get({action:"records",center});
+  if(!r.success)throw Error(r.message);
+  $("date").textContent="Business Date: "+r.businessDate;
+  showRecords(r.records||[],"records");
+ }catch(e){$("records").textContent="Loading error: "+e.message;}
+}
+async function saveStake(){
+ let v=["australian","england","trackside","due"].map(id=>Number($(id).value)||0);
+ if(v.some(n=>n<0))return alert("Invalid amount");
+ try{
+  let r=await post({action:"save",center,australian:v[0],england:v[1],trackside:v[2],due:v[3]});
+  if(!r.success)throw Error(r.message);
+  alert("Saved successfully");
+  ["australian","england","trackside","due"].forEach(id=>$(id).value=0);
+  calc();await loadMine();
+ }catch(e){alert("Save error: "+e.message);}
+}
+async function loadAdmin(){
+ try{
+  let r=await get({action:"records",admin:"1",key:"2026"});
+  if(!r.success)throw Error(r.message);
+  records=r.records||[];
+  let today=records.filter(x=>x.date===r.businessDate);
+  let sum=today.reduce((s,x)=>s+Number(x.total||0),0);
+  $("summary").innerHTML=`<h2>${fmt(sum)}</h2><p>Centers with stake: ${today.length}</p><p>Date: ${esc(r.businessDate)}</p>`;
+  $("centers").innerHTML=(r.centers||[]).map(c=>`<button class="center" onclick="selectCenter('${js(c)}')">${esc(c)}</button>`).join("")||"No Centers";
+ }catch(e){$("summary").textContent="Error: "+e.message;}
+}
+function selectCenter(c){
+ showRecords(records.filter(r=>r.center.toLowerCase()===c.toLowerCase()),"centerReport");
+}
+function esc(s){
+ return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function js(s){return String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/</g,"\\x3c");}
+
+window.addEventListener("load",()=>{
+ let saved=localStorage.getItem("stakeCenter");
+ if(saved){center=saved;open();loadMine();}
+});
+</script>
+</body>
+</html>
+
