@@ -11,7 +11,7 @@
 :root{--bg:#050609;--panel:#0b0d13;--purple:#a855f7;--green:#39ff75;--orange:#ffb52e;--red:#ff4565;--text:#f5f3ff;--muted:#9295a3}
 *{box-sizing:border-box}
 body{margin:0;background:radial-gradient(ellipse at 65% 0%,#26103b 0,transparent 36%),radial-gradient(ellipse at 5% 90%,#063421 0,transparent 35%),#050609;color:var(--text);font-family:Arial,sans-serif;min-height:100vh}
-button,input{font:inherit}
+button,input,select{font:inherit}
 button{cursor:pointer}
 .hidden{display:none!important}
 .app{max-width:1600px;margin:auto;padding:13px}
@@ -43,13 +43,16 @@ button{cursor:pointer}
 .sidehorse strong{font-size:28px;color:var(--green);text-shadow:0 0 14px #39ff75aa}
 .sidehorse small{display:block;color:#c7c2d1;letter-spacing:2px;margin-top:8px;font-size:10px}
 .maincol{min-width:0}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:15px 22px;background:#0b0d13;border:1px solid #292b3a;border-radius:17px;margin-bottom:13px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:15px 22px;background:#0b0d13;border:1px solid #292b3a;border-radius:17px;margin-bottom:13px;flex-wrap:wrap}
 .timeblock,.dateblock{display:flex;align-items:center;gap:13px}
 .time-icon{font-size:29px;color:#58a8ff}
 .timeblock small,.dateblock small{display:block;color:#b58ae8;font-size:10px;letter-spacing:1px}
 .timeblock strong{display:block;color:var(--green);font-size:25px;margin:3px 0}
 .dateblock strong{display:block;color:var(--green);font-size:20px;margin-top:5px}
 .date-icon{font-size:27px;color:#58a8ff}
+.admin-filter{min-width:180px;max-width:260px}
+.admin-filter label{margin:0 0 6px;font-size:10px;color:#c17aff;letter-spacing:1px}
+.admin-filter select{width:100%;padding:11px;border-radius:9px;border:1px solid #67428a;background:#100c19;color:white;font-weight:bold}
 .hero{height:290px;border:1px solid #52356c;border-radius:17px;margin-bottom:15px;overflow:hidden;background:#080811 url("daily_stake_racing_banner.jpg") center center/cover no-repeat;box-shadow:0 8px 28px #0008}
 .hero-overlay{height:100%;display:flex;align-items:flex-end;padding:20px 24px;background:linear-gradient(90deg,#08061055,transparent 70%),linear-gradient(0deg,#05060966,transparent 55%)}
 .hero-tag{color:#fff;text-transform:uppercase;letter-spacing:3px;font-size:11px;text-shadow:0 2px 8px #000}
@@ -125,7 +128,7 @@ input[type=number]{color:var(--green);font-weight:bold}
 .center-tag{font-size:11px;color:var(--green);letter-spacing:1px;margin-top:5px}
 @media(max-width:1100px){.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.quick-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:800px){.workspace{grid-template-columns:1fr}.sidebar{position:static;min-height:0;display:flex;gap:4px;overflow-x:auto;padding:7px}.brand,.sidehorse{display:none}.nav{width:auto;min-width:max-content;margin:0;padding:12px}.nav .ico{width:auto}.topbar{margin-top:8px}}
-@media(max-width:550px){.app{padding:7px}.topbar{padding:10px 12px}.timeblock,.dateblock{gap:7px}.time-icon,.date-icon{font-size:20px}.timeblock small,.dateblock small{font-size:8px}.timeblock strong{font-size:17px}.dateblock strong{font-size:14px}.hero{height:175px;background-position:center center}.hero-overlay{padding:12px}.hero-tag{font-size:9px}.section-title h2{font-size:17px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.stat{padding:12px}.stat strong{font-size:18px;margin-top:9px}.stat small{font-size:9px}.stat-icon{font-size:20px}.panel{padding:13px}.quick-grid{grid-template-columns:1fr 1fr}.quick{padding:12px}.actions{flex-direction:column}.actions .btn{width:100%}.login-card{margin-top:8vh;padding:23px}}
+@media(max-width:550px){.app{padding:7px}.topbar{padding:10px 12px}.timeblock,.dateblock{gap:7px}.time-icon,.date-icon{font-size:20px}.timeblock small,.dateblock small{font-size:8px}.timeblock strong{font-size:17px}.dateblock strong{font-size:14px}.hero{height:175px;background-position:center center}.hero-overlay{padding:12px}.hero-tag{font-size:9px}.section-title h2{font-size:17px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.stat{padding:12px}.stat strong{font-size:18px;margin-top:9px}.stat small{font-size:9px}.stat-icon{font-size:20px}.panel{padding:13px}.quick-grid{grid-template-columns:1fr 1fr}.quick{padding:12px}.actions{flex-direction:column}.actions .btn{width:100%}.login-card{margin-top:8vh;padding:23px}.admin-filter{max-width:100%;width:100%}}
 </style>
 </head>
 
@@ -162,7 +165,7 @@ input[type=number]{color:var(--green);font-weight:bold}
    </div>
 
    <button class="nav active" data-page="dashboard" onclick="showPage('dashboard',this)"><span class="ico">⌂</span>Dashboard</button>
-   <button class="nav" data-page="newstake" onclick="showPage('newstake',this)"><span class="ico">＋</span>New Stake</button>
+   <button class="nav" id="newStakeNav" data-page="newstake" onclick="showPage('newstake',this)"><span class="ico">＋</span>New Stake</button>
    <button class="nav" data-page="records" onclick="showPage('records',this)"><span class="ico">▤</span>Records</button>
    <button class="nav" data-page="reports" onclick="showPage('reports',this)"><span class="ico">▥</span>Reports</button>
    <button class="nav logout" onclick="logout()"><span class="ico">⇥</span>Logout</button>
@@ -183,6 +186,12 @@ input[type=number]{color:var(--green);font-weight:bold}
      <span class="date-icon">▦</span>
      <div><small>BUSINESS DATE</small><strong id="businessDate">----</strong></div>
     </div>
+    <div id="adminFilterArea" class="admin-filter hidden">
+     <label>ADMIN • SELECT CENTER</label>
+     <select id="adminCenterFilter" onchange="adminCenterChanged()">
+      <option value="ALL">ALL CENTERS</option>
+     </select>
+    </div>
    </header>
 
    <section id="page-dashboard" class="page">
@@ -197,7 +206,7 @@ input[type=number]{color:var(--green);font-weight:bold}
      <div class="stat green-card"><span class="stat-icon">💵</span><small>DISPLAYED DAY'S TOTAL STAKE</small><strong class="green" id="dashStake">0.00</strong></div>
     </div>
 
-    <div class="panel">
+    <div class="panel" id="quickActionsPanel">
      <h3>⚡ QUICK ACTIONS</h3>
      <div class="quick-grid">
       <button class="quick" onclick="showPage('newstake')"><strong>＋ New Stake</strong><span>Enter today's amounts</span></button>
@@ -285,7 +294,7 @@ input[type=number]{color:var(--green);font-weight:bold}
 <div class="footer">© DAILY STAKE - MULTI CENTER</div>
 
 <script>
-/* NEW MULTI-CENTER API - OLD DEMATAGODA API IS NOT USED */
+/* MULTI-CENTER API */
 const API_URL="https://script.google.com/macros/s/AKfycby9hGuA6_G0Mx66Z3yg44S3OyV9G2VZAuk3z5fp9RWXGKoqZDc6gdnYJ02ta7dpmvWQRA/exec";
 const ADMIN_KEY="2026";
 
@@ -295,6 +304,7 @@ let isAdmin=false;
 let lastBusinessDate="";
 let recordsPromise=null;
 let currentRecordView=[];
+let adminSelectedCenter="ALL";
 const fields=["australian","england","tackside","due"];
 
 /* JSONP API REQUEST */
@@ -338,11 +348,6 @@ function today(){
  return get("year")+"-"+get("month")+"-"+get("day");
 }
 
-/*
-  IMPORTANT:
-  This front end uses the current Sri Lankan calendar date.
-  The Apps Script businessDate() must use the same midnight rule.
-*/
 function businessToday(){
  return today();
 }
@@ -375,9 +380,64 @@ function recordCenter(r){
  return String(r.center??r.Center??"").trim();
 }
 
+/* ADMIN CENTER FILTER */
+function populateCenterFilter(){
+ const select=document.getElementById("adminCenterFilter");
+ const previous=adminSelectedCenter;
+ const centers=[...new Set(
+  allRecords.map(r=>recordCenter(r)).filter(Boolean)
+ )].sort((a,b)=>a.localeCompare(b));
+
+ select.replaceChildren();
+
+ const allOption=document.createElement("option");
+ allOption.value="ALL";
+ allOption.textContent="ALL CENTERS";
+ select.appendChild(allOption);
+
+ centers.forEach(center=>{
+  const option=document.createElement("option");
+  option.value=center;
+  option.textContent=center.toUpperCase();
+  select.appendChild(option);
+ });
+
+ const stillExists=previous==="ALL"||centers.includes(previous);
+ adminSelectedCenter=stillExists?previous:"ALL";
+ select.value=adminSelectedCenter;
+}
+
+function adminCenterChanged(){
+ adminSelectedCenter=document.getElementById("adminCenterFilter").value;
+ renderDashboard();
+
+ const visiblePage=[...document.querySelectorAll(".page")]
+  .find(p=>!p.classList.contains("hidden"));
+
+ if(visiblePage?.id==="page-records"){
+  const date=document.getElementById("searchDate").value;
+  const records=visibleRecords().filter(r=>!date||getRecordDate(r)===date);
+  currentRecordView=records;
+  renderRecords(records);
+ }
+
+ if(visiblePage?.id==="page-reports"){
+  monthlyReport();
+ }
+}
+
 function visibleRecords(){
- if(isAdmin)return allRecords;
- return allRecords.filter(r=>recordCenter(r).toLowerCase()===currentCenter.toLowerCase());
+ if(!isAdmin){
+  return allRecords.filter(r=>
+   recordCenter(r).toLowerCase()===currentCenter.toLowerCase()
+  );
+ }
+
+ if(adminSelectedCenter==="ALL")return allRecords;
+
+ return allRecords.filter(r=>
+  recordCenter(r).toLowerCase()===adminSelectedCenter.toLowerCase()
+ );
 }
 
 /* MONEY */
@@ -430,16 +490,13 @@ function updateTotal(){
 }
 
 function selectedRecordCenter(){
- if(isAdmin){
-  return document.getElementById("recordCenter").value.trim();
- }
  return currentCenter;
 }
 
 function updateReport(){
  const date=document.getElementById("date").value||businessToday();
  document.getElementById("reportDate").textContent="Date: "+date;
- document.getElementById("reportCenter").textContent=(selectedRecordCenter()||currentCenter||"CENTER").toUpperCase();
+ document.getElementById("reportCenter").textContent=(selectedRecordCenter()||"CENTER").toUpperCase();
  document.getElementById("reportAustralian").textContent=money(amount("australian"));
  document.getElementById("reportEngland").textContent=money(amount("england"));
  document.getElementById("reportTrackside").textContent=money(amount("tackside"));
@@ -449,9 +506,8 @@ function updateReport(){
 
 fields.forEach(id=>document.getElementById(id).addEventListener("input",updateTotal));
 document.getElementById("date").addEventListener("change",updateReport);
-document.getElementById("recordCenter").addEventListener("input",updateReport);
 
-/* LOGIN FIELD: ADMIN PASSWORD ONLY WHEN NAME IS ADMIN */
+/* LOGIN FIELD */
 document.getElementById("centerName").addEventListener("input",()=>{
  const name=document.getElementById("centerName").value.trim().toLowerCase();
  const area=document.getElementById("adminPasswordArea");
@@ -517,6 +573,7 @@ async function login(){
 
   isAdmin=adminMode;
   currentCenter=adminMode?"ALL CENTERS":name;
+  adminSelectedCenter="ALL";
 
   const recordsResult=adminMode
    ? await apiRequest({action:"records",key:ADMIN_KEY})
@@ -533,12 +590,16 @@ async function login(){
   document.getElementById("app").classList.remove("hidden");
 
   document.getElementById("sidebarCenter").textContent=
-   isAdmin?"ADMIN • ALL CENTERS":currentCenter.toUpperCase();
+   isAdmin?"ADMIN • VIEW ONLY":currentCenter.toUpperCase();
 
-  document.getElementById("adminCenterArea").classList.toggle("hidden",!isAdmin);
+  /* ADMIN VIEW-ONLY MODE */
+  document.getElementById("newStakeNav").classList.toggle("hidden",isAdmin);
+  document.getElementById("quickActionsPanel").classList.toggle("hidden",isAdmin);
+  document.getElementById("adminFilterArea").classList.toggle("hidden",!isAdmin);
+  document.getElementById("adminCenterArea").classList.add("hidden");
 
   if(isAdmin){
-   document.getElementById("recordCenter").value="";
+   populateCenterFilter();
   }
 
   const bd=businessToday();
@@ -563,6 +624,7 @@ async function login(){
 function logout(){
  currentCenter="";
  isAdmin=false;
+ adminSelectedCenter="ALL";
  allRecords=[];
  currentRecordView=[];
  document.getElementById("centerName").value="";
@@ -572,10 +634,16 @@ function logout(){
  document.getElementById("loginPanel").classList.remove("hidden");
  document.getElementById("loginStatus").textContent="";
  document.getElementById("records").textContent="Select a date and search.";
+ document.getElementById("newStakeNav").classList.remove("hidden");
+ document.getElementById("quickActionsPanel").classList.remove("hidden");
+ document.getElementById("adminFilterArea").classList.add("hidden");
 }
 
 /* PAGE NAVIGATION */
 function showPage(page,button){
+ /* ADMIN CANNOT OPEN NEW STAKE PAGE */
+ if(isAdmin&&page==="newstake")page="dashboard";
+
  document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
  document.getElementById("page-"+page).classList.remove("hidden");
 
@@ -584,11 +652,12 @@ function showPage(page,button){
  if(nav)nav.classList.add("active");
 
  if(page==="dashboard")renderDashboard();
- if(page==="newstake")updateTotal();
+ if(page==="newstake"&&!isAdmin)updateTotal();
 }
 
 /* CLEAR AMOUNTS */
 function clearAmounts(){
+ if(isAdmin)return;
  fields.forEach(id=>document.getElementById(id).value=0);
  document.getElementById("date").value=businessToday();
  updateTotal();
@@ -602,6 +671,8 @@ function clearAmountsForNewBusinessDay(){
 
 /* SCREENSHOT */
 async function takeScreenshot(){
+ if(isAdmin)return;
+
  const button=document.getElementById("screenshotBtn");
  const status=document.getElementById("status");
  const report=document.getElementById("report");
@@ -625,7 +696,7 @@ async function takeScreenshot(){
 
   const link=document.createElement("a");
   const date=document.getElementById("date").value||businessToday();
-  const center=selectedRecordCenter()||currentCenter;
+  const center=selectedRecordCenter();
 
   link.download="Daily-Stake-"+center.replace(/[^a-z0-9]/gi,"-")+"-"+date+".png";
   link.href=canvas.toDataURL("image/png");
@@ -643,15 +714,20 @@ async function takeScreenshot(){
  }
 }
 
-/* SAVE STAKE */
+/* SAVE STAKE - CENTER USERS ONLY */
 async function saveRecord(){
+ if(isAdmin){
+  alert("Admin account is view-only.");
+  return;
+ }
+
  const date=document.getElementById("date").value;
- const center=selectedRecordCenter();
+ const center=currentCenter;
  const status=document.getElementById("status");
  const button=document.getElementById("saveBtn");
 
  if(!center){
-  status.textContent=isAdmin?"Please enter the Center Name.":"Center name missing.";
+  status.textContent="Center name missing.";
   return;
  }
 
@@ -674,8 +750,6 @@ async function saveRecord(){
   tackside:amount("tackside"),
   due:amount("due")
  };
-
- if(isAdmin)data.key=ADMIN_KEY;
 
  button.disabled=true;
  status.textContent="Saving to Multi-Center Sheet...";
@@ -716,6 +790,9 @@ async function refreshRecords(){
   }
 
   allRecords=result.records||[];
+
+  if(isAdmin)populateCenterFilter();
+
   renderDashboard();
   return allRecords;
  })();
@@ -766,50 +843,7 @@ async function loadAllRecords(){
  }
 }
 
-/* DELETE RECORD - ADMIN ONLY */
-async function deleteRecord(center,date,button){
- if(!isAdmin){
-  alert("Only Admin can delete records.");
-  return;
- }
-
- if(!confirm("Delete saved record for "+center+" - "+date+"?"))return;
-
- button.disabled=true;
-
- try{
-  const result=await apiRequest({
-   action:"delete",
-   key:ADMIN_KEY,
-   center:center,
-   date:date
-  });
-
-  if(!result || !result.success){
-   alert(result?.error||"Delete failed.");
-   button.disabled=false;
-   return;
-  }
-
-  await refreshRecords();
-
-  const searchDate=document.getElementById("searchDate").value;
-  if(searchDate){
-   renderRecords(visibleRecords().filter(r=>getRecordDate(r)===searchDate));
-  }else{
-   renderRecords(visibleRecords());
-  }
-
-  alert("Record deleted successfully.");
-
- }catch(e){
-  console.error(e);
-  alert("Could not confirm deletion. Check connection.");
-  button.disabled=false;
- }
-}
-
-/* RECORD TABLE */
+/* RECORD TABLE - VIEW ONLY */
 function renderRecords(records){
  const container=document.getElementById("records");
  container.replaceChildren();
@@ -829,8 +863,8 @@ function renderRecords(records){
  const headerRow=document.createElement("tr");
 
  const columns=isAdmin
-  ? ["CENTER","DATE","AUSTRALIAN","ENGLAND","TRACKSIDE","DUE","TOTAL STAKE",""]
-  : ["DATE","AUSTRALIAN","ENGLAND","TRACKSIDE","DUE","TOTAL STAKE",""];
+  ? ["CENTER","DATE","AUSTRALIAN","ENGLAND","TRACKSIDE","DUE","TOTAL STAKE"]
+  : ["DATE","AUSTRALIAN","ENGLAND","TRACKSIDE","DUE","TOTAL STAKE"];
 
  columns.forEach(label=>{
   const th=document.createElement("th");
@@ -861,18 +895,6 @@ function renderRecords(records){
    tr.appendChild(td);
   });
 
-  const td=document.createElement("td");
-
-  if(isAdmin){
-   const del=document.createElement("button");
-   del.className="small-del";
-   del.textContent="✕";
-   del.title="Delete";
-   del.onclick=()=>deleteRecord(center,date,del);
-   td.appendChild(del);
-  }
-
-  tr.appendChild(td);
   body.appendChild(tr);
  });
 
@@ -880,14 +902,23 @@ function renderRecords(records){
  container.appendChild(table);
 }
 
-/* DASHBOARD - CENTER OR ALL CENTERS */
+/* DASHBOARD - ADMIN CENTER FILTER OR CENTER LOGIN */
 function renderDashboard(){
  const current=businessToday();
  const records=visibleRecords();
  const displayed=records.filter(r=>getRecordDate(r)===current);
 
- document.getElementById("dashboardDate").textContent=
-  (isAdmin?"ALL CENTERS":"CENTER • "+currentCenter.toUpperCase())+" • "+current;
+ let heading;
+
+ if(isAdmin){
+  heading=adminSelectedCenter==="ALL"
+   ?"ALL CENTERS"
+   :adminSelectedCenter.toUpperCase();
+ }else{
+  heading="CENTER • "+currentCenter.toUpperCase();
+ }
+
+ document.getElementById("dashboardDate").textContent=heading+" • "+current;
 
  const sum=key=>displayed.reduce((s,r)=>s+Number(r[key]||0),0);
 
@@ -955,7 +986,7 @@ function renderDashboard(){
  recent.appendChild(table);
 }
 
-/* MONTHLY REPORT */
+/* MONTHLY REPORT - RESPECTS ADMIN CENTER FILTER */
 function monthlyReport(){
  const month=document.getElementById("reportMonth").value;
  const result=document.getElementById("monthlyResult");
@@ -996,7 +1027,8 @@ function monthlyReport(){
 
  result.appendChild(grid);
 
- if(isAdmin){
+ /* SHOW CENTER BREAKDOWN ONLY WHEN ADMIN SELECTS ALL CENTERS */
+ if(isAdmin&&adminSelectedCenter==="ALL"){
   const centerTotals={};
 
   records.forEach(r=>{
