@@ -523,16 +523,24 @@ async function login(){
     status.textContent="Please enter Admin Password.";
     return;
    }
+const checkResponse = await fetch(
+    API_URL + "?action=records&admin=1&key=" +
+    encodeURIComponent(password) +
+    "&_=" + Date.now(),
+    { method: "GET", cache: "no-store" }
+);
 
-   const check=await postAPI({
-    action:"adminLogin",
-    password:password
-   });
+if (!checkResponse.ok) {
+    throw new Error("Admin API connection failed");
+}
 
-   if(!check.success){
-    status.textContent="Wrong Admin Password.";
+const check = await checkResponse.json();
+
+if (!check.success) {
+    status.textContent = "Wrong Admin Password.";
     return;
-   }
+}
+   
 
    isAdmin=true;
    adminPassword=password;
