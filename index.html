@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Daily Stake - Multi Center</title>
+<title>Daily Stake - Colombo North Outler</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
@@ -142,8 +142,17 @@ input[type=number]{color:var(--green);font-weight:bold}
   <p style="color:var(--green);letter-spacing:3px">MULTI CENTER</p>
   <h3>CENTER LOGIN</h3>
 
-  <label>Center Name</label>
-  <input id="centerName" type="text" placeholder="Enter Center Name">
+  <div id="centerNameArea">
+   <label>Center Name</label>
+   <input id="centerName" type="text" placeholder="Enter Center Name">
+  </div>
+
+  <div id="savedCenterArea" class="hidden">
+   <label>SAVED CENTER</label>
+   <input id="savedCenterDisplay" type="text" readonly>
+   <button type="button" class="btn gray-btn" onclick="changeCenter()" style="width:100%;margin-top:8px">CHANGE CENTER</button>
+   <button type="button" class="btn" onclick="showAdminLogin()" style="width:100%;margin-top:8px">ADMIN LOGIN</button>
+  </div>
 
   <div id="adminPasswordArea" class="hidden">
    <label>Admin Password</label>
@@ -297,6 +306,7 @@ input[type=number]{color:var(--green);font-weight:bold}
 /* MULTI-CENTER API */
 const API_URL="https://script.google.com/macros/s/AKfycby9hGuA6_G0Mx66Z3yg44S3OyV9G2VZAuk3z5fp9RWXGKoqZDc6gdnYJ02ta7dpmvWQRA/exec";
 const ADMIN_KEY="2026";
+const CENTER_STORAGE_KEY="dailyStakeSavedCenter";
 
 let allRecords=[];
 let currentCenter="";
@@ -337,6 +347,40 @@ function apiRequest(params){
   script.src=API_URL+"?"+query.toString();
   document.body.appendChild(script);
  });
+}
+
+/* REMEMBER CENTER ON THIS PHONE */
+function loadSavedCenter(){
+ const saved=localStorage.getItem(CENTER_STORAGE_KEY);
+
+ if(saved){
+  document.getElementById("centerName").value=saved;
+  document.getElementById("savedCenterDisplay").value=saved;
+  document.getElementById("centerNameArea").classList.add("hidden");
+  document.getElementById("savedCenterArea").classList.remove("hidden");
+  document.getElementById("adminPasswordArea").classList.add("hidden");
+ }
+}
+
+function changeCenter(){
+ localStorage.removeItem(CENTER_STORAGE_KEY);
+
+ document.getElementById("centerName").value="";
+ document.getElementById("savedCenterDisplay").value="";
+ document.getElementById("centerNameArea").classList.remove("hidden");
+ document.getElementById("savedCenterArea").classList.add("hidden");
+ document.getElementById("adminPasswordArea").classList.add("hidden");
+ document.getElementById("loginStatus").textContent="";
+ document.getElementById("centerName").focus();
+}
+
+function showAdminLogin(){
+ document.getElementById("savedCenterArea").classList.add("hidden");
+ document.getElementById("centerNameArea").classList.remove("hidden");
+ document.getElementById("centerName").value="admin";
+ document.getElementById("adminPasswordArea").classList.remove("hidden");
+ document.getElementById("adminPassword").focus();
+ document.getElementById("loginStatus").textContent="";
 }
 
 /* SRI LANKA DATE */
@@ -571,10 +615,6 @@ async function login(){
    return;
   }
 
-  isAdmin=adminMode;
-  currentCenter=adminMode?"ALL CENTERS":name;
-  adminSelectedCenter="ALL";
-
   const recordsResult=adminMode
    ? await apiRequest({action:"records",key:ADMIN_KEY})
    : await apiRequest({action:"records",center:name});
@@ -584,7 +624,15 @@ async function login(){
    return;
   }
 
+  isAdmin=adminMode;
+  currentCenter=adminMode?"ALL CENTERS":name;
+  adminSelectedCenter="ALL";
   allRecords=recordsResult.records||[];
+
+  /* SAVE CENTER ONLY AFTER SUCCESSFUL LOGIN */
+  if(!adminMode){
+   localStorage.setItem(CENTER_STORAGE_KEY,name);
+  }
 
   document.getElementById("loginPanel").classList.add("hidden");
   document.getElementById("app").classList.remove("hidden");
@@ -627,21 +675,24 @@ function logout(){
  adminSelectedCenter="ALL";
  allRecords=[];
  currentRecordView=[];
- document.getElementById("centerName").value="";
+ recordsPromise=null;
+
  document.getElementById("adminPassword").value="";
- document.getElementById("adminPasswordArea").classList.add("hidden");
  document.getElementById("app").classList.add("hidden");
  document.getElementById("loginPanel").classList.remove("hidden");
  document.getElementById("loginStatus").textContent="";
  document.getElementById("records").textContent="Select a date and search.";
+
  document.getElementById("newStakeNav").classList.remove("hidden");
  document.getElementById("quickActionsPanel").classList.remove("hidden");
  document.getElementById("adminFilterArea").classList.add("hidden");
+
+ /* SHOW SAVED CENTER AGAIN AFTER LOGOUT */
+ loadSavedCenter();
 }
 
 /* PAGE NAVIGATION */
 function showPage(page,button){
- /* ADMIN CANNOT OPEN NEW STAKE PAGE */
  if(isAdmin&&page==="newstake")page="dashboard";
 
  document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
@@ -1027,7 +1078,6 @@ function monthlyReport(){
 
  result.appendChild(grid);
 
- /* SHOW CENTER BREAKDOWN ONLY WHEN ADMIN SELECTS ALL CENTERS */
  if(isAdmin&&adminSelectedCenter==="ALL"){
   const centerTotals={};
 
@@ -1073,6 +1123,7 @@ function initializeDates(){
 }
 
 initializeDates();
+loadSavedCenter();
 updateClock();
 updateTotal();
 </script>
