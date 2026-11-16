@@ -3,433 +3,1000 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>COLOMBO NORTH OUTLET</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <style>
-:root{--bg:#050609;--panel:#0b0d13;--purple:#a855f7;--green:#39ff75;--orange:#ffb52e;--red:#ff4565;--text:#f5f3ff;--muted:#9295a3}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at 10% 5%,#25103d 0,transparent 35%),radial-gradient(circle at 90% 90%,#06351d 0,transparent 35%),var(--bg);color:var(--text);font-family:Arial,sans-serif;min-height:100vh}
+:root{
+  --bg:#080b14;
+  --panel:#111827;
+  --panel2:#182236;
+  --purple:#8b5cf6;
+  --green:#22c55e;
+  --red:#ef4444;
+  --orange:#f59e0b;
+  --text:#f8fafc;
+  --muted:#94a3b8;
+}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:radial-gradient(circle at top,#202044,#080b14 65%);
+  color:var(--text);
+  min-height:100vh;
+}
 button,input,select{font:inherit}
-button{cursor:pointer;border:0;border-radius:10px;padding:12px 16px;font-weight:bold}
-input,select{width:100%;background:#080a10;border:1px solid #292638;border-radius:10px;padding:13px;color:white;outline:none}
-input:focus,select:focus{border-color:var(--purple)}
+button{cursor:pointer}
 .hidden{display:none!important}
-.muted{color:var(--muted)}
+.container{max-width:1100px;margin:auto;padding:15px}
+.panel{
+  background:rgba(17,24,39,.96);
+  border:1px solid #29334a;
+  border-radius:17px;
+  padding:17px;
+  margin-bottom:15px;
+  box-shadow:0 8px 30px #0005;
+}
+.brand{
+  text-align:center;
+  padding:24px 10px;
+}
+.logo{
+  width:65px;height:65px;
+  margin:auto auto 12px;
+  display:grid;place-items:center;
+  border-radius:20px;
+  background:linear-gradient(135deg,#9333ea,#16a34a);
+  font-size:25px;font-weight:900;
+  box-shadow:0 0 25px #8b5cf655;
+}
+h1{font-size:23px;margin:8px 0}
+h2{font-size:19px;margin:0 0 15px}
+h3{font-size:15px;color:#c4b5fd}
 .small{font-size:12px;color:var(--muted)}
-.green{color:var(--green)}
-.primary{background:linear-gradient(120deg,#9333ea,#6d28d9);color:white}
-.secondary{background:#191624;color:white;border:1px solid #393047}
-.danger{background:#481522;color:#ff8a9e;border:1px solid #85243a}
-.success{background:#103b25;color:#80ffab;border:1px solid #226b40}
-.card{background:linear-gradient(145deg,#10111b,#090a10);border:1px solid #292638;border-radius:17px;padding:18px;box-shadow:0 12px 35px #0005}
-h1,h2,h3,p{margin-top:0}
-#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.login-card{width:100%;max-width:420px;text-align:center;padding:30px 23px}
-.logo{width:72px;height:72px;margin:0 auto 15px;border-radius:22px;background:linear-gradient(145deg,#a855f7,#39ff75);display:grid;place-items:center;color:#080910;font-size:30px;font-weight:1000;box-shadow:0 0 30px #a855f755}
-.login-card h1{letter-spacing:2px;margin-bottom:8px;font-size:23px}
-.login-card .sub{letter-spacing:3px;color:var(--green);font-size:11px;margin-bottom:25px}
-.field{text-align:left;margin:14px 0}
-.field label{display:block;font-size:12px;color:#b9b3c9;margin-bottom:7px}
-.login-card button{width:100%;margin-top:12px}
-#app{display:none;min-height:100vh}
-header{height:65px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:#080910ef;border-bottom:1px solid #292638;position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
-.brand{font-weight:900;letter-spacing:1px;font-size:15px}.brand span{color:var(--green)}
-.header-right{display:flex;gap:10px;align-items:center}
-.pill{border:1px solid #393047;padding:7px 10px;border-radius:30px;font-size:11px;color:var(--green)}
-.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 65px)}
-aside{padding:18px 12px;border-right:1px solid #292638;background:#08091088}
-.nav{display:flex;flex-direction:column;gap:8px;position:sticky;top:85px}
-.nav button{text-align:left;background:transparent;color:#aaa4b8;border:1px solid transparent}
-.nav button.active,.nav button:hover{background:#21152f;color:white;border-color:#56317b}
-.nav .logout{margin-top:20px;color:#ff8097}
-main{padding:22px;max-width:1250px;width:100%;margin:auto}
-.page-title{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:20px}
-.page-title h2{margin:0;font-size:23px}
-.hero{padding:25px;border-radius:18px;background:linear-gradient(110deg,#28123e,#101522 55%,#07351e);border:1px solid #51306b;margin-bottom:20px}
-.hero h2{font-size:25px;margin-bottom:7px}
-.stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:18px 0}
-.stat{padding:17px;border-radius:15px;background:#0c0e16;border:1px solid #292638;min-width:0}
-.stat .label{font-size:11px;color:var(--muted);margin-bottom:10px}
-.stat .value{font-size:clamp(18px,3vw,25px);font-weight:900;overflow-wrap:anywhere}
-.stat.a{border-top:3px solid #39ff75}.stat.e{border-top:3px solid #a855f7}.stat.t{border-top:3px solid #ffb52e}.stat.d{border-top:3px solid #ff4565}.stat.total{border-top:3px solid #38bdf8}
-.actions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:15px}
-.actions button{min-height:58px}
-.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.form-grid .field{margin:0}
-.form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-.table-wrap{overflow:auto;border:1px solid #292638;border-radius:12px;margin-top:15px}
-table{width:100%;border-collapse:collapse;min-width:650px;background:#090b12}
-th,td{padding:12px;text-align:left;border-bottom:1px solid #252332;font-size:13px}
-th{color:#c4a5fd;background:#12101b}
-td{color:#e9e5f0}
-.empty{text-align:center;color:var(--muted);padding:25px}
-.notice{padding:12px;border-radius:10px;background:#151322;border:1px solid #3b2b55;color:#d8c5f4;margin:12px 0;font-size:13px}
-.notice.error{background:#30111a;border-color:#74253a;color:#ff9bac}
-.center-list{display:grid;gap:9px}
-.center-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;background:#0a0c13;border:1px solid #292638;border-radius:11px}
-.center-item strong{overflow-wrap:anywhere}
-.tag{font-size:10px;padding:5px 8px;border-radius:20px;background:#1b1830;color:#c4a5fd}
-.online{color:var(--green)}.offline{color:#ff8097}
-#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#21152f;border:1px solid #7041a0;color:white;padding:12px 18px;border-radius:12px;z-index:20;display:none;max-width:90%;text-align:center}
-@media(max-width:850px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.stat.total{grid-column:span 2}.layout{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid #292638;padding:8px;overflow:auto}.nav{position:static;flex-direction:row;width:max-content}.nav button{white-space:nowrap;padding:10px}.nav .logout{margin:0}main{padding:15px}}
-@media(max-width:520px){.form-grid{grid-template-columns:1fr}.actions{grid-template-columns:repeat(2,minmax(0,1fr))}.hero h2{font-size:21px}header{padding:0 12px}.header-right .pill{display:none}}
+input,select{
+  width:100%;
+  padding:13px;
+  background:#080f1d;
+  color:white;
+  border:1px solid #34415b;
+  border-radius:10px;
+  margin:6px 0 13px;
+  outline:none;
+}
+input:focus,select:focus{border-color:var(--purple)}
+.btn{
+  border:0;border-radius:10px;
+  padding:12px 16px;
+  color:white;font-weight:bold;
+  background:linear-gradient(120deg,#7c3aed,#9333ea);
+}
+.btn.green{background:linear-gradient(120deg,#15803d,#22c55e)}
+.btn.red{background:linear-gradient(120deg,#b91c1c,#ef4444)}
+.btn.orange{background:linear-gradient(120deg,#c2410c,#f59e0b)}
+.btn.gray{background:#334155}
+.btn.full{width:100%}
+.btn:disabled{opacity:.5}
+.nav{
+  display:flex;gap:8px;overflow-x:auto;
+  padding:5px 0 13px;
+}
+.nav button{
+  flex-shrink:0;
+  border:1px solid #39445b;
+  background:#172033;
+  color:white;
+  padding:10px 14px;
+  border-radius:10px;
+}
+.nav button.active{background:#7c3aed;border-color:#a78bfa}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.stat{
+  padding:16px;
+  border-radius:14px;
+  background:linear-gradient(145deg,#1d2941,#111827);
+  border:1px solid #34415b;
+}
+.stat strong{display:block;font-size:21px;margin-top:8px}
+.stat span{font-size:12px;color:#a5b4fc}
+.money{font-weight:bold;color:#4ade80}
+.formgrid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+label{font-size:13px;color:#cbd5e1}
+table{width:100%;border-collapse:collapse;min-width:650px}
+th,td{
+  padding:11px 9px;
+  border-bottom:1px solid #29334a;
+  text-align:left;font-size:12px;
+}
+th{color:#c4b5fd;background:#1b2740}
+.tablewrap{overflow-x:auto}
+.badge{
+  display:inline-block;padding:5px 8px;
+  border-radius:7px;background:#26334b;
+  font-size:11px;
+}
+.online{color:#4ade80}
+.offline{color:#f87171}
+.section{display:none}
+.section.active{display:block}
+.message{
+  padding:11px;border-radius:10px;
+  background:#172033;margin:10px 0;
+  font-size:13px;display:none;
+}
+.message.show{display:block}
+.footer{text-align:center;color:#64748b;font-size:11px;padding:20px}
+hr{border:0;border-top:1px solid #29334a;margin:17px 0}
+@media(max-width:600px){
+  .container{padding:10px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stat{padding:12px}
+  .stat strong{font-size:17px}
+  .formgrid{grid-template-columns:1fr}
+}
 </style>
 </head>
+
 <body>
-<div id="loginScreen">
- <div class="card login-card">
-  <div class="logo">CN</div>
-  <h1>COLOMBO NORTH OUTLET</h1>
-  <div class="sub">DAILY STAKE MANAGEMENT</div>
-  <div class="field"><label>Center Name / Admin</label><input id="loginCenter" placeholder="Enter center name"></div>
-  <div class="field hidden" id="passwordField"><label>Admin Password</label><input id="loginPassword" type="password" placeholder="Enter password"></div>
-  <div class="field hidden" id="deviceNameField"><label>Device Name</label><input id="deviceName" placeholder="Example: iPhone 1"></div>
-  <button class="primary" id="loginBtn" onclick="login()">LOGIN</button>
-  <p class="small" style="margin-top:18px">Authorized Center Access</p>
-  <div id="loginMessage"></div>
- </div>
+
+<div class="container">
+
+<!-- LOGIN -->
+<div id="loginPage">
+  <div class="brand">
+    <div class="logo">CN</div>
+    <h1>COLOMBO NORTH OUTLET</h1>
+    <div class="small">DAILY STAKE MANAGEMENT SYSTEM</div>
+  </div>
+
+  <div class="panel">
+    <h2>Login</h2>
+
+    <label>Center / Username</label>
+    <input id="loginCenter" placeholder="Enter center name" autocomplete="username">
+
+    <label>Password</label>
+    <input id="loginPassword" type="password" placeholder="Enter password" autocomplete="current-password">
+
+    <button class="btn full" id="loginBtn" onclick="login()">LOGIN</button>
+    <div id="loginMessage" class="message"></div>
+    <button class="btn gray full" style="margin-top:8px" onclick="changeCenter()">CHANGE CENTER</button>
+  </div>
 </div>
 
-<div id="app">
-<header>
- <div class="brand">COLOMBO NORTH <span>OUTLET</span></div>
- <div class="header-right"><span class="pill" id="roleLabel">CENTER</span><span class="small" id="clock"></span></div>
-</header>
-<div class="layout">
-<aside><div class="nav">
- <button class="active" data-page="dashboard" onclick="showPage('dashboard',this)">▦ Dashboard</button>
- <button data-page="new" onclick="showPage('new',this)">＋ New Stake</button>
- <button data-page="records" onclick="showPage('records',this)">▤ Records</button>
- <button data-page="reports" onclick="showPage('reports',this)">▥ Reports</button>
- <button id="systemNav" class="hidden" data-page="system" onclick="showPage('system',this)">⚙ System Admin</button>
- <button class="logout" onclick="logout()">↪ Logout</button>
-</div></aside>
-<main>
-<section id="dashboardPage">
- <div class="hero"><div class="small green">DAILY STAKE MANAGEMENT</div><h2 id="welcomeTitle">Dashboard</h2><div class="muted">Business Date: <strong id="businessDate"></strong></div></div>
- <div class="stats">
-  <div class="stat a"><div class="label">AUSTRALIAN</div><div class="value" id="dashAus">0.00</div></div>
-  <div class="stat e"><div class="label">ENGLAND</div><div class="value" id="dashEng">0.00</div></div>
-  <div class="stat t"><div class="label">TRACKSIDE</div><div class="value" id="dashTrack">0.00</div></div>
-  <div class="stat d"><div class="label">DUE</div><div class="value" id="dashDue">0.00</div></div>
-  <div class="stat total"><div class="label">TOTAL DAILY STAKE</div><div class="value green" id="dashTotal">0.00</div></div>
- </div>
- <div class="card"><h3>Quick Actions</h3><div class="actions">
-  <button class="primary" onclick="showPage('new')">＋ New Stake</button>
-  <button class="secondary" onclick="showPage('records')">▤ Records</button>
-  <button class="secondary" onclick="showPage('reports')">▥ Reports</button>
-  <button class="success" onclick="makeScreenshot()">▣ Screenshot</button>
- </div></div>
- <div class="notice">Due amount is displayed separately and is not included in Total Daily Stake.</div>
-</section>
+<!-- APP -->
+<div id="appPage" class="hidden">
 
-<section id="newPage" class="hidden">
- <div class="page-title"><h2>New Stake Entry</h2><span class="tag" id="entryCenter"></span></div>
- <div class="card"><div class="form-grid">
-  <div class="field"><label>Business Date</label><input type="date" id="stakeDate"></div>
-  <div class="field"><label>Australian</label><input type="number" id="stakeAus" min="0" step="0.01" placeholder="0.00"></div>
-  <div class="field"><label>England</label><input type="number" id="stakeEng" min="0" step="0.01" placeholder="0.00"></div>
-  <div class="field"><label>Trackside</label><input type="number" id="stakeTrack" min="0" step="0.01" placeholder="0.00"></div>
-  <div class="field"><label>Due</label><input type="number" id="stakeDue" min="0" step="0.01" placeholder="0.00"></div>
- </div>
- <div class="notice">Total Stake: Australian + England + Trackside. Due is excluded.</div>
- <div class="form-actions"><button class="primary" onclick="saveStake()">SAVE STAKE</button><button class="secondary" onclick="clearStake()">CLEAR</button></div>
- </div>
-</section>
+  <div class="brand">
+    <div class="logo">CN</div>
+    <h1>COLOMBO NORTH OUTLET</h1>
+    <div class="small" id="welcomeText"></div>
+  </div>
 
-<section id="recordsPage" class="hidden">
- <div class="page-title"><h2>Stake Records</h2><button class="secondary" onclick="loadRecords()">↻ Refresh</button></div>
- <div class="card">
-  <div class="form-grid">
-   <div class="field"><label>Search by Date</label><input type="date" id="recordDate" onchange="renderRecords()"></div>
-   <div class="field"><label>Center Filter</label><select id="recordCenter" onchange="renderRecords()"><option value="">All Centers</option></select></div>
+  <div class="nav">
+    <button class="active" onclick="showSection('dashboard',this)">Dashboard</button>
+    <button onclick="showSection('newStake',this)">New Stake</button>
+    <button onclick="showSection('records',this)">Records</button>
+    <button onclick="showSection('reports',this)">Reports</button>
+    <button id="systemNav" class="hidden" onclick="showSection('system',this)">System Admin</button>
+    <button onclick="logout()">Logout</button>
   </div>
-  <div class="form-actions"><button class="secondary" onclick="clearRecordFilter()">SHOW ALL RECORDS</button></div>
-  <div class="table-wrap"><table><thead><tr><th>Date</th><th>Center</th><th>Australian</th><th>England</th><th>Trackside</th><th>Due</th><th>Total</th></tr></thead><tbody id="recordsBody"></tbody></table></div>
-  <p class="small" id="recordsCount"></p>
- </div>
-</section>
 
-<section id="reportsPage" class="hidden">
- <div class="page-title"><h2>Monthly Reports</h2><button class="success" onclick="makeScreenshot()">▣ Screenshot</button></div>
- <div class="card">
-  <div class="form-grid">
-   <div class="field"><label>Select Month</label><input type="month" id="reportMonth" onchange="renderReport()"></div>
-   <div class="field"><label>Center</label><select id="reportCenter" onchange="renderReport()"><option value="">All Centers</option></select></div>
-  </div>
-  <div class="stats" style="grid-template-columns:repeat(2,minmax(0,1fr))">
-   <div class="stat a"><div class="label">MONTHLY STAKE</div><div class="value" id="monthTotal">0.00</div></div>
-   <div class="stat d"><div class="label">MONTHLY DUE</div><div class="value" id="monthDue">0.00</div></div>
-  </div>
-  <div class="table-wrap"><table><thead><tr><th>Category</th><th>Monthly Amount</th></tr></thead><tbody id="reportBody"></tbody></table></div>
- </div>
-</section>
+  <div id="appMessage" class="message"></div>
 
-<section id="systemPage" class="hidden">
- <div class="page-title"><h2>System Admin Panel</h2><span class="tag">FULL ACCESS</span></div>
- <div class="card"><h3>Center Management</h3>
-  <div class="form-grid">
-   <div class="field"><label>New Center Name</label><input id="newCenterName" placeholder="Enter center name"></div>
-   <div class="field" style="display:flex;align-items:end"><button class="primary" style="width:100%" onclick="addCenter()">＋ ADD CENTER</button></div>
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="section active">
+    <div class="panel">
+      <h2>Dashboard</h2>
+      <div class="small" id="todayText"></div>
+    </div>
+
+    <div class="grid">
+      <div class="stat">
+        <span>AUSTRALIAN</span>
+        <strong id="dashAus">0.00</strong>
+      </div>
+      <div class="stat">
+        <span>ENGLAND</span>
+        <strong id="dashEng">0.00</strong>
+      </div>
+      <div class="stat">
+        <span>TRACKSIDE</span>
+        <strong id="dashTrack">0.00</strong>
+      </div>
+      <div class="stat">
+        <span>DUE</span>
+        <strong id="dashDue">0.00</strong>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:14px">
+      <div class="small">TOTAL DAILY STAKE (DUE EXCLUDED)</div>
+      <div style="font-size:30px;font-weight:bold;color:#4ade80;margin-top:8px" id="dashTotal">0.00</div>
+    </div>
+
+    <div class="panel">
+      <h2>Today's Records</h2>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Center</th><th>Australian</th><th>England</th>
+              <th>Trackside</th><th>Due</th><th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="todayRecords"></tbody>
+        </table>
+      </div>
+    </div>
+    <button class="btn green full" onclick="refreshAll()">REFRESH DATA</button>
   </div>
-  <div class="center-list" id="centerList" style="margin-top:15px"></div>
- </div>
- <div class="card" style="margin-top:15px"><h3>Registered Devices</h3>
-  <button class="secondary" onclick="loadDevices()">↻ Refresh Devices</button>
-  <div class="table-wrap"><table><thead><tr><th>Center</th><th>Device</th><th>Status</th><th>Actions</th></tr></thead><tbody id="devicesBody"></tbody></table></div>
- </div>
- <div class="card" style="margin-top:15px"><h3>Maintenance Mode</h3>
-  <p class="muted small">When enabled, normal center users cannot access the system.</p>
-  <div class="form-actions"><button class="danger" onclick="setMaintenance(true)">TURN ON</button><button class="success" onclick="setMaintenance(false)">TURN OFF</button><span class="tag" id="maintenanceStatus">Loading...</span></div>
- </div>
-</section>
-</main>
+
+  <!-- NEW STAKE -->
+  <div id="newStake" class="section">
+    <div class="panel">
+      <h2>New Stake Entry</h2>
+
+      <label>Business Date</label>
+      <input type="date" id="stakeDate">
+
+      <div class="formgrid">
+        <div>
+          <label>Australian</label>
+          <input type="number" min="0" step="0.01" id="australian" placeholder="0.00">
+        </div>
+        <div>
+          <label>England</label>
+          <input type="number" min="0" step="0.01" id="england" placeholder="0.00">
+        </div>
+        <div>
+          <label>Trackside</label>
+          <input type="number" min="0" step="0.01" id="trackside" placeholder="0.00">
+        </div>
+        <div>
+          <label>Due</label>
+          <input type="number" min="0" step="0.01" id="due" placeholder="0.00">
+        </div>
+      </div>
+
+      <div class="stat">
+        <span>STAKE TOTAL (DUE EXCLUDED)</span>
+        <strong id="entryTotal">0.00</strong>
+      </div>
+
+      <button class="btn green full" style="margin-top:15px" onclick="saveStake()">SAVE STAKE</button>
+      <button class="btn gray full" style="margin-top:8px" onclick="clearStake()">CLEAR FORM</button>
+    </div>
+  </div>
+
+  <!-- RECORDS -->
+  <div id="records" class="section">
+    <div class="panel">
+      <h2>Stake Records</h2>
+      <label>Filter Date</label>
+      <input type="date" id="recordDate" onchange="renderRecords()">
+      <button class="btn gray full" onclick="document.getElementById('recordDate').value='';renderRecords()">SHOW ALL RECORDS</button>
+    </div>
+    <div class="panel">
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th><th>Center</th><th>Australian</th>
+              <th>England</th><th>Trackside</th><th>Due</th><th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="recordRows"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- REPORTS -->
+  <div id="reports" class="section">
+    <div class="panel">
+      <h2>Monthly Reports</h2>
+      <div class="formgrid">
+        <div>
+          <label>Month</label>
+          <select id="reportMonth"></select>
+        </div>
+        <div>
+          <label>Year</label>
+          <select id="reportYear"></select>
+        </div>
+      </div>
+      <button class="btn full" onclick="renderReport()">GENERATE REPORT</button>
+    </div>
+
+    <div class="panel" id="reportArea">
+      <div class="brand">
+        <h2>COLOMBO NORTH OUTLET</h2>
+        <div class="small">MONTHLY STAKE REPORT</div>
+        <div id="reportPeriod" class="small"></div>
+      </div>
+      <div class="grid">
+        <div class="stat"><span>AUSTRALIAN</span><strong id="repAus">0.00</strong></div>
+        <div class="stat"><span>ENGLAND</span><strong id="repEng">0.00</strong></div>
+        <div class="stat"><span>TRACKSIDE</span><strong id="repTrack">0.00</strong></div>
+        <div class="stat"><span>DUE</span><strong id="repDue">0.00</strong></div>
+      </div>
+      <div class="panel" style="margin-top:12px">
+        <span class="small">TOTAL STAKE (DUE EXCLUDED)</span>
+        <h1 id="repTotal" class="money">0.00</h1>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Center</th><th>Australian</th><th>England</th><th>Trackside</th><th>Due</th><th>Total</th></tr>
+          </thead>
+          <tbody id="reportRows"></tbody>
+        </table>
+      </div>
+    </div>
+    <button class="btn green full" onclick="downloadReport()">SAVE REPORT SCREENSHOT</button>
+  </div>
+
+  <!-- SYSTEM ADMIN -->
+  <div id="system" class="section">
+
+    <div class="panel">
+      <h2>System Admin</h2>
+      <div class="small">CENTER MANAGEMENT</div>
+      <label>New Center Name</label>
+      <input id="newCenterName" placeholder="Enter center name">
+      <button class="btn green full" onclick="addCenter()">ADD CENTER</button>
+      <hr>
+      <div id="centerList"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Device Management</h2>
+      <button class="btn full" onclick="loadDevices()">REFRESH DEVICES</button>
+      <div class="tablewrap" style="margin-top:12px">
+        <table>
+          <thead>
+            <tr><th>Center</th><th>Device</th><th>Status</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="deviceRows"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Maintenance Mode</h2>
+      <div id="maintenanceStatus" class="badge">Checking...</div>
+      <div class="grid" style="margin-top:12px">
+        <button class="btn orange" onclick="setMaintenance(true)">TURN ON</button>
+        <button class="btn green" onclick="setMaintenance(false)">TURN OFF</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">COLOMBO NORTH OUTLET · DAILY STAKE SYSTEM</div>
 </div>
 </div>
-<div id="toast"></div>
 
 <script>
+/* =========================================
+   API CONNECTION - UPDATED URL
+========================================= */
+
 const API_URL="https://script.google.com/macros/s/AKfycbwVzKrmNhfTuAfynGQ-Ple1poFp5KH1EqXDwtxF-V9IWVZgPwh6S5JI5vRw5zzscag/exec";
-let session=null,allRecords=[],allCenters=[],allDevices=[],currentPage="dashboard",requestCounter=0,heartbeatTimer=null;
+
+let session=null;
+let allRecords=[];
+let allCenters=[];
+let allDevices=[];
+
+function api(params){
+  return new Promise((resolve,reject)=>{
+    const callback="cnCallback"+Date.now()+Math.floor(Math.random()*10000);
+    const query=new URLSearchParams({...params,callback});
+    const script=document.createElement("script");
+    let finished=false;
+
+    const timer=setTimeout(()=>{
+      if(finished)return;
+      finished=true;
+      cleanup();
+      reject(new Error("API connection timeout. Check deployment."));
+    },20000);
+
+    function cleanup(){
+      clearTimeout(timer);
+      delete window[callback];
+      script.remove();
+    }
+
+    window[callback]=(result)=>{
+      if(finished)return;
+      finished=true;
+      cleanup();
+      if(result && result.ok) resolve(result);
+      else reject(new Error(result?.error || "API error"));
+    };
+
+    script.onerror=()=>{
+      if(finished)return;
+      finished=true;
+      cleanup();
+      reject(new Error("Unable to connect to API"));
+    };
+
+    script.src=API_URL+"?"+query.toString();
+    document.body.appendChild(script);
+  });
+}
 
 function deviceId(){
- let id=localStorage.getItem("dailyStakeDeviceId");
- if(!id){id=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():"DS-"+Date.now()+"-"+Math.random().toString(36).slice(2);localStorage.setItem("dailyStakeDeviceId",id);}
- return id;
+  let id=localStorage.getItem("cn_device_id");
+  if(!id){
+    id="CN-"+Math.random().toString(36).slice(2)+Date.now();
+    localStorage.setItem("cn_device_id",id);
+  }
+  return id;
 }
-function deviceName(){return localStorage.getItem("dailyStakeDeviceName")||(navigator.userAgent.includes("iPhone")?"iPhone":"My Device");}
-function api(data){
- return new Promise((resolve,reject)=>{
-  const cb="dsCallback"+(++requestCounter)+"_"+Date.now();
-  const params=new URLSearchParams({...data,callback:cb});
-  const script=document.createElement("script");
-  const timer=setTimeout(()=>{cleanup();reject(new Error("API response timeout. Check deployment."));},20000);
-  function cleanup(){clearTimeout(timer);delete window[cb];script.remove();}
-  window[cb]=(result)=>{cleanup();resolve(result);};
-  script.onerror=()=>{cleanup();reject(new Error("Could not connect to API."));};
-  script.src=API_URL+"?"+params.toString();document.body.appendChild(script);
- });
-}
-function toast(msg){const el=document.getElementById("toast");el.textContent=msg;el.style.display="block";setTimeout(()=>el.style.display="none",3000);}
-function num(v){const n=Number(v);return Number.isFinite(n)?n:0}
-function money(v){return num(v).toLocaleString("en-LK",{minimumFractionDigits:2,maximumFractionDigits:2});}
-function today(){
- const parts=new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Colombo",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());
- const p={};parts.forEach(x=>p[x.type]=x.value);return `${p.year}-${p.month}-${p.day}`;
-}
-function monthNow(){return today().slice(0,7);}
-function updateClock(){document.getElementById("clock").textContent=new Intl.DateTimeFormat("en-LK",{timeZone:"Asia/Colombo",hour:"2-digit",minute:"2-digit",second:"2-digit"}).format(new Date());}
-setInterval(updateClock,1000);updateClock();
 
-document.getElementById("loginCenter").addEventListener("input",()=>{
- const isAdmin=document.getElementById("loginCenter").value.trim().toLowerCase()==="admin";
- document.getElementById("passwordField").classList.toggle("hidden",!isAdmin);
- document.getElementById("deviceNameField").classList.toggle("hidden",isAdmin);
-});
-document.getElementById("loginCenter").addEventListener("keydown",e=>{if(e.key==="Enter")login();});
-document.getElementById("loginPassword").addEventListener("keydown",e=>{if(e.key==="Enter")login();});
+function authData(){
+  return {
+    center:session.center,
+    role:session.role,
+    password:session.password||"",
+    deviceId:session.deviceId||""
+  };
+}
+
+/* =========================================
+   LOGIN / LOGOUT
+========================================= */
+
+function showMessage(id,message){
+  const el=document.getElementById(id);
+  el.textContent=message;
+  el.classList.add("show");
+}
 
 async function login(){
- const center=document.getElementById("loginCenter").value.trim(),password=document.getElementById("loginPassword").value;
- if(!center){loginMsg("Enter your Center Name.",true);return;}
- const btn=document.getElementById("loginBtn");btn.disabled=true;btn.textContent="PLEASE WAIT...";
- try{
-  const id=deviceId(),name=document.getElementById("deviceName").value.trim()||deviceName();
-  localStorage.setItem("dailyStakeDeviceName",name);
-  const result=await api({action:"login",center,deviceId:id,deviceName:name,password});
-  if(!result||!(result.ok||result.success))throw new Error(result?.error||"Login failed.");
-  session={center:result.center||center,role:result.role||"center",password:center.toLowerCase()==="admin"?password:"",deviceId:id,deviceName:name};
-  document.getElementById("loginScreen").style.display="none";
-  document.getElementById("app").style.display="block";
-  document.getElementById("roleLabel").textContent=session.role.toUpperCase();
-  document.getElementById("systemNav").classList.toggle("hidden",session.role!=="system");
-  document.getElementById("welcomeTitle").textContent=session.center;
-  document.getElementById("entryCenter").textContent=session.center;
-  document.getElementById("stakeDate").value=today();
-  document.getElementById("reportMonth").value=monthNow();
-  await refreshAll();showPage("dashboard");
-  if(session.role==="center")startHeartbeat();
- }catch(e){loginMsg(e.message,true);}
- finally{btn.disabled=false;btn.textContent="LOGIN";}
+  const center=document.getElementById("loginCenter").value.trim();
+  const password=document.getElementById("loginPassword").value;
+  const btn=document.getElementById("loginBtn");
+
+  if(!center){
+    showMessage("loginMessage","Please enter center name");
+    return;
+  }
+
+  btn.disabled=true;
+  btn.textContent="PLEASE WAIT...";
+
+  try{
+    const result=await api({
+      action:"login",
+      center:center,
+      password:password,
+      deviceId:deviceId(),
+      deviceName:navigator.userAgent.slice(0,90)
+    });
+
+    session={
+      center:result.center,
+      role:result.role,
+      password:password,
+      deviceId:deviceId()
+    };
+
+    localStorage.setItem("cn_saved_center",center);
+    document.getElementById("loginPage").classList.add("hidden");
+    document.getElementById("appPage").classList.remove("hidden");
+
+    document.getElementById("welcomeText").textContent=
+      "Welcome · "+session.center+" · "+session.role.toUpperCase();
+
+    document.getElementById("systemNav").classList.toggle(
+      "hidden",session.role!=="system"
+    );
+
+    document.getElementById("stakeDate").value=colomboDate();
+    setupReportSelectors();
+
+    await refreshAll();
+
+    if(session.role==="system"){
+      await loadSystem();
+    }
+
+  }catch(error){
+    showMessage("loginMessage",error.message);
+  }finally{
+    btn.disabled=false;
+    btn.textContent="LOGIN";
+  }
 }
-function loginMsg(message,error){const el=document.getElementById("loginMessage");el.className="notice "+(error?"error":"");el.textContent=message;}
+
+function changeCenter(){
+  localStorage.removeItem("cn_saved_center");
+  document.getElementById("loginCenter").value="";
+  document.getElementById("loginPassword").value="";
+}
+
 function logout(){
- session=null;allRecords=[];if(heartbeatTimer)clearInterval(heartbeatTimer);
- document.getElementById("app").style.display="none";document.getElementById("loginScreen").style.display="flex";
- document.getElementById("loginPassword").value="";document.getElementById("loginMessage").textContent="";
+  session=null;
+  allRecords=[];
+  document.getElementById("appPage").classList.add("hidden");
+  document.getElementById("loginPage").classList.remove("hidden");
+  document.getElementById("loginPassword").value="";
 }
-function showPage(page,button){
- if(page==="system"&&session?.role!=="system"){toast("System Admin access only.");return;}
- currentPage=page;
- ["dashboard","new","records","reports","system"].forEach(p=>document.getElementById(p+"Page").classList.toggle("hidden",p!==page));
- document.querySelectorAll(".nav button[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
- if(button&&button.dataset.page)button.classList.add("active");
- if(page==="records")renderRecords();if(page==="reports")renderReport();
- if(page==="system"){loadCenters();loadDevices();loadMaintenance();}
+
+window.addEventListener("load",()=>{
+  const saved=localStorage.getItem("cn_saved_center");
+  if(saved)document.getElementById("loginCenter").value=saved;
+});
+
+/* =========================================
+   DATE HELPERS
+========================================= */
+
+function colomboDate(){
+  return new Intl.DateTimeFormat("en-CA",{
+    timeZone:"Asia/Colombo",
+    year:"numeric",month:"2-digit",day:"2-digit"
+  }).format(new Date());
 }
-async function refreshAll(){
- await loadRecords();
- if(session.role==="system"){await loadCenters();await loadDevices();await loadMaintenance();}
-}
-function authData(){return {center:session.center,role:session.role,password:session.password,deviceId:session.deviceId};}
-async function loadRecords(){
- try{
-  const result=await api({...authData(),action:"records"});
-  if(!result||!(result.ok||result.success))throw new Error(result?.error||"Could not load records");
-  allRecords=Array.isArray(result.records)?result.records:(Array.isArray(result.data)?result.data:[]);
-  updateDashboard();renderRecords();renderReport();
- }catch(e){toast(e.message);}
-}
-function recordDate(r){return r.date||r.businessDate||"";}
-function recordCenter(r){return r.center||session.center;}
-function recordTotal(r){return num(r.australian)+num(r.england)+num(r.trackside);}
-function updateDashboard(){
- const d=today(),rows=allRecords.filter(r=>recordDate(r)===d),sum=k=>rows.reduce((a,r)=>a+num(r[k]),0);
- document.getElementById("businessDate").textContent=d;
- document.getElementById("dashAus").textContent=money(sum("australian"));
- document.getElementById("dashEng").textContent=money(sum("england"));
- document.getElementById("dashTrack").textContent=money(sum("trackside"));
- document.getElementById("dashDue").textContent=money(sum("due"));
- document.getElementById("dashTotal").textContent=money(sum("australian")+sum("england")+sum("trackside"));
-}
-function clearStake(){
- ["stakeAus","stakeEng","stakeTrack","stakeDue"].forEach(id=>document.getElementById(id).value="");
- document.getElementById("stakeDate").value=today();
-}
-async function saveStake(){
- const date=document.getElementById("stakeDate").value;if(!date){toast("Select a date.");return;}
- const data={action:"save",...authData(),date,
-  australian:num(document.getElementById("stakeAus").value),
-  england:num(document.getElementById("stakeEng").value),
-  trackside:num(document.getElementById("stakeTrack").value),
-  due:num(document.getElementById("stakeDue").value)};
- if(data.australian+data.england+data.trackside+data.due===0){toast("Enter at least one amount.");return;}
- try{
-  const result=await api(data);if(!result||!(result.ok||result.success))throw new Error(result?.error||"Save failed.");
-  toast("Stake saved successfully.");clearStake();await loadRecords();showPage("dashboard");
- }catch(e){toast(e.message);}
-}
-function clearRecordFilter(){document.getElementById("recordDate").value="";document.getElementById("recordCenter").value="";renderRecords();}
-function renderRecords(){
- const date=document.getElementById("recordDate").value,center=document.getElementById("recordCenter").value;
- let rows=allRecords.filter(r=>(!date||recordDate(r)===date)&&(!center||recordCenter(r)===center));
- rows.sort((a,b)=>recordDate(b).localeCompare(recordDate(a)));
- const body=document.getElementById("recordsBody");body.innerHTML="";
- if(!rows.length)body.innerHTML='<tr><td colspan="7" class="empty">No records found</td></tr>';
- rows.forEach(r=>{
-  const tr=document.createElement("tr");
-  [recordDate(r),recordCenter(r),money(r.australian),money(r.england),money(r.trackside),money(r.due),money(recordTotal(r))].forEach(v=>{const td=document.createElement("td");td.textContent=v;tr.appendChild(td);});
-  body.appendChild(tr);
- });
- document.getElementById("recordsCount").textContent=rows.length+" record(s)";
-}
-function renderReport(){
- const month=document.getElementById("reportMonth").value||monthNow(),center=document.getElementById("reportCenter").value;
- const rows=allRecords.filter(r=>recordDate(r).startsWith(month)&&(!center||recordCenter(r)===center));
- const sum=k=>rows.reduce((a,r)=>a+num(r[k]),0);
- const aus=sum("australian"),eng=sum("england"),track=sum("trackside"),due=sum("due");
- document.getElementById("monthTotal").textContent=money(aus+eng+track);
- document.getElementById("monthDue").textContent=money(due);
- document.getElementById("reportBody").innerHTML=
- `<tr><td>Australian</td><td>${money(aus)}</td></tr><tr><td>England</td><td>${money(eng)}</td></tr><tr><td>Trackside</td><td>${money(track)}</td></tr><tr><td>Due</td><td>${money(due)}</td></tr><tr><th>Total Stake (Due excluded)</th><th>${money(aus+eng+track)}</th></tr>`;
-}
-async function loadCenters(){
- try{
-  const r=await api({...authData(),action:"centers"});if(!(r.ok||r.success))throw new Error(r.error||"Center list failed");
-  allCenters=r.centers||r.data||[];
-  if(allCenters.length&&typeof allCenters[0]==="object")allCenters=allCenters.map(x=>x.center||x.name).filter(Boolean);
-  updateCenterSelects();renderCenterList();
- }catch(e){toast(e.message);}
-}
-function updateCenterSelects(){
- ["recordCenter","reportCenter"].forEach(id=>{
-  const el=document.getElementById(id),old=el.value;el.innerHTML='<option value="">All Centers</option>';
-  allCenters.forEach(c=>{const o=document.createElement("option");o.value=c;o.textContent=c;el.appendChild(o);});el.value=old;
- });
-}
-function renderCenterList(){
- const el=document.getElementById("centerList");el.innerHTML="";
- if(!allCenters.length){el.innerHTML='<div class="empty">No centers added yet.</div>';return;}
- allCenters.forEach(c=>{
-  const row=document.createElement("div");row.className="center-item";
-  const name=document.createElement("strong");name.textContent=c;
-  const btn=document.createElement("button");btn.className="danger";btn.textContent="Remove";btn.onclick=()=>removeCenter(c);
-  row.append(name,btn);el.appendChild(row);
- });
-}
-async function addCenter(){
- const name=document.getElementById("newCenterName").value.trim();if(!name){toast("Enter a center name.");return;}
- try{
-  const r=await api({...authData(),action:"addCenter",centerName:name});
-  if(!(r.ok||r.success))throw new Error(r.error||"Could not add center");
-  document.getElementById("newCenterName").value="";toast("Center added.");await loadCenters();
- }catch(e){toast(e.message);}
-}
-async function removeCenter(name){
- if(!confirm("Remove center: "+name+"?"))return;
- try{
-  const r=await api({...authData(),action:"removeCenter",centerName:name});
-  if(!(r.ok||r.success))throw new Error(r.error||"Remove failed");
-  toast("Center removed.");await loadCenters();
- }catch(e){toast(e.message);}
-}
-async function loadDevices(){
- try{
-  const r=await api({...authData(),action:"deviceList"});if(!(r.ok||r.success))throw new Error(r.error||"Could not load devices");
-  allDevices=r.devices||r.data||[];renderDevices();
- }catch(e){toast(e.message);}
-}
-function renderDevices(){
- const body=document.getElementById("devicesBody");body.innerHTML="";
- if(!allDevices.length){body.innerHTML='<tr><td colspan="4" class="empty">No devices registered.</td></tr>';return;}
- allDevices.forEach(d=>{
-  const tr=document.createElement("tr"),status=d.blocked?"Blocked":(d.online?"Online":"Offline");
-  [d.center||"",d.deviceName||d.deviceId||"",status].forEach((v,i)=>{
-   const td=document.createElement("td");td.textContent=v;if(i===2)td.className=d.blocked?"offline":(d.online?"online":"offline");tr.appendChild(td);
+
+function money(value){
+  return (Number(value)||0).toLocaleString("en-US",{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
   });
-  const actions=document.createElement("td"),block=document.createElement("button"),remove=document.createElement("button");
-  block.className="secondary";block.textContent=d.blocked?"Unblock":"Block";block.onclick=()=>deviceAction(d,d.blocked?"unblockDevice":"blockDevice");
-  remove.className="danger";remove.style.marginLeft="5px";remove.textContent="Remove";remove.onclick=()=>deviceAction(d,"removeDevice");
-  actions.append(block,remove);tr.appendChild(actions);body.appendChild(tr);
- });
 }
-async function deviceAction(d,action){
- if(!confirm(action==="removeDevice"?"Remove this device?":action==="blockDevice"?"Block this device?":"Unblock this device?"))return;
- try{
-  const r=await api({...authData(),action,centerName:d.center,deviceId:d.deviceId});
-  if(!(r.ok||r.success))throw new Error(r.error||"Device action failed");
-  toast("Device updated.");await loadDevices();
- }catch(e){toast(e.message);}
+
+function total(r){
+  return (Number(r.australian)||0)+
+    (Number(r.england)||0)+
+    (Number(r.trackside)||0);
 }
-async function setMaintenance(enabled){
- if(!confirm(enabled?"Turn Maintenance Mode ON?":"Turn Maintenance Mode OFF?"))return;
- try{
-  const r=await api({...authData(),action:"maintenance",enabled:String(enabled)});
-  if(!(r.ok||r.success))throw new Error(r.error||"Could not update maintenance mode");
-  toast("Maintenance setting updated.");loadMaintenance();
- }catch(e){toast(e.message);}
+
+function todayRecords(){
+  const today=colomboDate();
+  return allRecords.filter(r=>r.date===today);
 }
+
+/* =========================================
+   DATA LOADING
+========================================= */
+
+async function refreshAll(){
+  try{
+    const result=await api({
+      ...authData(),
+      action:"records"
+    });
+
+    allRecords=result.records||[];
+    renderDashboard();
+    renderRecords();
+    renderReport();
+  }catch(error){
+    showMessage("appMessage",error.message);
+  }
+}
+
+/* =========================================
+   DASHBOARD
+========================================= */
+
+function renderDashboard(){
+  const rows=todayRecords();
+
+  const sums={
+    australian:0,england:0,trackside:0,due:0
+  };
+
+  rows.forEach(r=>{
+    sums.australian+=Number(r.australian)||0;
+    sums.england+=Number(r.england)||0;
+    sums.trackside+=Number(r.trackside)||0;
+    sums.due+=Number(r.due)||0;
+  });
+
+  document.getElementById("dashAus").textContent=money(sums.australian);
+  document.getElementById("dashEng").textContent=money(sums.england);
+  document.getElementById("dashTrack").textContent=money(sums.trackside);
+  document.getElementById("dashDue").textContent=money(sums.due);
+  document.getElementById("dashTotal").textContent=money(
+    sums.australian+sums.england+sums.trackside
+  );
+
+  document.getElementById("todayText").textContent=
+    "Business Date: "+colomboDate();
+
+  document.getElementById("todayRecords").innerHTML=
+    rows.map(r=>`
+      <tr>
+        <td>${safe(r.center)}</td>
+        <td>${money(r.australian)}</td>
+        <td>${money(r.england)}</td>
+        <td>${money(r.trackside)}</td>
+        <td>${money(r.due)}</td>
+        <td class="money">${money(total(r))}</td>
+      </tr>
+    `).join("") || `<tr><td colspan="6">No records today</td></tr>`;
+}
+
+/* =========================================
+   NEW STAKE
+========================================= */
+
+["australian","england","trackside","due"].forEach(id=>{
+  document.addEventListener("input",e=>{
+    if(e.target.id===id)updateEntryTotal();
+  });
+});
+
+function updateEntryTotal(){
+  const sum=["australian","england","trackside"].reduce(
+    (a,id)=>a+(Number(document.getElementById(id).value)||0),0
+  );
+  document.getElementById("entryTotal").textContent=money(sum);
+}
+
+function clearStake(){
+  ["australian","england","trackside","due"].forEach(id=>{
+    document.getElementById(id).value="";
+  });
+  document.getElementById("stakeDate").value=colomboDate();
+  updateEntryTotal();
+}
+
+async function saveStake(){
+  const date=document.getElementById("stakeDate").value;
+  if(!date){
+    showMessage("appMessage","Please select a date");
+    return;
+  }
+
+  const values={};
+  for(const id of ["australian","england","trackside","due"]){
+    const raw=document.getElementById(id).value;
+    values[id]=raw===""?0:Number(raw);
+    if(!Number.isFinite(values[id])||values[id]<0){
+      showMessage("appMessage","Please enter valid amounts");
+      return;
+    }
+  }
+
+  try{
+    await api({
+      ...authData(),
+      action:"save",
+      date,
+      ...values
+    });
+
+    showMessage("appMessage","Stake saved successfully");
+    clearStake();
+    await refreshAll();
+    showSection("dashboard",document.querySelector(".nav button"));
+  }catch(error){
+    showMessage("appMessage",error.message);
+  }
+}
+
+/* =========================================
+   RECORDS
+========================================= */
+
+function renderRecords(){
+  const filter=document.getElementById("recordDate").value;
+  const rows=allRecords.filter(r=>!filter||r.date===filter);
+
+  document.getElementById("recordRows").innerHTML=
+    rows.slice().reverse().map(r=>`
+      <tr>
+        <td>${safe(r.date)}</td>
+        <td>${safe(r.center)}</td>
+        <td>${money(r.australian)}</td>
+        <td>${money(r.england)}</td>
+        <td>${money(r.trackside)}</td>
+        <td>${money(r.due)}</td>
+        <td class="money">${money(total(r))}</td>
+      </tr>
+    `).join("") || `<tr><td colspan="7">No records found</td></tr>`;
+}
+
+/* =========================================
+   MONTHLY REPORTS
+========================================= */
+
+function setupReportSelectors(){
+  const month=document.getElementById("reportMonth");
+  const year=document.getElementById("reportYear");
+
+  if(month.options.length===0){
+    for(let i=0;i<12;i++){
+      month.add(new Option(
+        new Date(2000,i,1).toLocaleString("en",{month:"long"}),
+        String(i+1).padStart(2,"0")
+      ));
+    }
+  }
+
+  if(year.options.length===0){
+    const current=Number(colomboDate().slice(0,4));
+    for(let y=current-3;y<=current+2;y++){
+      year.add(new Option(y,y));
+    }
+  }
+
+  const now=colomboDate();
+  month.value=now.slice(5,7);
+  year.value=now.slice(0,4);
+}
+
+function renderReport(){
+  if(!session)return;
+
+  const m=document.getElementById("reportMonth").value;
+  const y=document.getElementById("reportYear").value;
+  const rows=allRecords.filter(r=>
+    String(r.date).startsWith(y+"-"+m)
+  );
+
+  const sums={australian:0,england:0,trackside:0,due:0};
+
+  rows.forEach(r=>{
+    Object.keys(sums).forEach(k=>{
+      sums[k]+=Number(r[k])||0;
+    });
+  });
+
+  document.getElementById("reportPeriod").textContent=
+    y+"-"+m;
+
+  document.getElementById("repAus").textContent=money(sums.australian);
+  document.getElementById("repEng").textContent=money(sums.england);
+  document.getElementById("repTrack").textContent=money(sums.trackside);
+  document.getElementById("repDue").textContent=money(sums.due);
+  document.getElementById("repTotal").textContent=money(
+    sums.australian+sums.england+sums.trackside
+  );
+
+  document.getElementById("reportRows").innerHTML=
+    rows.slice().reverse().map(r=>`
+      <tr>
+        <td>${safe(r.date)}</td>
+        <td>${safe(r.center)}</td>
+        <td>${money(r.australian)}</td>
+        <td>${money(r.england)}</td>
+        <td>${money(r.trackside)}</td>
+        <td>${money(r.due)}</td>
+        <td>${money(total(r))}</td>
+      </tr>
+    `).join("") || `<tr><td colspan="7">No records found</td></tr>`;
+}
+
+async function downloadReport(){
+  const area=document.getElementById("reportArea");
+  try{
+    const canvas=await html2canvas(area,{
+      backgroundColor:"#111827",
+      scale:2
+    });
+    const link=document.createElement("a");
+    link.download="COLOMBO-NORTH-OUTLET-REPORT.png";
+    link.href=canvas.toDataURL("image/png");
+    link.click();
+  }catch(error){
+    showMessage("appMessage","Screenshot failed: "+error.message);
+  }
+}
+
+/* =========================================
+   SYSTEM ADMIN
+========================================= */
+
+async function loadSystem(){
+  if(session.role!=="system")return;
+  await Promise.all([
+    loadCenters(),
+    loadDevices(),
+    loadMaintenance()
+  ]);
+}
+
+async function loadCenters(){
+  try{
+    const r=await api({
+      ...authData(),
+      action:"centers"
+    });
+    allCenters=r.centers||[];
+
+    document.getElementById("centerList").innerHTML=
+      allCenters.map(c=>`
+        <div class="stat" style="margin:8px 0">
+          <strong style="font-size:15px">${safe(c)}</strong>
+          <button class="btn red" style="float:right;padding:7px"
+            onclick="removeCenter('${safeAttr(c)}')">REMOVE</button>
+          <div style="clear:both"></div>
+        </div>
+      `).join("") || "No centers added";
+  }catch(error){
+    showMessage("appMessage",error.message);
+  }
+}
+
+async function addCenter(){
+  const name=document.getElementById("newCenterName").value.trim();
+  if(!name){
+    showMessage("appMessage","Enter a center name");
+    return;
+  }
+
+  try{
+    await api({
+      ...authData(),
+      action:"addCenter",
+      centerName:name
+    });
+    document.getElementById("newCenterName").value="";
+    await loadCenters();
+    showMessage("appMessage","Center added successfully");
+  }catch(error){
+    showMessage("appMessage",error.message);
+  }
+}
+
+async function removeCenter(name){
+  if(!confirm("Deactivate center "+name+"?"))return;
+
+  try{
+    await api({
+      ...authData(),
+      action:"removeCenter",
+      centerName:name
+    });
+    await loadCenters();
+    showMessage("appMessage","Center deactivated");
+  }catch(error){
+    showMessage("appMessage",error.message);
+  }
+}
+
+async function loadDevices(){
+  if(session.role!=="system")return;
+
+  try{
+    const r=await api({
+      ...authData(),
+      action:"deviceList"
+    });
+
+    allDevices=r.devices||[];
+
+    document.getElementById("deviceRows").innerHTML=
+      allDevices.map(d=>`
+        <tr>
+          <td>${safe(d.center)}</td>
+          <td>${safe(d.deviceName||d.deviceId)}</td>
+          <td class="${d.online?"online":"offline"}">
+            ${d.blocked?"BLOCKED":d.online?"ONLINE":"OFFLINE"}
+          </td>
+          <td>
+            <button class="btn ${d.blocked?"green":"orange"}"
+              style="padding:6px;margin:2px"
+              onclick="deviceAction('${safeAttr(d.center)}','${safeAttr(d.deviceId)}','${d.blocked?"unblockDevice":"blockDevice"}')">
+              ${d.blocked?"UNBLOCK":"BLOCK"}
+            </button>
+            <button class="btn red"
+              style="padding:6px;margin:2px"
+              onclick="deviceAction('${safeAttr(d.center)}','${safeAttr(d.deviceId)}','removeDevice')">
+              REMOVE
+            </button>
+          </td>
+        </tr>
+      `).join("") || `<tr><td colspan="4">No devices registered</td></tr>`;
+
+  }catch(error){
+    showMessage("appMessage",error.message);
+  }
+}
+
+async function deviceAction(center,id,action){
+  if(!confirm("Are you sure?"))return;
+
+  try{
+    await api({
+      ...authData(),
+      action,
+      centerName:center,
+      deviceId:id
+    });
+    await loadDevices();
+    showMessage("appMessage","Device updated");
+  }catch(error){
+    showMessage("appMessage",error.message);
+  }
+}
+
 async function loadMaintenance(){
- try{
-  const r=await api({...authData(),action:"maintenanceStatus"});
-  const enabled=!!(r.enabled??r.maintenance);
-  document.getElementById("maintenanceStatus").textContent=enabled?"MAINTENANCE ON":"MAINTENANCE OFF";
-  document.getElementById("maintenanceStatus").style.color=enabled?"#ff8097":"#39ff75";
- }catch(e){document.getElementById("maintenanceStatus").textContent="Status unavailable";}
+  try{
+    const r=await api({
+      ...authData(),
+      action:"maintenanceStatus"
+    });
+    document.getElementById("maintenanceStatus").textContent=
+      r.maintenance?"MAINTENANCE ON":"MAINTENANCE OFF";
+  }catch(error){
+    document.getElementById("maintenanceStatus").textContent=error.message;
+  }
 }
-function startHeartbeat(){
- if(heartbeatTimer)clearInterval(heartbeatTimer);
- const beat=()=>api({...authData(),action:"heartbeat"}).catch(()=>{});
- beat();heartbeatTimer=setInterval(beat,60000);
+
+async function setMaintenance(enabled){
+  if(!confirm(enabled?"Turn maintenance ON?":"Turn maintenance OFF?"))return;
+
+  try{
+    const r=await api({
+      ...authData(),
+      action:"maintenance",
+      enabled:String(enabled)
+    });
+    document.getElementById("maintenanceStatus").textContent=
+      r.maintenance?"MAINTENANCE ON":"MAINTENANCE OFF";
+    showMessage("appMessage","Maintenance setting updated");
+  }catch(error){
+    showMessage("appMessage",error.message);
+  }
 }
-async function makeScreenshot(){
- try{
-  const target=currentPage==="reports"?document.getElementById("reportsPage"):document.getElementById("dashboardPage");
-  const canvas=await html2canvas(target,{backgroundColor:"#ffffff",scale:2});
-  const link=document.createElement("a");link.download="Colombo-North-Outlet-"+today()+".png";link.href=canvas.toDataURL("image/png");link.click();
- }catch(e){toast("Screenshot failed. Try again.");}
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+function showSection(id,button){
+  document.querySelectorAll(".section").forEach(el=>
+    el.classList.remove("active")
+  );
+  document.getElementById(id).classList.add("active");
+
+  document.querySelectorAll(".nav button").forEach(el=>
+    el.classList.remove("active")
+  );
+  if(button)button.classList.add("active");
+
+  if(id==="dashboard")renderDashboard();
+  if(id==="records")renderRecords();
+  if(id==="reports")renderReport();
+  if(id==="system")loadSystem();
+}
+
+/* =========================================
+   SAFE TEXT
+========================================= */
+
+function safe(value){
+  return String(value??"").replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",
+    '"':"&quot;","'":"&#39;"
+  }[c]));
+}
+
+function safeAttr(value){
+  return safe(value).replace(/`/g,"&#96;");
 }
 </script>
+
 </body>
 </html>
