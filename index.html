@@ -3,386 +3,382 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#080d13">
-<title>Daily Stake | Multi Center</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DAILY STAKE - MULTI CENTER</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
-:root{
- --bg:#080d13;--panel:#111b22;--green:#39ef9a;
- --purple:#a855f7;--orange:#ff9c43;--muted:#91a4a0;
- --line:rgba(255,255,255,.09);
-}
+:root{--bg:#07070d;--panel:#11111c;--purple:#a855f7;--green:#22c55e;--red:#ef4444;--muted:#9292a5}
 *{box-sizing:border-box}
-body{
- margin:0;background:var(--bg);color:#fff;
- font-family:Inter,Arial,sans-serif;min-height:100vh;
- overflow-x:hidden;
-}
-body:before{
- content:"";position:fixed;inset:0;z-index:-2;
- background:
- radial-gradient(ellipse at 10% 20%,#173d32 0%,transparent 42%),
- radial-gradient(ellipse at 90% 10%,#30144b 0%,transparent 40%),
- radial-gradient(ellipse at 50% 100%,#123d31 0%,transparent 45%),
- #080d13;
-}
-body:after{
- content:"";position:fixed;inset:0;z-index:-1;opacity:.18;
- background-image:radial-gradient(#9fffd0 1px,transparent 1px);
- background-size:34px 34px;pointer-events:none;
-}
-button,input,select{font:inherit}
-button{cursor:pointer}
-.wrap{width:min(100%,1050px);margin:auto;padding:20px 15px 45px}
-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:25px}
-.brand{display:flex;align-items:center;gap:12px}
-.logo{
- width:48px;height:48px;border-radius:15px;
- background:linear-gradient(135deg,#1fdb89,#7c3aed);
- display:grid;place-items:center;font-size:27px;
- box-shadow:0 0 25px #22d38a55;
-}
-.brand h1{font-size:17px;margin:0;font-weight:900;letter-spacing:1px}
-.brand small{color:var(--green);font-size:9px;letter-spacing:2px}
-.clock{text-align:right;color:var(--muted);font-size:11px;line-height:1.8}
-.hero{
- position:relative;overflow:hidden;border:1px solid var(--line);
- border-radius:23px;padding:27px 22px;margin-bottom:20px;
- background:linear-gradient(115deg,#172e29dd,#241638dd);
-}
-.hero:after{content:"🏇";position:absolute;right:4px;bottom:-24px;
- font-size:125px;opacity:.12;filter:grayscale(.4)}
-.hero h2{font-size:25px;margin:0 0 7px;font-weight:900}
-.hero p{font-size:12px;color:#b7c9c2;margin:0}
-.tag{display:inline-block;color:var(--green);font-size:9px;
- letter-spacing:2px;font-weight:800;margin-bottom:12px}
-.panel{
- background:rgba(17,27,34,.88);border:1px solid var(--line);
- border-radius:19px;padding:19px;margin-bottom:15px;
- box-shadow:0 15px 40px #0003;backdrop-filter:blur(14px)
-}
-.panel h3{font-size:14px;margin:0 0 15px}
-.field{margin-bottom:13px}
-.field label{display:block;font-size:10px;color:var(--muted);
- margin-bottom:7px;font-weight:700;letter-spacing:1px}
-input,select{
- width:100%;background:#091119;color:white;
- border:1px solid #304039;border-radius:11px;
- padding:14px;font-size:14px;outline:none;
-}
-input:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 3px #39ef9a18}
-.btn{
- border:0;border-radius:11px;padding:14px 17px;
- color:#06120c;background:linear-gradient(110deg,#39ef9a,#85f7b6);
- font-weight:900;font-size:12px;width:100%;
- transition:.2s;box-shadow:0 5px 20px #39ef9a20
-}
-.btn:active{transform:scale(.98)}
-.btn.secondary{background:#25332f;color:#d8eee4;box-shadow:none;border:1px solid var(--line)}
-.btn.danger{background:#4a2029;color:#ffb5bd;box-shadow:none}
-.btn.purple{background:linear-gradient(110deg,#9e55ed,#6d5df5);color:white}
-.btn.small{width:auto;padding:9px 12px;font-size:10px}
+body{margin:0;background:radial-gradient(circle at 15% 10%,#291044 0,transparent 35%),radial-gradient(circle at 90% 80%,#073b2b 0,transparent 35%),var(--bg);color:#fff;font-family:Arial,sans-serif;min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(120deg,transparent,#ffffff05,transparent);animation:shine 8s linear infinite}
+@keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+header{padding:18px 15px;text-align:center;background:#080810dd;border-bottom:1px solid #a855f755;position:sticky;top:0;z-index:5;backdrop-filter:blur(15px)}
+.logo{font-size:13px;letter-spacing:5px;color:#c084fc;font-weight:bold}
+h1{font-size:25px;letter-spacing:2px;margin:7px 0 2px}
+.subtitle{font-size:11px;color:#aaa;letter-spacing:3px}
+main{max-width:1050px;margin:auto;padding:15px}
+.panel{background:linear-gradient(145deg,#171725ed,#0e0e18ed);border:1px solid #ffffff17;border-radius:17px;padding:17px;margin:14px 0;box-shadow:0 12px 35px #0008}
+.login{max-width:430px;margin:9vh auto;text-align:center;padding:28px 20px}
+.horse{font-size:54px;animation:run 2s ease-in-out infinite alternate;display:inline-block}
+@keyframes run{to{transform:translateX(12px) scale(1.06)}}
+input,select{width:100%;background:#080811;border:1px solid #393348;color:white;padding:14px;border-radius:10px;margin:7px 0 13px;font-size:15px;outline:none}
+input:focus,select:focus{border-color:var(--purple)}
+label{font-size:12px;color:#c5b8d8}
+button{border:0;border-radius:10px;padding:12px 15px;background:linear-gradient(110deg,#9333ea,#6d28d9);color:white;font-weight:bold;cursor:pointer;margin:4px}
+button.green{background:linear-gradient(110deg,#16a34a,#15803d)}
+button.red{background:linear-gradient(110deg,#dc2626,#991b1b)}
+button.gray{background:#343443}
+button:disabled{opacity:.5}
+nav{display:flex;gap:7px;overflow-x:auto;padding:10px 0}
+nav button{white-space:nowrap;background:#1c1b29;border:1px solid #ffffff15;font-size:12px}
+nav button.active{background:linear-gradient(110deg,#9333ea,#6d28d9)}
+h2{font-size:18px;margin:4px 0 15px}
+h3{font-size:14px;color:#d8b4fe}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:#090912;border:1px solid #ffffff12;padding:15px;border-radius:13px}
+.stat small{display:block;color:#aaa;font-size:11px;margin-bottom:8px}
+.stat strong{font-size:21px}
+.greenText{color:#4ade80}.orangeText{color:#fb923c}.purpleText{color:#c084fc}.redText{color:#f87171}
+.actions{display:flex;flex-wrap:wrap;gap:5px}
+.rowitem{padding:12px 3px;border-bottom:1px solid #ffffff12;font-size:13px;display:flex;justify-content:space-between;gap:10px}
+.muted{color:var(--muted);font-size:12px}
 .hidden{display:none!important}
-.muted{color:var(--muted)}
-.smalltext{font-size:10px;color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.stat{
- border:1px solid var(--line);background:#101b21;
- border-radius:16px;padding:16px;min-width:0
-}
-.stat small{font-size:9px;color:var(--muted);font-weight:800;letter-spacing:1px}
-.stat strong{display:block;font-size:23px;margin-top:9px;overflow-wrap:anywhere}
-.green{color:var(--green)}.orange{color:var(--orange)}
-.purpletxt{color:#c69aff}
-.nav{display:flex;gap:8px;overflow-x:auto;margin-bottom:15px;padding-bottom:5px}
-.nav button{
- flex:0 0 auto;border:1px solid var(--line);border-radius:10px;
- background:#121d24;color:#a9bab3;padding:11px 14px;font-size:10px;font-weight:800
-}
-.nav button.active{background:#204633;color:var(--green);border-color:#39ef9a66}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.row+.row{margin-top:10px}
-.centeritem{
- background:#0b141a;border:1px solid var(--line);padding:14px;
- border-radius:13px;margin-bottom:9px
-}
-.pill{font-size:9px;border-radius:30px;padding:5px 9px;background:#183c2c;color:var(--green)}
-.pill.off{background:#43252b;color:#ffabb3}
-table{width:100%;border-collapse:collapse;font-size:11px}
-th,td{text-align:left;padding:12px 8px;border-bottom:1px solid var(--line)}
-th{color:var(--muted);font-size:9px}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:550px}
+td,th{padding:10px 7px;border-bottom:1px solid #ffffff15;text-align:left}
+th{color:#c084fc}
 .tablewrap{overflow-x:auto}
-.notice{padding:12px;border-radius:11px;background:#182820;color:#9fffc9;font-size:11px;margin-bottom:12px}
-.maintenance{
- position:fixed;inset:0;z-index:50;background:#080d13;
- display:flex;align-items:center;justify-content:center;padding:25px;text-align:center
-}
-.maintenance .symbol{font-size:65px}
-.maintenance h1{font-size:25px;color:#ffbd69;letter-spacing:2px}
-footer{text-align:center;color:#60716a;font-size:9px;padding:20px}
-@media(min-width:650px){
- .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
- .hero h2{font-size:34px}
- .wrap{padding-top:28px}
-}
+.notice{padding:13px;border-radius:10px;background:#351313;color:#fecaca;text-align:center}
+#reportPreview{background:#fff;color:#171717;padding:22px;border-radius:10px;max-width:500px;margin:15px auto}
+#reportPreview h2,#reportPreview h3{color:#171717;text-align:center}
+.reportline{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #ddd}
+.totalLine{font-size:19px;font-weight:bold}
+footer{text-align:center;color:#777;font-size:11px;padding:25px}
+#message{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#252238;border:1px solid #a855f7;padding:12px 18px;border-radius:12px;z-index:20;display:none;max-width:90%;text-align:center}
+@media(min-width:650px){.grid{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body>
-<div class="wrap">
 <header>
- <div class="brand">
-  <div class="logo">🏇</div>
-  <div><h1>DAILY STAKE</h1><small>MULTI CENTER SYSTEM</small></div>
- </div>
- <div class="clock"><div id="date"></div><div id="time"></div></div>
+ <div class="logo">🏇 DAILY STAKE</div>
+ <h1>MULTI CENTER</h1>
+ <div class="subtitle">PROFESSIONAL STAKE MANAGEMENT</div>
 </header>
 
-<section class="hero">
- <div class="tag">PREMIUM STAKE MANAGEMENT</div>
- <h2>One System.<br><span class="green">Multiple Centers.</span></h2>
- <p>Secure Center Management & Daily Stake Records</p>
-</section>
-
-<section id="login" class="panel">
- <div class="tag">SECURE ACCESS</div>
- <h3>Welcome Back</h3>
- <div class="field">
-  <label>USERNAME / CENTER NAME</label>
-  <input id="username" placeholder="Enter center name" autocomplete="username">
- </div>
- <div id="adminPass" class="field hidden">
+<main>
+<section id="loginScreen" class="panel login">
+ <div class="horse">🏇</div>
+ <div class="logo">DAILY STAKE SYSTEM</div>
+ <h2>SECURE LOGIN</h2>
+ <label>USERNAME / CENTER NAME</label>
+ <input id="username" placeholder="Enter center name or admin" autocomplete="username">
+ <div id="passwordBox" class="hidden">
   <label>ADMIN PASSWORD</label>
-  <input id="password" type="password" placeholder="Enter password">
+  <input id="password" type="password" placeholder="Enter admin password" autocomplete="current-password">
  </div>
- <button class="btn" onclick="login()">CONTINUE →</button>
- <p id="loginMsg" class="smalltext" style="margin-top:14px"></p>
- <p class="smalltext">New Centers must be registered by Admin 2.</p>
+ <button class="green" style="width:100%;margin-top:10px" onclick="login()">LOGIN</button>
+ <p class="muted">Authorized users only</p>
 </section>
 
-<section id="dashboard" class="hidden">
- <div class="row" style="margin-bottom:15px">
-  <div><div class="tag">DASHBOARD</div><h2 id="welcome" style="margin:0;font-size:20px">Dashboard</h2></div>
-  <button class="btn secondary small" onclick="logout()">LOG OUT</button>
+<section id="appScreen" class="hidden">
+ <div class="panel">
+  <div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
+   <div><div class="logo">DAILY STAKE</div><strong id="welcome">WELCOME</strong><div class="muted" id="businessDate"></div></div>
+   <button class="red" onclick="logout()">LOGOUT</button>
+  </div>
+  <nav id="nav"></nav>
  </div>
- <div id="maintenanceNotice" class="notice hidden">System Maintenance Mode is ON.</div>
- <nav id="nav" class="nav"></nav>
- <div id="content"></div>
+ <div id="page"></div>
 </section>
-<footer>DAILY STAKE • MULTI CENTER MANAGEMENT</footer>
-</div>
-
-<div id="maintenanceScreen" class="maintenance hidden">
- <div>
-  <div class="symbol">🔧</div>
-  <h1>UNDER MAINTENANCE</h1>
-  <p style="color:#b2c3bc;line-height:1.8">We are currently performing scheduled maintenance.<br>Please try again later.</p>
-  <small style="color:#72857b">DAILY STAKE SYSTEM</small>
- </div>
-</div>
+</main>
+<footer>DAILY STAKE • MULTI CENTER SYSTEM</footer>
+<div id="message"></div>
 
 <script>
 const API_URL="https://script.google.com/macros/s/AKfycbwVzKrmNhfTuAfynGQ-Ple1poFp5KH1EqXDwtxF-V9IWVZgPwh6S5JI5vRw5zzscag/exec";
 
-let session=null, centers=[], records=[], currentTab="home";
-const $=id=>document.getElementById(id);
-const money=n=>"Rs. "+Number(n||0).toLocaleString("en-US",{maximumFractionDigits:2});
+let token="", user=null, dashboardData=null, allRecords=[];
+let pageName="home", callbackNo=0;
 
 function deviceId(){
- let id=localStorage.getItem("ds_device");
- if(!id){
-  id=(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random());
-  localStorage.setItem("ds_device",id);
- }
+ let id=localStorage.getItem("ds_device_id");
+ if(!id){id="DEV-"+crypto.randomUUID();localStorage.setItem("ds_device_id",id)}
  return id;
+}
+function message(t){
+ const el=document.getElementById("message");
+ el.textContent=t;el.style.display="block";
+ setTimeout(()=>el.style.display="none",3500);
 }
 function api(action,data={}){
  return new Promise((resolve,reject)=>{
-  if(!API_URL.startsWith("https://script.google.com/"))return reject(Error("Add Apps Script URL first."));
-  const callback="ds_cb_"+Date.now()+"_"+Math.floor(Math.random()*10000);
+  const cb="dsCallback"+(++callbackNo);
   const script=document.createElement("script");
-  const timer=setTimeout(()=>{delete window[callback];script.remove();reject(Error("Connection timeout. Please try again."));},20000);
-  window[callback]=(result)=>{
-   clearTimeout(timer);script.remove();delete window[callback];
-   if(result.ok)resolve(result);else reject(Error(result.error||"Request failed"));
-  };
-  script.onerror=()=>{clearTimeout(timer);script.remove();delete window[callback];reject(Error("Server connection failed."));};
-  const params=new URLSearchParams({action,data:JSON.stringify(data),callback,nonce:String(Date.now())});
+  const timer=setTimeout(()=>{cleanup();reject(new Error("Server connection failed"))},15000);
+  function cleanup(){clearTimeout(timer);delete window[cb];script.remove()}
+  window[cb]=(res)=>{cleanup();if(res&&res.ok)resolve(res.data);else reject(new Error(res?.error||"Server error"))};
+  const params=new URLSearchParams({action,data:JSON.stringify(data),callback:cb,nonce:Date.now()});
   script.src=API_URL+"?"+params.toString();
+  script.onerror=()=>{cleanup();reject(new Error("Server connection failed"))};
   document.body.appendChild(script);
  });
 }
-function msg(t){$("loginMsg").textContent=t;}
-$("username").addEventListener("input",()=>{
- const admin=$("username").value.trim().toLowerCase()==="admin";
- $("adminPass").classList.toggle("hidden",!admin);
+document.getElementById("username").addEventListener("input",e=>{
+ document.getElementById("passwordBox").classList.toggle("hidden",e.target.value.trim().toLowerCase()!=="admin");
 });
+document.getElementById("username").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
+document.getElementById("password").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
+
 async function login(){
- const name=$("username").value.trim();
- if(!name)return msg("Enter your Center Name.");
- msg("Connecting...");
+ const username=document.getElementById("username").value.trim();
+ const password=document.getElementById("password").value;
+ if(!username){message("Enter username or center name");return}
  try{
-  let r;
-  if(name.toLowerCase()==="admin"){
-   const pass=$("password").value;
-   if(!pass)return msg("Enter admin password.");
-   r=await api("adminLogin",{password:pass});
-  }else{
-   r=await api("centerLogin",{center:name,deviceId:deviceId()});
-   localStorage.setItem("ds_center",name);
-  }
-  session=r.session;
-  localStorage.setItem("ds_session",session);
-  await enterDashboard(r);
- }catch(e){msg(e.message);}
-}
-async function enterDashboard(info){
- $("login").classList.add("hidden");
- $("dashboard").classList.remove("hidden");
- $("maintenanceScreen").classList.add("hidden");
- await refresh();
+  const result=await api("login",{username,password,deviceId:deviceId()});
+  token=result.token;user=result.user;
+  localStorage.setItem("ds_token",token);
+  localStorage.setItem("ds_user",JSON.stringify(user));
+  enterApp();
+ }catch(e){message(e.message)}
 }
 async function restore(){
- const token=localStorage.getItem("ds_session");
- if(!token)return;
+ const t=localStorage.getItem("ds_token");
+ if(!t)return;
  try{
-  const r=await api("verify",{session:token});
-  session=token;await enterDashboard(r);
- }catch(e){localStorage.removeItem("ds_session");localStorage.removeItem("ds_center");}
+  token=t;
+  const r=await api("verify",{token});
+  user=r.user;
+  enterApp();
+ }catch(e){localStorage.removeItem("ds_token");localStorage.removeItem("ds_user")}
+}
+function enterApp(){
+ document.getElementById("loginScreen").classList.add("hidden");
+ document.getElementById("appScreen").classList.remove("hidden");
+ document.getElementById("welcome").textContent=user.name;
+ buildNav();refresh();
 }
 async function logout(){
- session=null;localStorage.removeItem("ds_session");
- $("dashboard").classList.add("hidden");$("login").classList.remove("hidden");
- $("username").value=localStorage.getItem("ds_center")||"";
- $("username").dispatchEvent(new Event("input"));
- $("password").value="";
+ try{await api("logout",{token})}catch(e){}
+ token="";user=null;localStorage.removeItem("ds_token");localStorage.removeItem("ds_user");
+ document.getElementById("appScreen").classList.add("hidden");
+ document.getElementById("loginScreen").classList.remove("hidden");
+}
+function buildNav(){
+ let items=[];
+ if(user.role==="center")items=[["home","⌂ Dashboard"],["add","＋ New Stake"],["records","▤ Records"],["reports","▥ Reports"]];
+ if(user.role==="admin1")items=[["home","⌂ Dashboard"],["records","▤ All Records"],["reports","▥ Reports"],["centers","♙ Centers"]];
+ if(user.role==="admin2")items=[["home","⌂ Dashboard"],["centers","♙ Centers"],["maintenance","⚙ Maintenance"]];
+ document.getElementById("nav").innerHTML=items.map(x=>`<button id="nav_${x[0]}" onclick="showPage('${x[0]}')">${x[1]}</button>`).join("");
 }
 async function refresh(){
  try{
-  const r=await api("dashboard",{session});
-  if(r.maintenance && r.role==="center"){
-   $("maintenanceScreen").classList.remove("hidden");
-   $("dashboard").classList.add("hidden");return;
+  dashboardData=await api("dashboard",{token});
+  document.getElementById("businessDate").textContent="BUSINESS DATE: "+dashboardData.date;
+  if(dashboardData.maintenance&&user.role==="center"){
+   document.getElementById("page").innerHTML='<div class="panel notice"><h2>UNDER MAINTENANCE</h2>Please try again later.</div>';return;
   }
-  $("maintenanceNotice").classList.toggle("hidden",!r.maintenance);
-  sessionRole=r.role;currentCenter=r.center||"";
-  $("welcome").textContent=r.role==="admin1"?"ADMIN 1":r.role==="admin2"?"ADMIN 2":r.center;
-  if(r.role==="center")records=r.records||[];
-  else records=r.records||[];
-  centers=r.centers||[];
-  renderNav();render();
- }catch(e){alert(e.message);}
+  showPage(pageName);
+ }catch(e){message(e.message)}
 }
-let sessionRole="",currentCenter="";
-function renderNav(){
- let tabs=sessionRole==="admin1"?[
- ["home","Overview"],["records","All Stake"],["centers","Registered Centers"]
- ]:sessionRole==="admin2"?[
- ["home","Overview"],["centers","Registered Centers"],["maintenance","Maintenance"]
- ]:[
- ["home","Dashboard"],["records","My Records"],["add","Add Stake"]
- ];
- $("nav").innerHTML=tabs.map(([id,label])=>`<button class="${currentTab===id?"active":""}" onclick="tab('${id}')">${label}</button>`).join("");
+async function showPage(p){
+ pageName=p;
+ document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+ const nav=document.getElementById("nav_"+p);if(nav)nav.classList.add("active");
+ if(!dashboardData){await refresh();return}
+ if(p==="home")homePage();
+ if(p==="add")addPage();
+ if(p==="records")await recordsPage();
+ if(p==="reports")reportsPage();
+ if(p==="centers")centersPage();
+ if(p==="maintenance")maintenancePage();
 }
-function tab(t){currentTab=t;renderNav();render();}
-function render(){
- const c=$("content");
- if(currentTab==="home")return home(c);
- if(currentTab==="centers")return centerPage(c);
- if(currentTab==="maintenance")return maintenancePage(c);
- if(currentTab==="add")return addPage(c);
- if(currentTab==="records")return recordsPage(c);
- home(c);
+function money(n){return (Number(n)||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}
+function totals(list){
+ return list.reduce((a,r)=>{
+  a.au+=Number(r.australian||0);a.en+=Number(r.england||0);
+  a.tr+=Number(r.trackside||0);a.due+=Number(r.due||0);
+  a.total+=Number(r.total||0);return a;
+ },{au:0,en:0,tr:0,due:0,total:0});
 }
-function home(c){
- const total=records.reduce((s,r)=>s+(r.category==="Due"?0:Number(r.amount)),0);
- const due=records.filter(r=>r.category==="Due").reduce((s,r)=>s+Number(r.amount),0);
- c.innerHTML=`
- <div class="grid">
-  <div class="stat"><small>${sessionRole==="center"?"MY DAILY STAKE":"RECORDS LOADED"}</small><strong class="green">${records.length}</strong></div>
-  <div class="stat"><small>STAKE TOTAL</small><strong class="green">${money(total)}</strong></div>
-  <div class="stat"><small>DUE</small><strong class="orange">${money(due)}</strong></div>
-  <div class="stat"><small>REGISTERED CENTERS</small><strong class="purpletxt">${centers.length}</strong></div>
- </div>
- <div class="panel" style="margin-top:15px">
-  <div class="row"><h3>System Status</h3><span class="pill">CONNECTED</span></div>
-  <p class="smalltext">Business day changes automatically at 03:45 Sri Lanka time. Previous records remain saved.</p>
- </div>`;
-}
-function centerPage(c){
- if(sessionRole==="admin2"){
- c.innerHTML=`<div class="panel"><h3>Register New Center</h3>
- <div class="field"><label>CENTER NAME</label><input id="newCenter" placeholder="Enter new center name"></div>
- <button class="btn" onclick="addCenter()">REGISTER CENTER</button></div>`;
- }else c.innerHTML="";
- c.innerHTML+=`<div class="panel"><div class="row"><h3>Registered Centers</h3><span class="pill">${centers.length} CENTERS</span></div>
- <div id="centerList"></div></div>`;
- $("centerList").innerHTML=centers.length?centers.map(x=>`
- <div class="centeritem">
-  <div class="row"><strong>${esc(x.name)}</strong><span class="pill ${x.active?"":"off"}">${x.active?"ACTIVE":"DISABLED"}</span></div>
-  <div class="row" style="margin-top:12px"><span class="smalltext">Registered devices: ${x.devices}/2</span>
-  ${sessionRole==="admin2"?`<button class="btn secondary small" onclick="toggleCenter('${escAttr(x.name)}',${!x.active})">${x.active?"DISABLE":"ENABLE"}</button>`:""}
+function homePage(){
+ const t=totals(dashboardData.records||[]);
+ const isAdmin=user.role==="admin1";
+ document.getElementById("page").innerHTML=`
+ <div class="panel">
+  <div class="horse">🏇</div><h2>HOME DASHBOARD</h2>
+  <div class="muted">MAKE YOUR STAKE COUNT!</div>
+  <div class="grid" style="margin-top:15px">
+   <div class="stat"><small>🇦🇺 AUSTRALIAN TOTAL</small><strong class="greenText">${money(t.au)}</strong></div>
+   <div class="stat"><small>🇬🇧 ENGLAND TOTAL</small><strong class="orangeText">${money(t.en)}</strong></div>
+   <div class="stat"><small>🏇 TRACKSIDE TOTAL</small><strong class="purpleText">${money(t.tr)}</strong></div>
+   <div class="stat"><small>💰 DUE TOTAL</small><strong class="redText">${money(t.due)}</strong></div>
   </div>
-  ${sessionRole==="admin2"?`<button class="btn secondary small" style="margin-top:10px" onclick="resetDevices('${escAttr(x.name)}')">RESET DEVICES</button>`:""}
- </div>`).join(""):`<p class="smalltext">No registered Centers yet.</p>`;
+  <div class="stat" style="margin-top:12px;text-align:center">
+   <small>${isAdmin?"ALL CENTERS' DISPLAYED DAY'S TOTAL STAKE":"DISPLAYED DAY'S TOTAL STAKE"}</small>
+   <strong class="greenText">${money(t.total)}</strong>
+  </div>
+ </div>
+ <div class="panel"><h2>⚡ QUICK ACTIONS</h2><div class="actions">
+ ${user.role==="center"?'<button onclick="showPage(\\'add\\')">＋ New Stake</button>':''}
+ <button onclick="showPage('records')">▤ View Records</button>
+ ${user.role!=="admin2"?'<button onclick="showPage(\\'reports\\')">▥ Reports</button>':''}
+ </div></div>
+ <div class="panel"><h2>📋 DASHBOARD RECORDS</h2>${recordRows(dashboardData.records||[],isAdmin)}</div>`;
 }
-function maintenancePage(c){
- c.innerHTML=`<div class="panel">
- <div class="tag">SYSTEM CONTROL</div><h3>Maintenance Mode</h3>
- <p class="smalltext">When enabled, all Center users will see the Under Maintenance screen. Admins can still log in.</p>
- <div class="row" style="margin:20px 0"><strong>Maintenance Status</strong><span id="maintState" class="pill">Loading</span></div>
- <button class="btn danger" onclick="setMaintenance(true)">TURN MAINTENANCE ON</button>
- <button class="btn" style="margin-top:10px" onclick="setMaintenance(false)">TURN MAINTENANCE OFF</button>
- </div>`;
- api("getMaintenance",{session}).then(r=>$("maintState").textContent=r.maintenance?"ON":"OFF").catch(()=>{});
+function recordRows(list,showCenter){
+ if(!list.length)return '<p class="muted">No records found for this business date.</p>';
+ return list.map(r=>`<div class="rowitem"><span>${showCenter?'<b>'+esc(r.center)+'</b><br>':''}${esc(r.date)}<br><span class="muted">AU ${money(r.australian)} | EN ${money(r.england)} | TR ${money(r.trackside)} | DUE ${money(r.due)}</span></span><b>${money(r.total)}</b></div>`).join("");
 }
-function addPage(c){
- c.innerHTML=`<div class="panel"><div class="tag">NEW TRANSACTION</div><h3>Add Daily Stake</h3>
- <div class="field"><label>CATEGORY</label><select id="category">
- <option>Australian</option><option>England</option><option>Trackside</option><option>Due</option>
- </select></div>
- <div class="field"><label>AMOUNT (LKR)</label><input id="amount" type="number" min="0" step="0.01" placeholder="Enter amount"></div>
- <div class="field"><label>NOTE (OPTIONAL)</label><input id="note" placeholder="Enter note"></div>
- <button class="btn" onclick="saveStake()">SAVE STAKE</button></div>`;
+function addPage(){
+ document.getElementById("page").innerHTML=`
+ <div class="panel"><h2>＋ NEW STAKE</h2><p class="muted">Enter today's daily stake details</p>
+ <label>BUSINESS DATE</label><input id="stakeDate" type="date" value="${dashboardData.date}">
+ ${stakeInput("australian","🇦🇺 AUSTRALIAN")}
+ ${stakeInput("england","🇬🇧 ENGLAND")}
+ ${stakeInput("trackside","🏇 TRACKSIDE")}
+ ${stakeInput("due","💸 DUE")}
+ <div class="stat"><small>TOTAL DAILY STAKE (WITHOUT DUE)</small><strong id="liveTotal" class="greenText">0.00</strong></div>
+ <div class="actions" style="margin-top:12px">
+ <button class="green" onclick="saveStake()">✓ SAVE STAKE</button>
+ <button class="gray" onclick="clearStake()">↻ CLEAR</button>
+ <button onclick="makeScreenshot()">📸 SCREENSHOT REPORT</button>
+ </div></div>
+ <div class="panel"><h3>📸 REPORT PREVIEW</h3><div id="reportPreview">${reportHtml({date:dashboardData.date,center:user.name,australian:0,england:0,trackside:0,due:0,total:0})}</div></div>`;
+ ["australian","england","trackside","due"].forEach(id=>document.getElementById(id).addEventListener("input",updateLive));
 }
-function recordsPage(c){
- const total=records.reduce((s,r)=>s+(r.category==="Due"?0:Number(r.amount)),0);
- c.innerHTML=`<div class="panel">
- <div class="row"><h3>Stake Records</h3><button class="btn secondary small" onclick="refresh()">REFRESH</button></div>
- <div class="stat" style="margin-bottom:12px"><small>STAKE TOTAL (EXCLUDING DUE)</small><strong class="green">${money(total)}</strong></div>
- <div class="tablewrap"><table><thead><tr><th>DATE</th>${sessionRole==="admin1"?"<th>CENTER</th>":""}<th>TYPE</th><th>AMOUNT</th></tr></thead><tbody>
- ${records.map(r=>`<tr><td>${esc(r.date||"")}</td>${sessionRole==="admin1"?`<td>${esc(r.center||"")}</td>`:""}<td>${esc(r.category)}</td><td>${money(r.amount)}</td></tr>`).join("")||"<tr><td colspan='4'>No records found</td></tr>"}
- </tbody></table></div></div>`;
+function stakeInput(id,label){
+ return `<label>${label} AMOUNT (LKR)</label><input id="${id}" type="number" min="0" step="0.01" placeholder="0.00">`;
 }
-async function addCenter(){
- const name=$("newCenter").value.trim();if(!name)return alert("Enter Center name");
- try{await api("addCenter",{session,name});alert("Center registered.");await refresh();tab("centers");}catch(e){alert(e.message);}
+function updateLive(){
+ const a=Number(document.getElementById("australian").value)||0;
+ const b=Number(document.getElementById("england").value)||0;
+ const c=Number(document.getElementById("trackside").value)||0;
+ const d=Number(document.getElementById("due").value)||0;
+ const date=document.getElementById("stakeDate").value;
+ const r={date,center:user.name,australian:a,england:b,trackside:c,due:d,total:a+b+c};
+ document.getElementById("liveTotal").textContent=money(r.total);
+ document.getElementById("reportPreview").innerHTML=reportHtml(r);
 }
-async function toggleCenter(name,active){
- if(!confirm((active?"Enable ":"Disable ")+name+"?"))return;
- try{await api("toggleCenter",{session,name,active});await refresh();tab("centers");}catch(e){alert(e.message);}
-}
-async function resetDevices(name){
- if(!confirm("Reset both registered device slots for "+name+"?"))return;
- try{await api("resetDevices",{session,name});alert("Devices reset.");await refresh();tab("centers");}catch(e){alert(e.message);}
-}
-async function setMaintenance(enabled){
- if(!confirm(enabled?"Turn maintenance ON for all Centers?":"Turn maintenance OFF?"))return;
- try{await api("setMaintenance",{session,enabled});alert("Maintenance setting saved.");await refresh();tab("maintenance");}catch(e){alert(e.message);}
+function clearStake(){
+ ["australian","england","trackside","due"].forEach(id=>document.getElementById(id).value="");
+ updateLive();
 }
 async function saveStake(){
- const category=$("category").value,amount=Number($("amount").value),note=$("note").value;
- if(!Number.isFinite(amount)||amount<=0)return alert("Enter a valid amount.");
- try{await api("addRecord",{session,category,amount,note});alert("Stake saved.");await refresh();tab("records");}catch(e){alert(e.message);}
+ const d={token,date:document.getElementById("stakeDate").value};
+ ["australian","england","trackside","due"].forEach(k=>d[k]=Number(document.getElementById(k).value)||0);
+ if(!d.date){message("Select business date");return}
+ if(!d.australian&&!d.england&&!d.trackside&&!d.due){message("Enter at least one amount");return}
+ try{
+  await api("addRecord",d);message("Stake saved successfully");await refresh();
+ }catch(e){message(e.message)}
 }
-function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-function escAttr(s){return String(s??"").replace(/\\/g,"\\\\").replace(/'/g,"\\'");}
-function tick(){
- const d=new Date();
- $("date").textContent=d.toLocaleDateString("en-GB",{weekday:"short",day:"2-digit",month:"short",year:"numeric"});
- $("time").textContent=d.toLocaleTimeString("en-GB",{hour12:true});
+async function recordsPage(){
+ document.getElementById("page").innerHTML=`
+ <div class="panel"><h2>▤ SAVED RECORDS</h2>
+ <label>SEARCH BY DATE</label><input id="searchDate" type="date">
+ <div class="actions"><button onclick="searchRecords()">🔎 SEARCH</button><button class="gray" onclick="loadAllRecords()">ALL RECORDS</button></div>
+ <div id="recordsResult" class="muted">Loading records...</div></div>`;
+ await loadAllRecords();
 }
-setInterval(tick,1000);tick();
+async function loadAllRecords(){
+ try{
+  allRecords=await api("records",{token});
+  renderRecords(allRecords);
+ }catch(e){message(e.message)}
+}
+async function searchRecords(){
+ const date=document.getElementById("searchDate").value;
+ if(!date){message("Select a date");return}
+ try{allRecords=await api("records",{token,date});renderRecords(allRecords)}catch(e){message(e.message)}
+}
+function renderRecords(list){
+ const showCenter=user.role==="admin1";
+ let html=list.length?`<div class="tablewrap"><table><thead><tr>${showCenter?"<th>Center</th>":""}<th>Date</th><th>Australian</th><th>England</th><th>Trackside</th><th>Due</th><th>Total</th></tr></thead><tbody>`:"";
+ list.forEach(r=>{html+=`<tr>${showCenter?`<td>${esc(r.center)}</td>`:""}<td>${esc(r.date)}</td><td>${money(r.australian)}</td><td>${money(r.england)}</td><td>${money(r.trackside)}</td><td>${money(r.due)}</td><td><b>${money(r.total)}</b></td></tr>`});
+ if(list.length)html+="</tbody></table></div>";
+ else html='<p class="muted">No records found.</p>';
+ document.getElementById("recordsResult").innerHTML=html;
+}
+function reportsPage(){
+ document.getElementById("page").innerHTML=`
+ <div class="panel"><h2>📊 REPORTS</h2><label>SELECT MONTH</label>
+ <input id="reportMonth" type="month" value="${dashboardData.date.slice(0,7)}">
+ <button onclick="monthlyReport()">VIEW MONTHLY REPORT</button>
+ <div id="monthlyResult" style="margin-top:15px"></div>
+ <button onclick="makeScreenshot()">📸 SCREENSHOT REPORT</button></div>`;
+}
+async function monthlyReport(){
+ const month=document.getElementById("reportMonth").value;
+ if(!month){message("Select a month");return}
+ try{
+  const list=await api("records",{token,month});
+  const t=totals(list);
+  document.getElementById("monthlyResult").innerHTML=`
+  <div class="grid">
+   <div class="stat"><small>AUSTRALIAN</small><strong>${money(t.au)}</strong></div>
+   <div class="stat"><small>ENGLAND</small><strong>${money(t.en)}</strong></div>
+   <div class="stat"><small>TRACKSIDE</small><strong>${money(t.tr)}</strong></div>
+   <div class="stat"><small>DUE</small><strong>${money(t.due)}</strong></div>
+  </div><div class="stat" style="margin-top:10px"><small>MONTHLY TOTAL (WITHOUT DUE)</small><strong class="greenText">${money(t.total)}</strong></div>
+  <p class="muted">${list.length} records</p>`;
+ }catch(e){message(e.message)}
+}
+function centersPage(){
+ const list=dashboardData.centers||[];
+ let html=list.length?list.map(c=>`<div class="rowitem"><span><b>${esc(c.name)}</b><br><span class="muted">${c.enabled?"ACTIVE":"DISABLED"}</span></span>
+ ${user.role==="admin2"?`<span><button class="${c.enabled?"red":"green"}" onclick="toggleCenter('${escAttr(c.name)}',${!c.enabled})">${c.enabled?"DISABLE":"ENABLE"}</button><button class="gray" onclick="resetDevices('${escAttr(c.name)}')">RESET DEVICES</button></span>`:""}</div>`).join(""):'<p class="muted">No centers registered.</p>';
+ document.getElementById("page").innerHTML=`
+ <div class="panel"><h2>♙ REGISTERED CENTERS</h2>${html}</div>
+ ${user.role==="admin2"?`<div class="panel"><h2>＋ ADD NEW CENTER</h2><label>CENTER NAME</label><input id="newCenter" placeholder="Enter center name"><button class="green" onclick="addCenter()">REGISTER CENTER</button></div>`:""}`;
+}
+async function addCenter(){
+ const name=document.getElementById("newCenter").value.trim();
+ if(!name){message("Enter center name");return}
+ try{await api("addCenter",{token,name});message("Center registered");await refresh()}catch(e){message(e.message)}
+}
+async function toggleCenter(name,enabled){
+ if(!confirm((enabled?"Enable ":"Disable ")+name+"?"))return;
+ try{await api("toggleCenter",{token,name,enabled});message("Center updated");await refresh()}catch(e){message(e.message)}
+}
+async function resetDevices(name){
+ if(!confirm("Reset all device slots for "+name+"?"))return;
+ try{await api("resetDevices",{token,name});message("Device slots reset");await refresh()}catch(e){message(e.message)}
+}
+function maintenancePage(){
+ const on=dashboardData.maintenance;
+ document.getElementById("page").innerHTML=`
+ <div class="panel"><h2>⚙ SYSTEM MAINTENANCE</h2>
+ <div class="stat"><small>CURRENT STATUS</small><strong class="${on?"redText":"greenText"}">${on?"MAINTENANCE ON":"SYSTEM ACTIVE"}</strong></div>
+ <p class="muted">When maintenance is ON, center users cannot access the system. Admin access remains available.</p>
+ <button class="${on?"green":"red"}" onclick="setMaintenance(${!on})">${on?"TURN MAINTENANCE OFF":"TURN MAINTENANCE ON"}</button></div>`;
+}
+async function setMaintenance(enabled){
+ if(!confirm(enabled?"Enable system maintenance?":"Disable system maintenance?"))return;
+ try{await api("setMaintenance",{token,enabled});message("Maintenance setting updated");await refresh()}catch(e){message(e.message)}
+}
+function reportHtml(r){
+ return `<div style="text-align:center;font-family:Arial">
+ <div style="font-size:30px">🏇</div><h2>DAILY STAKE REPORT</h2>
+ <h3>${esc(r.center||"MULTI CENTER")}</h3><p>Date: ${esc(r.date||"-")}</p>
+ <div class="reportline"><span>🇦🇺 Australian</span><b>${money(r.australian)}</b></div>
+ <div class="reportline"><span>🇬🇧 England</span><b>${money(r.england)}</b></div>
+ <div class="reportline"><span>🏇 Trackside</span><b>${money(r.trackside)}</b></div>
+ <div class="reportline"><span>💸 Due</span><b>${money(r.due)}</b></div>
+ <div class="reportline totalLine"><span>TOTAL DAILY STAKE</span><b>${money(r.total)}</b></div>
+ <p style="font-size:11px;color:#555">Due is separate and not included in Total Stake.</p>
+ <p style="font-size:10px">DAILY STAKE • MULTI CENTER SYSTEM</p></div>`;
+}
+async function makeScreenshot(){
+ const target=document.getElementById("reportPreview")||document.getElementById("monthlyResult");
+ if(!target||!target.innerHTML.trim()){message("No report to capture");return}
+ try{
+  const canvas=await html2canvas(target,{scale:2,backgroundColor:"#ffffff"});
+  const a=document.createElement("a");a.download="daily-stake-report.png";a.href=canvas.toDataURL("image/png");a.click();
+ }catch(e){message("Screenshot failed")}
+}
+function esc(s){
+ return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function escAttr(s){return String(s??"").replace(/\\/g,"\\\\").replace(/'/g,"\\'")}
 restore();
 </script>
 </body>
