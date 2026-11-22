@@ -5,691 +5,540 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Daily Stake Multi Center</title>
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;color:white;font-family:Arial,sans-serif;
- background:linear-gradient(135deg,#090611,#180c32,#071d17);
- min-height:100vh
-}
-body:before{
- content:"";position:fixed;inset:0;z-index:-1;
- background:
- radial-gradient(circle at 20% 20%,#7525ad55,transparent 35%),
- radial-gradient(circle at 80% 80%,#00ff7950,transparent 35%);
- animation:bg 8s infinite alternate
-}
-@keyframes bg{to{filter:hue-rotate(55deg);transform:scale(1.1)}}
-button,input{font:inherit}
-button{cursor:pointer;border:0}
+body{margin:0;font-family:Arial,sans-serif;color:#fff;background:linear-gradient(135deg,#09051b,#251044,#071d30);min-height:100vh}
+header{padding:18px;text-align:center;background:#100923;border-bottom:1px solid #65429a}
+h1{margin:4px;font-size:23px;color:#ffcf45}
+h2{font-size:20px}
+small{color:#bdb4d4}
+main{max-width:1000px;margin:auto;padding:15px}
+.panel{background:#17132c;border:1px solid #49366b;border-radius:15px;padding:16px;margin:12px 0;box-shadow:0 8px 25px #0005}
+input,select,button{width:100%;padding:13px;border-radius:9px;border:1px solid #62527c;margin:6px 0;font-size:15px}
+input,select{background:#0e0b1c;color:white}
+button{background:#ffbd36;color:#20122b;font-weight:bold;border:0;cursor:pointer}
+button.secondary{background:#44345f;color:white}
+button.danger{background:#c83b50;color:white}
+button.good{background:#198754;color:white}
+button:disabled{opacity:.5}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .hidden{display:none!important}
-#login{
- min-height:100vh;display:flex;align-items:center;
- justify-content:center;padding:20px
-}
-.loginbox{
- width:100%;max-width:420px;text-align:center;
- padding:30px 22px;border:1px solid #9d55dc;
- background:#100b20ed;border-radius:22px;
- box-shadow:0 0 35px #8729b777
-}
-.horse{font-size:65px;animation:horse 1.5s infinite alternate}
-@keyframes horse{to{transform:translateY(-9px) scale(1.05)}}
-.logo{font-size:25px;font-weight:900;color:#adff4f}
-.sub{color:#b8a9cc;margin:10px 0 25px}
-input{
- width:100%;padding:14px;margin:9px 0;
- background:#211632;color:white;border:1px solid #725091;
- border-radius:10px;outline:none
-}
-.btn{
- padding:13px 18px;border-radius:10px;
- color:#07120b;font-weight:bold;
- background:linear-gradient(90deg,#8bff42,#00d88a)
-}
-.btn.red{background:#e8415d;color:white}
-.btn.purple{background:#923df1;color:white}
-#message{margin-top:15px;color:#ffce65;font-weight:bold}
-header{
- padding:15px;display:flex;align-items:center;
- justify-content:space-between;gap:10px;flex-wrap:wrap;
- background:#100b20ef;border-bottom:1px solid #643d80
-}
-.brand{font-weight:900;color:#aaff52;font-size:20px}
-header button{padding:9px 13px;border-radius:8px}
-.layout{display:flex;min-height:calc(100vh - 60px)}
-nav{
- width:190px;padding:16px 10px;background:#0d0919;
- border-right:1px solid #39264e;flex-shrink:0
-}
-nav button{
- width:100%;padding:14px 10px;margin-bottom:9px;
- color:white;background:#211631;border-radius:9px;text-align:left
-}
-nav button.active,nav button:hover{
- background:linear-gradient(90deg,#6d22a9,#087b4b)
-}
-main{padding:18px;width:100%;min-width:0}
-.banner{
- padding:22px;border-radius:16px;margin-bottom:18px;
- background:linear-gradient(100deg,#331052,#075b3c);
- border:1px solid #9d56d1;display:flex;
- justify-content:space-between;align-items:center
-}
-.banner h2{margin:0;color:#baff66}
-.banner .horse{font-size:42px}
-.grid{
- display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
- gap:12px;margin-bottom:20px
-}
-.card{
- background:#171027;border:1px solid #56376d;
- padding:17px;border-radius:13px;min-width:0
-}
-.card small{color:#b9a9cc}
-.amount{font-size:22px;color:#aaff53;font-weight:bold;margin-top:10px;overflow-wrap:anywhere}
-.section{display:none}
-.section.active{display:block}
-h2,h3{color:#baff66}
-.formgrid{
- display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px
-}
-.field label{font-size:13px;color:#cdb9e5}
-.field input{margin-top:7px}
-.tablewrap{overflow-x:auto}
-table{border-collapse:collapse;width:100%;min-width:650px}
-th,td{padding:12px 9px;text-align:left;border-bottom:1px solid #49365a}
-th{color:#baff66;background:#211632}
-tr:hover td{background:#211632}
-.pending{
- padding:16px;background:#36240d;border:1px solid #e2a637;
- border-radius:12px;color:#ffdc80;margin:12px 0
-}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
-.actions button{padding:11px;border-radius:9px}
-#reportArea{background:#100b20;padding:12px;border-radius:12px}
-.centeritem{
- padding:14px;margin:10px 0;background:#241732;
- border:1px solid #63427c;border-radius:10px;
- display:flex;justify-content:space-between;align-items:center;gap:10px
-}
-footer{text-align:center;padding:20px;color:#9684a8}
-@media(max-width:850px){
- .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
- .layout{display:block}
- nav{width:100%;display:flex;overflow-x:auto;gap:7px;padding:9px}
- nav button{min-width:115px;text-align:center;margin:0;padding:12px 7px}
- main{padding:12px}
- .banner{padding:16px}
-}
-@media(max-width:430px){
- .formgrid{grid-template-columns:1fr}
- .brand{font-size:17px}
- .grid{gap:8px}
- .card{padding:12px}
- .amount{font-size:19px}
+.notice{padding:13px;background:#382b51;border-radius:9px;margin:10px 0}
+.warn{color:#ffd36a}
+.goodtext{color:#66edaa}
+.badtext{color:#ff7c8b}
+.card{padding:12px;background:#211b39;border-radius:10px;margin:9px 0;border:1px solid #44345f}
+.tabs{display:flex;gap:7px;overflow-x:auto;margin:10px 0}
+.tabs button{min-width:110px;white-space:nowrap}
+.tabs button.active{background:#e64c69;color:white}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:650px}
+th,td{padding:9px;border-bottom:1px solid #493b61;text-align:left}
+.tablewrap{overflow:auto}
+.stat{background:#29203e;padding:12px;border-radius:10px;text-align:center}
+.stat strong{display:block;font-size:20px;color:#ffd05c;margin-top:5px}
+label{display:block;margin-top:8px;color:#cfc4e7;font-size:13px}
+.actions{display:flex;gap:6px;flex-wrap:wrap}
+.actions button{width:auto;flex:1;min-width:85px;padding:9px}
+.center-title{color:#ffcf45;font-weight:bold}
+footer{text-align:center;color:#a99cbd;padding:20px;font-size:12px}
+@media(max-width:550px){
+ .row{grid-template-columns:1fr 1fr}
+ .three{grid-template-columns:1fr 1fr}
+ h1{font-size:19px}
+ main{padding:9px}
+ .panel{padding:12px}
 }
 </style>
 </head>
 <body>
-
-<div id="login">
- <div class="loginbox">
-  <div class="horse">🏇</div>
-  <div class="logo">DAILY STAKE</div>
-  <h2>MULTI CENTER SYSTEM</h2>
-  <div class="sub">Secure Center Access</div>
-  <input id="centerName" placeholder="Enter Center Name"
-   autocomplete="off" oninput="checkAdmin()">
-  <div id="passwordArea" class="hidden">
-   <input id="adminPassword" type="password" placeholder="Admin Password">
-  </div>
-  <button class="btn" style="width:100%;margin-top:12px" onclick="login()">LOGIN</button>
-  <div id="message"></div>
- </div>
-</div>
-
-<div id="app" class="hidden">
 <header>
- <div class="brand">🏇 DAILY STAKE</div>
- <div id="userLabel"></div>
- <button class="btn red" onclick="logout()">LOGOUT</button>
+  <h1>🏇 DAILY STAKE</h1>
+  <small>MULTI CENTER MANAGEMENT SYSTEM</small>
 </header>
 
-<div class="layout">
-<nav>
- <button class="active" onclick="showPage('dashboard',this)">🏠 Dashboard</button>
- <button id="newBtn" onclick="showPage('newstake',this)">➕ New Stake</button>
- <button onclick="showPage('records',this)">📋 Records</button>
- <button onclick="showPage('reports',this)">📊 Reports</button>
- <button id="approvalBtn" class="hidden" onclick="showPage('approval',this)">✅ Approvals</button>
-</nav>
-
 <main>
-<div class="banner">
- <div>
-  <h2>DAILY STAKE</h2>
-  <p id="centerTitle">Multi Center Dashboard</p>
-  <small id="clock"></small>
- </div>
- <div class="horse">🏇</div>
-</div>
-
-<div id="approvalWarning" class="pending hidden">
- <h3>APPROVAL PENDING</h3>
- Your center is waiting for Admin 2 approval.
- Stake entry is currently disabled.
-</div>
-
-<section id="dashboard" class="section active">
- <h2>Dashboard</h2>
- <div class="grid">
-  <div class="card"><small>Australia</small><div class="amount" id="aTotal">0.00</div></div>
-  <div class="card"><small>England</small><div class="amount" id="eTotal">0.00</div></div>
-  <div class="card"><small>Trackside</small><div class="amount" id="tTotal">0.00</div></div>
-  <div class="card"><small>Due</small><div class="amount" id="dTotal">0.00</div></div>
-  <div class="card"><small>Total Daily Stake</small><div class="amount" id="allTotal">0.00</div></div>
- </div>
- <div class="card">
-  <h3>Recent Records</h3>
-  <div class="tablewrap" id="recent"></div>
- </div>
-</section>
-
-<section id="newstake" class="section">
- <h2>New Stake Entry</h2>
- <div class="card">
-  <div class="formgrid">
-   <div class="field"><label>Australia</label><input id="australia" type="number" min="0" step="0.01" placeholder="0.00"></div>
-   <div class="field"><label>England</label><input id="england" type="number" min="0" step="0.01" placeholder="0.00"></div>
-   <div class="field"><label>Trackside</label><input id="trackside" type="number" min="0" step="0.01" placeholder="0.00"></div>
-   <div class="field"><label>Due</label><input id="due" type="number" min="0" step="0.01" placeholder="0.00"></div>
+<section id="loginScreen" class="panel">
+  <h2>🔐 Login</h2>
+  <label>Center Name / Admin</label>
+  <input id="loginName" placeholder="Enter Center Name or Admin">
+  <div id="passwordArea" class="hidden">
+    <label>Admin Password</label>
+    <input id="loginPassword" type="password" placeholder="Enter Password">
   </div>
-  <div class="card" style="margin-top:12px">
-   <small>Total Daily Stake (Due excluded)</small>
-   <div class="amount" id="previewTotal">0.00</div>
+  <button onclick="login()">LOGIN</button>
+  <div id="loginMessage" class="notice hidden"></div>
+</section>
+
+<section id="centerScreen" class="hidden">
+  <div class="panel">
+    <div class="row">
+      <div><h2>🏢 <span id="centerName"></span></h2></div>
+      <div style="text-align:right"><button class="secondary" onclick="logout()">LOGOUT</button></div>
+    </div>
+    <div class="notice goodtext">CENTER APPROVED</div>
+    <h3>Enter Daily Stake</h3>
+    <div class="row">
+      <div><label>Australia</label><input id="australia" type="number" min="0" step="0.01" value="0"></div>
+      <div><label>England</label><input id="england" type="number" min="0" step="0.01" value="0"></div>
+      <div><label>Trackside</label><input id="trackside" type="number" min="0" step="0.01" value="0"></div>
+      <div><label>Due (Separate)</label><input id="due" type="number" min="0" step="0.01" value="0"></div>
+    </div>
+    <button onclick="save()">SAVE STAKE</button>
+    <div id="saveMessage"></div>
   </div>
-  <div class="actions">
-   <button class="btn" onclick="save()">SAVE STAKE</button>
-   <button class="btn red" onclick="clearForm()">CLEAR</button>
+  <div class="panel">
+    <h3>My Center Records</h3>
+    <div id="centerRecords"></div>
   </div>
-  <div id="saveMessage"></div>
- </div>
 </section>
 
-<section id="records" class="section">
- <h2>Stake Records</h2>
- <div class="card tablewrap" id="recordsTable"></div>
+<section id="admin1Screen" class="hidden">
+  <div class="panel">
+    <div class="row">
+      <h2>👑 Main Admin</h2>
+      <button class="secondary" onclick="logout()">LOGOUT</button>
+    </div>
+    <div class="notice">All Center Stake Overview</div>
+    <label>Select Center</label>
+    <select id="centerFilter" onchange="renderAdmin1()">
+      <option value="ALL">ALL CENTERS</option>
+    </select>
+    <label>Select Date</label>
+    <input id="dateFilter" type="date" onchange="renderAdmin1()">
+    <button class="secondary" onclick="resetFilters()">RESET FILTERS</button>
+    <div class="three">
+      <div class="stat">Australia<strong id="sumA">0</strong></div>
+      <div class="stat">England<strong id="sumE">0</strong></div>
+      <div class="stat">Trackside<strong id="sumT">0</strong></div>
+      <div class="stat">Due<strong id="sumD">0</strong></div>
+      <div class="stat">Total Stake<strong id="sumTotal">0</strong></div>
+      <div class="stat">Records<strong id="sumCount">0</strong></div>
+    </div>
+  </div>
+  <div class="panel">
+    <h3>📊 Stake Records</h3>
+    <div id="adminRecords" class="tablewrap"></div>
+  </div>
+  <div class="panel">
+    <h3>🏢 Center List</h3>
+    <div id="adminCenters"></div>
+  </div>
 </section>
 
-<section id="reports" class="section">
- <h2>Stake Reports</h2>
- <div id="reportArea">
-  <h3>DAILY STAKE REPORT</h3>
-  <p id="reportName"></p>
-  <p id="reportDate"></p>
-  <div id="reportContent"></div>
- </div>
- <div class="actions">
-  <button class="btn" onclick="screenshot()">📸 SCREENSHOT REPORT</button>
-  <button class="btn purple" onclick="refresh()">REFRESH REPORT</button>
- </div>
+<section id="admin2Screen" class="hidden">
+  <div class="panel">
+    <div class="row">
+      <h2>⚙️ System Admin</h2>
+      <button class="secondary" onclick="logout()">LOGOUT</button>
+    </div>
+    <div class="notice">Center Approval & Device Management</div>
+    <h3>⏳ Pending Center Approvals</h3>
+    <div id="pendingList"></div>
+  </div>
+  <div class="panel">
+    <h3>🏢 All Centers</h3>
+    <div id="systemCenters"></div>
+  </div>
+  <div class="panel">
+    <h3>📱 Device Management</h3>
+    <div class="notice warn">එක් Center එකකට උපරිම Active Devices 2යි.</div>
+    <label>Filter Center</label>
+    <select id="deviceCenterFilter" onchange="renderDevices()">
+      <option value="ALL">ALL CENTERS</option>
+    </select>
+    <div id="deviceList"></div>
+  </div>
 </section>
-
-<section id="approval" class="section">
- <h2>Center Approvals</h2>
- <p>Admin 2 - Review new center requests</p>
- <div id="pendingList"></div>
-</section>
-
-<footer>DAILY STAKE MULTI CENTER SYSTEM</footer>
 </main>
-</div>
-</div>
+<footer>DAILY STAKE MULTI CENTER SYSTEM</footer>
 
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbwVzKrmNhfTuAfynGQ-Ple1poFp5KH1EqXDwtxF-V9IWVZgPwh6S5JI5vRw5zzscag/exec";
 
 let session = null;
-let records = [];
+let adminDataCache = null;
+let deviceId = localStorage.getItem("dsm_device_id");
 
-let deviceID = localStorage.getItem("dailyStakeDevice");
-if(!deviceID){
- deviceID = "DEV-" + (
-  crypto.randomUUID ? crypto.randomUUID() :
-  Date.now()+"-"+Math.random().toString(36).slice(2)
- );
- localStorage.setItem("dailyStakeDevice",deviceID);
+if (!deviceId) {
+  deviceId = "DEV-" + makeId();
+  localStorage.setItem("dsm_device_id",deviceId);
 }
 
-function checkAdmin(){
- const n=document.getElementById("centerName").value.trim().toUpperCase();
- document.getElementById("passwordArea").classList.toggle(
-  "hidden",!["ADMIN","ADMIN1","ADMIN2"].includes(n)
- );
+function makeId() {
+  return Math.random().toString(36).slice(2) + Date.now().toString(36);
 }
 
-function api(data){
- return new Promise((resolve,reject)=>{
-  const callback="cb_"+Date.now()+"_"+Math.floor(Math.random()*99999);
-  const script=document.createElement("script");
-  const timer=setTimeout(()=>{
-   cleanup();
-   reject(new Error("Connection timeout"));
-  },20000);
-
-  function cleanup(){
-   clearTimeout(timer);
-   delete window[callback];
-   script.remove();
-  }
-
-  window[callback]=(result)=>{
-   cleanup();
-   resolve(result);
-  };
-
-  script.onerror=()=>{
-   cleanup();
-   reject(new Error("Server connection failed. Check Apps Script deployment."));
-  };
-
-  script.src=API_URL+"?callback="+callback+
-   "&data="+encodeURIComponent(JSON.stringify(data));
-
-  document.body.appendChild(script);
- });
+function deviceName() {
+  return navigator.userAgent.includes("iPhone") ? "iPhone" :
+    navigator.userAgent.includes("Android") ? "Android Phone" : "Device";
 }
 
-async function login(){
- const name=document.getElementById("centerName").value.trim().toUpperCase();
- const password=document.getElementById("adminPassword").value;
- const msg=document.getElementById("message");
+function api(data) {
+  return new Promise((resolve,reject) => {
+    const cb = "cb_" + makeId().replace(/[^a-z0-9]/gi,"");
+    const script = document.createElement("script");
+    const timer = setTimeout(() => {
+      cleanup();
+      reject(new Error("Server timeout. Try again."));
+    },20000);
 
- if(!name){msg.textContent="Enter Center Name";return;}
+    function cleanup() {
+      clearTimeout(timer);
+      delete window[cb];
+      script.remove();
+    }
 
- msg.textContent="Connecting...";
+    window[cb] = result => {
+      cleanup();
+      resolve(result);
+    };
 
- try{
-  const r=await api({
-   action:"login",name,password,device:deviceID
+    script.onerror = () => {
+      cleanup();
+      reject(new Error("Cannot connect to server"));
+    };
+
+    script.src = API_URL + "?callback=" + cb +
+      "&data=" + encodeURIComponent(JSON.stringify(data));
+    document.body.appendChild(script);
   });
-
-  if(r.redirect){location.href=r.redirect;return;}
-
-  if(r.pending){
-   msg.textContent="APPROVAL PENDING";
-   return;
-  }
-
-  if(!r.ok){msg.textContent=r.error;return;}
-
-  session={
-   role:r.role,
-   center:r.center,
-   password:password,
-   device:deviceID
-  };
-
-  localStorage.setItem("dailyStakeSession",JSON.stringify(session));
-  openApp();
-
- }catch(e){
-  msg.textContent=e.message;
- }
 }
 
-function openApp(){
- document.getElementById("login").classList.add("hidden");
- document.getElementById("app").classList.remove("hidden");
-
- document.getElementById("userLabel").textContent=
-  session.role==="CENTER"?session.center:session.role;
-
- document.getElementById("centerTitle").textContent=
-  session.role==="CENTER"?session.center+" CENTER":"ADMIN DASHBOARD";
-
- const admin2=session.role==="ADMIN2";
- const center=session.role==="CENTER";
-
- document.getElementById("approvalBtn").classList.toggle("hidden",!admin2);
- document.getElementById("newBtn").classList.toggle("hidden",!center);
- document.getElementById("approvalWarning").classList.add("hidden");
-
- if(center){
-  showPage("newstake",document.getElementById("newBtn"));
- }else{
-  showPage("dashboard",document.querySelector("nav button"));
- }
-
- refresh();
- if(admin2)loadPending();
-}
-
-function logout(){
- localStorage.removeItem("dailyStakeSession");
- session=null;
- location.reload();
-}
-
-function showPage(id,button){
- document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
- document.getElementById(id).classList.add("active");
- document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));
- if(button)button.classList.add("active");
- if(id==="approval")loadPending();
- if(id==="reports")renderReport();
-}
-
-function money(v){
- return Number(v||0).toLocaleString("en-LK",{
-  minimumFractionDigits:2,maximumFractionDigits:2
- });
-}
-
-async function refresh(){
- if(!session)return;
-
- try{
-  const r=await api({
-   action:"data",
-   role:session.role,
-   center:session.center,
-   password:session.password,
-   device:session.device
-  });
-
-  if(!r.ok){
-   if(r.pending){
-    document.getElementById("approvalWarning").classList.remove("hidden");
-    document.getElementById("newBtn").classList.add("hidden");
-   }
-   console.log(r.error);
-   return;
-  }
-
-  records=r.records||[];
-  renderAll(r);
-
- }catch(e){
-  console.log(e);
- }
-}
-
-function renderAll(r){
- const today=r.today||[];
- const sums={
-  australia:0,england:0,trackside:0,due:0,total:0
- };
-
- today.forEach(x=>{
-  sums.australia+=x.australia;
-  sums.england+=x.england;
-  sums.trackside+=x.trackside;
-  sums.due+=x.due;
-  sums.total+=x.total;
- });
-
- const ids={
-  australia:"aTotal",
-  england:"eTotal",
-  trackside:"tTotal",
-  due:"dTotal",
-  total:"allTotal"
- };
-
- Object.keys(ids).forEach(k=>{
-  document.getElementById(ids[k]).textContent=money(sums[k]);
- });
-
- document.getElementById("recent").innerHTML=
-  tableHTML(today.slice().reverse().slice(0,8));
-
- document.getElementById("recordsTable").innerHTML=
-  tableHTML(records);
-
- renderReport();
-}
-
-function tableHTML(data){
- if(!data.length)return "<p>No records available</p>";
-
- let html="<table><thead><tr>";
- ["Date","Time","Center","Australia","England","Trackside","Due","Total"].forEach(x=>{
-  html+="<th>"+x+"</th>";
- });
- html+="</tr></thead><tbody>";
-
- data.forEach(r=>{
-  html+="<tr>"+
-   `<td>${safe(r.date)}</td><td>${safe(r.time)}</td><td>${safe(r.center)}</td>`+
-   `<td>${money(r.australia)}</td><td>${money(r.england)}</td>`+
-   `<td>${money(r.trackside)}</td><td>${money(r.due)}</td>`+
-   `<td>${money(r.total)}</td></tr>`;
- });
-
- return html+"</tbody></table>";
-}
-
-function safe(v){
- return String(v??"").replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",
-  '"':"&quot;","'":"&#39;"
- }[c]));
-}
-
-["australia","england","trackside","due"].forEach(id=>{
- document.getElementById(id).addEventListener("input",()=>{
-  const total=["australia","england","trackside"].reduce(
-   (s,k)=>s+Math.max(0,Number(document.getElementById(k).value)||0),0
-  );
-  document.getElementById("previewTotal").textContent=money(total);
- });
+document.getElementById("loginName").addEventListener("input",e => {
+  const isAdmin = e.target.value.trim().toUpperCase() === "ADMIN";
+  document.getElementById("passwordArea").classList.toggle("hidden",!isAdmin);
 });
 
-async function save(){
- if(!session||session.role!=="CENTER")return;
+function showOnly(id) {
+  ["loginScreen","centerScreen","admin1Screen","admin2Screen"]
+    .forEach(x => document.getElementById(x).classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+}
 
- const fields=["australia","england","trackside","due"];
- for(const id of fields){
-  const input=document.getElementById(id);
-  const v=Number(input.value||0);
-  if(!Number.isFinite(v)||v<0){
-   document.getElementById("saveMessage").textContent="Invalid amount";
-   return;
+async function login() {
+  const name = document.getElementById("loginName").value.trim();
+  const password = document.getElementById("loginPassword").value;
+  const msg = document.getElementById("loginMessage");
+  msg.classList.remove("hidden");
+  msg.textContent = "Connecting...";
+
+  try {
+    const result = await api({
+      action:"login",
+      name:name,
+      password:password,
+      device:deviceId,
+      deviceName:deviceName()
+    });
+
+    if (result.redirect) {
+      location.href = result.redirect;
+      return;
+    }
+
+    if (!result.ok) {
+      msg.textContent = result.error || "Login failed";
+      if (result.pending) msg.classList.add("warn");
+      return;
+    }
+
+    msg.classList.add("hidden");
+    if (result.role === "ADMIN1") {
+      session = {role:"ADMIN1",password:password};
+      await loadAdmin();
+    } else if (result.role === "ADMIN2") {
+      session = {role:"ADMIN2",password:password};
+      await loadAdmin();
+    } else {
+      session = {role:"CENTER",center:result.center};
+      await loadCenter();
+    }
+  } catch(err) {
+    msg.textContent = err.message;
   }
- }
-
- const data={
-  action:"save",
-  center:session.center,
-  device:session.device,
-  australia:document.getElementById("australia").value,
-  england:document.getElementById("england").value,
-  trackside:document.getElementById("trackside").value,
-  due:document.getElementById("due").value
- };
-
- const msg=document.getElementById("saveMessage");
- msg.textContent="Saving...";
-
- try{
-  const r=await api(data);
-  if(!r.ok){msg.textContent=r.error;return;}
-
-  msg.textContent="STAKE SAVED SUCCESSFULLY";
-  clearForm();
-  await refresh();
-
- }catch(e){
-  msg.textContent=e.message;
- }
 }
 
-function clearForm(){
- ["australia","england","trackside","due"].forEach(k=>{
-  document.getElementById(k).value="";
- });
- document.getElementById("previewTotal").textContent="0.00";
+async function loadAdmin() {
+  const result = await api({
+    action:"adminData",
+    password:session.password
+  });
+  if (!result.ok) {
+    alert(result.error);
+    logout();
+    return;
+  }
+  adminDataCache = result;
+  if (session.role === "ADMIN1") {
+    showOnly("admin1Screen");
+    document.getElementById("dateFilter").value = result.today;
+    fillCenterFilters();
+    renderAdmin1();
+  } else {
+    showOnly("admin2Screen");
+    renderPending();
+    renderSystemCenters();
+    renderDevices();
+  }
 }
 
-function todayLocal(){
- return new Intl.DateTimeFormat("en-CA",{
-  timeZone:"Asia/Colombo",
-  year:"numeric",month:"2-digit",day:"2-digit"
- }).format(new Date());
+async function loadCenter() {
+  const result = await api({
+    action:"centerData",
+    center:session.center,
+    device:deviceId,
+    deviceName:deviceName()
+  });
+
+  if (!result.ok) {
+    alert(result.error || "Center access denied");
+    logout();
+    return;
+  }
+
+  showOnly("centerScreen");
+  document.getElementById("centerName").textContent = session.center;
+  renderCenterRecords(result.records || []);
 }
 
-function renderReport(){
- const now=new Date();
+async function save() {
+  const values = ["australia","england","trackside","due"]
+    .map(id => Number(document.getElementById(id).value || 0));
 
- document.getElementById("reportName").textContent=
-  session?session.center||"ALL CENTERS":"";
+  if (values.some(v => !Number.isFinite(v) || v < 0)) {
+    alert("Please enter valid amounts");
+    return;
+  }
 
- document.getElementById("reportDate").textContent=
-  "Generated: "+now.toLocaleString();
+  const message = document.getElementById("saveMessage");
+  message.textContent = "Saving...";
 
- const today=records.filter(r=>String(r.date)===todayLocal());
+  try {
+    const result = await api({
+      action:"save",
+      center:session.center,
+      device:deviceId,
+      deviceName:deviceName(),
+      australia:values[0],
+      england:values[1],
+      trackside:values[2],
+      due:values[3]
+    });
 
- let a=0,e=0,t=0,d=0,total=0;
+    if (!result.ok) {
+      message.textContent = result.error;
+      return;
+    }
 
- today.forEach(r=>{
-  a+=r.australia;e+=r.england;t+=r.trackside;
-  d+=r.due;total+=r.total;
- });
-
- document.getElementById("reportContent").innerHTML=`
- <p>Australia: ${money(a)}</p>
- <p>England: ${money(e)}</p>
- <p>Trackside: ${money(t)}</p>
- <p>Due: ${money(d)}</p>
- <h2>Total Daily Stake: ${money(total)}</h2>
- <p>Records: ${today.length}</p>`;
+    message.innerHTML = '<span class="goodtext">Saved successfully!</span>';
+    ["australia","england","trackside","due"]
+      .forEach(id => document.getElementById(id).value = 0);
+    await loadCenter();
+  } catch(err) {
+    message.textContent = err.message;
+  }
 }
 
-async function screenshot(){
- try{
-  const canvas=await html2canvas(
-   document.getElementById("reportArea"),
-   {scale:2,backgroundColor:"#100b20"}
+function renderCenterRecords(records) {
+  const box = document.getElementById("centerRecords");
+  if (!records.length) {
+    box.innerHTML = '<div class="notice">No records yet</div>';
+    return;
+  }
+
+  box.innerHTML = records.map(r => `
+    <div class="card">
+      <b>${esc(r.date)} ${esc(r.time)}</b>
+      <div class="row">
+        <span>Australia: ${money(r.australia)}</span>
+        <span>England: ${money(r.england)}</span>
+        <span>Trackside: ${money(r.trackside)}</span>
+        <span>Due: ${money(r.due)}</span>
+      </div>
+      <h3>Total Stake: ${money(r.total)}</h3>
+    </div>
+  `).join("");
+}
+
+function fillCenterFilters() {
+  const centers = adminDataCache.centers || [];
+  const select = document.getElementById("centerFilter");
+  select.innerHTML = '<option value="ALL">ALL CENTERS</option>' +
+    centers.filter(c => c.status === "APPROVED")
+      .map(c => `<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("");
+}
+
+function resetFilters() {
+  document.getElementById("centerFilter").value = "ALL";
+  document.getElementById("dateFilter").value = adminDataCache.today;
+  renderAdmin1();
+}
+
+function renderAdmin1() {
+  const center = document.getElementById("centerFilter").value;
+  const date = document.getElementById("dateFilter").value;
+  const records = (adminDataCache.records || []).filter(r =>
+    (center === "ALL" || r.center === center) &&
+    (!date || r.date === date)
   );
 
-  const a=document.createElement("a");
-  a.download="Daily-Stake-Report.png";
-  a.href=canvas.toDataURL("image/png");
-  a.click();
-
- }catch(e){
-  alert("Screenshot failed: "+e.message);
- }
-}
-
-async function loadPending(){
- if(!session||session.role!=="ADMIN2")return;
-
- try{
-  const r=await api({
-   action:"pending",
-   password:session.password
+  const totals = {a:0,e:0,t:0,d:0,total:0};
+  records.forEach(r => {
+    totals.a += r.australia;
+    totals.e += r.england;
+    totals.t += r.trackside;
+    totals.d += r.due;
+    totals.total += r.total;
   });
 
-  if(!r.ok){
-   document.getElementById("pendingList").textContent=r.error;
-   return;
-  }
+  document.getElementById("sumA").textContent = money(totals.a);
+  document.getElementById("sumE").textContent = money(totals.e);
+  document.getElementById("sumT").textContent = money(totals.t);
+  document.getElementById("sumD").textContent = money(totals.d);
+  document.getElementById("sumTotal").textContent = money(totals.total);
+  document.getElementById("sumCount").textContent = records.length;
 
-  const box=document.getElementById("pendingList");
+  document.getElementById("adminRecords").innerHTML = records.length ?
+    `<table><thead><tr>
+      <th>Date / Time</th><th>Center</th><th>Australia</th>
+      <th>England</th><th>Trackside</th><th>Due</th><th>Total</th><th>Action</th>
+    </tr></thead><tbody>` +
+    records.map(r => `<tr>
+      <td>${esc(r.date)}<br>${esc(r.time)}</td>
+      <td>${esc(r.center)}</td>
+      <td>${money(r.australia)}</td>
+      <td>${money(r.england)}</td>
+      <td>${money(r.trackside)}</td>
+      <td>${money(r.due)}</td>
+      <td><b>${money(r.total)}</b></td>
+      <td><button class="danger" onclick="deleteRecord('${esc(r.id)}')">Delete</button></td>
+    </tr>`).join("") + "</tbody></table>" :
+    '<div class="notice">No records for this selection</div>';
 
-  if(!r.centers.length){
-   box.innerHTML="<p>No pending centers</p>";
-   return;
-  }
-
-  box.innerHTML=r.centers.map(c=>`
-   <div class="centeritem">
-    <div><b>${safe(c.name)}</b><br><small>Waiting for approval</small></div>
-    <div class="actions">
-     <button class="btn" onclick="approveCenter('${safe(c.name)}')">APPROVE</button>
-     <button class="btn red" onclick="rejectCenter('${safe(c.name)}')">REJECT</button>
-    </div>
-   </div>
-  `).join("");
-
- }catch(e){
-  document.getElementById("pendingList").textContent=e.message;
- }
+  document.getElementById("adminCenters").innerHTML =
+    (adminDataCache.centers || []).map(c =>
+      `<div class="card">${esc(c.name)} — ${esc(c.status)}</div>`
+    ).join("") || "No centers";
 }
 
-async function approveCenter(name){
- if(!confirm("Approve "+name+"?"))return;
-
- const r=await api({
-  action:"approve",
-  password:session.password,
-  center:name
- });
-
- if(r.ok){
-  alert("Center approved");
-  loadPending();
- }else{
-  alert(r.error);
- }
-}
-
-async function rejectCenter(name){
- if(!confirm("Reject "+name+"?"))return;
-
- const r=await api({
-  action:"reject",
-  password:session.password,
-  center:name
- });
-
- if(r.ok){
-  alert("Center rejected");
-  loadPending();
- }else{
-  alert(r.error);
- }
-}
-
-function updateClock(){
- document.getElementById("clock").textContent=
-  new Date().toLocaleString("en-LK",{timeZone:"Asia/Colombo"});
-}
-
-setInterval(updateClock,1000);
-updateClock();
-
-(function restore(){
- try{
-  const s=JSON.parse(localStorage.getItem("dailyStakeSession"));
-  if(s&&s.role&&s.device){
-   session=s;
-   if(s.role==="CENTER")loginRestore();
-   else openApp();
-  }
- }catch(e){}
-})();
-
-async function loginRestore(){
- try{
-  const r=await api({
-   action:"login",
-   name:session.role==="CENTER"?session.center:session.role,
-   password:session.password,
-   device:session.device
+async function deleteRecord(id) {
+  if (!confirm("Delete this record?")) return;
+  const result = await api({
+    action:"delete",password:session.password,id:id
   });
+  if (!result.ok) return alert(result.error);
+  await loadAdmin();
+}
 
-  if(r.ok)openApp();
-  else logout();
+function renderPending() {
+  const list = (adminDataCache.centers || []).filter(c => c.status === "PENDING");
+  document.getElementById("pendingList").innerHTML = list.length ?
+    list.map(c => `<div class="card">
+      <b>${esc(c.name)}</b><br><small>${esc(c.created)}</small>
+      <div class="actions">
+        <button class="good" onclick="centerDecision('approve','${esc(c.name)}')">APPROVE</button>
+        <button class="danger" onclick="centerDecision('reject','${esc(c.name)}')">REJECT</button>
+      </div>
+    </div>`).join("") :
+    '<div class="notice">No pending centers</div>';
+}
 
- }catch(e){
-  session=null;
-  localStorage.removeItem("dailyStakeSession");
- }
+async function centerDecision(action,name) {
+  if (!confirm(action.toUpperCase() + " " + name + "?")) return;
+  const result = await api({
+    action:action,
+    password:session.password,
+    center:name
+  });
+  if (!result.ok) return alert(result.error);
+  await loadAdmin();
+}
+
+function renderSystemCenters() {
+  const centers = adminDataCache.centers || [];
+  document.getElementById("systemCenters").innerHTML = centers.length ?
+    centers.map(c => `<div class="card">
+      <b>${esc(c.name)}</b>
+      <span class="${c.status === "APPROVED" ? "goodtext":"warn"}">
+        — ${esc(c.status)}
+      </span>
+    </div>`).join("") : "No centers";
+
+  const select = document.getElementById("deviceCenterFilter");
+  const old = select.value;
+  select.innerHTML = '<option value="ALL">ALL CENTERS</option>' +
+    centers.map(c => `<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("");
+  if ([...select.options].some(o => o.value === old)) select.value = old;
+}
+
+function renderDevices() {
+  if (!adminDataCache) return;
+  const filter = document.getElementById("deviceCenterFilter").value;
+  const devices = (adminDataCache.devices || []).filter(d =>
+    filter === "ALL" || d.center === filter
+  );
+
+  document.getElementById("deviceList").innerHTML = devices.length ?
+    devices.map(d => {
+      const statusClass = d.status === "ACTIVE" ? "goodtext" :
+        d.status === "BLOCKED" ? "badtext" : "warn";
+      return `<div class="card">
+        <b>${esc(d.center)}</b><br>
+        Device: ${esc(d.name)}<br>
+        ID: <small>${esc(d.id)}</small><br>
+        Status: <span class="${statusClass}">${esc(d.status)}</span><br>
+        Last Update: <small>${esc(d.updated)}</small>
+        <div class="actions">
+          ${d.status !== "REMOVED" ?
+            `<button class="danger" onclick="changeDevice('remove','${esc(d.center)}','${esc(d.id)}')">REMOVE</button>` : ""}
+          ${d.status !== "BLOCKED" ?
+            `<button class="secondary" onclick="changeDevice('block','${esc(d.center)}','${esc(d.id)}')">BLOCK</button>` : ""}
+          ${d.status !== "ACTIVE" ?
+            `<button class="good" onclick="changeDevice('allow','${esc(d.center)}','${esc(d.id)}')">ALLOW</button>` : ""}
+        </div>
+      </div>`;
+    }).join("") : '<div class="notice">No devices found</div>';
+}
+
+async function changeDevice(action,center,id) {
+  if (!confirm(action.toUpperCase() + " this device?")) return;
+  const result = await api({
+    action:"deviceAction",
+    password:session.password,
+    deviceAction:action,
+    center:center,
+    device:id
+  });
+  if (!result.ok) {
+    alert(result.error);
+    return;
+  }
+  await loadAdmin();
+}
+
+function money(n) {
+  return Number(n || 0).toLocaleString("en-US",{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
+}
+
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g,c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",
+    '"':"&quot;","'":"&#39;"
+  })[c]);
+}
+
+function logout() {
+  session = null;
+  adminDataCache = null;
+  document.getElementById("loginPassword").value = "";
+  document.getElementById("loginName").value = "";
+  document.getElementById("passwordArea").classList.add("hidden");
+  document.getElementById("loginMessage").classList.add("hidden");
+  showOnly("loginScreen");
 }
 </script>
 </body>
