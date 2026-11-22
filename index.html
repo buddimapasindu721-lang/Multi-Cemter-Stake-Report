@@ -4,19 +4,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Daily Stake - Multi Center</title>
+<title>Daily Stake Multi Center</title>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-
 <style>
 *{box-sizing:border-box}
 body{
- margin:0;color:#fff;font-family:Arial,sans-serif;
+ margin:0;color:white;font-family:Arial,sans-serif;
  background:linear-gradient(135deg,#090611,#180c32,#071d17);
- min-height:100vh;overflow-x:hidden
+ min-height:100vh
 }
 body:before{
  content:"";position:fixed;inset:0;z-index:-1;
- background:radial-gradient(circle at 20% 20%,#7525ad55,transparent 35%),
+ background:
+ radial-gradient(circle at 20% 20%,#7525ad55,transparent 35%),
  radial-gradient(circle at 80% 80%,#00ff7950,transparent 35%);
  animation:bg 8s infinite alternate
 }
@@ -48,14 +48,13 @@ input{
  color:#07120b;font-weight:bold;
  background:linear-gradient(90deg,#8bff42,#00d88a)
 }
-.btn:hover{filter:brightness(1.15)}
 .btn.red{background:#e8415d;color:white}
 .btn.purple{background:#923df1;color:white}
 #message{margin-top:15px;color:#ffce65;font-weight:bold}
 header{
  padding:15px;display:flex;align-items:center;
  justify-content:space-between;gap:10px;flex-wrap:wrap;
- background:#100b20eF;border-bottom:1px solid #643d80
+ background:#100b20ef;border-bottom:1px solid #643d80
 }
 .brand{font-weight:900;color:#aaff52;font-size:20px}
 header button{padding:9px 13px;border-radius:8px}
@@ -103,7 +102,6 @@ table{border-collapse:collapse;width:100%;min-width:650px}
 th,td{padding:12px 9px;text-align:left;border-bottom:1px solid #49365a}
 th{color:#baff66;background:#211632}
 tr:hover td{background:#211632}
-.tag{padding:5px 9px;border-radius:20px;background:#57317a;font-size:12px}
 .pending{
  padding:16px;background:#36240d;border:1px solid #e2a637;
  border-radius:12px;color:#ffdc80;margin:12px 0
@@ -134,7 +132,6 @@ footer{text-align:center;padding:20px;color:#9684a8}
 }
 </style>
 </head>
-
 <body>
 
 <div id="login">
@@ -143,18 +140,12 @@ footer{text-align:center;padding:20px;color:#9684a8}
   <div class="logo">DAILY STAKE</div>
   <h2>MULTI CENTER SYSTEM</h2>
   <div class="sub">Secure Center Access</div>
-
   <input id="centerName" placeholder="Enter Center Name"
    autocomplete="off" oninput="checkAdmin()">
-
   <div id="passwordArea" class="hidden">
-   <input id="adminPassword" type="password"
-    placeholder="Admin Password">
+   <input id="adminPassword" type="password" placeholder="Admin Password">
   </div>
-
-  <button class="btn" style="width:100%;margin-top:12px"
-   onclick="login()">LOGIN</button>
-
+  <button class="btn" style="width:100%;margin-top:12px" onclick="login()">LOGIN</button>
   <div id="message"></div>
  </div>
 </div>
@@ -169,10 +160,10 @@ footer{text-align:center;padding:20px;color:#9684a8}
 <div class="layout">
 <nav>
  <button class="active" onclick="showPage('dashboard',this)">🏠 Dashboard</button>
- <button onclick="showPage('newstake',this)" id="newBtn">➕ New Stake</button>
+ <button id="newBtn" onclick="showPage('newstake',this)">➕ New Stake</button>
  <button onclick="showPage('records',this)">📋 Records</button>
  <button onclick="showPage('reports',this)">📊 Reports</button>
- <button onclick="showPage('approval',this)" id="approvalBtn" class="hidden">✅ Approvals</button>
+ <button id="approvalBtn" class="hidden" onclick="showPage('approval',this)">✅ Approvals</button>
 </nav>
 
 <main>
@@ -210,22 +201,10 @@ footer{text-align:center;padding:20px;color:#9684a8}
  <h2>New Stake Entry</h2>
  <div class="card">
   <div class="formgrid">
-   <div class="field">
-    <label>Australia</label>
-    <input id="australia" type="number" min="0" step="0.01" placeholder="0.00">
-   </div>
-   <div class="field">
-    <label>England</label>
-    <input id="england" type="number" min="0" step="0.01" placeholder="0.00">
-   </div>
-   <div class="field">
-    <label>Trackside</label>
-    <input id="trackside" type="number" min="0" step="0.01" placeholder="0.00">
-   </div>
-   <div class="field">
-    <label>Due</label>
-    <input id="due" type="number" min="0" step="0.01" placeholder="0.00">
-   </div>
+   <div class="field"><label>Australia</label><input id="australia" type="number" min="0" step="0.01" placeholder="0.00"></div>
+   <div class="field"><label>England</label><input id="england" type="number" min="0" step="0.01" placeholder="0.00"></div>
+   <div class="field"><label>Trackside</label><input id="trackside" type="number" min="0" step="0.01" placeholder="0.00"></div>
+   <div class="field"><label>Due</label><input id="due" type="number" min="0" step="0.01" placeholder="0.00"></div>
   </div>
   <div class="card" style="margin-top:12px">
    <small>Total Daily Stake (Due excluded)</small>
@@ -270,32 +249,29 @@ footer{text-align:center;padding:20px;color:#9684a8}
 </div>
 
 <script>
-const API_URL = "PASTE_YOUR_NEW_APPS_SCRIPT_EXEC_URL_HERE";
+const API_URL = "https://script.google.com/macros/s/AKfycbwVzKrmNhfTuAfynGQ-Ple1poFp5KH1EqXDwtxF-V9IWVZgPwh6S5JI5vRw5zzscag/exec";
 
 let session = null;
 let records = [];
-let pendingCenters = [];
-let deviceID = localStorage.getItem("dailyStakeDevice");
 
+let deviceID = localStorage.getItem("dailyStakeDevice");
 if(!deviceID){
- deviceID = "DEV-"+crypto.randomUUID();
+ deviceID = "DEV-" + (
+  crypto.randomUUID ? crypto.randomUUID() :
+  Date.now()+"-"+Math.random().toString(36).slice(2)
+ );
  localStorage.setItem("dailyStakeDevice",deviceID);
 }
 
 function checkAdmin(){
- const n = document.getElementById("centerName").value.trim().toUpperCase();
+ const n=document.getElementById("centerName").value.trim().toUpperCase();
  document.getElementById("passwordArea").classList.toggle(
-  "hidden",n!=="ADMIN1" && n!=="ADMIN2"
+  "hidden",!["ADMIN","ADMIN1","ADMIN2"].includes(n)
  );
 }
 
 function api(data){
  return new Promise((resolve,reject)=>{
-  if(!API_URL.startsWith("https://script.google.com/")){
-   reject(new Error("Apps Script URL not configured"));
-   return;
-  }
-
   const callback="cb_"+Date.now()+"_"+Math.floor(Math.random()*99999);
   const script=document.createElement("script");
   const timer=setTimeout(()=>{
@@ -316,7 +292,7 @@ function api(data){
 
   script.onerror=()=>{
    cleanup();
-   reject(new Error("Server connection failed"));
+   reject(new Error("Server connection failed. Check Apps Script deployment."));
   };
 
   script.src=API_URL+"?callback="+callback+
@@ -340,30 +316,25 @@ async function login(){
    action:"login",name,password,device:deviceID
   });
 
-  if(r.redirect){
-   location.href=r.redirect;
-   return;
-  }
+  if(r.redirect){location.href=r.redirect;return;}
 
   if(r.pending){
    msg.textContent="APPROVAL PENDING";
    return;
   }
 
-  if(!r.ok){
-   msg.textContent=r.error;
-   return;
-  }
+  if(!r.ok){msg.textContent=r.error;return;}
 
   session={
    role:r.role,
    center:r.center,
-   password:r.role==="CENTER"?"":password,
+   password:password,
    device:deviceID
   };
 
   localStorage.setItem("dailyStakeSession",JSON.stringify(session));
   openApp();
+
  }catch(e){
   msg.textContent=e.message;
  }
@@ -393,7 +364,7 @@ function openApp(){
  }
 
  refresh();
- if(admin2) loadPending();
+ if(admin2)loadPending();
 }
 
 function logout(){
@@ -422,7 +393,8 @@ async function refresh(){
 
  try{
   const r=await api({
-   action:"data",role:session.role,
+   action:"data",
+   role:session.role,
    center:session.center,
    password:session.password,
    device:session.device
@@ -433,11 +405,13 @@ async function refresh(){
     document.getElementById("approvalWarning").classList.remove("hidden");
     document.getElementById("newBtn").classList.add("hidden");
    }
+   console.log(r.error);
    return;
   }
 
   records=r.records||[];
   renderAll(r);
+
  }catch(e){
   console.log(e);
  }
@@ -445,8 +419,9 @@ async function refresh(){
 
 function renderAll(r){
  const today=r.today||[];
-
- const sums={australia:0,england:0,trackside:0,due:0,total:0};
+ const sums={
+  australia:0,england:0,trackside:0,due:0,total:0
+ };
 
  today.forEach(x=>{
   sums.australia+=x.australia;
@@ -456,17 +431,24 @@ function renderAll(r){
   sums.total+=x.total;
  });
 
- ["australia","england","trackside","due","total"].forEach(k=>{
-  document.getElementById(
-   k==="total"?"allTotal":
-   k==="australia"?"aTotal":
-   k==="england"?"eTotal":
-   k==="trackside"?"tTotal":"dTotal"
-  ).textContent=money(sums[k]);
+ const ids={
+  australia:"aTotal",
+  england:"eTotal",
+  trackside:"tTotal",
+  due:"dTotal",
+  total:"allTotal"
+ };
+
+ Object.keys(ids).forEach(k=>{
+  document.getElementById(ids[k]).textContent=money(sums[k]);
  });
 
- document.getElementById("recent").innerHTML=tableHTML(today.slice().reverse().slice(0,8));
- document.getElementById("recordsTable").innerHTML=tableHTML(records);
+ document.getElementById("recent").innerHTML=
+  tableHTML(today.slice().reverse().slice(0,8));
+
+ document.getElementById("recordsTable").innerHTML=
+  tableHTML(records);
+
  renderReport();
 }
 
@@ -474,7 +456,9 @@ function tableHTML(data){
  if(!data.length)return "<p>No records available</p>";
 
  let html="<table><thead><tr>";
- ["Date","Time","Center","Australia","England","Trackside","Due","Total"].forEach(x=>html+="<th>"+x+"</th>");
+ ["Date","Time","Center","Australia","England","Trackside","Due","Total"].forEach(x=>{
+  html+="<th>"+x+"</th>";
+ });
  html+="</tr></thead><tbody>";
 
  data.forEach(r=>{
@@ -484,6 +468,7 @@ function tableHTML(data){
    `<td>${money(r.trackside)}</td><td>${money(r.due)}</td>`+
    `<td>${money(r.total)}</td></tr>`;
  });
+
  return html+"</tbody></table>";
 }
 
@@ -496,14 +481,25 @@ function safe(v){
 
 ["australia","england","trackside","due"].forEach(id=>{
  document.getElementById(id).addEventListener("input",()=>{
-  const total=["australia","england","trackside"]
-   .reduce((s,k)=>s+Math.max(0,Number(document.getElementById(k).value)||0),0);
+  const total=["australia","england","trackside"].reduce(
+   (s,k)=>s+Math.max(0,Number(document.getElementById(k).value)||0),0
+  );
   document.getElementById("previewTotal").textContent=money(total);
  });
 });
 
 async function save(){
  if(!session||session.role!=="CENTER")return;
+
+ const fields=["australia","england","trackside","due"];
+ for(const id of fields){
+  const input=document.getElementById(id);
+  const v=Number(input.value||0);
+  if(!Number.isFinite(v)||v<0){
+   document.getElementById("saveMessage").textContent="Invalid amount";
+   return;
+  }
+ }
 
  const data={
   action:"save",
@@ -521,9 +517,11 @@ async function save(){
  try{
   const r=await api(data);
   if(!r.ok){msg.textContent=r.error;return;}
+
   msg.textContent="STAKE SAVED SUCCESSFULLY";
   clearForm();
   await refresh();
+
  }catch(e){
   msg.textContent=e.message;
  }
@@ -536,19 +534,26 @@ function clearForm(){
  document.getElementById("previewTotal").textContent="0.00";
 }
 
+function todayLocal(){
+ return new Intl.DateTimeFormat("en-CA",{
+  timeZone:"Asia/Colombo",
+  year:"numeric",month:"2-digit",day:"2-digit"
+ }).format(new Date());
+}
+
 function renderReport(){
  const now=new Date();
+
  document.getElementById("reportName").textContent=
   session?session.center||"ALL CENTERS":"";
+
  document.getElementById("reportDate").textContent=
   "Generated: "+now.toLocaleString();
 
- const today=records.filter(r=>{
-  const d=String(r.date);
-  return d===todayLocal();
- });
+ const today=records.filter(r=>String(r.date)===todayLocal());
 
  let a=0,e=0,t=0,d=0,total=0;
+
  today.forEach(r=>{
   a+=r.australia;e+=r.england;t+=r.trackside;
   d+=r.due;total+=r.total;
@@ -563,40 +568,45 @@ function renderReport(){
  <p>Records: ${today.length}</p>`;
 }
 
-function todayLocal(){
- return new Intl.DateTimeFormat("en-CA",{
-  timeZone:"Asia/Colombo",
-  year:"numeric",month:"2-digit",day:"2-digit"
- }).format(new Date());
-}
-
 async function screenshot(){
- const area=document.getElementById("reportArea");
  try{
-  const canvas=await html2canvas(area,{scale:2,backgroundColor:"#100b20"});
+  const canvas=await html2canvas(
+   document.getElementById("reportArea"),
+   {scale:2,backgroundColor:"#100b20"}
+  );
+
   const a=document.createElement("a");
   a.download="Daily-Stake-Report.png";
   a.href=canvas.toDataURL("image/png");
   a.click();
- }catch(e){alert("Screenshot failed: "+e.message);}
+
+ }catch(e){
+  alert("Screenshot failed: "+e.message);
+ }
 }
 
 async function loadPending(){
  if(!session||session.role!=="ADMIN2")return;
 
  try{
-  const r=await api({action:"pending"});
-  if(!r.ok)return;
-  pendingCenters=r.centers||[];
+  const r=await api({
+   action:"pending",
+   password:session.password
+  });
+
+  if(!r.ok){
+   document.getElementById("pendingList").textContent=r.error;
+   return;
+  }
 
   const box=document.getElementById("pendingList");
 
-  if(!pendingCenters.length){
+  if(!r.centers.length){
    box.innerHTML="<p>No pending centers</p>";
    return;
   }
 
-  box.innerHTML=pendingCenters.map(c=>`
+  box.innerHTML=r.centers.map(c=>`
    <div class="centeritem">
     <div><b>${safe(c.name)}</b><br><small>Waiting for approval</small></div>
     <div class="actions">
@@ -605,6 +615,7 @@ async function loadPending(){
     </div>
    </div>
   `).join("");
+
  }catch(e){
   document.getElementById("pendingList").textContent=e.message;
  }
@@ -612,28 +623,43 @@ async function loadPending(){
 
 async function approveCenter(name){
  if(!confirm("Approve "+name+"?"))return;
+
  const r=await api({
-  action:"approve",admin:"ADMIN2",
-  password:session.password,center:name
+  action:"approve",
+  password:session.password,
+  center:name
  });
- if(r.ok){alert("Center approved");loadPending();}
- else alert(r.error);
+
+ if(r.ok){
+  alert("Center approved");
+  loadPending();
+ }else{
+  alert(r.error);
+ }
 }
 
 async function rejectCenter(name){
  if(!confirm("Reject "+name+"?"))return;
+
  const r=await api({
-  action:"reject",admin:"ADMIN2",
-  password:session.password,center:name
+  action:"reject",
+  password:session.password,
+  center:name
  });
- if(r.ok){alert("Center rejected");loadPending();}
- else alert(r.error);
+
+ if(r.ok){
+  alert("Center rejected");
+  loadPending();
+ }else{
+  alert(r.error);
+ }
 }
 
 function updateClock(){
  document.getElementById("clock").textContent=
   new Date().toLocaleString("en-LK",{timeZone:"Asia/Colombo"});
 }
+
 setInterval(updateClock,1000);
 updateClock();
 
@@ -642,11 +668,8 @@ updateClock();
   const s=JSON.parse(localStorage.getItem("dailyStakeSession"));
   if(s&&s.role&&s.device){
    session=s;
-   if(s.role==="CENTER"){
-    loginRestore();
-   }else{
-    openApp();
-   }
+   if(s.role==="CENTER")loginRestore();
+   else openApp();
   }
  }catch(e){}
 })();
@@ -654,18 +677,20 @@ updateClock();
 async function loginRestore(){
  try{
   const r=await api({
-   action:"login",name:session.center,
-   password:session.password,device:session.device
+   action:"login",
+   name:session.role==="CENTER"?session.center:session.role,
+   password:session.password,
+   device:session.device
   });
+
   if(r.ok)openApp();
   else logout();
+
  }catch(e){
-  // Keep login screen available if connection is unavailable.
   session=null;
+  localStorage.removeItem("dailyStakeSession");
  }
 }
 </script>
 </body>
 </html>
-
-
