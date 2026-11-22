@@ -4,669 +4,668 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DAILY STAKE - MULTI CENTER</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<title>Daily Stake - Multi Center</title>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
 <style>
-:root{--bg:#07070d;--panel:#11111c;--purple:#a855f7;--green:#22c55e;--red:#ef4444}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at 15% 10%,#291044,transparent 35%),radial-gradient(circle at 90% 80%,#073b2b,transparent 35%),var(--bg);color:white;font-family:Arial,sans-serif;min-height:100vh}
-header{padding:18px 15px;text-align:center;background:#080810ed;border-bottom:1px solid #a855f755;position:sticky;top:0;z-index:5}
-.logo{font-size:13px;letter-spacing:5px;color:#c084fc;font-weight:bold}
-h1{font-size:25px;letter-spacing:2px;margin:7px 0}
-.subtitle{font-size:11px;color:#aaa;letter-spacing:3px}
-main{max-width:1050px;margin:auto;padding:15px}
-.panel{background:linear-gradient(145deg,#171725ed,#0e0e18ed);border:1px solid #ffffff17;border-radius:17px;padding:17px;margin:14px 0;box-shadow:0 12px 35px #0008}
-.login{max-width:430px;margin:9vh auto;text-align:center;padding:28px 20px}
-.horse{font-size:54px;animation:run 2s ease-in-out infinite alternate;display:inline-block}
-@keyframes run{to{transform:translateX(12px) scale(1.06)}}
-input,select{width:100%;background:#080811;border:1px solid #393348;color:white;padding:14px;border-radius:10px;margin:7px 0 13px;font-size:15px;outline:none}
-input:focus{border-color:var(--purple)}
-label{font-size:12px;color:#c5b8d8}
-button{border:0;border-radius:10px;padding:12px 15px;background:linear-gradient(110deg,#9333ea,#6d28d9);color:white;font-weight:bold;cursor:pointer;margin:4px}
-button.green{background:linear-gradient(110deg,#16a34a,#15803d)}
-button.red{background:linear-gradient(110deg,#dc2626,#991b1b)}
-button.gray{background:#343443}
-nav{display:flex;gap:7px;overflow-x:auto;padding:10px 0}
-nav button{white-space:nowrap;background:#1c1b29;border:1px solid #ffffff15;font-size:12px}
-nav button.active{background:linear-gradient(110deg,#9333ea,#6d28d9)}
-h2{font-size:18px;margin:4px 0 15px}
-h3{font-size:14px;color:#d8b4fe}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.stat{background:#090912;border:1px solid #ffffff12;padding:15px;border-radius:13px}
-.stat small{display:block;color:#aaa;font-size:11px;margin-bottom:8px}
-.stat strong{font-size:21px}
-.greenText{color:#4ade80}.orangeText{color:#fb923c}.purpleText{color:#c084fc}.redText{color:#f87171}
-.actions{display:flex;flex-wrap:wrap;gap:5px}
-.rowitem{padding:12px 3px;border-bottom:1px solid #ffffff12;font-size:13px;display:flex;justify-content:space-between;gap:10px}
-.muted{color:#9292a5;font-size:12px}
+body{
+ margin:0;color:#fff;font-family:Arial,sans-serif;
+ background:linear-gradient(135deg,#090611,#180c32,#071d17);
+ min-height:100vh;overflow-x:hidden
+}
+body:before{
+ content:"";position:fixed;inset:0;z-index:-1;
+ background:radial-gradient(circle at 20% 20%,#7525ad55,transparent 35%),
+ radial-gradient(circle at 80% 80%,#00ff7950,transparent 35%);
+ animation:bg 8s infinite alternate
+}
+@keyframes bg{to{filter:hue-rotate(55deg);transform:scale(1.1)}}
+button,input{font:inherit}
+button{cursor:pointer;border:0}
 .hidden{display:none!important}
-table{width:100%;border-collapse:collapse;font-size:12px;min-width:550px}
-td,th{padding:10px 7px;border-bottom:1px solid #ffffff15;text-align:left}
-th{color:#c084fc}
+#login{
+ min-height:100vh;display:flex;align-items:center;
+ justify-content:center;padding:20px
+}
+.loginbox{
+ width:100%;max-width:420px;text-align:center;
+ padding:30px 22px;border:1px solid #9d55dc;
+ background:#100b20ed;border-radius:22px;
+ box-shadow:0 0 35px #8729b777
+}
+.horse{font-size:65px;animation:horse 1.5s infinite alternate}
+@keyframes horse{to{transform:translateY(-9px) scale(1.05)}}
+.logo{font-size:25px;font-weight:900;color:#adff4f}
+.sub{color:#b8a9cc;margin:10px 0 25px}
+input{
+ width:100%;padding:14px;margin:9px 0;
+ background:#211632;color:white;border:1px solid #725091;
+ border-radius:10px;outline:none
+}
+.btn{
+ padding:13px 18px;border-radius:10px;
+ color:#07120b;font-weight:bold;
+ background:linear-gradient(90deg,#8bff42,#00d88a)
+}
+.btn:hover{filter:brightness(1.15)}
+.btn.red{background:#e8415d;color:white}
+.btn.purple{background:#923df1;color:white}
+#message{margin-top:15px;color:#ffce65;font-weight:bold}
+header{
+ padding:15px;display:flex;align-items:center;
+ justify-content:space-between;gap:10px;flex-wrap:wrap;
+ background:#100b20eF;border-bottom:1px solid #643d80
+}
+.brand{font-weight:900;color:#aaff52;font-size:20px}
+header button{padding:9px 13px;border-radius:8px}
+.layout{display:flex;min-height:calc(100vh - 60px)}
+nav{
+ width:190px;padding:16px 10px;background:#0d0919;
+ border-right:1px solid #39264e;flex-shrink:0
+}
+nav button{
+ width:100%;padding:14px 10px;margin-bottom:9px;
+ color:white;background:#211631;border-radius:9px;text-align:left
+}
+nav button.active,nav button:hover{
+ background:linear-gradient(90deg,#6d22a9,#087b4b)
+}
+main{padding:18px;width:100%;min-width:0}
+.banner{
+ padding:22px;border-radius:16px;margin-bottom:18px;
+ background:linear-gradient(100deg,#331052,#075b3c);
+ border:1px solid #9d56d1;display:flex;
+ justify-content:space-between;align-items:center
+}
+.banner h2{margin:0;color:#baff66}
+.banner .horse{font-size:42px}
+.grid{
+ display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+ gap:12px;margin-bottom:20px
+}
+.card{
+ background:#171027;border:1px solid #56376d;
+ padding:17px;border-radius:13px;min-width:0
+}
+.card small{color:#b9a9cc}
+.amount{font-size:22px;color:#aaff53;font-weight:bold;margin-top:10px;overflow-wrap:anywhere}
+.section{display:none}
+.section.active{display:block}
+h2,h3{color:#baff66}
+.formgrid{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px
+}
+.field label{font-size:13px;color:#cdb9e5}
+.field input{margin-top:7px}
 .tablewrap{overflow-x:auto}
-.notice{padding:13px;border-radius:10px;background:#351313;color:#fecaca;text-align:center}
-#reportPreview{background:#fff;color:#171717;padding:22px;border-radius:10px;max-width:500px;margin:15px auto}
-#message{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#252238;border:1px solid #a855f7;padding:12px 18px;border-radius:12px;z-index:20;display:none;max-width:90%;text-align:center}
-footer{text-align:center;color:#777;font-size:11px;padding:25px}
-@media(min-width:650px){.grid{grid-template-columns:repeat(4,1fr)}}
+table{border-collapse:collapse;width:100%;min-width:650px}
+th,td{padding:12px 9px;text-align:left;border-bottom:1px solid #49365a}
+th{color:#baff66;background:#211632}
+tr:hover td{background:#211632}
+.tag{padding:5px 9px;border-radius:20px;background:#57317a;font-size:12px}
+.pending{
+ padding:16px;background:#36240d;border:1px solid #e2a637;
+ border-radius:12px;color:#ffdc80;margin:12px 0
+}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+.actions button{padding:11px;border-radius:9px}
+#reportArea{background:#100b20;padding:12px;border-radius:12px}
+.centeritem{
+ padding:14px;margin:10px 0;background:#241732;
+ border:1px solid #63427c;border-radius:10px;
+ display:flex;justify-content:space-between;align-items:center;gap:10px
+}
+footer{text-align:center;padding:20px;color:#9684a8}
+@media(max-width:850px){
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .layout{display:block}
+ nav{width:100%;display:flex;overflow-x:auto;gap:7px;padding:9px}
+ nav button{min-width:115px;text-align:center;margin:0;padding:12px 7px}
+ main{padding:12px}
+ .banner{padding:16px}
+}
+@media(max-width:430px){
+ .formgrid{grid-template-columns:1fr}
+ .brand{font-size:17px}
+ .grid{gap:8px}
+ .card{padding:12px}
+ .amount{font-size:19px}
+}
 </style>
 </head>
+
 <body>
+
+<div id="login">
+ <div class="loginbox">
+  <div class="horse">🏇</div>
+  <div class="logo">DAILY STAKE</div>
+  <h2>MULTI CENTER SYSTEM</h2>
+  <div class="sub">Secure Center Access</div>
+
+  <input id="centerName" placeholder="Enter Center Name"
+   autocomplete="off" oninput="checkAdmin()">
+
+  <div id="passwordArea" class="hidden">
+   <input id="adminPassword" type="password"
+    placeholder="Admin Password">
+  </div>
+
+  <button class="btn" style="width:100%;margin-top:12px"
+   onclick="login()">LOGIN</button>
+
+  <div id="message"></div>
+ </div>
+</div>
+
+<div id="app" class="hidden">
 <header>
- <div class="logo">🏇 DAILY STAKE</div>
- <h1>MULTI CENTER</h1>
- <div class="subtitle">PROFESSIONAL STAKE MANAGEMENT</div>
+ <div class="brand">🏇 DAILY STAKE</div>
+ <div id="userLabel"></div>
+ <button class="btn red" onclick="logout()">LOGOUT</button>
 </header>
 
+<div class="layout">
+<nav>
+ <button class="active" onclick="showPage('dashboard',this)">🏠 Dashboard</button>
+ <button onclick="showPage('newstake',this)" id="newBtn">➕ New Stake</button>
+ <button onclick="showPage('records',this)">📋 Records</button>
+ <button onclick="showPage('reports',this)">📊 Reports</button>
+ <button onclick="showPage('approval',this)" id="approvalBtn" class="hidden">✅ Approvals</button>
+</nav>
+
 <main>
-<section id="loginScreen" class="panel login">
+<div class="banner">
+ <div>
+  <h2>DAILY STAKE</h2>
+  <p id="centerTitle">Multi Center Dashboard</p>
+  <small id="clock"></small>
+ </div>
  <div class="horse">🏇</div>
- <div class="logo">DAILY STAKE SYSTEM</div>
- <h2>SECURE LOGIN</h2>
- <label>USERNAME / CENTER NAME</label>
- <input id="username" placeholder="Enter center name or admin" autocomplete="username">
+</div>
 
- <div id="passwordBox" class="hidden">
-  <label>ADMIN PASSWORD</label>
-  <input id="password" type="password" placeholder="Enter admin password" autocomplete="current-password">
+<div id="approvalWarning" class="pending hidden">
+ <h3>APPROVAL PENDING</h3>
+ Your center is waiting for Admin 2 approval.
+ Stake entry is currently disabled.
+</div>
+
+<section id="dashboard" class="section active">
+ <h2>Dashboard</h2>
+ <div class="grid">
+  <div class="card"><small>Australia</small><div class="amount" id="aTotal">0.00</div></div>
+  <div class="card"><small>England</small><div class="amount" id="eTotal">0.00</div></div>
+  <div class="card"><small>Trackside</small><div class="amount" id="tTotal">0.00</div></div>
+  <div class="card"><small>Due</small><div class="amount" id="dTotal">0.00</div></div>
+  <div class="card"><small>Total Daily Stake</small><div class="amount" id="allTotal">0.00</div></div>
  </div>
-
- <button class="green" style="width:100%;margin-top:10px" onclick="login()">LOGIN</button>
- <p class="muted">Authorized users only</p>
+ <div class="card">
+  <h3>Recent Records</h3>
+  <div class="tablewrap" id="recent"></div>
+ </div>
 </section>
 
-<section id="appScreen" class="hidden">
- <div class="panel">
-  <div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
-   <div><div class="logo">DAILY STAKE</div><strong id="welcome">WELCOME</strong><div class="muted" id="businessDate"></div></div>
-   <button class="red" onclick="logout()">LOGOUT</button>
+<section id="newstake" class="section">
+ <h2>New Stake Entry</h2>
+ <div class="card">
+  <div class="formgrid">
+   <div class="field">
+    <label>Australia</label>
+    <input id="australia" type="number" min="0" step="0.01" placeholder="0.00">
+   </div>
+   <div class="field">
+    <label>England</label>
+    <input id="england" type="number" min="0" step="0.01" placeholder="0.00">
+   </div>
+   <div class="field">
+    <label>Trackside</label>
+    <input id="trackside" type="number" min="0" step="0.01" placeholder="0.00">
+   </div>
+   <div class="field">
+    <label>Due</label>
+    <input id="due" type="number" min="0" step="0.01" placeholder="0.00">
+   </div>
   </div>
-  <nav id="nav"></nav>
+  <div class="card" style="margin-top:12px">
+   <small>Total Daily Stake (Due excluded)</small>
+   <div class="amount" id="previewTotal">0.00</div>
+  </div>
+  <div class="actions">
+   <button class="btn" onclick="save()">SAVE STAKE</button>
+   <button class="btn red" onclick="clearForm()">CLEAR</button>
+  </div>
+  <div id="saveMessage"></div>
  </div>
- <div id="page"></div>
 </section>
-</main>
 
-<footer>DAILY STAKE • MULTI CENTER SYSTEM</footer>
-<div id="message"></div>
+<section id="records" class="section">
+ <h2>Stake Records</h2>
+ <div class="card tablewrap" id="recordsTable"></div>
+</section>
+
+<section id="reports" class="section">
+ <h2>Stake Reports</h2>
+ <div id="reportArea">
+  <h3>DAILY STAKE REPORT</h3>
+  <p id="reportName"></p>
+  <p id="reportDate"></p>
+  <div id="reportContent"></div>
+ </div>
+ <div class="actions">
+  <button class="btn" onclick="screenshot()">📸 SCREENSHOT REPORT</button>
+  <button class="btn purple" onclick="refresh()">REFRESH REPORT</button>
+ </div>
+</section>
+
+<section id="approval" class="section">
+ <h2>Center Approvals</h2>
+ <p>Admin 2 - Review new center requests</p>
+ <div id="pendingList"></div>
+</section>
+
+<footer>DAILY STAKE MULTI CENTER SYSTEM</footer>
+</main>
+</div>
+</div>
 
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbwVzKrmNhfTuAfynGQ-Ple1poFp5KH1EqXDwtxF-V9IWVZgPwh6S5JI5vRw5zzscag/exec";
+const API_URL = "PASTE_YOUR_NEW_APPS_SCRIPT_EXEC_URL_HERE";
 
-let token="";
-let user=null;
-let dashboardData=null;
-let allRecords=[];
-let pageName="home";
-let callbackNo=0;
+let session = null;
+let records = [];
+let pendingCenters = [];
+let deviceID = localStorage.getItem("dailyStakeDevice");
 
-function deviceId(){
- let id=localStorage.getItem("ds_device_id");
- if(!id){
-  id="DEV-"+Date.now()+"-"+Math.random().toString(36).slice(2);
-  localStorage.setItem("ds_device_id",id);
- }
- return id;
+if(!deviceID){
+ deviceID = "DEV-"+crypto.randomUUID();
+ localStorage.setItem("dailyStakeDevice",deviceID);
 }
-
-function message(t){
- const el=document.getElementById("message");
- el.textContent=t;
- el.style.display="block";
- setTimeout(()=>el.style.display="none",3500);
-}
-
-/* ADMIN PASSWORD BOX */
-const usernameInput=document.getElementById("username");
-const passwordBox=document.getElementById("passwordBox");
 
 function checkAdmin(){
- const value=usernameInput.value.trim().toLowerCase();
- if(value==="admin"){
-  passwordBox.classList.remove("hidden");
- }else{
-  passwordBox.classList.add("hidden");
- }
+ const n = document.getElementById("centerName").value.trim().toUpperCase();
+ document.getElementById("passwordArea").classList.toggle(
+  "hidden",n!=="ADMIN1" && n!=="ADMIN2"
+ );
 }
-usernameInput.addEventListener("input",checkAdmin);
-usernameInput.addEventListener("change",checkAdmin);
-usernameInput.addEventListener("keyup",checkAdmin);
 
-usernameInput.addEventListener("keydown",e=>{
- if(e.key==="Enter"){
-  if(usernameInput.value.trim().toLowerCase()==="admin"){
-   document.getElementById("password").focus();
-  }else login();
- }
-});
-document.getElementById("password").addEventListener("keydown",e=>{
- if(e.key==="Enter")login();
-});
-
-/* SERVER CONNECTION */
-function api(action,data={}){
+function api(data){
  return new Promise((resolve,reject)=>{
-  const cb="dsCallback"+(++callbackNo);
+  if(!API_URL.startsWith("https://script.google.com/")){
+   reject(new Error("Apps Script URL not configured"));
+   return;
+  }
+
+  const callback="cb_"+Date.now()+"_"+Math.floor(Math.random()*99999);
   const script=document.createElement("script");
   const timer=setTimeout(()=>{
    cleanup();
-   reject(new Error("Server connection failed"));
-  },15000);
+   reject(new Error("Connection timeout"));
+  },20000);
 
   function cleanup(){
    clearTimeout(timer);
-   delete window[cb];
+   delete window[callback];
    script.remove();
   }
 
-  window[cb]=(res)=>{
+  window[callback]=(result)=>{
    cleanup();
-   if(res&&res.ok)resolve(res.data);
-   else reject(new Error(res?.error||"Server error"));
+   resolve(result);
   };
 
-  const params=new URLSearchParams({
-   action,
-   data:JSON.stringify(data),
-   callback:cb,
-   nonce:Date.now()
-  });
-
-  script.src=API_URL+"?"+params.toString();
   script.onerror=()=>{
    cleanup();
    reject(new Error("Server connection failed"));
   };
+
+  script.src=API_URL+"?callback="+callback+
+   "&data="+encodeURIComponent(JSON.stringify(data));
+
   document.body.appendChild(script);
  });
 }
 
-/* LOGIN */
 async function login(){
- const username=usernameInput.value.trim();
- const password=document.getElementById("password").value;
+ const name=document.getElementById("centerName").value.trim().toUpperCase();
+ const password=document.getElementById("adminPassword").value;
+ const msg=document.getElementById("message");
 
- if(!username){
-  message("Enter username or center name");
-  return;
- }
+ if(!name){msg.textContent="Enter Center Name";return;}
 
- if(username.toLowerCase()==="admin"&&!password){
-  passwordBox.classList.remove("hidden");
-  document.getElementById("password").focus();
-  message("Enter admin password");
-  return;
- }
+ msg.textContent="Connecting...";
 
  try{
-  const result=await api("login",{
-   username,
-   password,
-   deviceId:deviceId()
+  const r=await api({
+   action:"login",name,password,device:deviceID
   });
 
-  token=result.token;
-  user=result.user;
-  localStorage.setItem("ds_token",token);
-  enterApp();
-
- }catch(e){
-  message(e.message);
- }
-}
-
-async function restore(){
- const t=localStorage.getItem("ds_token");
- if(!t)return;
-
- try{
-  token=t;
-  const r=await api("verify",{token});
-  user=r.user;
-  enterApp();
- }catch(e){
-  localStorage.removeItem("ds_token");
- }
-}
-
-function enterApp(){
- document.getElementById("loginScreen").classList.add("hidden");
- document.getElementById("appScreen").classList.remove("hidden");
- document.getElementById("welcome").textContent=user.name;
- buildNav();
- refresh();
-}
-
-async function logout(){
- try{await api("logout",{token})}catch(e){}
- token="";
- user=null;
- localStorage.removeItem("ds_token");
- document.getElementById("appScreen").classList.add("hidden");
- document.getElementById("loginScreen").classList.remove("hidden");
- usernameInput.value="";
- document.getElementById("password").value="";
- checkAdmin();
-}
-
-function buildNav(){
- let items=[];
- if(user.role==="center")items=[
-  ["home","⌂ Dashboard"],["add","＋ New Stake"],
-  ["records","▤ Records"],["reports","▥ Reports"]
- ];
- if(user.role==="admin1")items=[
-  ["home","⌂ Dashboard"],["records","▤ All Records"],
-  ["reports","▥ Reports"],["centers","♙ Centers"]
- ];
- if(user.role==="admin2")items=[
-  ["home","⌂ Dashboard"],["centers","♙ Centers"],
-  ["maintenance","⚙ Maintenance"]
- ];
-
- document.getElementById("nav").innerHTML=items.map(x=>
-  `<button id="nav_${x[0]}" onclick="showPage('${x[0]}')">${x[1]}</button>`
- ).join("");
-}
-
-async function refresh(){
- try{
-  dashboardData=await api("dashboard",{token});
-  document.getElementById("businessDate").textContent="BUSINESS DATE: "+dashboardData.date;
-
-  if(dashboardData.maintenance&&user.role==="center"){
-   document.getElementById("page").innerHTML=
-   '<div class="panel notice"><h2>UNDER MAINTENANCE</h2>Please try again later.</div>';
+  if(r.redirect){
+   location.href=r.redirect;
    return;
   }
-  showPage(pageName);
+
+  if(r.pending){
+   msg.textContent="APPROVAL PENDING";
+   return;
+  }
+
+  if(!r.ok){
+   msg.textContent=r.error;
+   return;
+  }
+
+  session={
+   role:r.role,
+   center:r.center,
+   password:r.role==="CENTER"?"":password,
+   device:deviceID
+  };
+
+  localStorage.setItem("dailyStakeSession",JSON.stringify(session));
+  openApp();
  }catch(e){
-  message(e.message);
+  msg.textContent=e.message;
  }
 }
 
-async function showPage(p){
- pageName=p;
- document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
- const nav=document.getElementById("nav_"+p);
- if(nav)nav.classList.add("active");
+function openApp(){
+ document.getElementById("login").classList.add("hidden");
+ document.getElementById("app").classList.remove("hidden");
 
- if(!dashboardData){
-  await refresh();
-  return;
+ document.getElementById("userLabel").textContent=
+  session.role==="CENTER"?session.center:session.role;
+
+ document.getElementById("centerTitle").textContent=
+  session.role==="CENTER"?session.center+" CENTER":"ADMIN DASHBOARD";
+
+ const admin2=session.role==="ADMIN2";
+ const center=session.role==="CENTER";
+
+ document.getElementById("approvalBtn").classList.toggle("hidden",!admin2);
+ document.getElementById("newBtn").classList.toggle("hidden",!center);
+ document.getElementById("approvalWarning").classList.add("hidden");
+
+ if(center){
+  showPage("newstake",document.getElementById("newBtn"));
+ }else{
+  showPage("dashboard",document.querySelector("nav button"));
  }
 
- if(p==="home")homePage();
- if(p==="add")addPage();
- if(p==="records")await recordsPage();
- if(p==="reports")reportsPage();
- if(p==="centers")centersPage();
- if(p==="maintenance")maintenancePage();
+ refresh();
+ if(admin2) loadPending();
 }
 
-function money(n){
- return (Number(n)||0).toLocaleString("en-US",{
+function logout(){
+ localStorage.removeItem("dailyStakeSession");
+ session=null;
+ location.reload();
+}
+
+function showPage(id,button){
+ document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));
+ if(button)button.classList.add("active");
+ if(id==="approval")loadPending();
+ if(id==="reports")renderReport();
+}
+
+function money(v){
+ return Number(v||0).toLocaleString("en-LK",{
   minimumFractionDigits:2,maximumFractionDigits:2
  });
 }
 
-function totals(list){
- return list.reduce((a,r)=>{
-  a.au+=Number(r.australian||0);
-  a.en+=Number(r.england||0);
-  a.tr+=Number(r.trackside||0);
-  a.due+=Number(r.due||0);
-  a.total+=Number(r.total||0);
-  return a;
- },{au:0,en:0,tr:0,due:0,total:0});
-}
-
-function homePage(){
- const t=totals(dashboardData.records||[]);
- const isAdmin=user.role==="admin1";
-
- document.getElementById("page").innerHTML=`
- <div class="panel">
-  <div class="horse">🏇</div>
-  <h2>HOME DASHBOARD</h2>
-  <div class="muted">MAKE YOUR STAKE COUNT!</div>
-  <div class="grid" style="margin-top:15px">
-   <div class="stat"><small>🇦🇺 AUSTRALIAN TOTAL</small><strong class="greenText">${money(t.au)}</strong></div>
-   <div class="stat"><small>🇬🇧 ENGLAND TOTAL</small><strong class="orangeText">${money(t.en)}</strong></div>
-   <div class="stat"><small>🏇 TRACKSIDE TOTAL</small><strong class="purpleText">${money(t.tr)}</strong></div>
-   <div class="stat"><small>💰 DUE TOTAL</small><strong class="redText">${money(t.due)}</strong></div>
-  </div>
-  <div class="stat" style="margin-top:12px;text-align:center">
-   <small>${isAdmin?"ALL CENTERS' DAILY TOTAL":"DAILY TOTAL"}</small>
-   <strong class="greenText">${money(t.total)}</strong>
-  </div>
- </div>
- <div class="panel">
-  <h2>⚡ QUICK ACTIONS</h2>
-  <div class="actions">
-   ${user.role==="center"?"<button onclick=\"showPage('add')\">＋ New Stake</button>":""}
-   <button onclick="showPage('records')">▤ View Records</button>
-   ${user.role!=="admin2"?"<button onclick=\"showPage('reports')\">▥ Reports</button>":""}
-  </div>
- </div>
- <div class="panel">
-  <h2>📋 DASHBOARD RECORDS</h2>
-  ${recordRows(dashboardData.records||[],isAdmin)}
- </div>`;
-}
-
-function recordRows(list,showCenter){
- if(!list.length)return '<p class="muted">No records found for this business date.</p>';
-
- return list.map(r=>`
- <div class="rowitem">
-  <span>
-   ${showCenter?"<b>"+esc(r.center)+"</b><br>":""}
-   ${esc(r.date)}<br>
-   <span class="muted">AU ${money(r.australian)} | EN ${money(r.england)} | TR ${money(r.trackside)} | DUE ${money(r.due)}</span>
-  </span>
-  <b>${money(r.total)}</b>
- </div>`).join("");
-}
-
-/* NEW STAKE */
-function stakeInput(id,label){
- return `<label>${label} AMOUNT (LKR)</label><input id="${id}" type="number" min="0" step="0.01" placeholder="0.00">`;
-}
-
-function addPage(){
- document.getElementById("page").innerHTML=`
- <div class="panel">
-  <h2>＋ NEW STAKE</h2>
-  <p class="muted">Enter daily stake details</p>
-  <label>BUSINESS DATE</label>
-  <input id="stakeDate" type="date" value="${dashboardData.date}">
-  ${stakeInput("australian","🇦🇺 AUSTRALIAN")}
-  ${stakeInput("england","🇬🇧 ENGLAND")}
-  ${stakeInput("trackside","🏇 TRACKSIDE")}
-  ${stakeInput("due","💸 DUE")}
-  <div class="stat">
-   <small>TOTAL DAILY STAKE (WITHOUT DUE)</small>
-   <strong id="liveTotal" class="greenText">0.00</strong>
-  </div>
-  <div class="actions" style="margin-top:12px">
-   <button class="green" onclick="saveStake()">✓ SAVE STAKE</button>
-   <button class="gray" onclick="clearStake()">↻ CLEAR</button>
-   <button onclick="makeScreenshot()">📸 SCREENSHOT REPORT</button>
-  </div>
- </div>
- <div class="panel">
-  <h3>📸 REPORT PREVIEW</h3>
-  <div id="reportPreview"></div>
- </div>`;
-
- ["australian","england","trackside","due"].forEach(id=>{
-  document.getElementById(id).addEventListener("input",updateLive);
- });
- updateLive();
-}
-
-function updateLive(){
- const a=Number(document.getElementById("australian").value)||0;
- const b=Number(document.getElementById("england").value)||0;
- const c=Number(document.getElementById("trackside").value)||0;
- const d=Number(document.getElementById("due").value)||0;
- const date=document.getElementById("stakeDate").value;
-
- const r={
-  date,center:user.name,
-  australian:a,england:b,trackside:c,due:d,total:a+b+c
- };
-
- document.getElementById("liveTotal").textContent=money(r.total);
- document.getElementById("reportPreview").innerHTML=reportHtml(r);
-}
-
-function clearStake(){
- ["australian","england","trackside","due"].forEach(id=>{
-  document.getElementById(id).value="";
- });
- updateLive();
-}
-
-async function saveStake(){
- const d={token,date:document.getElementById("stakeDate").value};
- ["australian","england","trackside","due"].forEach(k=>{
-  d[k]=Number(document.getElementById(k).value)||0;
- });
-
- if(!d.date){message("Select business date");return}
- if(!d.australian&&!d.england&&!d.trackside&&!d.due){
-  message("Enter at least one amount");return;
- }
+async function refresh(){
+ if(!session)return;
 
  try{
-  await api("addRecord",d);
-  message("Stake saved successfully");
-  await refresh();
+  const r=await api({
+   action:"data",role:session.role,
+   center:session.center,
+   password:session.password,
+   device:session.device
+  });
+
+  if(!r.ok){
+   if(r.pending){
+    document.getElementById("approvalWarning").classList.remove("hidden");
+    document.getElementById("newBtn").classList.add("hidden");
+   }
+   return;
+  }
+
+  records=r.records||[];
+  renderAll(r);
  }catch(e){
-  message(e.message);
+  console.log(e);
  }
 }
 
-/* RECORDS */
-async function recordsPage(){
- document.getElementById("page").innerHTML=`
- <div class="panel">
-  <h2>▤ SAVED RECORDS</h2>
-  <label>SEARCH BY DATE</label>
-  <input id="searchDate" type="date">
-  <div class="actions">
-   <button onclick="searchRecords()">🔎 SEARCH</button>
-   <button class="gray" onclick="loadAllRecords()">ALL RECORDS</button>
-  </div>
-  <div id="recordsResult" class="muted">Loading records...</div>
- </div>`;
- await loadAllRecords();
-}
+function renderAll(r){
+ const today=r.today||[];
 
-async function loadAllRecords(){
- try{
-  allRecords=await api("records",{token});
-  renderRecords(allRecords);
- }catch(e){message(e.message)}
-}
+ const sums={australia:0,england:0,trackside:0,due:0,total:0};
 
-async function searchRecords(){
- const date=document.getElementById("searchDate").value;
- if(!date){message("Select a date");return}
- try{
-  allRecords=await api("records",{token,date});
-  renderRecords(allRecords);
- }catch(e){message(e.message)}
-}
-
-function renderRecords(list){
- const showCenter=user.role==="admin1";
- let html=list.length?
- `<div class="tablewrap"><table><thead><tr>
- ${showCenter?"<th>Center</th>":""}
- <th>Date</th><th>Australian</th><th>England</th>
- <th>Trackside</th><th>Due</th><th>Total</th>
- </tr></thead><tbody>`:"";
-
- list.forEach(r=>{
-  html+=`<tr>
-  ${showCenter?`<td>${esc(r.center)}</td>`:""}
-  <td>${esc(r.date)}</td>
-  <td>${money(r.australian)}</td>
-  <td>${money(r.england)}</td>
-  <td>${money(r.trackside)}</td>
-  <td>${money(r.due)}</td>
-  <td><b>${money(r.total)}</b></td>
-  </tr>`;
+ today.forEach(x=>{
+  sums.australia+=x.australia;
+  sums.england+=x.england;
+  sums.trackside+=x.trackside;
+  sums.due+=x.due;
+  sums.total+=x.total;
  });
 
- if(list.length)html+="</tbody></table></div>";
- else html='<p class="muted">No records found.</p>';
+ ["australia","england","trackside","due","total"].forEach(k=>{
+  document.getElementById(
+   k==="total"?"allTotal":
+   k==="australia"?"aTotal":
+   k==="england"?"eTotal":
+   k==="trackside"?"tTotal":"dTotal"
+  ).textContent=money(sums[k]);
+ });
 
- document.getElementById("recordsResult").innerHTML=html;
+ document.getElementById("recent").innerHTML=tableHTML(today.slice().reverse().slice(0,8));
+ document.getElementById("recordsTable").innerHTML=tableHTML(records);
+ renderReport();
 }
 
-/* REPORTS */
-function reportsPage(){
- document.getElementById("page").innerHTML=`
- <div class="panel">
-  <h2>📊 REPORTS</h2>
-  <label>SELECT MONTH</label>
-  <input id="reportMonth" type="month" value="${dashboardData.date.slice(0,7)}">
-  <button onclick="monthlyReport()">VIEW MONTHLY REPORT</button>
-  <div id="monthlyResult" style="margin-top:15px"></div>
-  <button onclick="makeScreenshot()">📸 SCREENSHOT REPORT</button>
- </div>`;
+function tableHTML(data){
+ if(!data.length)return "<p>No records available</p>";
+
+ let html="<table><thead><tr>";
+ ["Date","Time","Center","Australia","England","Trackside","Due","Total"].forEach(x=>html+="<th>"+x+"</th>");
+ html+="</tr></thead><tbody>";
+
+ data.forEach(r=>{
+  html+="<tr>"+
+   `<td>${safe(r.date)}</td><td>${safe(r.time)}</td><td>${safe(r.center)}</td>`+
+   `<td>${money(r.australia)}</td><td>${money(r.england)}</td>`+
+   `<td>${money(r.trackside)}</td><td>${money(r.due)}</td>`+
+   `<td>${money(r.total)}</td></tr>`;
+ });
+ return html+"</tbody></table>";
 }
 
-async function monthlyReport(){
- const month=document.getElementById("reportMonth").value;
- if(!month){message("Select a month");return}
-
- try{
-  const list=await api("records",{token,month});
-  const t=totals(list);
-
-  document.getElementById("monthlyResult").innerHTML=`
-  <div class="grid">
-   <div class="stat"><small>AUSTRALIAN</small><strong>${money(t.au)}</strong></div>
-   <div class="stat"><small>ENGLAND</small><strong>${money(t.en)}</strong></div>
-   <div class="stat"><small>TRACKSIDE</small><strong>${money(t.tr)}</strong></div>
-   <div class="stat"><small>DUE</small><strong>${money(t.due)}</strong></div>
-  </div>
-  <div class="stat" style="margin-top:10px">
-   <small>MONTHLY TOTAL (WITHOUT DUE)</small>
-   <strong class="greenText">${money(t.total)}</strong>
-  </div>
-  <p class="muted">${list.length} records</p>`;
- }catch(e){message(e.message)}
-}
-
-/* CENTERS */
-function centersPage(){
- const list=dashboardData.centers||[];
-
- let html=list.length?list.map(c=>`
- <div class="rowitem">
-  <span><b>${esc(c.name)}</b><br>
-  <span class="muted">${c.enabled?"ACTIVE":"DISABLED"}</span></span>
-  ${user.role==="admin2"?`
-  <span>
-   <button class="${c.enabled?"red":"green"}" onclick="toggleCenter('${escAttr(c.name)}',${!c.enabled})">${c.enabled?"DISABLE":"ENABLE"}</button>
-   <button class="gray" onclick="resetDevices('${escAttr(c.name)}')">RESET DEVICES</button>
-  </span>`:""}
- </div>`).join(""):'<p class="muted">No centers registered.</p>';
-
- document.getElementById("page").innerHTML=`
- <div class="panel"><h2>♙ REGISTERED CENTERS</h2>${html}</div>
- ${user.role==="admin2"?`
- <div class="panel">
-  <h2>＋ ADD NEW CENTER</h2>
-  <label>CENTER NAME</label>
-  <input id="newCenter" placeholder="Enter center name">
-  <button class="green" onclick="addCenter()">REGISTER CENTER</button>
- </div>`:""}`;
-}
-
-async function addCenter(){
- const name=document.getElementById("newCenter").value.trim();
- if(!name){message("Enter center name");return}
- try{
-  await api("addCenter",{token,name});
-  message("Center registered");
-  await refresh();
- }catch(e){message(e.message)}
-}
-
-async function toggleCenter(name,enabled){
- if(!confirm((enabled?"Enable ":"Disable ")+name+"?"))return;
- try{
-  await api("toggleCenter",{token,name,enabled});
-  message("Center updated");
-  await refresh();
- }catch(e){message(e.message)}
-}
-
-async function resetDevices(name){
- if(!confirm("Reset all device slots for "+name+"?"))return;
- try{
-  await api("resetDevices",{token,name});
-  message("Device slots reset");
-  await refresh();
- }catch(e){message(e.message)}
-}
-
-/* MAINTENANCE */
-function maintenancePage(){
- const on=dashboardData.maintenance;
- document.getElementById("page").innerHTML=`
- <div class="panel">
-  <h2>⚙ SYSTEM MAINTENANCE</h2>
-  <div class="stat">
-   <small>CURRENT STATUS</small>
-   <strong class="${on?"redText":"greenText"}">${on?"MAINTENANCE ON":"SYSTEM ACTIVE"}</strong>
-  </div>
-  <p class="muted">When maintenance is ON, center users cannot access the system. Admin access remains available.</p>
-  <button class="${on?"green":"red"}" onclick="setMaintenance(${!on})">
-   ${on?"TURN MAINTENANCE OFF":"TURN MAINTENANCE ON"}
-  </button>
- </div>`;
-}
-
-async function setMaintenance(enabled){
- if(!confirm(enabled?"Enable system maintenance?":"Disable system maintenance?"))return;
- try{
-  await api("setMaintenance",{token,enabled});
-  message("Maintenance setting updated");
-  await refresh();
- }catch(e){message(e.message)}
-}
-
-/* REPORT DESIGN */
-function reportHtml(r){
- return `<div style="text-align:center;font-family:Arial">
- <div style="font-size:30px">🏇</div>
- <h2>DAILY STAKE REPORT</h2>
- <h3>${esc(r.center||"MULTI CENTER")}</h3>
- <p>Date: ${esc(r.date||"-")}</p>
- <div class="reportline"><span>🇦🇺 Australian</span><b>${money(r.australian)}</b></div>
- <div class="reportline"><span>🇬🇧 England</span><b>${money(r.england)}</b></div>
- <div class="reportline"><span>🏇 Trackside</span><b>${money(r.trackside)}</b></div>
- <div class="reportline"><span>💸 Due</span><b>${money(r.due)}</b></div>
- <div class="reportline" style="font-size:19px;font-weight:bold">
- <span>TOTAL DAILY STAKE</span><b>${money(r.total)}</b></div>
- <p style="font-size:11px;color:#555">Due is separate and not included in Total Stake.</p>
- <p style="font-size:10px">DAILY STAKE • MULTI CENTER SYSTEM</p>
- </div>`;
-}
-
-async function makeScreenshot(){
- const target=document.getElementById("reportPreview")||document.getElementById("monthlyResult");
- if(!target||!target.innerHTML.trim()){
-  message("No report to capture");return;
- }
- try{
-  const canvas=await html2canvas(target,{scale:2,backgroundColor:"#ffffff"});
-  const a=document.createElement("a");
-  a.download="daily-stake-report.png";
-  a.href=canvas.toDataURL("image/png");
-  a.click();
- }catch(e){message("Screenshot failed")}
-}
-
-function esc(s){
- return String(s??"").replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+function safe(v){
+ return String(v??"").replace(/[&<>"']/g,c=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",
+  '"':"&quot;","'":"&#39;"
  }[c]));
 }
-function escAttr(s){
- return String(s??"").replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+
+["australia","england","trackside","due"].forEach(id=>{
+ document.getElementById(id).addEventListener("input",()=>{
+  const total=["australia","england","trackside"]
+   .reduce((s,k)=>s+Math.max(0,Number(document.getElementById(k).value)||0),0);
+  document.getElementById("previewTotal").textContent=money(total);
+ });
+});
+
+async function save(){
+ if(!session||session.role!=="CENTER")return;
+
+ const data={
+  action:"save",
+  center:session.center,
+  device:session.device,
+  australia:document.getElementById("australia").value,
+  england:document.getElementById("england").value,
+  trackside:document.getElementById("trackside").value,
+  due:document.getElementById("due").value
+ };
+
+ const msg=document.getElementById("saveMessage");
+ msg.textContent="Saving...";
+
+ try{
+  const r=await api(data);
+  if(!r.ok){msg.textContent=r.error;return;}
+  msg.textContent="STAKE SAVED SUCCESSFULLY";
+  clearForm();
+  await refresh();
+ }catch(e){
+  msg.textContent=e.message;
+ }
 }
 
-restore();
+function clearForm(){
+ ["australia","england","trackside","due"].forEach(k=>{
+  document.getElementById(k).value="";
+ });
+ document.getElementById("previewTotal").textContent="0.00";
+}
+
+function renderReport(){
+ const now=new Date();
+ document.getElementById("reportName").textContent=
+  session?session.center||"ALL CENTERS":"";
+ document.getElementById("reportDate").textContent=
+  "Generated: "+now.toLocaleString();
+
+ const today=records.filter(r=>{
+  const d=String(r.date);
+  return d===todayLocal();
+ });
+
+ let a=0,e=0,t=0,d=0,total=0;
+ today.forEach(r=>{
+  a+=r.australia;e+=r.england;t+=r.trackside;
+  d+=r.due;total+=r.total;
+ });
+
+ document.getElementById("reportContent").innerHTML=`
+ <p>Australia: ${money(a)}</p>
+ <p>England: ${money(e)}</p>
+ <p>Trackside: ${money(t)}</p>
+ <p>Due: ${money(d)}</p>
+ <h2>Total Daily Stake: ${money(total)}</h2>
+ <p>Records: ${today.length}</p>`;
+}
+
+function todayLocal(){
+ return new Intl.DateTimeFormat("en-CA",{
+  timeZone:"Asia/Colombo",
+  year:"numeric",month:"2-digit",day:"2-digit"
+ }).format(new Date());
+}
+
+async function screenshot(){
+ const area=document.getElementById("reportArea");
+ try{
+  const canvas=await html2canvas(area,{scale:2,backgroundColor:"#100b20"});
+  const a=document.createElement("a");
+  a.download="Daily-Stake-Report.png";
+  a.href=canvas.toDataURL("image/png");
+  a.click();
+ }catch(e){alert("Screenshot failed: "+e.message);}
+}
+
+async function loadPending(){
+ if(!session||session.role!=="ADMIN2")return;
+
+ try{
+  const r=await api({action:"pending"});
+  if(!r.ok)return;
+  pendingCenters=r.centers||[];
+
+  const box=document.getElementById("pendingList");
+
+  if(!pendingCenters.length){
+   box.innerHTML="<p>No pending centers</p>";
+   return;
+  }
+
+  box.innerHTML=pendingCenters.map(c=>`
+   <div class="centeritem">
+    <div><b>${safe(c.name)}</b><br><small>Waiting for approval</small></div>
+    <div class="actions">
+     <button class="btn" onclick="approveCenter('${safe(c.name)}')">APPROVE</button>
+     <button class="btn red" onclick="rejectCenter('${safe(c.name)}')">REJECT</button>
+    </div>
+   </div>
+  `).join("");
+ }catch(e){
+  document.getElementById("pendingList").textContent=e.message;
+ }
+}
+
+async function approveCenter(name){
+ if(!confirm("Approve "+name+"?"))return;
+ const r=await api({
+  action:"approve",admin:"ADMIN2",
+  password:session.password,center:name
+ });
+ if(r.ok){alert("Center approved");loadPending();}
+ else alert(r.error);
+}
+
+async function rejectCenter(name){
+ if(!confirm("Reject "+name+"?"))return;
+ const r=await api({
+  action:"reject",admin:"ADMIN2",
+  password:session.password,center:name
+ });
+ if(r.ok){alert("Center rejected");loadPending();}
+ else alert(r.error);
+}
+
+function updateClock(){
+ document.getElementById("clock").textContent=
+  new Date().toLocaleString("en-LK",{timeZone:"Asia/Colombo"});
+}
+setInterval(updateClock,1000);
+updateClock();
+
+(function restore(){
+ try{
+  const s=JSON.parse(localStorage.getItem("dailyStakeSession"));
+  if(s&&s.role&&s.device){
+   session=s;
+   if(s.role==="CENTER"){
+    loginRestore();
+   }else{
+    openApp();
+   }
+  }
+ }catch(e){}
+})();
+
+async function loginRestore(){
+ try{
+  const r=await api({
+   action:"login",name:session.center,
+   password:session.password,device:session.device
+  });
+  if(r.ok)openApp();
+  else logout();
+ }catch(e){
+  // Keep login screen available if connection is unavailable.
+  session=null;
+ }
+}
 </script>
 </body>
 </html>
+
 
