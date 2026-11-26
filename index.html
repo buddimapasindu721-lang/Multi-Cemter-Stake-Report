@@ -28,6 +28,7 @@ h2{font-size:17px;margin:0 0 15px;color:var(--gold);letter-spacing:1px}
 label{display:block;color:#c4d1cb;font-size:12px;margin:12px 0 6px}
 input,select{width:100%;border:1px solid #ffffff25;background:#081c17;color:white;padding:14px 13px;border-radius:11px;outline:none}
 input:focus,select:focus{border-color:var(--gold)}
+input[readonly]{opacity:.9;border-color:#e7c46b66}
 .btn{border:0;border-radius:12px;padding:14px 16px;font-weight:800;letter-spacing:.7px;color:#102018;background:linear-gradient(120deg,#f1d789,#c7a54d);width:100%;margin-top:12px}
 .btn.secondary{background:#ffffff14;color:white;border:1px solid #ffffff30}
 .btn.danger{background:#702c39;color:white}
@@ -58,12 +59,14 @@ th{color:var(--gold)}
 .stat b{display:block;font-size:20px;color:var(--gold);margin-top:5px}
 .overlay{position:fixed;inset:0;background:#06130f;z-index:99;display:flex;align-items:center;justify-content:center;text-align:center;padding:25px}
 .overlay h1{color:var(--gold);font-size:28px}
-footer{text-align:center;color:#8b9c94;font-size:10px;padding:20px}
+footer{text-align:center;color:#a8b8b1;font-size:12px;padding:25px 10px 30px;line-height:1.9}
+footer b{color:var(--gold);font-size:17px;letter-spacing:1px}
 @media(max-width:420px){body{padding:10px}.card{padding:14px}.grid{gap:9px}.clock{font-size:28px}}
 </style>
 </head>
 <body>
 <div class="wrap">
+
 <header class="top">
   <div class="logo">DS • MULTI CENTER SYSTEM</div>
   <h1>DAILY STAKE</h1>
@@ -79,10 +82,15 @@ footer{text-align:center;color:#8b9c94;font-size:10px;padding:20px}
   <h2 class="center">SYSTEM LOGIN</h2>
   <label>Center Name / Admin</label>
   <input id="username" placeholder="Enter center name or admin" autocomplete="username">
+
+  <button class="btn secondary hidden" id="adminSwitch" onclick="switchAdminLogin()">ADMIN LOGIN</button>
+  <button class="btn secondary hidden" id="centerSwitch" onclick="switchCenterLogin()">CENTER LOGIN</button>
+
   <div id="passwordArea" class="hidden">
     <label>Admin Password</label>
     <input id="password" type="password" placeholder="Enter password" autocomplete="current-password">
   </div>
+
   <button class="btn" onclick="login()">LOGIN</button>
   <div id="loginMsg" class="status hidden"></div>
   <p class="muted center">New centers require Admin 2 approval.</p>
@@ -100,20 +108,31 @@ footer{text-align:center;color:#8b9c94;font-size:10px;padding:20px}
       <button class="tab active" id="newTab" onclick="showCenterTab('new')">NEW STAKE</button>
       <button class="tab" id="historyTab" onclick="showCenterTab('history')">STAKE HISTORY</button>
     </div>
+
     <div id="newStake" class="card">
       <h2>NEW STAKE ENTRY</h2>
       <div class="muted">Enter today's amounts below. Due is not included in total.</div>
-      <label>Australian</label><input class="amount" id="Australian" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00" oninput="calcTotal()">
-      <label>England</label><input class="amount" id="England" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00" oninput="calcTotal()">
-      <label>Trackside</label><input class="amount" id="Trackside" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00" oninput="calcTotal()">
-      <label>Due (Excluded from total)</label><input class="amount" id="Due" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00">
-      <div class="total"><small>TOTAL STAKE</small><strong id="liveTotal">0.00</strong></div>
+      <label>Australian</label>
+      <input class="amount" id="Australian" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00" oninput="calcTotal()">
+      <label>England</label>
+      <input class="amount" id="England" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00" oninput="calcTotal()">
+      <label>Trackside</label>
+      <input class="amount" id="Trackside" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00" oninput="calcTotal()">
+      <label>Due (Excluded from total)</label>
+      <input class="amount" id="Due" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00">
+
+      <div class="total">
+        <small>TOTAL STAKE</small>
+        <strong id="liveTotal">0.00</strong>
+      </div>
+
       <div class="grid">
         <button class="btn danger" onclick="clearStake()">CLEAR</button>
         <button class="btn green" id="saveBtn" onclick="saveStake()">SAVE STAKE</button>
       </div>
       <div id="saveMsg" class="status hidden"></div>
     </div>
+
     <div id="historyPanel" class="card hidden">
       <h2>STAKE HISTORY</h2>
       <button class="btn secondary" onclick="loadHistory()">REFRESH HISTORY</button>
@@ -125,7 +144,9 @@ footer{text-align:center;color:#8b9c94;font-size:10px;padding:20px}
     <div class="card">
       <h2>ADMIN 1 • REPORTS</h2>
       <label>Select Center</label>
-      <select id="reportCenter"><option value="ALL">ALL CENTERS</option></select>
+      <select id="reportCenter">
+        <option value="ALL">ALL CENTERS</option>
+      </select>
       <label>Select Business Date</label>
       <input type="date" id="reportDate">
       <button class="btn" onclick="loadReport()">VIEW REPORT</button>
@@ -144,204 +165,599 @@ footer{text-align:center;color:#8b9c94;font-size:10px;padding:20px}
       <button class="btn danger" id="maintBtn" onclick="toggleMaintenance()">TURN MAINTENANCE ON</button>
       <button class="btn secondary" onclick="loadAdminData()">REFRESH SYSTEM DATA</button>
     </div>
+
     <div class="card">
       <h2>REGISTERED CENTERS / APPROVALS</h2>
       <div id="centerList"></div>
     </div>
+
     <div class="card">
       <h2>REGISTERED DEVICES</h2>
       <div id="deviceList"></div>
     </div>
   </section>
 </section>
-<footer>DAILY STAKE • MULTI CENTER • SRI LANKA TIME</footer>
+
+<footer>
+  <div>For All Issues &amp; Support</div>
+  <b>0741127519</b>
+  <div>Pasindu</div>
+  <div style="margin-top:10px">DAILY STAKE • MULTI CENTER • SRI LANKA TIME</div>
+</footer>
+
 </div>
 
 <div id="maintenanceOverlay" class="overlay hidden">
-  <div><div style="font-size:42px">⚙</div><h1>UNDER MAINTENANCE</h1><p class="muted">System temporarily unavailable.<br>Please try again later.</p></div>
+  <div>
+    <div style="font-size:42px">⚙</div>
+    <h1>UNDER MAINTENANCE</h1>
+    <p class="muted">System temporarily unavailable.<br>Please try again later.</p>
+  </div>
 </div>
 
 <script>
 const API='https://script.google.com/macros/s/AKfycbwVzKrmNhfTuAfynGQ-Ple1poFp5KH1EqXDwtxF-V9IWVZgPwh6S5JI5vRw5zzscag/exec';
+
 let TOKEN='', ROLE='', CENTER='', saving=false, adminMaintenance=false;
+let adminMode=false;
 
 function $(id){return document.getElementById(id)}
-function money(n){return (Number(n)||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+
+function money(n){
+  return (Number(n)||0).toLocaleString('en-US',{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
+}
+
 function deviceId(){
   let id=localStorage.getItem('ds_device_id');
-  if(!id){id='DS-'+crypto.randomUUID();localStorage.setItem('ds_device_id',id)}
+  if(!id){
+    id='DS-'+crypto.randomUUID();
+    localStorage.setItem('ds_device_id',id);
+  }
   return id;
 }
+
 function api(action,data={}){
   return new Promise((resolve,reject)=>{
     const cb='ds_cb_'+Date.now()+'_'+Math.floor(Math.random()*100000);
     const script=document.createElement('script');
     const payload=encodeURIComponent(JSON.stringify(data));
-    const timer=setTimeout(()=>{cleanup();reject(new Error('Server timeout. Please try again.'))},20000);
-    function cleanup(){clearTimeout(timer);delete window[cb];script.remove()}
-    window[cb]=(result)=>{cleanup();if(result&&result.ok!==false)resolve(result);else reject(new Error(result?.error||'Request failed'))};
-    script.onerror=()=>{cleanup();reject(new Error('Could not connect to server'))};
-    script.src=API+'?action='+encodeURIComponent(action)+'&p='+payload+'&callback='+cb+'&_='+Date.now();
+
+    const timer=setTimeout(()=>{
+      cleanup();
+      reject(new Error('Server timeout. Please try again.'));
+    },20000);
+
+    function cleanup(){
+      clearTimeout(timer);
+      delete window[cb];
+      script.remove();
+    }
+
+    window[cb]=(result)=>{
+      cleanup();
+      if(result && result.ok!==false) resolve(result);
+      else reject(new Error(result?.error||'Request failed'));
+    };
+
+    script.onerror=()=>{
+      cleanup();
+      reject(new Error('Could not connect to server'));
+    };
+
+    script.src=API+'?action='+encodeURIComponent(action)+
+      '&p='+payload+'&callback='+cb+'&_='+Date.now();
+
     document.body.appendChild(script);
   });
 }
 
+// LOGIN NAME MEMORY
+function prepareLogin(){
+  const saved=localStorage.getItem('ds_center_name');
+
+  if(saved){
+    $('username').value=saved;
+    $('username').readOnly=true;
+    $('adminSwitch').classList.remove('hidden');
+  }
+}
+
+function switchAdminLogin(){
+  adminMode=true;
+  $('username').readOnly=false;
+  $('username').value='admin';
+  $('passwordArea').classList.remove('hidden');
+  $('adminSwitch').classList.add('hidden');
+  $('centerSwitch').classList.remove('hidden');
+  $('loginMsg').classList.add('hidden');
+  $('password').focus();
+}
+
+function switchCenterLogin(){
+  adminMode=false;
+  $('passwordArea').classList.add('hidden');
+  $('centerSwitch').classList.add('hidden');
+
+  const saved=localStorage.getItem('ds_center_name');
+
+  if(saved){
+    $('username').value=saved;
+    $('username').readOnly=true;
+  }else{
+    $('username').value='';
+    $('username').readOnly=false;
+  }
+
+  $('adminSwitch').classList.toggle('hidden',!saved);
+  $('loginMsg').classList.add('hidden');
+}
+
 function updateClock(){
   const now=new Date();
-  $('clock').textContent=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Colombo',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(now);
-  $('clockdate').textContent=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Colombo',weekday:'long',day:'2-digit',month:'long',year:'numeric'}).format(now);
-  const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Colombo',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hourCycle:'h23'}).formatToParts(now);
+
+  $('clock').textContent=new Intl.DateTimeFormat('en-GB',{
+    timeZone:'Asia/Colombo',
+    hour:'2-digit',
+    minute:'2-digit',
+    second:'2-digit',
+    hour12:false
+  }).format(now);
+
+  $('clockdate').textContent=new Intl.DateTimeFormat('en-GB',{
+    timeZone:'Asia/Colombo',
+    weekday:'long',
+    day:'2-digit',
+    month:'long',
+    year:'numeric'
+  }).format(now);
+
+  const parts=new Intl.DateTimeFormat('en-CA',{
+    timeZone:'Asia/Colombo',
+    year:'numeric',
+    month:'2-digit',
+    day:'2-digit',
+    hour:'2-digit',
+    minute:'2-digit',
+    hourCycle:'h23'
+  }).formatToParts(now);
+
   const get=t=>parts.find(x=>x.type===t).value;
-  let y=Number(get('year')),m=Number(get('month')),d=Number(get('day')),h=Number(get('hour'));
+
+  let y=Number(get('year'));
+  let m=Number(get('month'));
+  let d=Number(get('day'));
+  let h=Number(get('hour'));
+  let min=Number(get('minute'));
+
   let date=new Date(Date.UTC(y,m-1,d));
-  if(h<3 || (h===3 && Number(new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Colombo',minute:'2-digit'}).format(now))<45)) date.setUTCDate(date.getUTCDate()-1);
+
+  if(h<3 || (h===3 && min<45)){
+    date.setUTCDate(date.getUTCDate()-1);
+  }
+
   const key=date.toISOString().slice(0,10);
+
   $('businessDate').textContent=key;
   $('bizLabel').textContent=key;
-  if($('reportDate') && !$('reportDate').value) $('reportDate').value=key;
+
+  if($('reportDate') && !$('reportDate').value){
+    $('reportDate').value=key;
+  }
 }
-setInterval(updateClock,1000);updateClock();
+
+setInterval(updateClock,1000);
+updateClock();
 
 $('username').addEventListener('input',()=>{
-  $('passwordArea').classList.toggle('hidden',$('username').value.trim().toLowerCase()!=='admin');
+  if(adminMode){
+    $('passwordArea').classList.toggle(
+      'hidden',
+      $('username').value.trim().toLowerCase()!=='admin'
+    );
+  }else{
+    $('passwordArea').classList.add('hidden');
+  }
 });
-$('username').addEventListener('keydown',e=>{if(e.key==='Enter')login()});
-$('password').addEventListener('keydown',e=>{if(e.key==='Enter')login()});
 
-function message(id,text){$(id).textContent=text;$(id).classList.remove('hidden')}
+$('username').addEventListener('keydown',e=>{
+  if(e.key==='Enter')login();
+});
+
+$('password').addEventListener('keydown',e=>{
+  if(e.key==='Enter')login();
+});
+
+function message(id,text){
+  $(id).textContent=text;
+  $(id).classList.remove('hidden');
+}
+
 async function login(){
   const username=$('username').value.trim();
   const password=$('password').value;
-  if(!username){message('loginMsg','Enter center name or admin');return}
+
+  if(!username){
+    message('loginMsg','Enter center name or admin');
+    return;
+  }
+
+  if(username.toLowerCase()==='admin' && !password){
+    message('loginMsg','Enter admin password');
+    return;
+  }
+
   message('loginMsg','Connecting...');
+
   try{
-    const r=await api('login',{username,password,deviceId:deviceId(),deviceName:navigator.userAgent.slice(0,70)});
-    if(r.pending){message('loginMsg',r.error);return}
-    TOKEN=r.token;ROLE=r.role;CENTER=r.center||'';
+    const r=await api('login',{
+      username,
+      password,
+      deviceId:deviceId(),
+      deviceName:navigator.userAgent.slice(0,70)
+    });
+
+    TOKEN=r.token;
+    ROLE=r.role;
+    CENTER=r.center||'';
+
+    if(ROLE==='CENTER'){
+      localStorage.setItem('ds_center_name',CENTER);
+    }
+
     localStorage.setItem('ds_token',TOKEN);
     localStorage.setItem('ds_role',ROLE);
     localStorage.setItem('ds_center',CENTER);
+
     openApp();
-  }catch(e){message('loginMsg',e.message)}
+
+  }catch(e){
+    message('loginMsg',e.message);
+  }
 }
+
 function openApp(){
-  $('loginView').classList.add('hidden');$('appView').classList.remove('hidden');
-  $('who').textContent=ROLE==='CENTER'?CENTER:ROLE==='ADMIN1'?'ADMIN 1':'ADMIN 2';
+  $('loginView').classList.add('hidden');
+  $('appView').classList.remove('hidden');
+
+  $('who').textContent=
+    ROLE==='CENTER'?CENTER:
+    ROLE==='ADMIN1'?'ADMIN 1':'ADMIN 2';
+
   $('centerPanel').classList.toggle('hidden',ROLE!=='CENTER');
   $('admin1Panel').classList.toggle('hidden',ROLE!=='ADMIN1');
   $('admin2Panel').classList.toggle('hidden',ROLE!=='ADMIN2');
+
   updateClock();
+
   if(ROLE==='ADMIN1')loadReportCenters();
   if(ROLE==='ADMIN2')loadAdminData();
   if(ROLE==='CENTER')showCenterTab('new');
 }
+
 async function logout(){
-  try{await api('logout',{token:TOKEN})}catch(e){}
-  TOKEN='';ROLE='';CENTER='';
-  localStorage.removeItem('ds_token');localStorage.removeItem('ds_role');localStorage.removeItem('ds_center');
-  $('appView').classList.add('hidden');$('loginView').classList.remove('hidden');
+  try{
+    await api('logout',{token:TOKEN});
+  }catch(e){}
+
+  TOKEN='';
+  ROLE='';
+  CENTER='';
+
+  localStorage.removeItem('ds_token');
+  localStorage.removeItem('ds_role');
+  localStorage.removeItem('ds_center');
+
+  $('appView').classList.add('hidden');
+  $('loginView').classList.remove('hidden');
+  $('password').value='';
+  $('loginMsg').classList.add('hidden');
+
+  prepareLogin();
 }
+
 function showCenterTab(which){
   $('newStake').classList.toggle('hidden',which!=='new');
   $('historyPanel').classList.toggle('hidden',which!=='history');
   $('newTab').classList.toggle('active',which==='new');
   $('historyTab').classList.toggle('active',which==='history');
+
   if(which==='history')loadHistory();
 }
+
 function calcTotal(){
-  const n=['Australian','England','Trackside'].reduce((a,k)=>a+(Number($(k).value)||0),0);
+  const n=['Australian','England','Trackside'].reduce(
+    (a,k)=>a+(Number($(k).value)||0),0
+  );
   $('liveTotal').textContent=money(n);
 }
+
 function clearStake(){
-  ['Australian','England','Trackside','Due'].forEach(k=>$(k).value='');
-  calcTotal();$('saveMsg').classList.add('hidden');
+  ['Australian','England','Trackside','Due'].forEach(k=>{
+    $(k).value='';
+  });
+  calcTotal();
+  $('saveMsg').classList.add('hidden');
 }
+
 async function saveStake(){
   if(saving)return;
+
   const vals={};
+
   for(const k of ['Australian','England','Trackside','Due']){
-    const raw=$(k).value.trim(),n=raw===''?0:Number(raw);
-    if(!Number.isFinite(n)||n<0){message('saveMsg','Please enter valid amounts');return}
+    const raw=$(k).value.trim();
+    const n=raw===''?0:Number(raw);
+
+    if(!Number.isFinite(n)||n<0){
+      message('saveMsg','Please enter valid amounts');
+      return;
+    }
+
     vals[k]=n;
   }
+
   if(!confirm('Save this stake for '+$('businessDate').textContent+'?'))return;
-  saving=true;$('saveBtn').disabled=true;$('saveBtn').textContent='SAVING...';
+
+  saving=true;
+  $('saveBtn').disabled=true;
+  $('saveBtn').textContent='SAVING...';
+
   try{
     const r=await api('save',{token:TOKEN,...vals});
-    message('saveMsg','✓ '+r.message+' | Total: '+money(r.total));
-  }catch(e){message('saveMsg',e.message)}
-  finally{saving=false;$('saveBtn').disabled=false;$('saveBtn').textContent='SAVE STAKE'}
+
+    message(
+      'saveMsg',
+      '✓ '+r.message+' | Total: '+money(r.total)
+    );
+
+  }catch(e){
+    message('saveMsg',e.message);
+  }
+
+  finally{
+    saving=false;
+    $('saveBtn').disabled=false;
+    $('saveBtn').textContent='SAVE STAKE';
+  }
 }
+
 async function loadHistory(){
   $('historyList').textContent='Loading...';
+
   try{
     const r=await api('history',{token:TOKEN});
-    if(!r.items.length){$('historyList').textContent='No saved stake records yet.';return}
-    $('historyList').innerHTML=r.items.map(x=>`<div class="row"><div><b>${escapeHtml(x[0])}</b><div class="muted">Australian ${money(x[2])} • England ${money(x[3])} • Trackside ${money(x[4])} • Due ${money(x[5])}</div></div><b>${money(x[6])}</b></div>`).join('');
-  }catch(e){$('historyList').textContent=e.message}
+
+    if(!r.items.length){
+      $('historyList').textContent='No saved stake records yet.';
+      return;
+    }
+
+    $('historyList').innerHTML=r.items.map(x=>`
+      <div class="row">
+        <div>
+          <b>${escapeHtml(x[0])}</b>
+          <div class="muted">
+            Australian ${money(x[2])} •
+            England ${money(x[3])} •
+            Trackside ${money(x[4])} •
+            Due ${money(x[5])}
+          </div>
+        </div>
+        <b>${money(x[6])}</b>
+      </div>
+    `).join('');
+
+  }catch(e){
+    $('historyList').textContent=e.message;
+  }
 }
-function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+function escapeHtml(v){
+  return String(v??'').replace(/[&<>"']/g,c=>({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[c]));
+}
 
 async function loadReportCenters(){
   try{
     const r=await api('reportCenters',{token:TOKEN});
-    $('reportCenter').innerHTML='<option value="ALL">ALL CENTERS</option>'+r.centers.map(c=>`<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`).join('');
-    loadReport();
-  }catch(e){$('reportArea').textContent=e.message}
+
+    $('reportCenter').innerHTML=
+      '<option value="ALL">ALL CENTERS</option>'+
+      r.centers.map(c=>
+        `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`
+      ).join('');
+
+    await loadReport();
+
+  }catch(e){
+    $('reportArea').textContent=e.message;
+  }
 }
+
 async function loadReport(){
-  $('reportArea').innerHTML='<div class="status">Loading report...</div>';
+  $('reportArea').innerHTML=
+    '<div class="status">Loading report...</div>';
+
   try{
-    const r=await api('report',{token:TOKEN,date:$('reportDate').value,center:$('reportCenter').value});
+    const r=await api('report',{
+      token:TOKEN,
+      date:$('reportDate').value,
+      center:$('reportCenter').value
+    });
+
     const s=r.sums;
+
     $('reportArea').innerHTML=`
-      <div class="total"><small>${escapeHtml(r.center)} • ${escapeHtml(r.date)}</small><strong>${money(s.Total)}</strong><small>TOTAL STAKE • DUE EXCLUDED</small></div>
-      <div class="statgrid" style="margin-top:12px">
-       ${[['AUSTRALIAN',s.Australian],['ENGLAND',s.England],['TRACKSIDE',s.Trackside],['DUE',s.Due]].map(x=>`<div class="stat"><small>${x[0]}</small><b>${money(x[1])}</b></div>`).join('')}
+      <div class="total">
+        <small>${escapeHtml(r.center)} • ${escapeHtml(r.date)}</small>
+        <strong>${money(s.Total)}</strong>
+        <small>TOTAL STAKE • DUE EXCLUDED</small>
       </div>
+
+      <div class="statgrid" style="margin-top:12px">
+        ${[
+          ['AUSTRALIAN',s.Australian],
+          ['ENGLAND',s.England],
+          ['TRACKSIDE',s.Trackside],
+          ['DUE',s.Due]
+        ].map(x=>`
+          <div class="stat">
+            <small>${x[0]}</small>
+            <b>${money(x[1])}</b>
+          </div>
+        `).join('')}
+      </div>
+
       <h2 style="margin-top:20px">CENTER DETAILS</h2>
-      <div class="tablewrap"><table><thead><tr><th>Center</th><th>Australian</th><th>England</th><th>Trackside</th><th>Due</th><th>Total</th></tr></thead><tbody>
-      ${r.items.map(x=>`<tr>${x.slice(1,7).map((v,i)=>`<td>${i===0?escapeHtml(v):money(v)}</td>`).join('')}</tr>`).join('')||'<tr><td colspan="6">No records for this date</td></tr>'}
-      </tbody></table></div>
-      <button class="btn secondary" onclick="window.print()">PRINT / SAVE REPORT</button>`;
-  }catch(e){$('reportArea').textContent=e.message}
+
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Center</th>
+              <th>Australian</th>
+              <th>England</th>
+              <th>Trackside</th>
+              <th>Due</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${r.items.map(x=>`
+              <tr>
+                ${x.slice(1,7).map((v,i)=>`
+                  <td>${i===0?escapeHtml(v):money(v)}</td>
+                `).join('')}
+              </tr>
+            `).join('')||
+              '<tr><td colspan="6">No records for this date</td></tr>'
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <button class="btn secondary" onclick="window.print()">
+        PRINT / SAVE REPORT
+      </button>
+    `;
+
+  }catch(e){
+    $('reportArea').textContent=e.message;
+  }
 }
+
 async function loadAdminData(){
   try{
     const r=await api('adminData',{token:TOKEN});
+
     adminMaintenance=r.maintenance;
+
     $('centerCount').textContent=r.centers.length;
     $('deviceCount').textContent=r.devices.length;
+
     $('maintState').textContent=adminMaintenance?'ON':'OFF';
-    $('maintBtn').textContent=adminMaintenance?'TURN MAINTENANCE OFF':'TURN MAINTENANCE ON';
-    $('centerList').innerHTML=r.centers.map(c=>`<div class="row"><div><b>${escapeHtml(c.name)}</b><div class="muted">${escapeHtml(c.status)}</div></div><button class="btn small ${c.status==='APPROVED'?'danger':'green'}" onclick="approveCenter('${encodeURIComponent(c.name)}',${c.status!=='APPROVED'})">${c.status==='APPROVED'?'REVOKE':'APPROVE'}</button></div>`).join('')||'No centers registered';
-    $('deviceList').innerHTML=r.devices.map(d=>`<div class="row"><div><b>${escapeHtml(d.center)}</b><div class="muted">${escapeHtml(d.name)} • ${escapeHtml(d.id)}</div></div><button class="btn small danger" onclick="removeDevice('${encodeURIComponent(d.center)}','${encodeURIComponent(d.id)}')">REMOVE</button></div>`).join('')||'No registered devices';
-  }catch(e){alert(e.message)}
+    $('maintBtn').textContent=adminMaintenance
+      ?'TURN MAINTENANCE OFF'
+      :'TURN MAINTENANCE ON';
+
+    $('centerList').innerHTML=r.centers.map(c=>`
+      <div class="row">
+        <div>
+          <b>${escapeHtml(c.name)}</b>
+          <div class="muted">${escapeHtml(c.status)}</div>
+        </div>
+        <button class="btn small ${c.status==='APPROVED'?'danger':'green'}"
+          onclick="approveCenter('${encodeURIComponent(c.name)}',${c.status!=='APPROVED'})">
+          ${c.status==='APPROVED'?'REVOKE':'APPROVE'}
+        </button>
+      </div>
+    `).join('')||'No centers registered';
+
+    $('deviceList').innerHTML=r.devices.map(d=>`
+      <div class="row">
+        <div>
+          <b>${escapeHtml(d.center)}</b>
+          <div class="muted">
+            ${escapeHtml(d.name)} • ${escapeHtml(d.id)}
+          </div>
+        </div>
+        <button class="btn small danger"
+          onclick="removeDevice('${encodeURIComponent(d.center)}','${encodeURIComponent(d.id)}')">
+          REMOVE
+        </button>
+      </div>
+    `).join('')||'No registered devices';
+
+  }catch(e){
+    alert(e.message);
+  }
 }
+
 async function approveCenter(name,approved){
-  try{await api('approve',{token:TOKEN,center:decodeURIComponent(name),approved});loadAdminData()}
-  catch(e){alert(e.message)}
+  try{
+    await api('approve',{
+      token:TOKEN,
+      center:decodeURIComponent(name),
+      approved
+    });
+    loadAdminData();
+  }catch(e){
+    alert(e.message);
+  }
 }
+
 async function removeDevice(center,id){
   if(!confirm('Remove this registered device?'))return;
-  try{await api('removeDevice',{token:TOKEN,center:decodeURIComponent(center),deviceId:decodeURIComponent(id)});loadAdminData()}
-  catch(e){alert(e.message)}
+
+  try{
+    await api('removeDevice',{
+      token:TOKEN,
+      center:decodeURIComponent(center),
+      deviceId:decodeURIComponent(id)
+    });
+    loadAdminData();
+  }catch(e){
+    alert(e.message);
+  }
 }
+
 async function toggleMaintenance(){
   const enabled=!adminMaintenance;
-  if(!confirm(enabled?'Turn maintenance ON?':'Turn maintenance OFF?'))return;
-  try{await api('maintenance',{token:TOKEN,enabled});loadAdminData()}
-  catch(e){alert(e.message)}
+
+  if(!confirm(
+    enabled?'Turn maintenance ON?':'Turn maintenance OFF?'
+  ))return;
+
+  try{
+    await api('maintenance',{token:TOKEN,enabled});
+    loadAdminData();
+  }catch(e){
+    alert(e.message);
+  }
 }
+
+// RESTORE LOGIN SESSION
 (function restore(){
+  prepareLogin();
+
   const token=localStorage.getItem('ds_token');
   const role=localStorage.getItem('ds_role');
+
   if(token&&role){
-    TOKEN=token;ROLE=role;CENTER=localStorage.getItem('ds_center')||'';
+    TOKEN=token;
+    ROLE=role;
+    CENTER=localStorage.getItem('ds_center')||'';
     openApp();
   }
 })();
 </script>
 </body>
 </html>
-
