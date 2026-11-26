@@ -96,6 +96,41 @@ th{color:#e2baff;background:#21172e}
 .pending{background:#51370b;color:#ffd77a}
 .blocked{background:#54152a;color:#ff8ca8}
 
+/* APPROVAL LOCK SCREEN */
+.lock-panel{
+ max-width:440px;margin:10vh auto;padding:28px 22px;
+ text-align:center;
+ background:linear-gradient(145deg,#21132f,#100b1b);
+ border:1px solid #a34cff75;border-radius:20px;
+ box-shadow:0 15px 45px #0009,0 0 35px #8d35ff20;
+}
+.lock-icon{
+ width:85px;height:85px;margin:0 auto 20px;
+ display:flex;align-items:center;justify-content:center;
+ border-radius:50%;font-size:43px;
+ background:linear-gradient(145deg,#52218a,#24123c);
+ border:1px solid #c77aff88;
+ box-shadow:0 0 28px #9b45ff55;
+}
+.lock-title{
+ font-size:23px;font-weight:900;letter-spacing:1.5px;
+ color:#e4c3ff;margin-bottom:10px;
+}
+.lock-status{
+ display:inline-block;padding:8px 15px;border-radius:20px;
+ background:#51370b;color:#ffd77a;font-size:10px;
+ font-weight:900;letter-spacing:1.5px;margin:12px 0;
+}
+.lock-description{
+ color:#bcaaca;font-size:12px;line-height:1.8;margin:12px 0 20px;
+}
+.lock-center{
+ color:#fff;font-size:16px;font-weight:bold;
+ padding:12px;background:#ffffff0b;border:1px solid #ffffff18;
+ border-radius:10px;margin:15px 0;
+}
+.lock-footer{font-size:10px;color:#78698a;margin-top:15px}
+
 /* SHARED CATEGORY CARDS */
 .category-grid{
  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;
@@ -191,6 +226,26 @@ footer{text-align:center;color:#756780;font-size:10px;padding:22px}
  </div>
 </div>
 
+<!-- CENTER APPROVAL LOCK -->
+<div id="lockedScreen" class="wrap hidden">
+ <div class="lock-panel">
+  <div class="lock-icon">🔐</div>
+  <div class="lock-title">ACCESS LOCKED</div>
+  <div class="lock-status">ADMIN 2 APPROVAL REQUIRED</div>
+  <div class="lock-center" id="lockedCenterName">CENTER</div>
+  <div class="lock-description">
+   Your center registration has been received.<br>
+   You cannot enter the system until Admin 2 approves your center.
+   <br><br>
+   Please check again after approval.
+  </div>
+  <button class="btn green" id="checkApprovalBtn" onclick="checkApproval()">🔄 CHECK APPROVAL</button>
+  <button class="btn gray" onclick="changeCenter()">CHANGE CENTER</button>
+  <div id="lockedMessage"></div>
+  <div class="lock-footer">DAILY STAKE MULTI CENTER SECURITY</div>
+ </div>
+</div>
+
 <div id="appScreen" class="hidden">
  <div class="wrap">
   <div class="panel">
@@ -252,7 +307,10 @@ function api(action,data={}){
 
 function deviceId(){
  let id=localStorage.getItem("ds_device_id");
- if(!id){id="DS-"+Math.random().toString(36).slice(2)+Date.now();localStorage.setItem("ds_device_id",id)}
+ if(!id){
+  id="DS-"+Math.random().toString(36).slice(2)+Date.now();
+  localStorage.setItem("ds_device_id",id);
+ }
  return id;
 }
 function deviceName(){
@@ -264,6 +322,16 @@ function showLoginMessage(text,type=""){
 }
 function savedCenter(){return localStorage.getItem("ds_saved_center")||""}
 
+function showLockedScreen(center,message=""){
+ $("loginScreen").classList.add("hidden");
+ $("appScreen").classList.add("hidden");
+ $("maintenanceScreen").classList.add("hidden");
+ $("lockedScreen").classList.remove("hidden");
+ $("lockedCenterName").textContent=center||savedCenter()||"CENTER";
+ $("lockedMessage").innerHTML=message?
+  `<div class="notice error">${escapeHTML(message)}</div>`:"";
+}
+
 function initialiseLogin(){
  const saved=savedCenter();
  if(saved){
@@ -274,8 +342,12 @@ function initialiseLogin(){
 }
 
 function changeCenter(){
+ $("lockedScreen").classList.add("hidden");
+ $("loginScreen").classList.remove("hidden");
  $("username").readOnly=false;
  $("username").value="";
+ $("password").value="";
+ $("passwordArea").classList.add("hidden");
  $("username").focus();
  $("changeCenterBtn").classList.add("hidden");
  localStorage.removeItem("ds_saved_center");
@@ -305,12 +377,15 @@ async function login(){
     $("username").value=username;
     $("username").readOnly=true;
     $("changeCenterBtn").classList.remove("hidden");
+    showLockedScreen(username);
+    return;
    }
    if(r.maintenance){showMaintenance();return}
    showLoginMessage(r.error||"Login failed.", "error");
    return;
   }
 
+  $("lockedScreen").classList.add("hidden");
   TOKEN=r.token;ROLE=r.role;CENTER=r.center||"";
   if(ROLE==="CENTER"){
    localStorage.setItem("ds_saved_center",CENTER);
@@ -326,9 +401,59 @@ async function login(){
  }catch(e){showLoginMessage(e.message,"error")}
 }
 
+async function checkApproval(){
+ const center=savedCenter()||$("lockedCenterName").textContent;
+ if(!center)return;
+
+ const btn=$("checkApprovalBtn");
+ btn.disabled=true;
+ btn.textContent="CHECKING...";
+
+ try{
+  const r=await api("login",{
+   username:center,password:"",
+   deviceId:deviceId(),deviceName:deviceName()
+  });
+
+  if(r.ok){
+   $("lockedScreen").classList.add("hidden");
+   TOKEN=r.token;ROLE=r.role;CENTER=r.center||center;
+   localStorage.setItem("ds_saved_center",CENTER);
+   localStorage.setItem("ds_token",TOKEN);
+   localStorage.setItem("ds_role",ROLE);
+   localStorage.setItem("ds_center",CENTER);
+   await startApp();
+   return;
+  }
+
+  if(r.pending){
+   $("lockedMessage").innerHTML=
+    '<div class="notice">Approval is still pending. Please check again later.</div>';
+  }else if(r.maintenance){
+   showMaintenance();
+  }else{
+   $("lockedMessage").innerHTML=
+    `<div class="notice error">${escapeHTML(r.error||"Approval check failed.")}</div>`;
+  }
+ }catch(e){
+  $("lockedMessage").innerHTML=
+   `<div class="notice error">${escapeHTML(e.message)}</div>`;
+ }finally{
+  btn.disabled=false;
+  btn.textContent="🔄 CHECK APPROVAL";
+ }
+}
+
 async function restoreSession(){
  const token=localStorage.getItem("ds_token");
- if(!token)return;
+ if(!token){
+  if(savedCenter()){
+   $("username").value=savedCenter();
+   $("username").readOnly=true;
+   $("changeCenterBtn").classList.remove("hidden");
+  }
+  return;
+ }
  TOKEN=token;
  try{
   const r=await api("session",{token:TOKEN});
@@ -345,6 +470,8 @@ function clearSession(){
  localStorage.removeItem("ds_role");
  localStorage.removeItem("ds_center");
  $("appScreen").classList.add("hidden");
+ $("lockedScreen").classList.add("hidden");
+ $("maintenanceScreen").classList.add("hidden");
  $("loginScreen").classList.remove("hidden");
 }
 
@@ -357,6 +484,7 @@ async function logout(){
 function showMaintenance(){
  $("loginScreen").classList.add("hidden");
  $("appScreen").classList.add("hidden");
+ $("lockedScreen").classList.add("hidden");
  $("maintenanceScreen").classList.remove("hidden");
 }
 
@@ -384,6 +512,7 @@ updateClock();
 
 async function startApp(){
  $("loginScreen").classList.add("hidden");
+ $("lockedScreen").classList.add("hidden");
  $("maintenanceScreen").classList.add("hidden");
  $("appScreen").classList.remove("hidden");
 
@@ -753,7 +882,6 @@ async function loadReport(){
  }
  const rows=r.rows||[];
  const total=r.total||{};
-
  let cards="";
  if(center==="ALL"){
   cards=rows.map(x=>`
