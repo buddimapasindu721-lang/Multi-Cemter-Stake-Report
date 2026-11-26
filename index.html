@@ -81,43 +81,43 @@ footer b{font-size:18px;color:var(--gold)}
 #appView{width:100%;min-width:0}
 #appView .card{min-width:0}
 @media(max-width:600px){
- body{padding:10px;padding-left:max(10px,env(safe-area-inset-left));padding-right:max(10px,env(safe-area-inset-right));padding-bottom:max(10px,env(safe-area-inset-bottom))}
- .top{padding:8px 0 12px}
- .logo{font-size:10px;letter-spacing:3px}
- h1{font-size:23px}
- .sub{font-size:10px;letter-spacing:2px}
- .clockbox{padding:11px;margin-top:11px}
- .clock{font-size:27px}
- .clockdate{font-size:12px}
- .card{padding:14px;margin:10px 0;border-radius:15px}
- h2{font-size:16px}
- input,select{padding:13px;font-size:16px}
- .btn{min-height:46px;padding:12px 10px}
- .tabs{gap:6px}
- .tab{font-size:11px;padding:12px 3px}
- .amount{font-size:19px!important}
- .total strong{font-size:25px}
- .pendingTitle{font-size:25px}
- .chatMessages{height:210px}
- .chatSendRow button{min-width:70px;padding:11px 8px}
- .row{font-size:12px}
- .stat{padding:11px}
- .stat b{font-size:17px}
+body{padding:10px;padding-left:max(10px,env(safe-area-inset-left));padding-right:max(10px,env(safe-area-inset-right));padding-bottom:max(10px,env(safe-area-inset-bottom))}
+.top{padding:8px 0 12px}
+.logo{font-size:10px;letter-spacing:3px}
+h1{font-size:23px}
+.sub{font-size:10px;letter-spacing:2px}
+.clockbox{padding:11px;margin-top:11px}
+.clock{font-size:27px}
+.clockdate{font-size:12px}
+.card{padding:14px;margin:10px 0;border-radius:15px}
+h2{font-size:16px}
+input,select{padding:13px;font-size:16px}
+.btn{min-height:46px;padding:12px 10px}
+.tabs{gap:6px}
+.tab{font-size:11px;padding:12px 3px}
+.amount{font-size:19px!important}
+.total strong{font-size:25px}
+.pendingTitle{font-size:25px}
+.chatMessages{height:210px}
+.chatSendRow button{min-width:70px;padding:11px 8px}
+.row{font-size:12px}
+.stat{padding:11px}
+.stat b{font-size:17px}
 }
 @media(max-width:350px){
- body{padding:7px}
- .card{padding:11px}
- .grid{gap:7px}
- .btn{font-size:12px}
- .clock{font-size:24px}
- .chatSendRow{gap:5px}
- .chatSendRow button{min-width:62px;font-size:12px}
+body{padding:7px}
+.card{padding:11px}
+.grid{gap:7px}
+.btn{font-size:12px}
+.clock{font-size:24px}
+.chatSendRow{gap:5px}
+.chatSendRow button{min-width:62px;font-size:12px}
 }
 @media print{
- body{background:white;color:black}
- button,footer,.top,.no-print{display:none!important}
- .card{background:white;color:black;box-shadow:none;border:1px solid #ccc}
- th{color:black}
+body{background:white;color:black}
+button,footer,.top,.no-print{display:none!important}
+.card{background:white;color:black;box-shadow:none;border:1px solid #ccc}
+th{color:black}
 }
 </style>
 </head>
@@ -334,6 +334,8 @@ localStorage.setItem('ds_device_id',id);
 return id;
 }
 
+/* API CONNECTION - LOGIN DATA FIXED */
+
 function api(action,data={}){
 return new Promise((resolve,reject)=>{
 const callback='ds_callback_'+Date.now()+'_'+Math.floor(Math.random()*99999);
@@ -355,8 +357,10 @@ reject(new Error('Server timeout. Check Apps Script deployment.'));
 
 window[callback]=result=>{
 cleanup();
-if(result&&result.ok)resolve(result);
-else{
+
+if(result&&result.ok){
+resolve(result);
+}else{
 const error=new Error(result?.error||'Request failed');
 error.maintenance=!!result?.maintenance;
 reject(error);
@@ -369,10 +373,23 @@ reject(new Error('Cannot connect to Apps Script.'));
 };
 
 const params=new URLSearchParams();
+
 params.set('action',action);
 params.set('p',JSON.stringify(data));
 params.set('callback',callback);
 params.set('_',String(Date.now()));
+
+/* Send simple fields separately too */
+Object.keys(data).forEach(key=>{
+const value=data[key];
+
+if(value===null||value===undefined)return;
+
+if(typeof value==='string'||typeof value==='number'||typeof value==='boolean'){
+params.set(key,String(value));
+}
+});
+
 script.src=API+'?'+params.toString();
 document.body.appendChild(script);
 });
@@ -383,9 +400,11 @@ document.body.appendChild(script);
 function updateLoginControls(){
 const isAdmin=$('username').value.trim().toLowerCase()==='admin';
 const saved=localStorage.getItem('ds_center_name')||'';
+
 $('passwordArea').classList.toggle('hidden',!isAdmin);
 $('changeCenterLogin').classList.toggle('hidden',isAdmin||!saved);
 $('username').readOnly=!isAdmin&&!!saved;
+
 if(!isAdmin)$('password').value='';
 }
 
@@ -393,6 +412,7 @@ $('username').addEventListener('input',updateLoginControls);
 
 function changeCenterLogin(){
 if(!confirm('Change the saved center name?'))return;
+
 localStorage.removeItem('ds_center_name');
 $('username').readOnly=false;
 $('username').value='';
@@ -441,6 +461,7 @@ return date.toISOString().slice(0,10);
 
 function updateClock(){
 const now=new Date();
+
 $('clock').textContent=new Intl.DateTimeFormat('en-GB',{
 timeZone:'Asia/Colombo',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false
 }).format(now);
@@ -486,7 +507,8 @@ return;
 if(username.toLowerCase()!=='admin'){
 localStorage.setItem('ds_center_name',username);
 $('username').readOnly=true;
-updateLoginControls();
+}else{
+localStorage.removeItem('ds_center_name');
 }
 
 showMessage('loginMsg','Connecting to server...');
@@ -495,8 +517,8 @@ $('loginBtn').textContent='PLEASE WAIT...';
 
 try{
 const result=await api('login',{
-username,
-password,
+username:username,
+password:password,
 deviceId:deviceId(),
 deviceName:navigator.userAgent.slice(0,100)
 });
@@ -509,7 +531,7 @@ localStorage.setItem('ds_token',TOKEN);
 localStorage.setItem('ds_role',ROLE);
 localStorage.setItem('ds_center',CENTER);
 
-if(CENTER){
+if(CENTER&&CENTER!=='ADMIN'){
 localStorage.setItem('ds_center_name',CENTER);
 $('username').value=CENTER;
 }
@@ -715,7 +737,6 @@ showMessage('saveMsg','Please enter a valid amount for '+id);
 return;
 }
 
-// Backend expects lowercase field names
 data[id.toLowerCase()]=value;
 }
 
