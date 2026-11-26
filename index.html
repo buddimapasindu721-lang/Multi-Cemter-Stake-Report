@@ -151,7 +151,6 @@ footer b{font-size:18px;color:var(--gold)}
 <p class="muted center">New centers require Admin 2 approval.</p>
 </section>
 
-<!-- COLLAPSIBLE LOGIN CHAT TAB -->
 <section class="card" id="loginChat">
 <button class="chatToggle" id="loginChatToggle" onclick="toggleLoginChat()" aria-expanded="false">
 <span>CHAT • CONTACT ADMIN 2</span><span id="loginChatArrow">＋</span>
@@ -340,6 +339,7 @@ return new Promise((resolve,reject)=>{
 const callback='ds_callback_'+Date.now()+'_'+Math.floor(Math.random()*99999);
 const script=document.createElement('script');
 let finished=false;
+
 function cleanup(){
 if(finished)return;
 finished=true;
@@ -347,19 +347,27 @@ clearTimeout(timer);
 delete window[callback];
 script.remove();
 }
+
 const timer=setTimeout(()=>{
 cleanup();
 reject(new Error('Server timeout. Check Apps Script deployment.'));
 },25000);
+
 window[callback]=result=>{
 cleanup();
 if(result&&result.ok)resolve(result);
-else reject(new Error(result?.error||'Request failed'));
+else{
+const error=new Error(result?.error||'Request failed');
+error.maintenance=!!result?.maintenance;
+reject(error);
+}
 };
+
 script.onerror=()=>{
 cleanup();
 reject(new Error('Cannot connect to Apps Script.'));
 };
+
 const params=new URLSearchParams();
 params.set('action',action);
 params.set('p',JSON.stringify(data));
@@ -371,6 +379,7 @@ document.body.appendChild(script);
 }
 
 /* LOGIN PAGE CONTROLS */
+
 function updateLoginControls(){
 const isAdmin=$('username').value.trim().toLowerCase()==='admin';
 const saved=localStorage.getItem('ds_center_name')||'';
@@ -403,6 +412,7 @@ $('admin1ChatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendAdmin
 $('admin2ChatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendAdmin2Message()});
 
 /* LOGIN CHAT TAB */
+
 function toggleLoginChat(){
 const body=$('loginChatBody');
 const open=body.classList.contains('hidden');
@@ -413,15 +423,18 @@ if(open)$('loginChatInput').focus();
 }
 
 /* BUSINESS DATE AND CLOCK */
+
 function getBusinessDate(){
 const parts=new Intl.DateTimeFormat('en-CA',{
 timeZone:'Asia/Colombo',year:'numeric',month:'2-digit',day:'2-digit',
 hour:'2-digit',minute:'2-digit',hourCycle:'h23'
 }).formatToParts(new Date());
+
 const get=t=>parts.find(p=>p.type===t).value;
 let y=Number(get('year')),m=Number(get('month')),d=Number(get('day'));
 const time=get('hour')+':'+get('minute');
 let date=new Date(Date.UTC(y,m-1,d));
+
 if(time<'03:45')date.setUTCDate(date.getUTCDate()-1);
 return date.toISOString().slice(0,10);
 }
@@ -431,15 +444,19 @@ const now=new Date();
 $('clock').textContent=new Intl.DateTimeFormat('en-GB',{
 timeZone:'Asia/Colombo',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false
 }).format(now);
+
 $('clockdate').textContent=new Intl.DateTimeFormat('en-GB',{
 timeZone:'Asia/Colombo',weekday:'long',day:'2-digit',month:'long',year:'numeric'
 }).format(now);
+
 const date=getBusinessDate();
 $('businessDate').textContent=date;
 $('bizLabel').textContent=date;
+
 if($('reportDate')&&!$('reportDate').value)$('reportDate').value=date;
 if($('stakeDate')&&!$('stakeDate').value)$('stakeDate').value=date;
 }
+
 updateClock();
 setInterval(updateClock,1000);
 
@@ -449,16 +466,23 @@ $(id).classList.remove('hidden');
 }
 
 /* LOGIN */
+
 async function login(){
 const username=$('username').value.trim();
 const password=$('password').value;
-if(!username){showMessage('loginMsg','Enter center name or admin.');return}
+
+if(!username){
+showMessage('loginMsg','Enter center name or admin.');
+return;
+}
+
 if(username.toLowerCase()==='admin'&&!password){
 $('passwordArea').classList.remove('hidden');
 $('password').focus();
 showMessage('loginMsg','Please enter admin password.');
 return;
 }
+
 if(username.toLowerCase()!=='admin'){
 localStorage.setItem('ds_center_name',username);
 $('username').readOnly=true;
@@ -471,24 +495,34 @@ $('loginBtn').textContent='PLEASE WAIT...';
 
 try{
 const result=await api('login',{
-username,password,deviceId:deviceId(),
+username,
+password,
+deviceId:deviceId(),
 deviceName:navigator.userAgent.slice(0,100)
 });
-TOKEN=result.token;ROLE=result.role;CENTER=result.center||'';
+
+TOKEN=result.token;
+ROLE=result.role;
+CENTER=result.center||'';
+
 localStorage.setItem('ds_token',TOKEN);
 localStorage.setItem('ds_role',ROLE);
 localStorage.setItem('ds_center',CENTER);
+
 if(CENTER){
 localStorage.setItem('ds_center_name',CENTER);
 $('username').value=CENTER;
 }
+
+$('maintenanceOverlay').classList.add('hidden');
 openApp();
-if(result.maintenance){
-maintenanceOn=true;
-$('maintenanceOverlay').classList.remove('hidden');
-}
+
 }catch(err){
 showMessage('loginMsg',err.message);
+
+if(err.maintenance||String(err.message).toUpperCase().includes('UNDER MAINTENANCE')){
+$('maintenanceOverlay').classList.remove('hidden');
+}
 }finally{
 $('loginBtn').disabled=false;
 $('loginBtn').textContent='LOGIN';
@@ -496,6 +530,7 @@ $('loginBtn').textContent='LOGIN';
 }
 
 /* DASHBOARD */
+
 function openApp(){
 $('loginView').classList.add('hidden');
 $('loginChat').classList.add('hidden');
@@ -505,51 +540,79 @@ $('who').textContent=(ROLE==='CENTER'||ROLE==='CENTER_PENDING')
 ?CENTER:ROLE==='ADMIN1'?'ADMIN 1':'ADMIN 2';
 
 const isCenter=ROLE==='CENTER'||ROLE==='CENTER_PENDING';
+
 $('centerPanel').classList.toggle('hidden',!isCenter);
 $('centerChatPanel').classList.toggle('hidden',!isCenter);
 $('pendingPanel').classList.toggle('hidden',ROLE!=='CENTER_PENDING');
 $('admin1Panel').classList.toggle('hidden',ROLE!=='ADMIN1');
 $('admin2Panel').classList.toggle('hidden',ROLE!=='ADMIN2');
 
-if(ROLE==='CENTER_PENDING')$('centerPanel').classList.add('hidden');
+if(ROLE==='CENTER_PENDING'){
+$('centerPanel').classList.add('hidden');
+}
+
 if(ROLE==='CENTER'){
 $('pendingPanel').classList.add('hidden');
 $('centerPanel').classList.remove('hidden');
 showCenterTab('new');
 }
+
 if(ROLE==='ADMIN1'){
 $('reportDate').value=getBusinessDate();
 loadReportCenters();
 }
-if(ROLE==='ADMIN2')loadAdminData();
+
+if(ROLE==='ADMIN2'){
+loadAdminData();
+}
 
 updateClock();
 startChatPolling();
+
 if(isCenter)refreshCenterChat();
 }
 
+/* CHAT POLLING */
+
 function stopChatPolling(){
-if(chatTimer){clearInterval(chatTimer);chatTimer=null;}
+if(chatTimer){
+clearInterval(chatTimer);
+chatTimer=null;
 }
+}
+
 function startChatPolling(){
 stopChatPolling();
+
 chatTimer=setInterval(()=>{
 if(!TOKEN)return;
+
 if(ROLE==='CENTER'||ROLE==='CENTER_PENDING')refreshCenterChat(true);
 if(ROLE==='ADMIN1')refreshAdmin1Chat(true);
 if(ROLE==='ADMIN2')refreshAdmin2Chat(true);
+
 },15000);
 }
 
 /* LOGOUT */
+
 async function logout(){
-try{if(TOKEN)await api('logout',{token:TOKEN})}catch(e){}
+try{
+if(TOKEN)await api('logout',{token:TOKEN});
+}catch(e){}
+
 stopChatPolling();
-TOKEN='';ROLE='';CENTER='';
+
+TOKEN='';
+ROLE='';
+CENTER='';
+
 ['ds_token','ds_role','ds_center'].forEach(k=>localStorage.removeItem(k));
+
 $('appView').classList.add('hidden');
 $('loginView').classList.remove('hidden');
 $('loginChat').classList.remove('hidden');
+
 $('username').value=localStorage.getItem('ds_center_name')||'';
 $('password').value='';
 $('passwordArea').classList.add('hidden');
@@ -558,37 +621,59 @@ $('maintenanceOverlay').classList.add('hidden');
 $('loginChatBody').classList.add('hidden');
 $('loginChatArrow').textContent='＋';
 $('loginChatToggle').setAttribute('aria-expanded','false');
+
 updateLoginControls();
 }
 
 /* CHECK APPROVAL */
+
 async function checkApproval(){
 const savedCenter=localStorage.getItem('ds_center_name')||CENTER;
-if(!savedCenter){alert('Center name not found.');return}
-try{if(TOKEN)await api('logout',{token:TOKEN})}catch(e){}
-TOKEN='';ROLE='';CENTER='';
+
+if(!savedCenter){
+alert('Center name not found.');
+return;
+}
+
+try{
+if(TOKEN)await api('logout',{token:TOKEN});
+}catch(e){}
+
+TOKEN='';
+ROLE='';
+CENTER='';
+
 ['ds_token','ds_role','ds_center'].forEach(k=>localStorage.removeItem(k));
+
 $('appView').classList.add('hidden');
 $('loginView').classList.remove('hidden');
 $('loginChat').classList.remove('hidden');
+
 $('username').value=savedCenter;
 $('password').value='';
+
 updateLoginControls();
 await login();
 }
 
 /* CENTER TABS */
+
 function showCenterTab(tab){
 $('newStake').classList.toggle('hidden',tab!=='new');
 $('historyPanel').classList.toggle('hidden',tab!=='history');
 $('newTab').classList.toggle('active',tab==='new');
 $('historyTab').classList.toggle('active',tab==='history');
+
 if(tab==='history')loadHistory();
 }
+
 function calcTotal(){
-const total=['Australian','England','Trackside'].reduce((sum,id)=>sum+(Number($(id).value)||0),0);
+const total=['Australian','England','Trackside'].reduce(
+(sum,id)=>sum+(Number($(id).value)||0),0
+);
 $('liveTotal').textContent=money(total);
 }
+
 function clearStake(){
 ['Australian','England','Trackside','Due'].forEach(id=>$(id).value='');
 calcTotal();
@@ -596,82 +681,190 @@ $('saveMsg').classList.add('hidden');
 }
 
 /* SAVE STAKE */
+
 async function saveStake(){
 if(saving)return;
+
 if(ROLE!=='CENTER'){
 showMessage('saveMsg','NOT APPROVED. Please wait for Admin 2 approval.');
 return;
 }
+
 const selectedDate=$('stakeDate').value;
-if(!selectedDate){showMessage('saveMsg','Please select stake date.');return}
-const data={token:TOKEN,date:selectedDate};
+
+if(!selectedDate){
+showMessage('saveMsg','Please select stake date.');
+return;
+}
+
+const data={
+token:TOKEN,
+date:selectedDate,
+australian:0,
+england:0,
+trackside:0,
+due:0
+};
+
 for(const id of ['Australian','England','Trackside','Due']){
-const raw=$(id).value.trim(),value=raw===''?0:Number(raw);
+const raw=$(id).value.trim();
+const value=raw===''?0:Number(raw);
+
 if(!Number.isFinite(value)||value<0){
-showMessage('saveMsg','Please enter a valid amount for '+id);return;
+showMessage('saveMsg','Please enter a valid amount for '+id);
+return;
 }
-data[id]=value;
+
+// Backend expects lowercase field names
+data[id.toLowerCase()]=value;
 }
+
 if(!confirm('Save stake for '+selectedDate+'?'))return;
+
 saving=true;
 $('saveBtn').disabled=true;
 $('saveBtn').textContent='SAVING...';
+
 try{
 const r=await api('save',data);
 showMessage('saveMsg','✓ '+r.message+'\nDate: '+r.date+'\nTotal: '+money(r.total));
-}catch(e){showMessage('saveMsg',e.message)}
-finally{saving=false;$('saveBtn').disabled=false;$('saveBtn').textContent='SAVE STAKE'}
+}catch(e){
+showMessage('saveMsg',e.message);
+
+if(e.maintenance){
+$('maintenanceOverlay').classList.remove('hidden');
+}
+}finally{
+saving=false;
+$('saveBtn').disabled=false;
+$('saveBtn').textContent='SAVE STAKE';
+}
 }
 
 /* HISTORY */
+
 async function loadHistory(){
 $('historyList').textContent='Loading...';
+
 try{
 const r=await api('history',{token:TOKEN});
-if(!r.items||!r.items.length){$('historyList').textContent='No saved stake records yet.';return}
+
+if(!r.items||!r.items.length){
+$('historyList').textContent='No saved stake records yet.';
+return;
+}
+
 $('historyList').innerHTML=r.items.map(x=>`
-<div class="row"><div><b>${escapeHtml(x[0])}</b>
+<div class="row">
+<div>
+<b>${escapeHtml(x[0])}</b>
 <div class="muted">Australian ${money(x[2])} • England ${money(x[3])} • Trackside ${money(x[4])} • Due ${money(x[5])}</div>
-</div><b>${money(x[6])}</b></div>`).join('');
-}catch(e){$('historyList').textContent=e.message}
+</div>
+<b>${money(x[6])}</b>
+</div>`).join('');
+
+}catch(e){
+$('historyList').textContent=e.message;
+}
 }
 
 /* ADMIN 1 REPORT */
+
 async function loadReportCenters(){
 try{
 const r=await api('reportCenters',{token:TOKEN});
+
 $('reportCenter').innerHTML='<option value="ALL">ALL CENTERS</option>'+
 r.centers.map(c=>`<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`).join('');
+
 await loadReport();
 refreshAdmin1Chat();
-}catch(e){$('reportArea').textContent=e.message}
+
+}catch(e){
+$('reportArea').textContent=e.message;
+}
 }
 
 async function loadReport(){
 if(!TOKEN||ROLE!=='ADMIN1')return;
-if(!$('reportDate').value){$('reportArea').textContent='Please select a date.';return}
+
+if(!$('reportDate').value){
+$('reportArea').textContent='Please select a date.';
+return;
+}
+
 $('reportArea').innerHTML='<div class="status">Loading report...</div>';
+
 try{
-const r=await api('report',{token:TOKEN,date:$('reportDate').value,center:$('reportCenter').value});
+const r=await api('report',{
+token:TOKEN,
+date:$('reportDate').value,
+center:$('reportCenter').value
+});
+
 const s=r.sums;
+
 $('reportArea').innerHTML=`
-<div class="total"><small>${escapeHtml(r.center)} • ${escapeHtml(r.date)}</small><strong>${money(s.Total)}</strong><small>TOTAL STAKE • DUE EXCLUDED</small></div>
-<div class="statgrid" style="margin-top:12px">
-${[['AUSTRALIAN',s.Australian],['ENGLAND',s.England],['TRACKSIDE',s.Trackside],['DUE',s.Due]].map(x=>`
-<div class="stat"><small>${x[0]}</small><b>${money(x[1])}</b></div>`).join('')}
+<div class="total">
+<small>${escapeHtml(r.center)} • ${escapeHtml(r.date)}</small>
+<strong>${money(s.Total)}</strong>
+<small>TOTAL STAKE • DUE EXCLUDED</small>
 </div>
+
+<div class="statgrid" style="margin-top:12px">
+${[
+['AUSTRALIAN',s.Australian],
+['ENGLAND',s.England],
+['TRACKSIDE',s.Trackside],
+['DUE',s.Due]
+].map(x=>`
+<div class="stat">
+<small>${x[0]}</small>
+<b>${money(x[1])}</b>
+</div>`).join('')}
+</div>
+
 <h2 style="margin-top:20px">CENTER DETAILS</h2>
-<div class="tablewrap"><table><thead><tr><th>Center</th><th>Australian</th><th>England</th><th>Trackside</th><th>Due</th><th>Total</th></tr></thead>
-<tbody>${r.items.map(x=>`<tr>${x.slice(1,7).map((v,i)=>`<td>${i===0?escapeHtml(v):money(v)}</td>`).join('')}</tr>`).join('')||'<tr><td colspan="6">No records for this date</td></tr>'}</tbody></table></div>
-<button class="btn secondary no-print" onclick="window.print()">PRINT / SAVE REPORT</button>`;
-}catch(e){$('reportArea').textContent=e.message}
+
+<div class="tablewrap">
+<table>
+<thead>
+<tr>
+<th>Center</th>
+<th>Australian</th>
+<th>England</th>
+<th>Trackside</th>
+<th>Due</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+${r.items.map(x=>`
+<tr>
+${x.slice(1,7).map((v,i)=>`
+<td>${i===0?escapeHtml(v):money(v)}</td>
+`).join('')}
+</tr>`).join('')||'<tr><td colspan="6">No records for this date</td></tr>'}
+</tbody>
+</table>
+</div>
+
+<button class="btn secondary no-print" onclick="window.print()">PRINT / SAVE REPORT</button>
+`;
+
+}catch(e){
+$('reportArea').textContent=e.message;
+}
 }
 
 /* ADMIN 2 DATA */
+
 async function loadAdminData(){
 try{
 const r=await api('adminData',{token:TOKEN});
+
 maintenanceOn=r.maintenance;
+
 $('centerCount').textContent=r.centers.length;
 $('deviceCount').textContent=r.devices.length;
 $('maintState').textContent=maintenanceOn?'ON':'OFF';
@@ -679,151 +872,274 @@ $('maintBtn').textContent=maintenanceOn?'TURN MAINTENANCE OFF':'TURN MAINTENANCE
 
 const chatSelect=$('admin2ChatCenter');
 const old=chatSelect.value;
+
 chatSelect.innerHTML='<option value="ALL">ALL CENTERS - INBOX</option>'+
 r.centers.map(c=>`<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`).join('');
-if([...chatSelect.options].some(o=>o.value===old))chatSelect.value=old;
+
+if([...chatSelect.options].some(o=>o.value===old)){
+chatSelect.value=old;
+}
 
 $('centerList').innerHTML=r.centers.map(c=>`
-<div class="row"><div><b>${escapeHtml(c.name)}</b><div class="muted">${escapeHtml(c.status)}</div></div>
-<button class="btn small ${c.status==='APPROVED'?'danger':'green'}" onclick="approveCenter('${encodeURIComponent(c.name)}',${c.status!=='APPROVED'})">${c.status==='APPROVED'?'REVOKE':'APPROVE'}</button></div>`).join('')||'No centers registered.';
+<div class="row">
+<div>
+<b>${escapeHtml(c.name)}</b>
+<div class="muted">${escapeHtml(c.status)}</div>
+</div>
+<button class="btn small ${c.status==='APPROVED'?'danger':'green'}"
+onclick="approveCenter('${encodeURIComponent(c.name)}',${c.status!=='APPROVED'})">
+${c.status==='APPROVED'?'REVOKE':'APPROVE'}
+</button>
+</div>`).join('')||'No centers registered.';
 
 $('deviceList').innerHTML=r.devices.map(d=>`
-<div class="row"><div><b>${escapeHtml(d.center)}</b><div class="muted">${escapeHtml(d.name)}<br>${escapeHtml(d.id)}<br>${escapeHtml(d.lastSeen)}</div></div>
-<button class="btn small danger" onclick="removeDevice('${encodeURIComponent(d.center)}','${encodeURIComponent(d.id)}')">REMOVE</button></div>`).join('')||'No registered devices.';
+<div class="row">
+<div>
+<b>${escapeHtml(d.center)}</b>
+<div class="muted">
+${escapeHtml(d.name)}<br>
+${escapeHtml(d.id)}<br>
+${escapeHtml(d.lastSeen)}
+</div>
+</div>
+<button class="btn small danger"
+onclick="removeDevice('${encodeURIComponent(d.center)}','${encodeURIComponent(d.id)}')">
+REMOVE
+</button>
+</div>`).join('')||'No registered devices.';
 
 await refreshAdmin2Chat(true);
-}catch(e){alert(e.message)}
+
+}catch(e){
+alert(e.message);
+}
 }
 
 async function approveCenter(encodedName,approved){
 try{
-await api('approve',{token:TOKEN,center:decodeURIComponent(encodedName),approved});
+await api('approve',{
+token:TOKEN,
+center:decodeURIComponent(encodedName),
+approved:approved
+});
 await loadAdminData();
-}catch(e){alert(e.message)}
+}catch(e){
+alert(e.message);
 }
+}
+
 async function removeDevice(encodedCenter,encodedId){
 if(!confirm('Remove this device from the center?'))return;
+
 try{
-await api('removeDevice',{token:TOKEN,center:decodeURIComponent(encodedCenter),deviceId:decodeURIComponent(encodedId)});
+await api('removeDevice',{
+token:TOKEN,
+center:decodeURIComponent(encodedCenter),
+deviceId:decodeURIComponent(encodedId)
+});
 await loadAdminData();
-}catch(e){alert(e.message)}
+}catch(e){
+alert(e.message);
 }
+}
+
 async function toggleMaintenance(){
 const enabled=!maintenanceOn;
+
 if(!confirm(enabled?'Turn maintenance ON?':'Turn maintenance OFF?'))return;
-try{await api('maintenance',{token:TOKEN,enabled});await loadAdminData()}
-catch(e){alert(e.message)}
+
+try{
+await api('maintenance',{token:TOKEN,enabled:enabled});
+await loadAdminData();
+}catch(e){
+alert(e.message);
+}
 }
 
 /* CHAT DISPLAY */
+
 function renderChat(containerId,messages,currentRole){
 const box=$(containerId);
+
 if(!messages||!messages.length){
 box.innerHTML='<div class="muted center">No messages yet.</div>';
 return;
 }
+
 box.innerHTML=messages.map(m=>{
 const mine=(currentRole==='CENTER'||currentRole==='CENTER_PENDING')
 ?m.sender==='CENTER'
 :m.sender===currentRole;
-const sender=m.sender==='CENTER'?'CENTER':m.sender==='ADMIN1'?'ADMIN 1':'ADMIN 2';
-return `<div class="chatMsg ${mine?'mine':'admin'}">
+
+const sender=m.sender==='CENTER'
+?'CENTER'
+:m.sender==='ADMIN1'
+?'ADMIN 1'
+:m.sender==='ADMIN2'
+?'ADMIN 2'
+:'GUEST';
+
+return `
+<div class="chatMsg ${mine?'mine':'admin'}">
 <small>${escapeHtml(m.center)} • ${sender} • ${escapeHtml(m.time)}</small>
-<p>${escapeHtml(m.message)}</p></div>`;
+<p>${escapeHtml(m.message)}</p>
+</div>`;
 }).join('');
+
 box.scrollTop=box.scrollHeight;
 }
 
 /* LOGIN PAGE MESSAGE */
+
 async function sendLoginMessage(){
 const center=$('username').value.trim();
 const message=$('loginChatInput').value.trim();
+
 if(!center||center.toLowerCase()==='admin'){
 showMessage('loginChatStatus','Enter your center name in the login box first.');
 return;
 }
-if(!message){showMessage('loginChatStatus','Type your message first.');return}
+
+if(!message){
+showMessage('loginChatStatus','Type your message first.');
+return;
+}
+
 $('loginChatStatus').classList.add('hidden');
+
 try{
 await api('publicChatSend',{center,message});
 $('loginChatInput').value='';
 showMessage('loginChatStatus','Message sent to Admin 2.');
-}catch(e){showMessage('loginChatStatus',e.message)}
+}catch(e){
+showMessage('loginChatStatus',e.message);
+}
 }
 
 /* CENTER CHAT */
+
 async function refreshCenterChat(silent=false){
 if(!TOKEN||!(ROLE==='CENTER'||ROLE==='CENTER_PENDING'))return;
+
 try{
 const r=await api('chatGet',{token:TOKEN});
 renderChat('centerChatMessages',r.messages,ROLE);
-}catch(e){if(!silent)showMessage('centerChatStatus',e.message)}
+}catch(e){
+if(!silent)showMessage('centerChatStatus',e.message);
 }
+}
+
 async function sendCenterMessage(){
 const message=$('centerChatInput').value.trim();
-if(!message){showMessage('centerChatStatus','Type your message first.');return}
+
+if(!message){
+showMessage('centerChatStatus','Type your message first.');
+return;
+}
+
 try{
 await api('chatSend',{token:TOKEN,message});
 $('centerChatInput').value='';
 $('centerChatStatus').classList.add('hidden');
 await refreshCenterChat();
-}catch(e){showMessage('centerChatStatus',e.message)}
+}catch(e){
+showMessage('centerChatStatus',e.message);
+}
 }
 
 /* ADMIN 1 CHAT */
+
 async function refreshAdmin1Chat(silent=false){
 if(!TOKEN||ROLE!=='ADMIN1')return;
+
 const center=$('reportCenter').value;
+
 if(!center||center==='ALL'){
 $('admin1ChatMessages').innerHTML='<div class="muted center">Select one center above to open its chat.</div>';
 return;
 }
+
 try{
 const r=await api('chatGet',{token:TOKEN,center});
 renderChat('admin1ChatMessages',r.messages,ROLE);
-}catch(e){if(!silent)showMessage('admin1ChatStatus',e.message)}
+}catch(e){
+if(!silent)showMessage('admin1ChatStatus',e.message);
 }
+}
+
 async function sendAdmin1Message(){
 const center=$('reportCenter').value;
 const message=$('admin1ChatInput').value.trim();
-if(!center||center==='ALL'){showMessage('admin1ChatStatus','Select one center above first.');return}
-if(!message){showMessage('admin1ChatStatus','Type your message first.');return}
+
+if(!center||center==='ALL'){
+showMessage('admin1ChatStatus','Select one center above first.');
+return;
+}
+
+if(!message){
+showMessage('admin1ChatStatus','Type your message first.');
+return;
+}
+
 try{
 await api('chatSend',{token:TOKEN,center,message});
 $('admin1ChatInput').value='';
 $('admin1ChatStatus').classList.add('hidden');
 await refreshAdmin1Chat();
-}catch(e){showMessage('admin1ChatStatus',e.message)}
+}catch(e){
+showMessage('admin1ChatStatus',e.message);
+}
 }
 
 /* ADMIN 2 CHAT */
+
 async function refreshAdmin2Chat(silent=false){
 if(!TOKEN||ROLE!=='ADMIN2')return;
+
 const center=$('admin2ChatCenter').value||'ALL';
+
 try{
 const r=await api('chatGet',{token:TOKEN,center});
 renderChat('admin2ChatMessages',r.messages,ROLE);
-}catch(e){if(!silent)showMessage('admin2ChatStatus',e.message)}
+}catch(e){
+if(!silent)showMessage('admin2ChatStatus',e.message);
 }
+}
+
 async function sendAdmin2Message(){
 const center=$('admin2ChatCenter').value;
 const message=$('admin2ChatInput').value.trim();
-if(!center||center==='ALL'){showMessage('admin2ChatStatus','Select a specific center to reply.');return}
-if(!message){showMessage('admin2ChatStatus','Type your message first.');return}
+
+if(!center||center==='ALL'){
+showMessage('admin2ChatStatus','Select a specific center to reply.');
+return;
+}
+
+if(!message){
+showMessage('admin2ChatStatus','Type your message first.');
+return;
+}
+
 try{
 await api('chatSend',{token:TOKEN,center,message});
 $('admin2ChatInput').value='';
 $('admin2ChatStatus').classList.add('hidden');
 await refreshAdmin2Chat();
-}catch(e){showMessage('admin2ChatStatus',e.message)}
+}catch(e){
+showMessage('admin2ChatStatus',e.message);
+}
 }
 
 /* RESTORE SESSION */
+
 (function restoreSession(){
 const token=localStorage.getItem('ds_token');
 const role=localStorage.getItem('ds_role');
+
 if(token&&role){
-TOKEN=token;ROLE=role;CENTER=localStorage.getItem('ds_center')||'';
+TOKEN=token;
+ROLE=role;
+CENTER=localStorage.getItem('ds_center')||'';
 openApp();
 }else{
 $('username').value=localStorage.getItem('ds_center_name')||'';
@@ -833,5 +1149,3 @@ updateLoginControls();
 </script>
 </body>
 </html>
-
-
