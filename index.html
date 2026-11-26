@@ -3,74 +3,71 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#071b16">
 <title>Daily Stake - Multi Center</title>
 <style>
-:root{--bg:#071b16;--gold:#e7c46b;--white:#f4f6f5;--muted:#a8b8b1}
+:root{--gold:#e7c46b;--muted:#a8b8b1}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;min-height:100%;background:radial-gradient(circle at 10% 0%,#214331 0,#0b201a 38%,#160f27 100%);color:var(--white);font-family:Arial,sans-serif}
-body{padding:14px 13px 35px}
-input,select,button{font-family:inherit;font-size:16px!important}
-button{cursor:pointer}
+body{margin:0;padding:12px;background:radial-gradient(circle at 10% 0%,#214331,#0b201a 45%,#160f27);color:#f4f6f5;font-family:Arial,sans-serif}
 .wrap{max-width:900px;margin:auto}
 .top{text-align:center;padding:12px 0 18px}
-.logo{font-size:12px;letter-spacing:5px;color:var(--gold);font-weight:800}
-h1{font-size:25px;margin:7px 0 4px}
+.logo{font-size:12px;letter-spacing:5px;color:var(--gold);font-weight:bold}
+h1{font-size:25px;margin:8px 0}
 .sub{font-size:11px;color:var(--muted);letter-spacing:3px}
-.clockbox{margin:12px auto 0;padding:13px 18px;max-width:340px;border:1px solid #ffffff20;border-radius:16px;background:#ffffff0b}
-.clock{font-size:32px;font-weight:800;letter-spacing:3px;color:var(--gold)}
-.clockdate{font-size:13px;color:#d2ddd7;margin-top:4px}
-.card{background:linear-gradient(145deg,#ffffff13,#ffffff06);border:1px solid #ffffff20;border-radius:20px;padding:18px;margin:13px 0;box-shadow:0 12px 35px #0003}
-h2{font-size:17px;margin:0 0 15px;color:var(--gold);letter-spacing:1px}
+.clockbox{margin:14px auto 0;padding:13px;max-width:340px;border:1px solid #ffffff22;border-radius:16px;background:#ffffff0b}
+.clock{font-size:31px;font-weight:bold;letter-spacing:3px;color:var(--gold)}
+.clockdate{font-size:13px;color:#d2ddd7;margin-top:5px}
+.card{background:linear-gradient(145deg,#ffffff13,#ffffff06);border:1px solid #ffffff20;border-radius:18px;padding:17px;margin:13px 0;box-shadow:0 12px 35px #0003}
+h2{font-size:17px;color:var(--gold);margin:0 0 15px}
 label{display:block;color:#c4d1cb;font-size:12px;margin:12px 0 6px}
-input,select{width:100%;border:1px solid #ffffff25;background:#081c17;color:white;padding:14px 13px;border-radius:11px;outline:none}
+input,select{width:100%;min-width:0;background:#081c17;color:white;border:1px solid #ffffff30;border-radius:11px;padding:14px;font-size:16px;outline:none}
 input:focus,select:focus{border-color:var(--gold)}
-input[readonly]{opacity:.9;border-color:#e7c46b66}
-.btn{border:0;border-radius:12px;padding:14px 16px;font-weight:800;color:#102018;background:linear-gradient(120deg,#f1d789,#c7a54d);width:100%;margin-top:12px}
-.btn.secondary{background:#ffffff14;color:white;border:1px solid #ffffff30}
-.btn.danger{background:#702c39;color:white}
-.btn.green{background:linear-gradient(120deg,#3a9b70,#1f6548);color:white}
-.btn.small{width:auto;padding:9px 12px;margin:4px;font-size:12px!important}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.amount{font-size:20px!important;font-weight:700}
-.tabs{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
-.tab{flex:1;min-width:110px;padding:12px 7px;border:1px solid #ffffff2b;background:#ffffff0b;color:#dce7e1;border-radius:11px;font-size:12px!important;font-weight:800}
-.tab.active{background:linear-gradient(120deg,#b99b4d,#e8d18b);color:#15251d}
-.total{padding:16px;text-align:center;background:#071b16a8;border:1px solid #d7bc6b55;border-radius:15px;margin-top:14px}
-.total small{color:var(--muted);letter-spacing:2px}
-.total strong{display:block;color:var(--gold);font-size:29px;margin-top:4px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 0;border-bottom:1px solid #ffffff15;font-size:13px}
-.row:last-child{border:0}
-.muted{color:var(--muted);font-size:12px}
-.status{padding:11px;border-radius:10px;margin:10px 0;background:#ffffff12;font-size:13px;white-space:pre-wrap}
+button{font-family:inherit;font-size:14px;cursor:pointer}
+.btn{width:100%;padding:14px;margin-top:12px;border:0;border-radius:11px;background:linear-gradient(120deg,#f1d789,#c7a54d);color:#14251b;font-weight:bold;letter-spacing:.5px}
+.secondary{background:#ffffff14;color:white;border:1px solid #ffffff30}
+.green{background:linear-gradient(120deg,#3a9b70,#1f6548);color:white}
+.danger{background:#702c39;color:white}
+.small{width:auto;padding:9px 12px;margin:4px;font-size:12px}
 .hidden{display:none!important}
 .center{text-align:center}
-table{width:100%;border-collapse:collapse;font-size:12px;min-width:540px}
-th,td{text-align:left;padding:10px 8px;border-bottom:1px solid #ffffff18}
-th{color:var(--gold)}
-.tablewrap{overflow-x:auto}
+.muted{color:var(--muted);font-size:12px}
+.status{background:#ffffff12;padding:11px;border-radius:10px;margin-top:10px;font-size:13px;white-space:pre-wrap}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.amount{font-size:20px!important;font-weight:bold}
+.total{padding:16px;text-align:center;background:#071b16;border:1px solid #d7bc6b55;border-radius:15px;margin-top:14px}
+.total small{color:var(--muted);letter-spacing:2px}
+.total strong{display:block;color:var(--gold);font-size:28px;margin-top:5px}
+.tabs{display:flex;gap:8px;margin:12px 0}
+.tab{flex:1;padding:12px 5px;border:1px solid #ffffff30;background:#ffffff0b;color:white;border-radius:10px;font-weight:bold;font-size:12px}
+.tab.active{background:linear-gradient(120deg,#b99b4d,#e8d18b);color:#15251d}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #ffffff18;font-size:13px}
 .statgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.stat{background:#ffffff0c;border:1px solid #ffffff18;padding:13px;border-radius:13px}
+.stat{background:#ffffff0c;border:1px solid #ffffff18;padding:13px;border-radius:12px}
 .stat small{color:var(--muted);font-size:11px}
-.stat b{display:block;font-size:20px;color:var(--gold);margin-top:5px}
-.overlay{position:fixed;inset:0;background:#06130f;z-index:99;display:flex;align-items:center;justify-content:center;text-align:center;padding:25px}
+.stat b{display:block;color:var(--gold);font-size:20px;margin-top:5px}
+.tablewrap{overflow-x:auto}
+table{width:100%;min-width:540px;border-collapse:collapse;font-size:12px}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid #ffffff20}
+th{color:var(--gold)}
+footer{text-align:center;color:var(--muted);font-size:12px;line-height:1.9;padding:25px 10px}
+footer b{font-size:18px;color:var(--gold)}
+.overlay{position:fixed;inset:0;background:#06130f;z-index:100;display:flex;align-items:center;justify-content:center;text-align:center;padding:25px}
 .overlay h1{color:var(--gold);font-size:28px}
-footer{text-align:center;color:#a8b8b1;font-size:12px;padding:25px 10px 30px;line-height:1.9}
-footer b{color:var(--gold);font-size:17px}
-@media(max-width:420px){body{padding:10px}.card{padding:14px}.clock{font-size:28px}}
+@media(max-width:420px){.card{padding:14px}.clock{font-size:27px}}
 </style>
 </head>
 <body>
 <div class="wrap">
+
 <header class="top">
 <div class="logo">DS • MULTI CENTER SYSTEM</div>
 <h1>DAILY STAKE</h1>
 <div class="sub">SECURE CENTER MANAGEMENT</div>
 <div class="clockbox">
 <div class="clock" id="clock">00:00:00</div>
-<div class="clockdate" id="clockdate">Loading date...</div>
-<div class="muted" style="margin-top:6px">BUSINESS DATE <b id="businessDate">---</b></div>
+<div class="clockdate" id="clockdate">Loading...</div>
+<div class="muted" style="margin-top:7px">BUSINESS DATE: <b id="businessDate">---</b></div>
 </div>
 </header>
 
@@ -80,7 +77,7 @@ footer b{color:var(--gold);font-size:17px}
 <input id="username" placeholder="Enter center name or admin" autocomplete="username">
 <div id="passwordArea" class="hidden">
 <label>Admin Password</label>
-<input id="password" type="password" placeholder="Enter password" autocomplete="current-password">
+<input id="password" type="password" placeholder="Enter admin password" autocomplete="current-password">
 </div>
 <button class="btn" onclick="login()">LOGIN</button>
 <button class="btn secondary hidden" id="centerSwitch" onclick="switchCenterLogin()">CENTER LOGIN</button>
@@ -91,7 +88,7 @@ footer b{color:var(--gold);font-size:17px}
 <section id="appView" class="hidden">
 <div class="card">
 <div class="row"><span>Logged in as</span><b id="who"></b></div>
-<div class="row"><span>Business date</span><b id="bizLabel"></b></div>
+<div class="row"><span>Business Date</span><b id="bizLabel"></b></div>
 <button class="btn secondary" onclick="logout()">LOG OUT</button>
 </div>
 
@@ -102,14 +99,13 @@ footer b{color:var(--gold);font-size:17px}
 </div>
 <div id="newStake" class="card">
 <h2>NEW STAKE ENTRY</h2>
-<div class="muted">Due is not included in total.</div>
 <label>Australian</label>
 <input class="amount" id="Australian" type="number" min="0" step="0.01" placeholder="0.00" oninput="calcTotal()">
 <label>England</label>
 <input class="amount" id="England" type="number" min="0" step="0.01" placeholder="0.00" oninput="calcTotal()">
 <label>Trackside</label>
 <input class="amount" id="Trackside" type="number" min="0" step="0.01" placeholder="0.00" oninput="calcTotal()">
-<label>Due (Excluded from total)</label>
+<label>Due (Excluded from Total)</label>
 <input class="amount" id="Due" type="number" min="0" step="0.01" placeholder="0.00">
 <div class="total"><small>TOTAL STAKE</small><strong id="liveTotal">0.00</strong></div>
 <div class="grid">
@@ -148,8 +144,14 @@ footer b{color:var(--gold);font-size:17px}
 <button class="btn danger" id="maintBtn" onclick="toggleMaintenance()">TURN MAINTENANCE ON</button>
 <button class="btn secondary" onclick="loadAdminData()">REFRESH SYSTEM DATA</button>
 </div>
-<div class="card"><h2>REGISTERED CENTERS / APPROVALS</h2><div id="centerList"></div></div>
-<div class="card"><h2>REGISTERED DEVICES</h2><div id="deviceList"></div></div>
+<div class="card">
+<h2>REGISTERED CENTERS / APPROVALS</h2>
+<div id="centerList"></div>
+</div>
+<div class="card">
+<h2>REGISTERED DEVICES</h2>
+<div id="deviceList"></div>
+</div>
 </section>
 </section>
 
@@ -157,7 +159,7 @@ footer b{color:var(--gold);font-size:17px}
 <div>For All Issues &amp; Support</div>
 <b>0741127519</b>
 <div>Pasindu</div>
-<div style="margin-top:10px">DAILY STAKE • MULTI CENTER • SRI LANKA TIME</div>
+<div>DAILY STAKE • MULTI CENTER • SRI LANKA TIME</div>
 </footer>
 </div>
 
@@ -171,10 +173,16 @@ footer b{color:var(--gold);font-size:17px}
 
 <script>
 const API='https://script.google.com/macros/s/AKfycbwVzKrmNhfTuAfynGQ-Ple1poFp5KH1EqXDwtxF-V9IWVZgPwh6S5JI5vRw5zzscag/exec';
-let TOKEN='',ROLE='',CENTER='',saving=false,adminMaintenance=false;
+
+let TOKEN='';
+let ROLE='';
+let CENTER='';
+let saving=false;
+let maintenanceOn=false;
 
 function $(id){return document.getElementById(id)}
 function money(n){return (Number(n)||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 
 function deviceId(){
 let id=localStorage.getItem('ds_device_id');
@@ -185,86 +193,97 @@ localStorage.setItem('ds_device_id',id);
 return id;
 }
 
+/* JSONP connection to Apps Script */
 function api(action,data={}){
 return new Promise((resolve,reject)=>{
-const cb='ds_cb_'+Date.now()+'_'+Math.floor(Math.random()*100000);
+const callback='ds_callback_'+Date.now()+'_'+Math.floor(Math.random()*99999);
 const script=document.createElement('script');
-const payload=encodeURIComponent(JSON.stringify(data));
-const timer=setTimeout(()=>{cleanup();reject(new Error('Server timeout. Please try again.'))},20000);
-function cleanup(){clearTimeout(timer);delete window[cb];script.remove()}
-window[cb]=(result)=>{
+let finished=false;
+
+function cleanup(){
+if(finished)return;
+finished=true;
+clearTimeout(timer);
+delete window[callback];
+script.remove();
+}
+
+const timer=setTimeout(()=>{
 cleanup();
-if(result&&result.ok!==false)resolve(result);
+reject(new Error('Server timeout. Check Apps Script deployment.'));
+},25000);
+
+window[callback]=result=>{
+cleanup();
+if(result && result.ok)resolve(result);
 else reject(new Error(result?.error||'Request failed'));
 };
-script.onerror=()=>{cleanup();reject(new Error('Could not connect to server'))};
-script.src=API+'?action='+encodeURIComponent(action)+'&p='+payload+'&callback='+cb+'&_='+Date.now();
+
+script.onerror=()=>{
+cleanup();
+reject(new Error('Cannot connect to Apps Script.'));
+};
+
+const params=new URLSearchParams();
+params.set('action',action);
+params.set('p',JSON.stringify(data));
+params.set('callback',callback);
+params.set('_',String(Date.now()));
+script.src=API+'?'+params.toString();
 document.body.appendChild(script);
 });
 }
 
-function prepareLogin(){
-const saved=localStorage.getItem('ds_center_name');
-if(saved){
-$('username').value=saved;
-$('username').readOnly=true;
-}
-}
-
-// ADMIN PASSWORD BOX FIX
+/* Admin password box opens immediately when admin is typed */
 $('username').addEventListener('input',()=>{
 const isAdmin=$('username').value.trim().toLowerCase()==='admin';
-if(isAdmin){
-$('passwordArea').classList.remove('hidden');
-$('centerSwitch').classList.remove('hidden');
-$('username').readOnly=false;
-}else{
-$('passwordArea').classList.add('hidden');
-$('centerSwitch').classList.add('hidden');
-$('password').value='';
-const saved=localStorage.getItem('ds_center_name');
-if(saved && $('username').value.trim()===saved){
-$('username').readOnly=true;
-}
-}
+$('passwordArea').classList.toggle('hidden',!isAdmin);
+$('centerSwitch').classList.toggle('hidden',!isAdmin);
+if(!isAdmin)$('password').value='';
 });
 
 function switchCenterLogin(){
-const saved=localStorage.getItem('ds_center_name');
+$('username').value=localStorage.getItem('ds_center_name')||'';
+$('password').value='';
 $('passwordArea').classList.add('hidden');
 $('centerSwitch').classList.add('hidden');
-$('password').value='';
-if(saved){
-$('username').value=saved;
-$('username').readOnly=true;
-}else{
-$('username').value='';
-$('username').readOnly=false;
-}
 $('loginMsg').classList.add('hidden');
+$('username').focus();
 }
 
 $('username').addEventListener('keydown',e=>{if(e.key==='Enter')login()});
 $('password').addEventListener('keydown',e=>{if(e.key==='Enter')login()});
 
+function getBusinessDate(){
+const parts=new Intl.DateTimeFormat('en-CA',{
+timeZone:'Asia/Colombo',year:'numeric',month:'2-digit',day:'2-digit',
+hour:'2-digit',minute:'2-digit',hourCycle:'h23'
+}).formatToParts(new Date());
+const get=t=>parts.find(p=>p.type===t).value;
+let y=Number(get('year')),m=Number(get('month')),d=Number(get('day'));
+const time=get('hour')+':'+get('minute');
+let date=new Date(Date.UTC(y,m-1,d));
+if(time<'03:45')date.setUTCDate(date.getUTCDate()-1);
+return date.toISOString().slice(0,10);
+}
+
 function updateClock(){
 const now=new Date();
-$('clock').textContent=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Colombo',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(now);
-$('clockdate').textContent=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Colombo',weekday:'long',day:'2-digit',month:'long',year:'numeric'}).format(now);
-const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Colombo',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(now);
-const get=t=>parts.find(x=>x.type===t).value;
-let y=Number(get('year')),m=Number(get('month')),d=Number(get('day')),h=Number(get('hour')),min=Number(get('minute'));
-let date=new Date(Date.UTC(y,m-1,d));
-if(h<3||(h===3&&min<45))date.setUTCDate(date.getUTCDate()-1);
-const key=date.toISOString().slice(0,10);
-$('businessDate').textContent=key;
-$('bizLabel').textContent=key;
-if($('reportDate')&&!$('reportDate').value)$('reportDate').value=key;
+$('clock').textContent=new Intl.DateTimeFormat('en-GB',{
+timeZone:'Asia/Colombo',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false
+}).format(now);
+$('clockdate').textContent=new Intl.DateTimeFormat('en-GB',{
+timeZone:'Asia/Colombo',weekday:'long',day:'2-digit',month:'long',year:'numeric'
+}).format(now);
+const date=getBusinessDate();
+$('businessDate').textContent=date;
+$('bizLabel').textContent=date;
+if($('reportDate')&&!$('reportDate').value)$('reportDate').value=date;
 }
-setInterval(updateClock,1000);
 updateClock();
+setInterval(updateClock,1000);
 
-function message(id,text){
+function showMessage(id,text){
 $(id).textContent=text;
 $(id).classList.remove('hidden');
 }
@@ -272,139 +291,188 @@ $(id).classList.remove('hidden');
 async function login(){
 const username=$('username').value.trim();
 const password=$('password').value;
-if(!username){message('loginMsg','Enter center name or admin');return}
+if(!username){showMessage('loginMsg','Enter center name or admin.');return}
+
 if(username.toLowerCase()==='admin'&&!password){
 $('passwordArea').classList.remove('hidden');
 $('password').focus();
-message('loginMsg','Enter admin password');
+showMessage('loginMsg','Please enter admin password.');
 return;
 }
-message('loginMsg','Connecting...');
+
+showMessage('loginMsg','Connecting to server...');
+
 try{
-const r=await api('login',{
-username,password,
+const result=await api('login',{
+username:username,
+password:password,
 deviceId:deviceId(),
-deviceName:navigator.userAgent.slice(0,70)
+deviceName:navigator.userAgent.slice(0,100)
 });
-if(r.pending){message('loginMsg',r.error);return}
-TOKEN=r.token;
-ROLE=r.role;
-CENTER=r.center||'';
+
+if(result.pending){
+showMessage('loginMsg',result.error||'Waiting for approval.');
+return;
+}
+
+TOKEN=result.token;
+ROLE=result.role;
+CENTER=result.center||'';
+
 if(ROLE==='CENTER')localStorage.setItem('ds_center_name',CENTER);
+
 localStorage.setItem('ds_token',TOKEN);
 localStorage.setItem('ds_role',ROLE);
 localStorage.setItem('ds_center',CENTER);
+
 openApp();
-}catch(e){message('loginMsg',e.message)}
+
+if(ROLE==='CENTER'&&result.maintenance){
+$('maintenanceOverlay').classList.remove('hidden');
+}
+}catch(err){
+showMessage('loginMsg',err.message);
+}
 }
 
 function openApp(){
 $('loginView').classList.add('hidden');
 $('appView').classList.remove('hidden');
+
 $('who').textContent=ROLE==='CENTER'?CENTER:ROLE==='ADMIN1'?'ADMIN 1':'ADMIN 2';
+
 $('centerPanel').classList.toggle('hidden',ROLE!=='CENTER');
 $('admin1Panel').classList.toggle('hidden',ROLE!=='ADMIN1');
 $('admin2Panel').classList.toggle('hidden',ROLE!=='ADMIN2');
-updateClock();
+
 if(ROLE==='ADMIN1')loadReportCenters();
 if(ROLE==='ADMIN2')loadAdminData();
 if(ROLE==='CENTER')showCenterTab('new');
+updateClock();
 }
 
 async function logout(){
-try{await api('logout',{token:TOKEN})}catch(e){}
+try{if(TOKEN)await api('logout',{token:TOKEN})}catch(e){}
 TOKEN='';ROLE='';CENTER='';
 localStorage.removeItem('ds_token');
 localStorage.removeItem('ds_role');
 localStorage.removeItem('ds_center');
 $('appView').classList.add('hidden');
 $('loginView').classList.remove('hidden');
+$('username').value=localStorage.getItem('ds_center_name')||'';
 $('password').value='';
+$('passwordArea').classList.add('hidden');
+$('centerSwitch').classList.add('hidden');
 $('loginMsg').classList.add('hidden');
-prepareLogin();
+$('maintenanceOverlay').classList.add('hidden');
 }
 
-function showCenterTab(which){
-$('newStake').classList.toggle('hidden',which!=='new');
-$('historyPanel').classList.toggle('hidden',which!=='history');
-$('newTab').classList.toggle('active',which==='new');
-$('historyTab').classList.toggle('active',which==='history');
-if(which==='history')loadHistory();
+function showCenterTab(tab){
+$('newStake').classList.toggle('hidden',tab!=='new');
+$('historyPanel').classList.toggle('hidden',tab!=='history');
+$('newTab').classList.toggle('active',tab==='new');
+$('historyTab').classList.toggle('active',tab==='history');
+if(tab==='history')loadHistory();
 }
 
 function calcTotal(){
-const n=['Australian','England','Trackside'].reduce((a,k)=>a+(Number($(k).value)||0),0);
-$('liveTotal').textContent=money(n);
+const total=['Australian','England','Trackside'].reduce((sum,id)=>sum+(Number($(id).value)||0),0);
+$('liveTotal').textContent=money(total);
 }
 
 function clearStake(){
-['Australian','England','Trackside','Due'].forEach(k=>$(k).value='');
+['Australian','England','Trackside','Due'].forEach(id=>$(id).value='');
 calcTotal();
 $('saveMsg').classList.add('hidden');
 }
 
 async function saveStake(){
 if(saving)return;
-const vals={};
-for(const k of ['Australian','England','Trackside','Due']){
-const raw=$(k).value.trim(),n=raw===''?0:Number(raw);
-if(!Number.isFinite(n)||n<0){message('saveMsg','Please enter valid amounts');return}
-vals[k]=n;
+const data={token:TOKEN};
+for(const id of ['Australian','England','Trackside','Due']){
+const raw=$(id).value.trim();
+const value=raw===''?0:Number(raw);
+if(!Number.isFinite(value)||value<0){
+showMessage('saveMsg','Please enter a valid amount for '+id);
+return;
 }
-if(!confirm('Save this stake for '+$('businessDate').textContent+'?'))return;
+data[id]=value;
+}
+if(!confirm('Save stake for business date '+getBusinessDate()+'?'))return;
+
 saving=true;
 $('saveBtn').disabled=true;
 $('saveBtn').textContent='SAVING...';
+
 try{
-const r=await api('save',{token:TOKEN,...vals});
-message('saveMsg','✓ '+r.message+' | Total: '+money(r.total));
-}catch(e){message('saveMsg',e.message)}
-finally{
+const r=await api('save',data);
+showMessage('saveMsg','✓ '+r.message+' Total: '+money(r.total));
+}catch(e){
+showMessage('saveMsg',e.message);
+}finally{
 saving=false;
 $('saveBtn').disabled=false;
 $('saveBtn').textContent='SAVE STAKE';
 }
 }
 
-function escapeHtml(v){
-return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
 async function loadHistory(){
 $('historyList').textContent='Loading...';
 try{
 const r=await api('history',{token:TOKEN});
-if(!r.items.length){$('historyList').textContent='No saved stake records yet.';return}
+if(!r.items||!r.items.length){
+$('historyList').textContent='No saved stake records yet.';
+return;
+}
 $('historyList').innerHTML=r.items.map(x=>`
-<div class="row"><div><b>${escapeHtml(x[0])}</b>
+<div class="row">
+<div>
+<b>${escapeHtml(x[0])}</b>
 <div class="muted">Australian ${money(x[2])} • England ${money(x[3])} • Trackside ${money(x[4])} • Due ${money(x[5])}</div>
-</div><b>${money(x[6])}</b></div>`).join('');
+</div>
+<b>${money(x[6])}</b>
+</div>`).join('');
 }catch(e){$('historyList').textContent=e.message}
 }
 
 async function loadReportCenters(){
 try{
 const r=await api('reportCenters',{token:TOKEN});
-$('reportCenter').innerHTML='<option value="ALL">ALL CENTERS</option>'+r.centers.map(c=>`<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`).join('');
-loadReport();
+$('reportCenter').innerHTML='<option value="ALL">ALL CENTERS</option>'+
+r.centers.map(c=>`<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`).join('');
+$('reportDate').value=getBusinessDate();
+await loadReport();
 }catch(e){$('reportArea').textContent=e.message}
 }
 
 async function loadReport(){
 $('reportArea').innerHTML='<div class="status">Loading report...</div>';
 try{
-const r=await api('report',{token:TOKEN,date:$('reportDate').value,center:$('reportCenter').value});
+const r=await api('report',{
+token:TOKEN,
+date:$('reportDate').value,
+center:$('reportCenter').value
+});
 const s=r.sums;
 $('reportArea').innerHTML=`
-<div class="total"><small>${escapeHtml(r.center)} • ${escapeHtml(r.date)}</small><strong>${money(s.Total)}</strong><small>TOTAL STAKE • DUE EXCLUDED</small></div>
+<div class="total">
+<small>${escapeHtml(r.center)} • ${escapeHtml(r.date)}</small>
+<strong>${money(s.Total)}</strong>
+<small>TOTAL STAKE • DUE EXCLUDED</small>
+</div>
 <div class="statgrid" style="margin-top:12px">
-${[['AUSTRALIAN',s.Australian],['ENGLAND',s.England],['TRACKSIDE',s.Trackside],['DUE',s.Due]].map(x=>`<div class="stat"><small>${x[0]}</small><b>${money(x[1])}</b></div>`).join('')}
+${[['AUSTRALIAN',s.Australian],['ENGLAND',s.England],['TRACKSIDE',s.Trackside],['DUE',s.Due]].map(x=>`
+<div class="stat"><small>${x[0]}</small><b>${money(x[1])}</b></div>`).join('')}
 </div>
 <h2 style="margin-top:20px">CENTER DETAILS</h2>
-<div class="tablewrap"><table>
+<div class="tablewrap">
+<table>
 <thead><tr><th>Center</th><th>Australian</th><th>England</th><th>Trackside</th><th>Due</th><th>Total</th></tr></thead>
-<tbody>${r.items.map(x=>`<tr>${x.slice(1,7).map((v,i)=>`<td>${i===0?escapeHtml(v):money(v)}</td>`).join('')}</tr>`).join('')||'<tr><td colspan="6">No records for this date</td></tr>'}</tbody>
-</table></div>
+<tbody>
+${r.items.map(x=>`<tr>${x.slice(1,7).map((v,i)=>`<td>${i===0?escapeHtml(v):money(v)}</td>`).join('')}</tr>`).join('')||'<tr><td colspan="6">No records for this date</td></tr>'}
+</tbody>
+</table>
+</div>
 <button class="btn secondary" onclick="window.print()">PRINT / SAVE REPORT</button>`;
 }catch(e){$('reportArea').textContent=e.message}
 }
@@ -412,46 +480,61 @@ ${[['AUSTRALIAN',s.Australian],['ENGLAND',s.England],['TRACKSIDE',s.Trackside],[
 async function loadAdminData(){
 try{
 const r=await api('adminData',{token:TOKEN});
-adminMaintenance=r.maintenance;
+maintenanceOn=r.maintenance;
 $('centerCount').textContent=r.centers.length;
 $('deviceCount').textContent=r.devices.length;
-$('maintState').textContent=adminMaintenance?'ON':'OFF';
-$('maintBtn').textContent=adminMaintenance?'TURN MAINTENANCE OFF':'TURN MAINTENANCE ON';
+$('maintState').textContent=maintenanceOn?'ON':'OFF';
+$('maintBtn').textContent=maintenanceOn?'TURN MAINTENANCE OFF':'TURN MAINTENANCE ON';
+
 $('centerList').innerHTML=r.centers.map(c=>`
-<div class="row"><div><b>${escapeHtml(c.name)}</b><div class="muted">${escapeHtml(c.status)}</div></div>
-<button class="btn small ${c.status==='APPROVED'?'danger':'green'}" onclick="approveCenter('${encodeURIComponent(c.name)}',${c.status!=='APPROVED'})">${c.status==='APPROVED'?'REVOKE':'APPROVE'}</button></div>`).join('')||'No centers registered';
+<div class="row">
+<div><b>${escapeHtml(c.name)}</b><div class="muted">${escapeHtml(c.status)}</div></div>
+<button class="btn small ${c.status==='APPROVED'?'danger':'green'}"
+onclick="approveCenter('${encodeURIComponent(c.name)}',${c.status!=='APPROVED'})">
+${c.status==='APPROVED'?'REVOKE':'APPROVE'}
+</button>
+</div>`).join('')||'No centers registered.';
+
 $('deviceList').innerHTML=r.devices.map(d=>`
-<div class="row"><div><b>${escapeHtml(d.center)}</b><div class="muted">${escapeHtml(d.name)} • ${escapeHtml(d.id)}</div></div>
-<button class="btn small danger" onclick="removeDevice('${encodeURIComponent(d.center)}','${encodeURIComponent(d.id)}')">REMOVE</button></div>`).join('')||'No registered devices';
+<div class="row">
+<div><b>${escapeHtml(d.center)}</b>
+<div class="muted">${escapeHtml(d.name)}<br>${escapeHtml(d.id)}<br>${escapeHtml(d.lastSeen)}</div>
+</div>
+<button class="btn small danger" onclick="removeDevice('${encodeURIComponent(d.center)}','${encodeURIComponent(d.id)}')">REMOVE</button>
+</div>`).join('')||'No registered devices.';
 }catch(e){alert(e.message)}
 }
 
-async function approveCenter(name,approved){
+async function approveCenter(encodedName,approved){
 try{
-await api('approve',{token:TOKEN,center:decodeURIComponent(name),approved});
-loadAdminData();
+await api('approve',{token:TOKEN,center:decodeURIComponent(encodedName),approved:approved});
+await loadAdminData();
 }catch(e){alert(e.message)}
 }
 
-async function removeDevice(center,id){
-if(!confirm('Remove this registered device?'))return;
+async function removeDevice(encodedCenter,encodedId){
+if(!confirm('Remove this device from the center?'))return;
 try{
-await api('removeDevice',{token:TOKEN,center:decodeURIComponent(center),deviceId:decodeURIComponent(id)});
-loadAdminData();
+await api('removeDevice',{
+token:TOKEN,
+center:decodeURIComponent(encodedCenter),
+deviceId:decodeURIComponent(encodedId)
+});
+await loadAdminData();
 }catch(e){alert(e.message)}
 }
 
 async function toggleMaintenance(){
-const enabled=!adminMaintenance;
+const enabled=!maintenanceOn;
 if(!confirm(enabled?'Turn maintenance ON?':'Turn maintenance OFF?'))return;
 try{
-await api('maintenance',{token:TOKEN,enabled});
-loadAdminData();
+await api('maintenance',{token:TOKEN,enabled:enabled});
+await loadAdminData();
 }catch(e){alert(e.message)}
 }
 
-(function restore(){
-prepareLogin();
+/* Restore previous login session */
+(function restoreSession(){
 const token=localStorage.getItem('ds_token');
 const role=localStorage.getItem('ds_role');
 if(token&&role){
@@ -459,6 +542,8 @@ TOKEN=token;
 ROLE=role;
 CENTER=localStorage.getItem('ds_center')||'';
 openApp();
+}else{
+$('username').value=localStorage.getItem('ds_center_name')||'';
 }
 })();
 </script>
