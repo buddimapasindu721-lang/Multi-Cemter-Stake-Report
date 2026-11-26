@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#05040D">
 <title>Daily Stake - Multi Center</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
 <style>
 :root{
  --bg:#05040d;--panel:#100d1d;--panel2:#191329;
@@ -95,43 +95,6 @@ th{color:#e2baff;background:#21172e}
 .approved{background:#064b38;color:#6dffce}
 .pending{background:#51370b;color:#ffd77a}
 .blocked{background:#54152a;color:#ff8ca8}
-
-/* APPROVAL LOCK SCREEN */
-.lock-panel{
- max-width:440px;margin:10vh auto;padding:28px 22px;
- text-align:center;
- background:linear-gradient(145deg,#21132f,#100b1b);
- border:1px solid #a34cff75;border-radius:20px;
- box-shadow:0 15px 45px #0009,0 0 35px #8d35ff20;
-}
-.lock-icon{
- width:85px;height:85px;margin:0 auto 20px;
- display:flex;align-items:center;justify-content:center;
- border-radius:50%;font-size:43px;
- background:linear-gradient(145deg,#52218a,#24123c);
- border:1px solid #c77aff88;
- box-shadow:0 0 28px #9b45ff55;
-}
-.lock-title{
- font-size:23px;font-weight:900;letter-spacing:1.5px;
- color:#e4c3ff;margin-bottom:10px;
-}
-.lock-status{
- display:inline-block;padding:8px 15px;border-radius:20px;
- background:#51370b;color:#ffd77a;font-size:10px;
- font-weight:900;letter-spacing:1.5px;margin:12px 0;
-}
-.lock-description{
- color:#bcaaca;font-size:12px;line-height:1.8;margin:12px 0 20px;
-}
-.lock-center{
- color:#fff;font-size:16px;font-weight:bold;
- padding:12px;background:#ffffff0b;border:1px solid #ffffff18;
- border-radius:10px;margin:15px 0;
-}
-.lock-footer{font-size:10px;color:#78698a;margin-top:15px}
-
-/* SHARED CATEGORY CARDS */
 .category-grid{
  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;
  margin:12px 0;
@@ -151,47 +114,26 @@ th{color:#e2baff;background:#21172e}
  width:100%;
 }
 .category-card .amount{
- font-size:19px;font-weight:900;margin-top:13px;
- overflow-wrap:anywhere;
+ font-size:19px;font-weight:900;margin-top:13px;overflow-wrap:anywhere;
 }
-.cat-australian{
- color:#f5c76b;border-color:#9c692c;
- background:linear-gradient(145deg,#493015,#1c120b 80%);
-}
-.cat-england{
- color:#85baff;border-color:#376cba;
- background:linear-gradient(145deg,#172e58,#0b1328 85%);
-}
-.cat-trackside{
- color:#ff8bd5;border-color:#a63880;
- background:linear-gradient(145deg,#4c1742,#200d25 85%);
-}
-.cat-due{
- color:#65f2d9;border-color:#208f85;
- background:linear-gradient(145deg,#10443e,#0a201f 85%);
-}
-.cat-total{
- color:#f2d28b;border-color:#9e73db;
- background:linear-gradient(145deg,#38205b,#171027 85%);
-}
+.cat-australian{color:#f5c76b;border-color:#9c692c;background:linear-gradient(145deg,#493015,#1c120b 80%)}
+.cat-england{color:#85baff;border-color:#376cba;background:linear-gradient(145deg,#172e58,#0b1328 85%)}
+.cat-trackside{color:#ff8bd5;border-color:#a63880;background:linear-gradient(145deg,#4c1742,#200d25 85%)}
+.cat-due{color:#65f2d9;border-color:#208f85;background:linear-gradient(145deg,#10443e,#0a201f 85%)}
+.cat-total{color:#f2d28b;border-color:#9e73db;background:linear-gradient(145deg,#38205b,#171027 85%)}
 .cat-total .amount{font-size:23px;color:#ffe2a0}
 .report-head{
- padding:15px;border-radius:14px;
- background:linear-gradient(120deg,#25133f,#101021);
+ padding:15px;border-radius:14px;background:linear-gradient(120deg,#25133f,#101021);
  border:1px solid #8b4ad655;margin-bottom:12px;
 }
 .report-capture{
- padding:14px;border-radius:16px;
- background:linear-gradient(145deg,#090711,#151027);
+ padding:14px;border-radius:16px;background:linear-gradient(145deg,#090711,#151027);
  border:1px solid #9c6bd866;
 }
 .report-capture .report-head{text-align:center}
 .report-capture .report-head h2{margin:0;color:#f1d5ff}
 .report-capture .report-head div{font-size:10px;color:#bca4d7;margin-top:5px}
-.screenshot-btn{
- background:linear-gradient(110deg,#5420b6,#b12cff);
- border:1px solid #d49aff;color:white;
-}
+.screenshot-btn{background:linear-gradient(110deg,#5420b6,#b12cff);border:1px solid #d49aff;color:white}
 footer{text-align:center;color:#756780;font-size:10px;padding:22px}
 @media(min-width:650px){
  .wrap{padding:18px}
@@ -226,26 +168,6 @@ footer{text-align:center;color:#756780;font-size:10px;padding:22px}
  </div>
 </div>
 
-<!-- CENTER APPROVAL LOCK -->
-<div id="lockedScreen" class="wrap hidden">
- <div class="lock-panel">
-  <div class="lock-icon">🔐</div>
-  <div class="lock-title">ACCESS LOCKED</div>
-  <div class="lock-status">ADMIN 2 APPROVAL REQUIRED</div>
-  <div class="lock-center" id="lockedCenterName">CENTER</div>
-  <div class="lock-description">
-   Your center registration has been received.<br>
-   You cannot enter the system until Admin 2 approves your center.
-   <br><br>
-   Please check again after approval.
-  </div>
-  <button class="btn green" id="checkApprovalBtn" onclick="checkApproval()">🔄 CHECK APPROVAL</button>
-  <button class="btn gray" onclick="changeCenter()">CHANGE CENTER</button>
-  <div id="lockedMessage"></div>
-  <div class="lock-footer">DAILY STAKE MULTI CENTER SECURITY</div>
- </div>
-</div>
-
 <div id="appScreen" class="hidden">
  <div class="wrap">
   <div class="panel">
@@ -277,10 +199,11 @@ footer{text-align:center;color:#756780;font-size:10px;padding:22px}
 <footer>DAILY STAKE MULTI CENTER</footer>
 
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbwVzKrmNhfTuAfynGQ-Ple1poFp5KH1EqXDwtxF-V9IWVZgPwh6S5JI5vRw5zzscag/exec";
+const API_URL="https://script.google.com/macros/s/AKfycbwVzKrmNhfTuAfynGQ-Ple1poFp5KH1EqXDwtxF-V9IWVZgPwh6SJI5vRw5zzscag/exec";
 
 let TOKEN="",ROLE="",CENTER="",ADMIN_DATA=null,APPROVED_CENTERS=[];
 let CURRENT_PAGE="",CHAT_TIMER=null,REPORT_TIMER=null;
+let apiBusy=false;
 
 const $=id=>document.getElementById(id);
 const money=n=>"Rs. "+Number(n||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -296,7 +219,7 @@ function api(action,data={}){
   const callback="ds_cb_"+Date.now()+"_"+Math.floor(Math.random()*999999);
   const params=new URLSearchParams({...data,action,callback});
   const script=document.createElement("script");
-  const timer=setTimeout(()=>{cleanup();reject(new Error("Server response timeout"))},20000);
+  const timer=setTimeout(()=>{cleanup();reject(new Error("Server response timeout"))},25000);
   function cleanup(){clearTimeout(timer);delete window[callback];script.remove()}
   window[callback]=result=>{cleanup();resolve(result)};
   script.onerror=()=>{cleanup();reject(new Error("Connection error"))};
@@ -322,16 +245,6 @@ function showLoginMessage(text,type=""){
 }
 function savedCenter(){return localStorage.getItem("ds_saved_center")||""}
 
-function showLockedScreen(center,message=""){
- $("loginScreen").classList.add("hidden");
- $("appScreen").classList.add("hidden");
- $("maintenanceScreen").classList.add("hidden");
- $("lockedScreen").classList.remove("hidden");
- $("lockedCenterName").textContent=center||savedCenter()||"CENTER";
- $("lockedMessage").innerHTML=message?
-  `<div class="notice error">${escapeHTML(message)}</div>`:"";
-}
-
 function initialiseLogin(){
  const saved=savedCenter();
  if(saved){
@@ -342,12 +255,8 @@ function initialiseLogin(){
 }
 
 function changeCenter(){
- $("lockedScreen").classList.add("hidden");
- $("loginScreen").classList.remove("hidden");
  $("username").readOnly=false;
  $("username").value="";
- $("password").value="";
- $("passwordArea").classList.add("hidden");
  $("username").focus();
  $("changeCenterBtn").classList.add("hidden");
  localStorage.removeItem("ds_saved_center");
@@ -364,6 +273,7 @@ async function login(){
  const username=$("username").value.trim(),password=$("password").value;
  if(!username){showLoginMessage("Enter center name.","error");return}
  if(username.toLowerCase()==="admin"&&!password){showLoginMessage("Enter admin password.","error");return}
+
  showLoginMessage("Checking login...");
 
  try{
@@ -377,16 +287,14 @@ async function login(){
     $("username").value=username;
     $("username").readOnly=true;
     $("changeCenterBtn").classList.remove("hidden");
-    showLockedScreen(username);
-    return;
    }
    if(r.maintenance){showMaintenance();return}
-   showLoginMessage(r.error||"Login failed.", "error");
+   showLoginMessage(r.error||"Login failed.","error");
    return;
   }
 
-  $("lockedScreen").classList.add("hidden");
   TOKEN=r.token;ROLE=r.role;CENTER=r.center||"";
+
   if(ROLE==="CENTER"){
    localStorage.setItem("ds_saved_center",CENTER);
    $("username").value=CENTER;
@@ -401,59 +309,10 @@ async function login(){
  }catch(e){showLoginMessage(e.message,"error")}
 }
 
-async function checkApproval(){
- const center=savedCenter()||$("lockedCenterName").textContent;
- if(!center)return;
-
- const btn=$("checkApprovalBtn");
- btn.disabled=true;
- btn.textContent="CHECKING...";
-
- try{
-  const r=await api("login",{
-   username:center,password:"",
-   deviceId:deviceId(),deviceName:deviceName()
-  });
-
-  if(r.ok){
-   $("lockedScreen").classList.add("hidden");
-   TOKEN=r.token;ROLE=r.role;CENTER=r.center||center;
-   localStorage.setItem("ds_saved_center",CENTER);
-   localStorage.setItem("ds_token",TOKEN);
-   localStorage.setItem("ds_role",ROLE);
-   localStorage.setItem("ds_center",CENTER);
-   await startApp();
-   return;
-  }
-
-  if(r.pending){
-   $("lockedMessage").innerHTML=
-    '<div class="notice">Approval is still pending. Please check again later.</div>';
-  }else if(r.maintenance){
-   showMaintenance();
-  }else{
-   $("lockedMessage").innerHTML=
-    `<div class="notice error">${escapeHTML(r.error||"Approval check failed.")}</div>`;
-  }
- }catch(e){
-  $("lockedMessage").innerHTML=
-   `<div class="notice error">${escapeHTML(e.message)}</div>`;
- }finally{
-  btn.disabled=false;
-  btn.textContent="🔄 CHECK APPROVAL";
- }
-}
-
 async function restoreSession(){
  const token=localStorage.getItem("ds_token");
- if(!token){
-  if(savedCenter()){
-   $("username").value=savedCenter();
-   $("username").readOnly=true;
-   $("changeCenterBtn").classList.remove("hidden");
-  }
-  return;
- }
+ if(!token)return;
+
  TOKEN=token;
  try{
   const r=await api("session",{token:TOKEN});
@@ -470,8 +329,6 @@ function clearSession(){
  localStorage.removeItem("ds_role");
  localStorage.removeItem("ds_center");
  $("appScreen").classList.add("hidden");
- $("lockedScreen").classList.add("hidden");
- $("maintenanceScreen").classList.add("hidden");
  $("loginScreen").classList.remove("hidden");
 }
 
@@ -484,7 +341,6 @@ async function logout(){
 function showMaintenance(){
  $("loginScreen").classList.add("hidden");
  $("appScreen").classList.add("hidden");
- $("lockedScreen").classList.add("hidden");
  $("maintenanceScreen").classList.remove("hidden");
 }
 
@@ -493,7 +349,10 @@ function businessDateLocal(){
   timeZone:"Asia/Colombo",year:"numeric",month:"2-digit",day:"2-digit",
   hour:"2-digit",hourCycle:"h23"
  }).formatToParts(new Date());
- const o={};parts.forEach(p=>o[p.type]=p.value);
+
+ const o={};
+ parts.forEach(p=>o[p.type]=p.value);
+
  let d=new Date(Date.UTC(Number(o.year),Number(o.month)-1,Number(o.day)));
  if(Number(o.hour)<4)d.setUTCDate(d.getUTCDate()-1);
  return d.toISOString().slice(0,10);
@@ -512,23 +371,26 @@ updateClock();
 
 async function startApp(){
  $("loginScreen").classList.add("hidden");
- $("lockedScreen").classList.add("hidden");
  $("maintenanceScreen").classList.add("hidden");
  $("appScreen").classList.remove("hidden");
 
  $("welcome").textContent=ROLE==="ADMIN1"?"MR. HARSHANA":
   ROLE==="ADMIN2"?"MR. PASINDU":CENTER;
+
  $("roleText").textContent=ROLE==="ADMIN1"?"ADMIN 1 • REPORT ACCESS":
   ROLE==="ADMIN2"?"ADMIN 2 • SYSTEM CONTROL":"APPROVED CENTER ACCOUNT";
 
  buildNavigation();
- if(ROLE==="ADMIN2"){await loadAdminData();openPage("dashboard")}
- else if(ROLE==="ADMIN1"){await loadApprovedCenters();openPage("reports")}
+
+ // Avoid duplicate data requests during first page load.
+ if(ROLE==="ADMIN2")openPage("dashboard");
+ else if(ROLE==="ADMIN1")openPage("reports");
  else openPage("dashboard");
 }
 
 function buildNavigation(){
  let tabs=[];
+
  if(ROLE==="ADMIN1"){
   tabs=[["reports","📊 REPORTS"],["messages","💬 PRIVATE MESSAGES"]];
  }else if(ROLE==="ADMIN2"){
@@ -544,6 +406,7 @@ function buildNavigation(){
    ["records","📋 RECORDS"],["messages","💬 MESSAGES"]
   ];
  }
+
  $("navigation").innerHTML=tabs.map(t=>
   `<button id="nav_${t[0]}" onclick="openPage('${t[0]}')">${t[1]}</button>`
  ).join("");
@@ -551,8 +414,11 @@ function buildNavigation(){
 
 async function openPage(page){
  CURRENT_PAGE=page;
+
  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
- const active=$("nav_"+page);if(active)active.classList.add("active");
+ const active=$("nav_"+page);
+ if(active)active.classList.add("active");
+
  if(CHAT_TIMER){clearInterval(CHAT_TIMER);CHAT_TIMER=null}
  if(REPORT_TIMER){clearInterval(REPORT_TIMER);REPORT_TIMER=null}
 
@@ -561,6 +427,7 @@ async function openPage(page){
  if(ROLE==="CENTER"&&!["dashboard","newstake","records","messages"].includes(page))return;
 
  $("content").innerHTML='<div class="panel muted">Loading...</div>';
+
  try{
   if(page==="dashboard")await dashboardPage();
   else if(page==="system")await systemPage();
@@ -572,7 +439,9 @@ async function openPage(page){
   else if(page==="newstake")await newStakePage();
   else if(page==="records")await recordsPage();
   else if(page==="messages")await messagesPage();
- }catch(e){$("content").innerHTML=`<div class="notice error">${escapeHTML(e.message)}</div>`}
+ }catch(e){
+  $("content").innerHTML=`<div class="notice error">${escapeHTML(e.message)}</div>`;
+ }
 }
 
 async function loadAdminData(){
@@ -585,18 +454,20 @@ async function loadApprovedCenters(){
  if(!r.ok)throw new Error(r.error||"Cannot load centers");
  APPROVED_CENTERS=r.centers||[];
 }
-function centerNames(){return (ADMIN_DATA?.centers||[]).map(c=>c.name).filter(Boolean)}
+function centerNames(){return (ADMIN_DATA?.centers||[]).filter(c=>c.status==="APPROVED").map(c=>c.name).filter(Boolean)}
 function approvedNames(){return APPROVED_CENTERS.filter(Boolean)}
 function statusTag(status){
  const s=String(status||"PENDING").toUpperCase();
  return `<span class="tag ${s==="APPROVED"?"approved":s==="BLOCKED"?"blocked":"pending"}">${escapeHTML(s)}</span>`;
 }
 
-/* SHARED CATEGORY CARD BUILDER */
+/* CATEGORY CARDS */
+
 function categoryCard(name,icon,css,value,id){
  const amount=id
   ?`<input id="${id}" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal">`
   :`<div class="amount">${money(value)}</div>`;
+
  return `<div class="category-card ${css}">
   <div><div class="cat-icon">${icon}</div><div class="cat-name">${name}</div></div>
   ${amount}
@@ -632,13 +503,16 @@ function sumRows(rows){
 }
 
 /* DASHBOARDS */
+
 async function dashboardPage(){
  if(ROLE==="ADMIN2"){
   await loadAdminData();
+
   const cs=ADMIN_DATA.centers||[];
   const approved=cs.filter(c=>c.status==="APPROVED").length;
   const pending=cs.filter(c=>c.status==="PENDING").length;
   const blocked=cs.filter(c=>c.status==="BLOCKED").length;
+
   $("content").innerHTML=`
    <h2>Admin 2 Dashboard</h2>
    <div class="grid">
@@ -661,7 +535,9 @@ async function dashboardPage(){
  if(ROLE==="CENTER"){
   const r=await api("history",{token:TOKEN,date:todayISO()});
   if(!r.ok)throw new Error(r.error||"Could not load dashboard");
+
   const sums=sumRows(r.rows);
+
   $("content").innerHTML=`
    <h2>${escapeHTML(CENTER)} Dashboard</h2>
    <div class="report-head">
@@ -675,9 +551,11 @@ async function dashboardPage(){
 }
 
 /* ADMIN 2 PAGES */
+
 async function systemPage(){
  await loadAdminData();
  const on=!!ADMIN_DATA.maintenance;
+
  $("content").innerHTML=`
   <h2>System Access</h2>
   <div class="panel">
@@ -704,6 +582,7 @@ async function setMaintenance(value){
 async function centersPage(){
  await loadAdminData();
  const centers=ADMIN_DATA.centers||[];
+
  $("content").innerHTML=`
   <h2>Center Management</h2>
   <div class="notice">Admin 2 approval is required before a center can log in.</div>
@@ -728,6 +607,7 @@ async function approveCenter(center,status){
 async function devicesPage(){
  await loadAdminData();
  const devices=ADMIN_DATA.devices||[];
+
  $("content").innerHTML=`
   <h2>Device Management</h2>
   <div class="notice">Each center can use a maximum of 2 devices.</div>
@@ -748,8 +628,10 @@ async function removeDevice(center,id){
 }
 
 /* CENTER STAKE ENTRY */
+
 async function newStakePage(){
  if(ROLE!=="CENTER")return;
+
  $("content").innerHTML=`
   <h2>New Stake Entry</h2>
   <div class="report-head">
@@ -758,6 +640,8 @@ async function newStakePage(){
   </div>
   <div class="panel">
    <h3>ENTER STAKE AMOUNTS</h3>
+   <label class="muted">Select Stake Date</label>
+   <input id="stakeDate" type="date" value="${todayISO()}">
    ${stakeInputCards()}
    <div class="notice">Due is recorded separately and excluded from Total.</div>
    <button class="btn green" onclick="saveStake()">SAVE STAKE</button>
@@ -777,35 +661,70 @@ async function newStakePage(){
    <button class="btn" onclick="sendOtherRequest()">SEND OTHER CENTER REQUEST</button>
    <div id="requestMessageResult"></div>
   </div>`;
- await loadRequestTargets();
+
+ // Show the entry screen immediately; load target centers afterwards.
+ loadRequestTargets();
 }
+
 function clearStakeFields(){
  ["australian","england","trackside","due"].forEach(id=>$(id).value="");
 }
+
 async function saveStake(){
  if(ROLE!=="CENTER")return;
+
+ const date=$("stakeDate").value;
+ if(!date){$("saveMessage").innerHTML='<div class="notice error">Select stake date.</div>';return}
+
  const data={
-  token:TOKEN,australian:$("australian").value||0,
-  england:$("england").value||0,trackside:$("trackside").value||0,
+  token:TOKEN,date:date,
+  australian:$("australian").value||0,
+  england:$("england").value||0,
+  trackside:$("trackside").value||0,
   due:$("due").value||0
  };
+
  $("saveMessage").innerHTML='<div class="notice">Saving...</div>';
+
  try{
   const r=await api("save",data);
-  if(!r.ok){$("saveMessage").innerHTML=`<div class="notice error">${escapeHTML(r.error||"Save failed")}</div>`;return}
-  $("saveMessage").innerHTML=`<div class="notice success">Stake saved successfully. Total: ${money(r.total)}</div>`;
+
+  if(!r.ok){
+   $("saveMessage").innerHTML=`<div class="notice error">${escapeHTML(r.error||"Save failed")}</div>`;
+   return;
+  }
+
+  $("saveMessage").innerHTML=
+   `<div class="notice success">Stake saved successfully. Date: ${escapeHTML(r.date)} • Total: ${money(r.total)}</div>`;
+
   clearStakeFields();
- }catch(e){$("saveMessage").innerHTML=`<div class="notice error">${escapeHTML(e.message)}</div>`}
+ }catch(e){
+  $("saveMessage").innerHTML=`<div class="notice error">${escapeHTML(e.message)}</div>`;
+ }
 }
+
 async function loadRequestTargets(){
- const r=await api("centerTargets",{token:TOKEN});
- if(!r.ok){$("requestTarget").innerHTML='<option value="">Could not load centers</option>';return}
- $("requestTarget").innerHTML='<option value="">Select another center</option>'+
-  (r.centers||[]).map(n=>`<option value="${escapeHTML(n)}">${escapeHTML(n)}</option>`).join("");
+ const select=$("requestTarget");
+ if(!select)return;
+
+ try{
+  const r=await api("centerTargets",{token:TOKEN});
+  if(!r.ok){
+   select.innerHTML='<option value="">Could not load centers</option>';
+   return;
+  }
+
+  select.innerHTML='<option value="">Select another center</option>'+
+   (r.centers||[]).map(n=>`<option value="${escapeHTML(n)}">${escapeHTML(n)}</option>`).join("");
+ }catch(e){
+  if(select)select.innerHTML='<option value="">Could not load centers</option>';
+ }
 }
+
 async function sendOtherRequest(){
  const targetCenter=$("requestTarget").value;
  if(!targetCenter){alert("Select target center.");return}
+
  const data={
   token:TOKEN,targetCenter,date:$("requestDate").value,
   australian:$("request_australian").value||0,
@@ -813,16 +732,21 @@ async function sendOtherRequest(){
   trackside:$("request_trackside").value||0,
   due:$("request_due").value||0
  };
- const msg=$("requestMessage").value.trim();
- data.message=msg;
+
  $("requestMessageResult").innerHTML='<div class="notice">Sending request...</div>';
- const r=await api("otherRequestSend",data);
- $("requestMessageResult").innerHTML=r.ok?
-  '<div class="notice success">Request sent to Admin 2 successfully.</div>':
-  `<div class="notice error">${escapeHTML(r.error||"Request failed")}</div>`;
+
+ try{
+  const r=await api("otherRequestSend",data);
+  $("requestMessageResult").innerHTML=r.ok?
+   '<div class="notice success">Request sent to Admin 2 successfully.</div>':
+   `<div class="notice error">${escapeHTML(r.error||"Request failed")}</div>`;
+ }catch(e){
+  $("requestMessageResult").innerHTML=`<div class="notice error">${escapeHTML(e.message)}</div>`;
+ }
 }
 
 /* CENTER RECORDS */
+
 async function recordsPage(){
  $("content").innerHTML=`
   <h2>Stake Records</h2>
@@ -830,13 +754,21 @@ async function recordsPage(){
   <input id="recordDate" type="date" value="${todayISO()}">
   <button class="btn" onclick="loadRecords()">VIEW RECORDS</button>
   <div id="recordsResult"></div>`;
+
  await loadRecords();
 }
+
 async function loadRecords(){
  const date=$("recordDate").value;
  const r=await api("history",{token:TOKEN,date});
- if(!r.ok){$("recordsResult").innerHTML=`<div class="notice error">${escapeHTML(r.error)}</div>`;return}
+
+ if(!r.ok){
+  $("recordsResult").innerHTML=`<div class="notice error">${escapeHTML(r.error)}</div>`;
+  return;
+ }
+
  const sums=sumRows(r.rows);
+
  $("recordsResult").innerHTML=(r.rows||[]).length?`
   <div class="report-head"><b>${escapeHTML(CENTER)}</b><div>BUSINESS DATE: ${escapeHTML(date)}</div></div>
   ${stakeValueCards(sums)}
@@ -845,14 +777,18 @@ async function loadRecords(){
 }
 
 /* ADMIN 1 REPORT */
+
 async function reportsPage(){
  if(ROLE!=="ADMIN1")return;
+
  await loadApprovedCenters();
  const names=approvedNames();
+
  if(!names.length){
   $("content").innerHTML='<h2>Daily Reports</h2><div class="notice">No approved centers found.</div>';
   return;
  }
+
  $("content").innerHTML=`
   <h2>Daily Reports</h2>
   <div class="panel">
@@ -866,23 +802,31 @@ async function reportsPage(){
    <button class="btn" onclick="loadReport()">VIEW REPORT</button>
   </div>
   <div id="reportResult"></div>`;
+
  $("reportCenter").addEventListener("change",loadReport);
  $("reportDate").addEventListener("change",loadReport);
  await loadReport();
 }
+
 async function loadReport(){
  if(ROLE!=="ADMIN1")return;
+
  const date=$("reportDate")?.value||todayISO();
  const center=$("reportCenter")?.value||"ALL";
+
  $("reportResult").innerHTML='<div class="notice">Loading report...</div>';
+
  const r=await api("report",{token:TOKEN,date,center});
+
  if(!r.ok){
   $("reportResult").innerHTML=`<div class="notice error">${escapeHTML(r.error||"Report loading failed")}</div>`;
   return;
  }
+
  const rows=r.rows||[];
  const total=r.total||{};
  let cards="";
+
  if(center==="ALL"){
   cards=rows.map(x=>`
    <div class="panel">
@@ -921,29 +865,45 @@ async function loadReport(){
    </div>
   </div>`;
 }
+
 async function takeReportScreenshot(){
  if(ROLE!=="ADMIN1")return;
+
  const target=$("reportCapture");
  if(!target){alert("Load a report first.");return}
- if(!window.html2canvas){alert("Screenshot tool could not load.");return}
+
+ if(!window.html2canvas){
+  alert("Screenshot tool is still loading. Try again.");
+  return;
+ }
+
  try{
-  const canvas=await html2canvas(target,{scale:2,backgroundColor:"#090711",useCORS:true});
+  const canvas=await html2canvas(target,{
+   scale:2,backgroundColor:"#090711",useCORS:true
+  });
+
   const link=document.createElement("a");
   link.download="Daily-Stake-"+$("reportCenter").value+"-"+$("reportDate").value+".png";
   link.href=canvas.toDataURL("image/png");
   link.click();
- }catch(e){alert("Screenshot failed: "+e.message)}
+ }catch(e){
+  alert("Screenshot failed: "+e.message);
+ }
 }
 
 /* ADMIN 2 MANUAL ENTRY */
+
 async function manualPage(){
  await loadAdminData();
  const names=centerNames();
+
  $("content").innerHTML=`
   <h2>Manual Stake Entry</h2>
   <div class="panel">
    <label class="muted">Select Center</label>
-   <select id="manualCenter">${names.map(n=>`<option value="${escapeHTML(n)}">${escapeHTML(n)}</option>`).join("")}</select>
+   <select id="manualCenter">
+    ${names.map(n=>`<option value="${escapeHTML(n)}">${escapeHTML(n)}</option>`).join("")}
+   </select>
    <label class="muted">Business Date</label>
    <input id="manualDate" type="date" value="${todayISO()}">
    ${stakeInputCards("manual")}
@@ -951,24 +911,44 @@ async function manualPage(){
    <div id="manualMessage"></div>
   </div>`;
 }
+
 async function saveManual(){
- const r=await api("manualSave",{
-  token:TOKEN,center:$("manualCenter").value,date:$("manualDate").value,
-  australian:$("manualaustralian").value||0,
-  england:$("manualengland").value||0,
-  trackside:$("manualtrackside").value||0,
-  due:$("manualdue").value||0
- });
- $("manualMessage").innerHTML=r.ok?
-  '<div class="notice success">Manual stake saved.</div>':
-  `<div class="notice error">${escapeHTML(r.error||"Save failed")}</div>`;
+ const date=$("manualDate").value;
+ if(!date){$("manualMessage").innerHTML='<div class="notice error">Select business date.</div>';return}
+
+ $("manualMessage").innerHTML='<div class="notice">Saving manual stake...</div>';
+
+ try{
+  const r=await api("manualSave",{
+   token:TOKEN,
+   center:$("manualCenter").value,
+   date:date,
+   australian:$("manualaustralian").value||0,
+   england:$("manualengland").value||0,
+   trackside:$("manualtrackside").value||0,
+   due:$("manualdue").value||0
+  });
+
+  $("manualMessage").innerHTML=r.ok?
+   `<div class="notice success">Manual stake saved. Date: ${escapeHTML(r.date)} • Total: ${money(r.total)}</div>`:
+   `<div class="notice error">${escapeHTML(r.error||"Save failed")}</div>`;
+
+  if(r.ok){
+   ["manualaustralian","manualengland","manualtrackside","manualdue"].forEach(id=>$(id).value="");
+  }
+ }catch(e){
+  $("manualMessage").innerHTML=`<div class="notice error">${escapeHTML(e.message)}</div>`;
+ }
 }
 
 /* ADMIN 2 OTHER CENTER REQUESTS */
+
 async function requestsPage(){
  const r=await api("otherRequests",{token:TOKEN});
  if(!r.ok)throw new Error(r.error||"Could not load requests");
+
  const requests=(r.requests||[]).filter(q=>q.status!=="ENTERED");
+
  $("content").innerHTML=`
   <h2>Other Center Stake Requests</h2>
   ${requests.map(q=>`
@@ -981,23 +961,34 @@ async function requestsPage(){
     <button class="btn green small" onclick="enterRequest('${escapeHTML(q.id)}','${escapeHTML(q.targetCenter)}','${escapeHTML(q.date)}','${q.australian}','${q.england}','${q.trackside}','${q.due}')">ENTER STAKE</button>
    </div>`).join("")||'<div class="notice">No pending requests.</div>'}`;
 }
+
 async function enterRequest(id,center,date,australian,england,trackside,due){
  if(!confirm("Save this stake for "+center+"?"))return;
- const r=await api("manualSave",{token:TOKEN,center,date,australian,england,trackside,due});
+
+ const r=await api("manualSave",{
+  token:TOKEN,center,date,australian,england,trackside,due
+ });
+
  if(!r.ok){alert(r.error||"Could not save request");return}
+
  const marked=await api("markRequestEntered",{token:TOKEN,id});
  if(!marked.ok){alert("Stake saved, but request status could not be updated.");return}
+
  alert("Request stake saved successfully.");
  await requestsPage();
 }
 
 /* PRIVATE MESSAGES */
+
 async function messagesPage(){
  const isAdmin=ROLE==="ADMIN1"||ROLE==="ADMIN2";
+
  if(isAdmin){
   if(ROLE==="ADMIN2")await loadAdminData();
   else await loadApprovedCenters();
+
   const names=ROLE==="ADMIN2"?centerNames():approvedNames();
+
   $("content").innerHTML=`
    <h2>Private Messages</h2>
    <label class="muted">Select Center</label>
@@ -1016,17 +1007,24 @@ async function messagesPage(){
    </select>
    <div id="chatArea"></div>`;
  }
+
  await loadMessages();
- CHAT_TIMER=setInterval(()=>loadMessages(true),10000);
+ CHAT_TIMER=setInterval(()=>loadMessages(true),15000);
 }
+
 async function loadMessages(silent=false){
  const isAdmin=ROLE==="ADMIN1"||ROLE==="ADMIN2";
  const center=isAdmin?($("chatCenter")?.value||""):CENTER;
+
+ if(!center)return;
+
  const r=await api("chatGet",{token:TOKEN,center});
+
  if(!r.ok){
   if(!silent)$("chatArea").innerHTML=`<div class="notice error">${escapeHTML(r.error||"Messages unavailable")}</div>`;
   return;
  }
+
  const msgs=r.messages||[];
  const html=msgs.map(m=>`
   <div class="item">
@@ -1034,24 +1032,31 @@ async function loadMessages(silent=false){
    <div style="margin-top:6px">${escapeHTML(m.message)}</div>
    <div class="muted">${escapeHTML(m.sentAt)}</div>
   </div>`).join("");
+
  $("chatArea").innerHTML=`
   <div class="panel" style="max-height:340px;overflow:auto">${html||'<div class="muted">No messages yet.</div>'}</div>
   <textarea id="chatMessage" rows="3" placeholder="Type your message..."></textarea>
   <button class="btn" onclick="sendMessage()">SEND MESSAGE</button>`;
 }
+
 async function sendMessage(){
  const message=$("chatMessage").value.trim();
  if(!message)return;
+
  const isAdmin=ROLE==="ADMIN1"||ROLE==="ADMIN2";
  const data={token:TOKEN,message};
+
  if(isAdmin)data.center=$("chatCenter").value;
  else data.recipientRole=$("chatTarget").value;
+
  const r=await api("chatSend",data);
  if(!r.ok){alert(r.error||"Message could not be sent");return}
+
  await loadMessages();
 }
 
 /* START */
+
 initialiseLogin();
 updateClock();
 restoreSession();
