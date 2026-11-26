@@ -9,8 +9,12 @@
 <style>
 :root{--gold:#e7c46b;--muted:#a8b8b1}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;padding:12px;background:radial-gradient(circle at 10% 0%,#214331,#0b201a 45%,#160f27);color:#f4f6f5;font-family:Arial,sans-serif}
-.wrap{max-width:900px;margin:auto}
+html{width:100%;min-height:100%;overflow-x:hidden}
+body{margin:0;padding:12px;background:radial-gradient(circle at 10% 0%,#214331,#0b201a 45%,#160f27);color:#f4f6f5;font-family:Arial,sans-serif;min-height:100dvh;overflow-x:hidden}
+button,input,select{font-family:inherit}
+button{font-size:14px;cursor:pointer;touch-action:manipulation}
+button:disabled{opacity:.55;cursor:not-allowed}
+.wrap{width:100%;max-width:900px;margin:0 auto}
 .top{text-align:center;padding:12px 0 18px}
 .logo{font-size:12px;letter-spacing:5px;color:var(--gold);font-weight:bold}
 h1{font-size:25px;margin:8px 0}
@@ -18,38 +22,38 @@ h1{font-size:25px;margin:8px 0}
 .clockbox{margin:14px auto 0;padding:13px;max-width:340px;border:1px solid #ffffff22;border-radius:16px;background:#ffffff0b}
 .clock{font-size:31px;font-weight:bold;letter-spacing:3px;color:var(--gold)}
 .clockdate{font-size:13px;color:#d2ddd7;margin-top:5px}
-.card{background:linear-gradient(145deg,#ffffff13,#ffffff06);border:1px solid #ffffff20;border-radius:18px;padding:17px;margin:13px 0;box-shadow:0 12px 35px #0003}
+.card{background:linear-gradient(145deg,#ffffff13,#ffffff06);border:1px solid #ffffff20;border-radius:18px;padding:17px;margin:13px 0;box-shadow:0 12px 35px #0003;min-width:0}
 h2{font-size:17px;color:var(--gold);margin:0 0 15px}
 label{display:block;color:#c4d1cb;font-size:12px;margin:12px 0 6px}
-input,select{width:100%;min-width:0;background:#081c17;color:white;border:1px solid #ffffff30;border-radius:11px;padding:14px;font-size:16px;outline:none}
+input,select{display:block;width:100%;min-width:0;max-width:100%;background:#081c17;color:white;border:1px solid #ffffff30;border-radius:11px;padding:14px;font-size:16px;outline:none;min-height:48px}
 input:focus,select:focus{border-color:var(--gold)}
-button{font-family:inherit;font-size:14px;cursor:pointer}
-button:disabled{opacity:.55;cursor:not-allowed}
-.btn{width:100%;padding:14px;margin-top:12px;border:0;border-radius:11px;background:linear-gradient(120deg,#f1d789,#c7a54d);color:#14251b;font-weight:bold;letter-spacing:.5px}
+input[readonly]{border-color:#ffffff20;color:#e7c46b;background:#0c211b}
+.btn{width:100%;min-height:46px;padding:13px;margin-top:12px;border:0;border-radius:11px;background:linear-gradient(120deg,#f1d789,#c7a54d);color:#14251b;font-weight:bold;letter-spacing:.5px}
 .secondary{background:#ffffff14;color:white;border:1px solid #ffffff30}
 .green{background:linear-gradient(120deg,#3a9b70,#1f6548);color:white}
 .danger{background:#702c39;color:white}
-.small{width:auto;padding:9px 12px;margin:4px;font-size:12px}
+.small{width:auto;min-height:36px;padding:8px 11px;margin:4px;font-size:12px}
 .hidden{display:none!important}
 .center{text-align:center}
 .muted{color:var(--muted);font-size:12px}
-.status{background:#ffffff12;padding:11px;border-radius:10px;margin-top:10px;font-size:13px;white-space:pre-wrap}
+.status{background:#ffffff12;padding:11px;border-radius:10px;margin-top:10px;font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .amount{font-size:20px!important;font-weight:bold}
 .total{padding:16px;text-align:center;background:#071b16;border:1px solid #d7bc6b55;border-radius:15px;margin-top:14px}
 .total small{color:var(--muted);letter-spacing:2px}
 .total strong{display:block;color:var(--gold);font-size:28px;margin-top:5px}
 .tabs{display:flex;gap:8px;margin:12px 0}
-.tab{flex:1;padding:12px 5px;border:1px solid #ffffff30;background:#ffffff0b;color:white;border-radius:10px;font-weight:bold;font-size:12px}
+.tab{flex:1;min-width:0;padding:12px 5px;border:1px solid #ffffff30;background:#ffffff0b;color:white;border-radius:10px;font-weight:bold;font-size:12px}
 .tab.active{background:linear-gradient(120deg,#b99b4d,#e8d18b);color:#15251d}
-.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #ffffff18;font-size:13px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #ffffff18;font-size:13px;min-width:0}
+.row>div{min-width:0;overflow-wrap:anywhere}
 .statgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.stat{background:#ffffff0c;border:1px solid #ffffff18;padding:13px;border-radius:12px}
+.stat{background:#ffffff0c;border:1px solid #ffffff18;padding:13px;border-radius:12px;min-width:0}
 .stat small{color:var(--muted);font-size:11px}
-.stat b{display:block;color:var(--gold);font-size:20px;margin-top:5px}
-.tablewrap{overflow-x:auto}
+.stat b{display:block;color:var(--gold);font-size:20px;margin-top:5px;overflow-wrap:anywhere}
+.tablewrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 table{width:100%;min-width:540px;border-collapse:collapse;font-size:12px}
-th,td{text-align:left;padding:10px 8px;border-bottom:1px solid #ffffff20}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid #ffffff20;white-space:nowrap}
 th{color:var(--gold)}
 footer{text-align:center;color:var(--muted);font-size:12px;line-height:1.9;padding:25px 10px}
 footer b{font-size:18px;color:var(--gold)}
@@ -59,17 +63,62 @@ footer b{font-size:18px;color:var(--gold)}
 .pendingIcon{font-size:55px;margin-bottom:12px}
 .pendingTitle{font-size:30px;font-weight:900;color:#ffd778;letter-spacing:2px}
 .pendingText{color:#f0dfbd;font-size:14px;line-height:1.8;margin-top:12px}
-.chatMessages{height:260px;overflow-y:auto;background:#071b16aa;border:1px solid #ffffff20;border-radius:12px;padding:10px;margin:12px 0}
+.chatMessages{height:260px;overflow-y:auto;background:#071b16aa;border:1px solid #ffffff20;border-radius:12px;padding:10px;margin:12px 0;overscroll-behavior:contain}
 .chatMsg{padding:10px;margin:8px 0;border-radius:11px;background:#ffffff12;max-width:90%;overflow-wrap:anywhere}
 .chatMsg.mine{margin-left:auto;background:#285b43}
 .chatMsg.admin{border-left:3px solid var(--gold)}
 .chatMsg small{display:block;color:#c1cfc8;font-size:10px;margin-bottom:5px}
 .chatMsg p{margin:0;font-size:13px;line-height:1.5;white-space:pre-wrap}
-.chatSendRow{display:flex;gap:8px;align-items:center}
+.chatSendRow{display:flex;gap:8px;align-items:center;min-width:0}
 .chatSendRow input{flex:1;min-width:0}
-.chatSendRow button{width:auto;min-width:85px;margin:0}
-@media(max-width:420px){.card{padding:14px}.clock{font-size:27px}.pendingTitle{font-size:27px}.chatSendRow button{min-width:72px;padding:12px 8px}}
-@media print{body{background:white;color:black}button,footer,.top,.no-print{display:none!important}.card{background:white;color:black;box-shadow:none;border:1px solid #ccc}th{color:black}}
+.chatSendRow button{width:auto;min-width:78px;margin:0;flex-shrink:0}
+.chatToggle{width:100%;display:flex;justify-content:space-between;align-items:center;text-align:left;padding:13px 15px;border-radius:13px;background:#ffffff10;border:1px solid #e7c46b66;color:var(--gold);font-weight:bold}
+.chatToggle span:last-child{font-size:18px}
+.loginChatBody{padding-top:10px}
+.loginChatHint{margin:9px 2px 0;line-height:1.5}
+#loginView{margin-top:0}
+#loginView .btn{margin-top:10px}
+#appView{width:100%;min-width:0}
+#appView .card{min-width:0}
+@media(max-width:600px){
+ body{padding:10px;padding-left:max(10px,env(safe-area-inset-left));padding-right:max(10px,env(safe-area-inset-right));padding-bottom:max(10px,env(safe-area-inset-bottom))}
+ .top{padding:8px 0 12px}
+ .logo{font-size:10px;letter-spacing:3px}
+ h1{font-size:23px}
+ .sub{font-size:10px;letter-spacing:2px}
+ .clockbox{padding:11px;margin-top:11px}
+ .clock{font-size:27px}
+ .clockdate{font-size:12px}
+ .card{padding:14px;margin:10px 0;border-radius:15px}
+ h2{font-size:16px}
+ input,select{padding:13px;font-size:16px}
+ .btn{min-height:46px;padding:12px 10px}
+ .tabs{gap:6px}
+ .tab{font-size:11px;padding:12px 3px}
+ .amount{font-size:19px!important}
+ .total strong{font-size:25px}
+ .pendingTitle{font-size:25px}
+ .chatMessages{height:210px}
+ .chatSendRow button{min-width:70px;padding:11px 8px}
+ .row{font-size:12px}
+ .stat{padding:11px}
+ .stat b{font-size:17px}
+}
+@media(max-width:350px){
+ body{padding:7px}
+ .card{padding:11px}
+ .grid{gap:7px}
+ .btn{font-size:12px}
+ .clock{font-size:24px}
+ .chatSendRow{gap:5px}
+ .chatSendRow button{min-width:62px;font-size:12px}
+}
+@media print{
+ body{background:white;color:black}
+ button,footer,.top,.no-print{display:none!important}
+ .card{background:white;color:black;box-shadow:none;border:1px solid #ccc}
+ th{color:black}
+}
 </style>
 </head>
 <body>
@@ -97,15 +146,18 @@ footer b{font-size:18px;color:var(--gold)}
 </div>
 
 <button class="btn" id="loginBtn" onclick="login()">LOGIN</button>
-<button class="btn secondary hidden" id="centerSwitch" onclick="switchCenterLogin()">CENTER LOGIN</button>
+<button class="btn secondary hidden" id="changeCenterLogin" onclick="changeCenterLogin()">CHANGE CENTER</button>
 <div id="loginMsg" class="status hidden"></div>
 <p class="muted center">New centers require Admin 2 approval.</p>
 </section>
 
-<!-- LOGIN PAGE CHAT -->
-<section id="loginChat" class="card">
-<h2>CONTACT ADMIN 2</h2>
-<p class="muted">Enter your center name above and send a message to the system administrator.</p>
+<!-- COLLAPSIBLE LOGIN CHAT TAB -->
+<section class="card" id="loginChat">
+<button class="chatToggle" id="loginChatToggle" onclick="toggleLoginChat()" aria-expanded="false">
+<span>CHAT • CONTACT ADMIN 2</span><span id="loginChatArrow">＋</span>
+</button>
+<div id="loginChatBody" class="loginChatBody hidden">
+<p class="muted loginChatHint">Enter your center name above and send a message to the system administrator.</p>
 <div id="loginChatMessages" class="chatMessages">
 <div class="muted center">Login to view previous messages. You can send a new message below.</div>
 </div>
@@ -114,6 +166,7 @@ footer b{font-size:18px;color:var(--gold)}
 <button class="btn green" onclick="sendLoginMessage()">SEND</button>
 </div>
 <div id="loginChatStatus" class="status hidden"></div>
+</div>
 </section>
 
 <section id="appView" class="hidden">
@@ -121,7 +174,6 @@ footer b{font-size:18px;color:var(--gold)}
 <div class="card">
 <div class="row"><span>Logged in as</span><b id="who"></b></div>
 <div class="row"><span>Business Date</span><b id="bizLabel"></b></div>
-<button class="btn secondary" onclick="changeCenter()">CHANGE CENTER</button>
 <button class="btn secondary" onclick="logout()">LOG OUT</button>
 </div>
 
@@ -138,7 +190,6 @@ Please contact the system administrator.
 </div>
 </section>
 
-<!-- CENTER CHAT: APPROVED AND PENDING CENTERS -->
 <section id="centerChatPanel" class="card hidden">
 <h2>SUPPORT CHAT • ADMIN 2</h2>
 <div id="centerChatMessages" class="chatMessages"></div>
@@ -185,7 +236,6 @@ Please contact the system administrator.
 </div>
 </section>
 
-<!-- ADMIN 1 -->
 <section id="admin1Panel" class="hidden">
 <div class="card">
 <h2>ADMIN 1 • REPORTS</h2>
@@ -212,7 +262,6 @@ Please contact the system administrator.
 </div>
 </section>
 
-<!-- ADMIN 2 -->
 <section id="admin2Panel" class="hidden">
 <div class="card">
 <h2>ADMIN 2 • SYSTEM CONTROL</h2>
@@ -229,7 +278,7 @@ Please contact the system administrator.
 <h2>ADMIN 2 • ALL CENTER MESSAGES</h2>
 <label>Select Center</label>
 <select id="admin2ChatCenter" onchange="refreshAdmin2Chat()">
-<option value="ALL">ALL CENTERS</option>
+<option value="ALL">ALL CENTERS - INBOX</option>
 </select>
 <div id="admin2ChatMessages" class="chatMessages"></div>
 <div class="chatSendRow">
@@ -321,20 +370,28 @@ document.body.appendChild(script);
 });
 }
 
-/* LOGIN FIELD */
-$('username').addEventListener('input',()=>{
+/* LOGIN PAGE CONTROLS */
+function updateLoginControls(){
 const isAdmin=$('username').value.trim().toLowerCase()==='admin';
+const saved=localStorage.getItem('ds_center_name')||'';
 $('passwordArea').classList.toggle('hidden',!isAdmin);
-$('centerSwitch').classList.toggle('hidden',!isAdmin);
+$('changeCenterLogin').classList.toggle('hidden',isAdmin||!saved);
+$('username').readOnly=!isAdmin&&!!saved;
 if(!isAdmin)$('password').value='';
-});
+}
 
-function switchCenterLogin(){
-$('username').value=localStorage.getItem('ds_center_name')||'';
+$('username').addEventListener('input',updateLoginControls);
+
+function changeCenterLogin(){
+if(!confirm('Change the saved center name?'))return;
+localStorage.removeItem('ds_center_name');
+$('username').readOnly=false;
+$('username').value='';
 $('password').value='';
 $('passwordArea').classList.add('hidden');
-$('centerSwitch').classList.add('hidden');
+$('changeCenterLogin').classList.add('hidden');
 $('loginMsg').classList.add('hidden');
+$('loginChatInput').value='';
 $('username').focus();
 }
 
@@ -344,6 +401,16 @@ $('loginChatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendLoginM
 $('centerChatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendCenterMessage()});
 $('admin1ChatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendAdmin1Message()});
 $('admin2ChatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendAdmin2Message()});
+
+/* LOGIN CHAT TAB */
+function toggleLoginChat(){
+const body=$('loginChatBody');
+const open=body.classList.contains('hidden');
+body.classList.toggle('hidden',!open);
+$('loginChatToggle').setAttribute('aria-expanded',String(open));
+$('loginChatArrow').textContent=open?'－':'＋';
+if(open)$('loginChatInput').focus();
+}
 
 /* BUSINESS DATE AND CLOCK */
 function getBusinessDate(){
@@ -392,7 +459,11 @@ $('password').focus();
 showMessage('loginMsg','Please enter admin password.');
 return;
 }
-if(username.toLowerCase()!=='admin')localStorage.setItem('ds_center_name',username);
+if(username.toLowerCase()!=='admin'){
+localStorage.setItem('ds_center_name',username);
+$('username').readOnly=true;
+updateLoginControls();
+}
 
 showMessage('loginMsg','Connecting to server...');
 $('loginBtn').disabled=true;
@@ -407,7 +478,10 @@ TOKEN=result.token;ROLE=result.role;CENTER=result.center||'';
 localStorage.setItem('ds_token',TOKEN);
 localStorage.setItem('ds_role',ROLE);
 localStorage.setItem('ds_center',CENTER);
-if(CENTER)localStorage.setItem('ds_center_name',CENTER);
+if(CENTER){
+localStorage.setItem('ds_center_name',CENTER);
+$('username').value=CENTER;
+}
 openApp();
 if(result.maintenance){
 maintenanceOn=true;
@@ -467,25 +541,6 @@ if(ROLE==='ADMIN2')refreshAdmin2Chat(true);
 },15000);
 }
 
-/* CHANGE CENTER */
-async function changeCenter(){
-if(!confirm('Change to another center?'))return;
-try{if(TOKEN)await api('logout',{token:TOKEN})}catch(e){}
-stopChatPolling();
-TOKEN='';ROLE='';CENTER='';
-['ds_token','ds_role','ds_center','ds_center_name'].forEach(k=>localStorage.removeItem(k));
-$('appView').classList.add('hidden');
-$('loginView').classList.remove('hidden');
-$('loginChat').classList.remove('hidden');
-$('username').value='';
-$('password').value='';
-$('passwordArea').classList.add('hidden');
-$('centerSwitch').classList.add('hidden');
-$('loginMsg').classList.add('hidden');
-$('maintenanceOverlay').classList.add('hidden');
-$('username').focus();
-}
-
 /* LOGOUT */
 async function logout(){
 try{if(TOKEN)await api('logout',{token:TOKEN})}catch(e){}
@@ -498,9 +553,12 @@ $('loginChat').classList.remove('hidden');
 $('username').value=localStorage.getItem('ds_center_name')||'';
 $('password').value='';
 $('passwordArea').classList.add('hidden');
-$('centerSwitch').classList.add('hidden');
 $('loginMsg').classList.add('hidden');
 $('maintenanceOverlay').classList.add('hidden');
+$('loginChatBody').classList.add('hidden');
+$('loginChatArrow').textContent='＋';
+$('loginChatToggle').setAttribute('aria-expanded','false');
+updateLoginControls();
 }
 
 /* CHECK APPROVAL */
@@ -515,6 +573,7 @@ $('loginView').classList.remove('hidden');
 $('loginChat').classList.remove('hidden');
 $('username').value=savedCenter;
 $('password').value='';
+updateLoginControls();
 await login();
 }
 
@@ -768,6 +827,7 @@ TOKEN=token;ROLE=role;CENTER=localStorage.getItem('ds_center')||'';
 openApp();
 }else{
 $('username').value=localStorage.getItem('ds_center_name')||'';
+updateLoginControls();
 }
 })();
 </script>
