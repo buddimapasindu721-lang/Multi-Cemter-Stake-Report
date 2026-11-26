@@ -3,548 +3,566 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#080d19">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#090b20">
 <title>Daily Stake - Multi Center</title>
 <style>
-:root{
- --gold:#e9bd62;--muted:#9eafc4;--bg:#080d19;--panel:#101a2b;
- --line:#293b56;--green:#19dfa0;--red:#ff647c;--blue:#35aaff;
-}
+:root{--bg:#090b20;--panel:#151832;--panel2:#1c2041;--line:#34385e;--gold:#f4d477;--green:#25dfa0;--blue:#63b9ff;--red:#ff657e;--muted:#a7abc8;--purple:#9b83ff}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 15% 0%,#172b48 0%,#0a1221 42%,#050914 100%);color:#edf4ff;font-family:Arial,sans-serif;min-height:100vh}
-button,input,select{font:inherit}
-button{cursor:pointer;border:1px solid #b98b43;border-radius:11px;padding:12px 15px;background:linear-gradient(135deg,#f0cf7d,#a8792d);color:#111827;font-weight:bold;box-shadow:0 5px 18px #0005}
-button:disabled{opacity:.4;cursor:not-allowed}
-input,select{width:100%;padding:13px;border-radius:10px;border:1px solid #344963;background:#0a1424;color:white;outline:none;margin:6px 0 12px}
-input:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 2px #19dfa022}
-input[readonly]{opacity:.85}
-label{font-size:12px;color:var(--muted);display:block;margin-top:8px}
-.wrap{max-width:960px;margin:auto;padding:16px}
-header{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0 18px}
-.brand{font-size:22px;font-weight:900;color:var(--gold);letter-spacing:1px;text-shadow:0 0 20px #e9bd6255}
-.sub{font-size:11px;color:#9cb2cb;margin-top:4px;letter-spacing:1px}
-.card{background:linear-gradient(145deg,#14233aee,#0b1424f5);border:1px solid #344b69;border-radius:17px;padding:16px;margin:12px 0;box-shadow:0 12px 35px #0007,inset 0 1px #ffffff0c}
-h2{font-size:17px;color:var(--gold);margin:0 0 14px}
-h3{font-size:14px;color:var(--green)}
-.small{font-size:12px;color:var(--muted)}
+body{margin:0;color:#f6f5ff;font-family:Inter,Arial,sans-serif;background:radial-gradient(ellipse at 10% 0%,#30305d 0,transparent 38%),radial-gradient(ellipse at 100% 20%,#123d49 0,transparent 35%),linear-gradient(145deg,#080a1c,#11142d 55%,#071e25);min-height:100vh}
+button,input,select,textarea{font:inherit}
+button{border:0;cursor:pointer;color:#fff;font-weight:800;border-radius:13px;padding:13px 15px;background:linear-gradient(120deg,#6658d8,#278fc5);box-shadow:0 7px 22px #0005}
+button:active{transform:scale(.98)}
+button:disabled{opacity:.45;cursor:not-allowed}
+input,select,textarea{width:100%;border:1px solid #41466b;background:#0d1128;color:#fff;border-radius:12px;padding:13px;outline:none;margin:6px 0 12px}
+input:focus,select:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 2px #25dfa022}
+label{font-size:12px;color:#b9bdd8;font-weight:800;letter-spacing:.5px}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:23px;letter-spacing:1px}
+h2{font-size:17px}
+small,.muted{color:var(--muted)}
+header{padding:20px 16px 10px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-weight:1000;letter-spacing:1.5px;color:var(--gold);font-size:18px}
+.brand span{display:block;color:#a9b4d4;font-size:10px;letter-spacing:3px;margin-top:4px}
+.wrap{max-width:850px;margin:auto;padding:0 14px 40px}
+.panel{background:linear-gradient(145deg,#1b1e3bdc,#11162eea);border:1px solid #44466b;border-radius:20px;padding:17px;margin:12px 0;box-shadow:0 18px 45px #0005;backdrop-filter:blur(16px)}
+.hero{border:1px solid #7169a0;background:linear-gradient(120deg,#343064,#123e4b);border-radius:19px;padding:18px;margin:10px 0 16px}
+.hero .sub{color:#d3d5ec;font-size:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.stat{background:linear-gradient(145deg,#252a50,#151a35);border:1px solid #444a74;border-radius:15px;padding:13px}
+.stat b{display:block;font-size:19px;color:var(--gold);margin-top:7px;overflow-wrap:anywhere}
+.stat span{font-size:10px;color:#b8bfdc;font-weight:900;letter-spacing:1px}
+.total{background:linear-gradient(110deg,#087e67,#176a85);border:1px solid #54e3c0;border-radius:17px;padding:17px;margin:12px 0}
+.total b{font-size:27px;color:#fff}
+.tabs{display:flex;gap:8px;overflow:auto;padding:6px 0 12px}
+.tab{white-space:nowrap;background:#1b2040;border:1px solid #42496d;color:#c9cde5;padding:11px 14px;border-radius:12px;font-size:11px}
+.tab.active{background:linear-gradient(110deg,#087d6a,#4162c9);color:white;border-color:#53e5bd;box-shadow:0 0 18px #26dca544}
+.primary{background:linear-gradient(110deg,#0c9a78,#287bc5)}
+.gold{background:linear-gradient(110deg,#b58b30,#e0b84d);color:#1d1930}
+.danger{background:linear-gradient(110deg,#9c3554,#d84e68)}
+.secondary{background:#343858;border:1px solid #62678c}
 .hidden{display:none!important}
-.row{display:flex;gap:9px;align-items:center}
-.row>*{flex:1;min-width:0}
-.tabs{display:flex;gap:7px;overflow:auto;margin:12px 0}
-.tabs button{white-space:nowrap;flex:1;background:#101e32;color:#dce9fa;border:1px solid #344963;padding:11px 9px;box-shadow:none}
-.tabs button.active{background:linear-gradient(135deg,#1ce0a3,#087d70);color:#041a18;border-color:#35edb3}
-.statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.stat{background:#091426;border:1px solid #304560;padding:13px;border-radius:12px}
-.stat strong{display:block;color:var(--green);font-size:22px;margin-top:5px}
-.amountgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-.amountgrid label{font-size:12px}
-.total{padding:15px;border-radius:12px;background:#081426;border:1px solid #247c70;display:flex;justify-content:space-between;font-weight:bold;margin:12px 0}
-.total strong{color:var(--green);font-size:20px}
-.msg{padding:10px;border-radius:10px;background:#142b43;border:1px solid #2b4764;margin:8px 0;overflow-wrap:anywhere}
-.msg small{display:block;color:var(--gold);margin-bottom:5px}
-.chatMessages{height:210px;overflow:auto;padding:8px;background:#081426;border:1px solid #344963;border-radius:12px;margin:10px 0}
-.chatSendRow{display:flex;gap:7px}
-.chatSendRow input{margin:0}
-.chatSendRow button{white-space:nowrap}
-.chatToggle{width:100%;background:linear-gradient(120deg,#123d3b,#14233a);color:var(--green);border:1px solid #267d72}
-.listitem{padding:12px;border:1px solid #344963;border-radius:11px;margin:8px 0;background:#0b192b}
-.badge{font-size:11px;padding:4px 8px;border-radius:20px;background:#174a42;color:#9ff6d8}
-.danger{background:linear-gradient(120deg,#a42e49,#6d2038);color:white;border:1px solid #c74d67}
-.secondary{background:linear-gradient(120deg,#1a2c45,#101c30);color:#eee;border:1px solid #3b526e;box-shadow:none}
-.success{background:linear-gradient(120deg,#087e60,#145b53);color:white}
-.notice{padding:12px;background:#332a1b;border:1px solid #94713a;border-radius:10px;color:#f6d98f;margin:10px 0}
-#maintenanceScreen{position:fixed;inset:0;background:#050914;z-index:9999;display:flex;align-items:center;justify-content:center;text-align:center;padding:25px}
-#maintenanceScreen h1{color:var(--gold);font-size:30px}
-#approvalLock{background:radial-gradient(circle at top,#243b59,#0a1322 70%);border:1px solid #bd9149;border-radius:20px;padding:35px 20px;text-align:center;box-shadow:0 0 35px #e9bd621c}
-.lockIcon{font-size:76px;filter:drop-shadow(0 0 18px #e9bd62aa);margin-bottom:10px}
-.lockTitle{font-size:27px;color:var(--gold);font-weight:900;letter-spacing:1px}
-.lockSub{font-size:17px;font-weight:bold;margin:12px 0;color:#f4d28b}
-.lockPill{display:inline-block;padding:10px 18px;border:1px solid #d19e46;color:#ffd47d;border-radius:30px;margin:12px 0;font-weight:bold}
-footer{text-align:center;color:#7188a5;font-size:10px;padding:20px}
-@media(max-width:500px){.wrap{padding:11px}.brand{font-size:18px}.card{padding:13px}.row.mobileStack{display:block}.row.mobileStack>*{width:100%}.lockTitle{font-size:23px}}
+.msg{font-size:13px;padding:11px;border-radius:11px;margin:8px 0;background:#252a4a;color:#e7e9ff}
+.error{background:#54253d;color:#ffdce5}
+.success{background:#104c42;color:#c4fff0}
+.lock{text-align:center;padding:28px 15px;border:1px solid #b88d4a;border-radius:18px;background:linear-gradient(145deg,#33274b,#17213b)}
+.lock .emoji{font-size:58px}
+.lock h2{color:var(--gold);letter-spacing:2px}
+.chatbox{max-height:220px;overflow:auto;background:#0b1025;border:1px solid #343a61;border-radius:13px;padding:10px;margin:8px 0}
+.bubble{background:#22294b;border:1px solid #3c456d;border-radius:12px;padding:10px;margin:7px 0;font-size:13px;overflow-wrap:anywhere}
+.bubble.me{background:#124b48;border-color:#267c70}
+.bubble small{display:block;margin-top:5px;font-size:10px}
+.chatrow{display:grid;grid-template-columns:1fr auto;gap:7px;align-items:start}
+.chatrow input{margin:0}
+.request{border:1px solid #4a5078;background:#171c38;border-radius:14px;padding:13px;margin:10px 0}
+.request b{color:var(--gold)}
+.tablewrap{overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:480px}
+td,th{padding:10px;border-bottom:1px solid #353a5e;text-align:left}
+th{color:var(--gold)}
+.actionrow{display:flex;gap:7px;flex-wrap:wrap}
+.actionrow button{padding:9px 11px;font-size:11px}
+footer{text-align:center;color:#777f9e;font-size:10px;padding:25px}
+@media(max-width:420px){.grid3{grid-template-columns:1fr 1fr}.panel{padding:14px}.brand{font-size:16px}}
 </style>
 </head>
 <body>
-<div id="maintenanceScreen" class="hidden">
- <div><div style="font-size:48px">⏳</div><h1>UNDER MAINTENANCE</h1><p class="small">Please try again later.</p></div>
-</div>
-
-<div class="wrap">
 <header>
- <div><div class="brand">DAILY STAKE</div><div class="sub">MULTI CENTER MANAGEMENT SYSTEM</div></div>
- <div id="headerDate" class="small"></div>
+ <div class="brand">DAILY STAKE <span>MULTI CENTER MANAGEMENT</span></div>
+ <div id="topStatus" class="muted" style="font-size:10px">SECURE SYSTEM</div>
 </header>
+<div class="wrap">
 
-<section id="loginView" class="card">
- <h2>Center Login</h2>
- <label>Center Name / Admin</label>
- <input id="username" placeholder="Enter center name or admin" autocomplete="username">
- <div id="passwordArea" class="hidden">
-  <label>Admin Password</label>
-  <input id="password" type="password" placeholder="Enter password">
+<!-- LOGIN -->
+<section id="loginView">
+ <div class="hero">
+  <div class="sub">WELCOME TO</div>
+  <h1>DAILY STAKE</h1>
+  <div class="sub">Multi Center • Secure Access Portal</div>
  </div>
- <button id="loginBtn" style="width:100%" onclick="login()">LOGIN</button>
- <button id="changeCenterLogin" class="secondary hidden" style="width:100%;margin-top:8px" onclick="changeCenter()">CHANGE CENTER</button>
- <p id="loginMsg" class="small"></p>
-
- <div id="approvalLock" class="hidden">
-  <div class="lockIcon">🔐</div>
-  <div class="lockTitle">NOT APPROVED</div>
-  <div class="lockSub">APPROVAL PENDING</div>
-  <p>Your center is waiting for Admin 2 approval.</p>
-  <div class="lockPill">🔒 STAKE ENTRY LOCKED</div>
-  <p class="small">You cannot enter or save stakes until approval is granted.</p>
-  <button class="secondary" onclick="retryApproval()" style="margin-top:10px">CHECK APPROVAL</button>
- </div>
-
- <div class="card" style="margin-top:18px">
-  <button class="chatToggle" onclick="toggleLoginChat()">CHAT • CONTACT ADMIN</button>
-  <div id="loginChatBody" class="hidden">
-   <label>Send message to</label>
-   <select id="loginRecipient"><option value="ADMIN2">Mr. Pasindu (Admin 2)</option><option value="ADMIN1">Mr. Harshana (Admin 1)</option></select>
-   <div id="loginChatMessages" class="chatMessages"></div>
-   <div class="chatSendRow"><input id="loginChatInput" placeholder="Type message"><button onclick="sendLoginMessage()">SEND</button></div>
+ <div class="panel">
+  <h2>LOGIN TO YOUR CENTER</h2>
+  <label>LOGIN NAME / CENTER NAME</label>
+  <input id="username" placeholder="Enter center name" autocomplete="username">
+  <div id="passwordArea" class="hidden">
+   <label>ADMIN PASSWORD</label>
+   <input id="password" type="password" placeholder="Enter admin password">
   </div>
- </div>
-</section>
-
-<section id="centerPanel" class="hidden">
- <div class="card">
-  <div class="row"><div><h2 id="centerTitle">CENTER</h2><div id="centerStatus" class="small"></div></div><button class="secondary" onclick="logout()">LOGOUT</button></div>
-  <div id="centerApprovedContent">
-   <div class="tabs">
-    <button class="active" onclick="centerTab('stake',this)">NEW STAKE</button>
-    <button onclick="centerTab('history',this)">STAKE HISTORY</button>
-   </div>
-   <div id="centerStakeTab">
-    <label>Business Date</label><input id="stakeDate" type="date">
-    <div class="amountgrid">
-     <div><label>Australian</label><input id="Australian" type="number" min="0" placeholder="0" oninput="calcTotal()"></div>
-     <div><label>England</label><input id="England" type="number" min="0" placeholder="0" oninput="calcTotal()"></div>
-     <div><label>Trackside</label><input id="Trackside" type="number" min="0" placeholder="0" oninput="calcTotal()"></div>
-     <div><label>Due (Not included in total)</label><input id="Due" type="number" min="0" placeholder="0" oninput="calcTotal()"></div>
-    </div>
-    <div class="total"><span>TOTAL STAKE</span><strong id="liveTotal">0.00</strong></div>
-    <button id="saveBtn" style="width:100%" onclick="saveStake()">SAVE STAKE</button>
-    <p id="stakeMsg" class="small"></p>
-   </div>
-   <div id="centerHistoryTab" class="hidden">
-    <button onclick="loadHistory()" class="secondary">REFRESH HISTORY</button>
-    <div id="historyArea"></div>
-   </div>
-  </div>
+  <button id="loginBtn" class="primary" style="width:100%" onclick="login()">LOGIN</button>
+  <button id="changeCenterLogin" class="secondary hidden" style="width:100%;margin-top:9px" onclick="changeCenter()">CHANGE CENTER</button>
+  <div id="loginMsg"></div>
  </div>
 
- <div class="card">
+ <div class="panel">
   <h2>SUPPORT CHAT</h2>
-  <label>Send message to</label>
-  <select id="centerRecipient" onchange="refreshCenterChat()">
-   <option value="ADMIN2">Mr. Pasindu (Admin 2)</option>
-   <option value="ADMIN1">Mr. Harshana (Admin 1)</option>
-  </select>
-  <div id="centerChatMessages" class="chatMessages"></div>
-  <div class="chatSendRow"><input id="centerChatInput" placeholder="Type message"><button onclick="sendCenterMessage()">SEND</button></div>
-  <button class="chatToggle" style="margin-top:12px" onclick="toggleOtherEntry()">OTHER CENTER STAKE ENTRY</button>
-  <div id="otherEntryBox" class="hidden">
-   <div class="notice">This is a request to Admin 2. It will not be added to official stake reports until Admin 2 enters it.</div>
-   <label>Target Center</label><select id="otherTargetCenter"></select>
-   <label>Business Date</label><input id="otherDate" type="date">
-   <div class="amountgrid">
-    <div><label>Australian</label><input id="otherAustralian" type="number" min="0" placeholder="0"></div>
-    <div><label>England</label><input id="otherEngland" type="number" min="0" placeholder="0"></div>
-    <div><label>Trackside</label><input id="otherTrackside" type="number" min="0" placeholder="0"></div>
-    <div><label>Due</label><input id="otherDue" type="number" min="0" placeholder="0"></div>
-   </div>
-   <button style="width:100%" onclick="sendOtherRequest()">SEND MESSAGE TO ADMIN 2</button>
-   <p id="otherMsg" class="small"></p>
+  <label>MESSAGE TO</label>
+  <select id="loginRecipient"><option value="ADMIN2">ADMIN 2 – PASINDU</option><option value="ADMIN1">ADMIN 1 – HARSHANA</option></select>
+  <div id="loginChatMessages" class="chatbox"></div>
+  <div class="chatrow">
+   <input id="loginChatInput" placeholder="Type your message">
+   <button onclick="sendLoginMessage()">SEND</button>
   </div>
  </div>
 </section>
 
-<section id="admin1Panel" class="hidden">
- <div class="card">
-  <div class="row"><h2>ADMIN 1 • REPORTS</h2><button class="secondary" onclick="logout()">LOGOUT</button></div>
-  <div class="row mobileStack">
-   <div><label>Select Center</label><select id="reportCenter" onchange="loadReport()"><option value="ALL">ALL CENTERS</option></select></div>
-   <div><label>Business Date</label><input id="reportDate" type="date" onchange="loadReport()"></div>
+<!-- CENTER -->
+<section id="centerPanel" class="hidden">
+ <div class="hero">
+  <div class="sub">CENTER DASHBOARD</div>
+  <h1 id="centerTitle">CENTER</h1>
+  <div id="centerStatus" class="sub">CONNECTED</div>
+ </div>
+ <div id="centerLocked" class="lock hidden">
+  <div class="emoji">🔒</div>
+  <h2>NOT APPROVED</h2>
+  <p>Admin 2 approval has not been granted yet.</p>
+  <p class="muted">Stake entry is locked until your center is approved.</p>
+  <button class="gold" onclick="checkApproval()">CHECK APPROVAL</button>
+ </div>
+ <div id="centerWorkArea">
+  <div class="tabs">
+   <button class="tab active" onclick="centerTab('new',this)">NEW STAKE</button>
+   <button class="tab" onclick="centerTab('history',this)">STAKE HISTORY</button>
   </div>
-  <button onclick="loadReport()" class="secondary" style="width:100%">REFRESH REPORT</button>
+  <div id="newStakeTab" class="panel">
+   <h2>DAILY STAKE ENTRY</h2>
+   <label>BUSINESS DATE</label><input id="stakeDate" type="date">
+   <div class="grid">
+    <div><label>AUSTRALIAN</label><input id="Australian" type="number" min="0" inputmode="decimal" oninput="calcTotal()"></div>
+    <div><label>ENGLAND</label><input id="England" type="number" min="0" inputmode="decimal" oninput="calcTotal()"></div>
+    <div><label>TRACKSIDE</label><input id="Trackside" type="number" min="0" inputmode="decimal" oninput="calcTotal()"></div>
+    <div><label>DUE (SEPARATE)</label><input id="Due" type="number" min="0" inputmode="decimal"></div>
+   </div>
+   <div class="total"><small>STAKE TOTAL — DUE EXCLUDED</small><br><b id="liveTotal">0.00</b></div>
+   <button class="primary" style="width:100%" id="saveBtn" onclick="saveStake()">SAVE STAKE</button>
+  </div>
+  <div id="historyTab" class="panel hidden">
+   <h2>STAKE HISTORY</h2><button class="secondary" onclick="loadHistory()">REFRESH HISTORY</button>
+   <div id="historyArea"></div>
+  </div>
+ </div>
+
+ <!-- CENTER CHAT WITH OTHER CENTER BUTTON UNDER IT -->
+ <div class="panel">
+  <h2>PRIVATE CHAT</h2>
+  <label>MESSAGE TO</label>
+  <select id="centerRecipient" onchange="refreshCenterChat()"><option value="ADMIN2">ADMIN 2 – PASINDU</option><option value="ADMIN1">ADMIN 1 – HARSHANA</option></select>
+  <div id="centerChatMessages" class="chatbox"></div>
+  <div class="chatrow"><input id="centerChatInput" placeholder="Write a message"><button onclick="sendCenterMessage()">SEND</button></div>
+  <button class="gold" style="width:100%;margin-top:12px" onclick="toggleOther()">＋ OTHER CENTER STAKE ENTRY</button>
+  <div id="otherEntryBox" class="hidden">
+   <div class="request">
+    <h2>OTHER CENTER STAKE REQUEST</h2>
+    <p class="muted">This request goes to Admin 2. It does not save directly to the official stake report.</p>
+    <label>SELECT TARGET CENTER</label><select id="otherTargetCenter"></select>
+    <label>BUSINESS DATE</label><input id="otherDate" type="date">
+    <div class="grid">
+     <div><label>AUSTRALIAN</label><input id="otherAustralian" type="number" min="0"></div>
+     <div><label>ENGLAND</label><input id="otherEngland" type="number" min="0"></div>
+     <div><label>TRACKSIDE</label><input id="otherTrackside" type="number" min="0"></div>
+     <div><label>DUE</label><input id="otherDue" type="number" min="0"></div>
+    </div>
+    <button class="primary" style="width:100%" onclick="sendOtherRequest()">SEND REQUEST TO ADMIN 2</button>
+    <div id="otherMsg"></div>
+   </div>
+  </div>
+ </div>
+ <button class="danger" style="width:100%" onclick="logout()">LOGOUT</button>
+</section>
+
+<!-- ADMIN 1 -->
+<section id="admin1Panel" class="hidden">
+ <div class="hero"><div class="sub">REPORTING CONTROL</div><h1>ADMIN 1</h1><div class="sub">VIEW ONLY • ALL CENTER REPORTS</div></div>
+ <div class="panel">
+  <h2>STAKE REPORT</h2>
+  <label>SELECT CENTER</label><select id="reportCenter" onchange="loadReport()"><option value="ALL">ALL CENTERS</option></select>
+  <label>SELECT DATE</label><input id="reportDate" type="date" onchange="loadReport()">
+  <button class="primary" style="width:100%" onclick="loadReport()">LOAD REPORT</button>
   <div id="reportArea"></div>
  </div>
- <div class="card">
+ <div class="panel">
   <h2>PRIVATE CHAT</h2>
-  <div class="small">Selected center conversation</div>
-  <div id="admin1ChatMessages" class="chatMessages"></div>
-  <div class="chatSendRow"><input id="admin1ChatInput" placeholder="Reply to selected center"><button onclick="sendAdmin1Message()">SEND</button></div>
+  <label>SELECT CENTER CHAT</label><select id="admin1ChatCenter" onchange="refreshAdmin1Chat()"></select>
+  <div id="admin1ChatMessages" class="chatbox"></div>
+  <div class="chatrow"><input id="admin1ChatInput" placeholder="Reply to selected center"><button onclick="sendAdmin1Message()">SEND</button></div>
  </div>
+ <button class="danger" style="width:100%" onclick="logout()">LOGOUT</button>
 </section>
 
+<!-- ADMIN 2 -->
 <section id="admin2Panel" class="hidden">
- <div class="card">
-  <div class="row"><h2>ADMIN 2 • SYSTEM CONTROL</h2><button class="secondary" onclick="logout()">LOGOUT</button></div>
-  <div class="statgrid">
-   <div class="stat">Registered Centers<strong id="centerCount">0</strong></div>
-   <div class="stat">Registered Devices<strong id="deviceCount">0</strong></div>
-  </div>
-  <div class="tabs" id="admin2Tabs">
-   <button class="active" onclick="admin2Tab('centers',this)">CENTERS</button>
-   <button onclick="admin2Tab('devices',this)">DEVICES</button>
-   <button onclick="admin2Tab('chat',this)">CHAT</button>
-   <button onclick="admin2Tab('requests',this)">OTHER REQUESTS</button>
-   <button onclick="admin2Tab('manual',this)">MANUAL STAKE</button>
-   <button onclick="admin2Tab('settings',this)">SETTINGS</button>
-  </div>
-  <div id="a2centers"><h3>REGISTERED CENTERS</h3><div id="centerList"></div></div>
-  <div id="a2devices" class="hidden"><h3>REGISTERED DEVICES</h3><div id="deviceList"></div></div>
-  <div id="a2chat" class="hidden">
-   <h3>PRIVATE CENTER CHAT</h3>
-   <label>Inbox</label><select id="admin2ChatCenter" onchange="refreshAdmin2Chat()"><option value="ALL">ALL CENTERS</option></select>
-   <div id="admin2ChatMessages" class="chatMessages"></div>
-   <div class="chatSendRow"><input id="admin2ChatInput" placeholder="Reply to selected center"><button onclick="sendAdmin2Message()">SEND</button></div>
-  </div>
-  <div id="a2requests" class="hidden">
-   <h3>OTHER CENTER REQUESTS</h3>
-   <button class="secondary" onclick="loadOtherRequests()">REFRESH REQUESTS</button>
-   <div id="otherRequestsArea"></div>
-  </div>
-  <div id="a2manual" class="hidden">
-   <h3>MANUAL STAKE ENTRY</h3>
-   <label>Select Center</label><select id="manualCenter"></select>
-   <label>Business Date</label><input id="manualDate" type="date">
-   <div class="amountgrid">
-    <div><label>Australian</label><input id="manualAustralian" type="number" min="0" placeholder="0"></div>
-    <div><label>England</label><input id="manualEngland" type="number" min="0" placeholder="0"></div>
-    <div><label>Trackside</label><input id="manualTrackside" type="number" min="0" placeholder="0"></div>
-    <div><label>Due</label><input id="manualDue" type="number" min="0" placeholder="0"></div>
-   </div>
-   <div class="total"><span>TOTAL STAKE</span><strong id="manualTotal">0.00</strong></div>
-   <button style="width:100%" onclick="manualSave()">SAVE TO OFFICIAL STAKE</button>
-   <p id="manualMsg" class="small"></p>
-  </div>
-  <div id="a2settings" class="hidden">
-   <h3>MAINTENANCE MODE</h3>
-   <p class="small">Turn maintenance ON to block access for all centers.</p>
-   <div class="row"><button class="danger" onclick="setMaintenance(true)">MAINTENANCE ON</button><button class="success" onclick="setMaintenance(false)">MAINTENANCE OFF</button></div>
-   <p id="maintenanceMsg" class="small"></p>
-  </div>
+ <div class="hero"><div class="sub">SYSTEM CONTROL</div><h1>ADMIN 2</h1><div class="sub">CENTER • DEVICE • REQUEST MANAGEMENT</div></div>
+ <div class="grid">
+  <div class="stat"><span>REGISTERED CENTERS</span><b id="centerCount">0</b></div>
+  <div class="stat"><span>REGISTERED DEVICES</span><b id="deviceCount">0</b></div>
  </div>
+ <div class="tabs">
+  <button class="tab active" onclick="admin2Tab('centers',this)">CENTERS</button>
+  <button class="tab" onclick="admin2Tab('devices',this)">DEVICES</button>
+  <button class="tab" onclick="admin2Tab('chat',this)">CHAT</button>
+  <button class="tab" onclick="admin2Tab('requests',this)">OTHER REQUESTS</button>
+  <button class="tab" onclick="admin2Tab('manual',this)">MANUAL ENTRY</button>
+  <button class="tab" onclick="admin2Tab('settings',this)">SETTINGS</button>
+ </div>
+ <div id="admin2centers" class="panel">
+  <h2>REGISTERED CENTERS</h2><div id="centerList"></div>
+ </div>
+ <div id="admin2devices" class="panel hidden">
+  <h2>REGISTERED DEVICES</h2><div id="deviceList"></div>
+ </div>
+ <div id="admin2chat" class="panel hidden">
+  <h2>CENTER PRIVATE CHAT</h2>
+  <label>SELECT CENTER</label><select id="admin2ChatCenter" onchange="refreshAdmin2Chat()"></select>
+  <div id="admin2ChatMessages" class="chatbox"></div>
+  <div class="chatrow"><input id="admin2ChatInput" placeholder="Reply to center"><button onclick="sendAdmin2Message()">SEND</button></div>
+ </div>
+ <div id="admin2requests" class="panel hidden">
+  <h2>OTHER CENTER STAKE REQUESTS</h2><button class="secondary" onclick="loadOtherRequests()">REFRESH</button>
+  <div id="otherRequestsArea"></div>
+ </div>
+ <div id="admin2manual" class="panel hidden">
+  <h2>MANUAL OFFICIAL STAKE ENTRY</h2>
+  <label>CENTER</label><select id="manualCenter"></select>
+  <label>BUSINESS DATE</label><input id="manualDate" type="date">
+  <div class="grid">
+   <div><label>AUSTRALIAN</label><input id="manualAustralian" type="number" min="0" oninput="manualTotal()"></div>
+   <div><label>ENGLAND</label><input id="manualEngland" type="number" min="0" oninput="manualTotal()"></div>
+   <div><label>TRACKSIDE</label><input id="manualTrackside" type="number" min="0" oninput="manualTotal()"></div>
+   <div><label>DUE</label><input id="manualDue" type="number" min="0"></div>
+  </div>
+  <div class="total"><small>OFFICIAL TOTAL — DUE EXCLUDED</small><br><b id="manualTotalValue">0.00</b></div>
+  <button class="primary" style="width:100%" onclick="manualSave()">SAVE OFFICIAL STAKE</button>
+  <div id="manualMsg"></div>
+ </div>
+ <div id="admin2settings" class="panel hidden">
+  <h2>SYSTEM MAINTENANCE</h2>
+  <p class="muted">Maintenance ON blocks center access and displays a full-screen maintenance notice.</p>
+  <button class="danger" style="width:100%" onclick="setMaintenance(true)">TURN MAINTENANCE ON</button>
+  <button class="primary" style="width:100%;margin-top:10px" onclick="setMaintenance(false)">TURN MAINTENANCE OFF</button>
+  <div id="maintenanceMsg"></div>
+ </div>
+ <button class="danger" style="width:100%" onclick="logout()">LOGOUT</button>
 </section>
-<footer>DAILY STAKE • MULTI CENTER</footer>
+</div>
+<footer>DAILY STAKE • MULTI CENTER • ASIA/COLOMBO</footer>
+
+<div id="maintenanceScreen" class="hidden" style="position:fixed;inset:0;z-index:999;background:linear-gradient(145deg,#090b20,#28204d,#073c42);display:flex;align-items:center;justify-content:center;text-align:center;padding:25px">
+ <div><div style="font-size:60px">⚙️</div><h1 style="font-size:30px;color:#f4d477">UNDER MAINTENANCE</h1><p>System temporarily unavailable.</p></div>
 </div>
 
 <script>
 const API='https://script.google.com/macros/s/AKfycbwVzKrmNhfTuAfynGQ-Ple1poFp5KH1EqXDwtxF-V9IWVZgPwh6S5JI5vRw5zzscag/exec';
-let TOKEN='',ROLE='',CENTER='',CENTERS=[],poller=null,otherRequestsCache=[],pendingCredentials=null;
+let TOKEN='',ROLE='',CENTER='',CURRENT_REQUEST_ID='',ADMIN_CENTERS=[];
+
+function $(id){return document.getElementById(id)}
+function show(id){$(id).classList.remove('hidden')}
+function hide(id){$(id).classList.add('hidden')}
+function message(id,text,type='msg'){const e=$(id);e.className='msg '+(type==='error'?'error':type==='success'?'success':'');e.textContent=text;}
 function api(action,data={}){
  return new Promise((resolve,reject)=>{
-  const cb='cb_'+Date.now()+'_'+Math.floor(Math.random()*10000);
-  const params=new URLSearchParams({action,...data,callback:cb});
-  const script=document.createElement('script');
-  const timer=setTimeout(()=>{cleanup();reject(new Error('Server timeout'));},20000);
-  function cleanup(){clearTimeout(timer);delete window[cb];script.remove();}
-  window[cb]=res=>{cleanup();resolve(res)};
-  script.onerror=()=>{cleanup();reject(new Error('Connection error'));};
-  script.src=API+'?'+params.toString();document.body.appendChild(script);
+  const cb='ds_cb_'+Math.random().toString(36).slice(2);
+  const q=new URLSearchParams({action,callback:cb,...data});
+  const s=document.createElement('script');
+  const timer=setTimeout(()=>{cleanup();reject(Error('Server timeout. Check Apps Script deployment.'));},18000);
+  function cleanup(){clearTimeout(timer);delete window[cb];s.remove();}
+  window[cb]=r=>{cleanup();resolve(r);};
+  s.onerror=()=>{cleanup();reject(Error('Could not connect to server.'));};
+  s.src=API+'?'+q.toString();document.body.appendChild(s);
  });
 }
+function deviceId(){
+ let v=localStorage.getItem('ds_device_id');
+ if(!v){v='DS-'+crypto.randomUUID();localStorage.setItem('ds_device_id',v);}
+ return v;
+}
+function deviceName(){return navigator.userAgent.includes('iPhone')?'iPhone / Safari':navigator.userAgent.includes('Android')?'Android device':'Web device';}
 function todayBusinessDate(){
- const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Colombo',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
- const p={};parts.forEach(x=>p[x.type]=x.value);
- let date=new Date(Number(p.year),Number(p.month)-1,Number(p.day));
- if(Number(p.hour)<4)date.setDate(date.getDate()-1);
- return date.getFullYear()+'-'+String(date.getMonth()+1).padStart(2,'0')+'-'+String(date.getDate()).padStart(2,'0');
+ const f=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Colombo',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hourCycle:'h23'});
+ const p=f.formatToParts(new Date()),o={};p.forEach(x=>o[x.type]=x.value);
+ let d=new Date(Date.UTC(+o.year,+o.month-1,+o.day));
+ if(+o.hour<4)d.setUTCDate(d.getUTCDate()-1);
+ return d.toISOString().slice(0,10);
 }
-function setDefaultDates(){
- const d=todayBusinessDate();
- ['stakeDate','otherDate','reportDate','manualDate'].forEach(id=>{let e=document.getElementById(id);if(e&&!e.value)e.value=d;});
+function setDates(){
+ ['stakeDate','otherDate','reportDate','manualDate'].forEach(id=>{if($(id))$(id).value=todayBusinessDate();});
 }
-function money(n){return Number(n||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
-function val(id){return document.getElementById(id)?.value||'';}
-function num(id){return Number(val(id)||0);}
-function msg(id,t){let e=document.getElementById(id);if(e)e.textContent=t||'';}
-function show(id){document.getElementById(id).classList.remove('hidden');}
-function hide(id){document.getElementById(id).classList.add('hidden');}
-function setLoginMessage(t){msg('loginMsg',t);}
-
-function initSavedCenter(){
- const saved=localStorage.getItem('ds_saved_center')||'';
- const input=document.getElementById('username');
- if(saved){
-  input.value=saved;
-  input.readOnly=true;
-  show('changeCenterLogin');
- }else{
-  input.readOnly=false;
-  hide('changeCenterLogin');
- }
+function savedCenter(){
+ const v=localStorage.getItem('ds_saved_center')||'';
+ $('username').value=v;
+ $('username').disabled=!!v;
+ if(v)show('changeCenterLogin');else hide('changeCenterLogin');
 }
-function changeCenter(){
- const input=document.getElementById('username');
- input.readOnly=false;input.value='';input.focus();
- hide('changeCenterLogin');hide('approvalLock');
- setLoginMessage('Enter the new center name and login.');
-}
-document.getElementById('username').addEventListener('input',()=>{
- const u=val('username').trim().toLowerCase();
- if(u==='admin')show('passwordArea');else hide('passwordArea');
+$('username').addEventListener('input',()=>{
+ if($('username').value.trim().toLowerCase()==='admin')show('passwordArea');
+ else hide('passwordArea');
 });
-['manualAustralian','manualEngland','manualTrackside','manualDue'].forEach(id=>document.getElementById(id).addEventListener('input',calcManual));
-
 async function login(){
- const username=val('username').trim();
- if(!username){setLoginMessage('Enter login name');return;}
- setLoginMessage('Connecting...');
- pendingCredentials={username,password:val('password')};
+ const username=$('username').value.trim(),password=$('password').value;
+ if(!username){message('loginMsg','Enter login name.','error');return;}
+ if(username.toLowerCase()!=='admin')localStorage.setItem('ds_saved_center',username);
+ $('loginBtn').disabled=true;
  try{
-  const r=await api('login',{username,password:val('password'),deviceId:getDeviceId(),deviceName:navigator.userAgent.slice(0,80)});
-  if(!r.ok){setLoginMessage(r.message||'Login failed');return;}
-  if(r.role==='CENTER_PENDING'){
-   localStorage.setItem('ds_saved_center',username);
-   document.getElementById('username').value=username;
-   document.getElementById('username').readOnly=true;
-   show('changeCenterLogin');show('approvalLock');
-   hide('passwordArea');
-   setLoginMessage('');
-   return;
+  const r=await api('login',{username,password,deviceId:deviceId(),deviceName:deviceName()});
+  if(!r.ok){
+   if(r.maintenance){showMaintenance();return;}
+   throw Error(r.error||'Login failed.');
   }
   TOKEN=r.token;ROLE=r.role;CENTER=r.center||'';
-  if(ROLE==='CENTER')localStorage.setItem('ds_saved_center',CENTER||username);
-  localStorage.setItem('ds_token',TOKEN);localStorage.setItem('ds_role',ROLE);localStorage.setItem('ds_center',CENTER);
-  enterApp(r);
- }catch(e){setLoginMessage('Connection error: '+e.message);}
+  localStorage.setItem('ds_token',TOKEN);
+  localStorage.setItem('ds_role',ROLE);
+  localStorage.setItem('ds_center',CENTER);
+  enterApp();
+ }catch(e){message('loginMsg',e.message,'error');}
+ finally{$('loginBtn').disabled=false;}
 }
-async function retryApproval(){
- if(!pendingCredentials){setLoginMessage('Please login again to check approval.');return;}
- setLoginMessage('Checking approval...');
- try{
-  const r=await api('login',{username:pendingCredentials.username,password:pendingCredentials.password,deviceId:getDeviceId(),deviceName:navigator.userAgent.slice(0,80)});
-  if(r.ok&&r.role==='CENTER_PENDING'){setLoginMessage('Still waiting for Admin 2 approval.');return;}
-  if(r.ok){TOKEN=r.token;ROLE=r.role;CENTER=r.center||'';localStorage.setItem('ds_saved_center',CENTER||pendingCredentials.username);localStorage.setItem('ds_token',TOKEN);localStorage.setItem('ds_role',ROLE);localStorage.setItem('ds_center',CENTER);hide('approvalLock');enterApp(r);}
-  else setLoginMessage(r.message||'Approval not granted yet.');
- }catch(e){setLoginMessage(e.message);}
-}
-function getDeviceId(){
- let id=localStorage.getItem('ds_device');
- if(!id){id='DS-'+Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('ds_device',id);}
- return id;
-}
-function enterApp(r){
+function enterApp(){
  hide('loginView');hide('centerPanel');hide('admin1Panel');hide('admin2Panel');
- if(ROLE==='CENTER'){
-  show('centerPanel');document.getElementById('centerTitle').textContent=CENTER;
-  msg('centerStatus','Approved center account');
-  show('centerApprovedContent');
-  setDefaultDates();loadHistory();refreshCenterChat();loadCentersForOther();
+ if(ROLE==='CENTER'||ROLE==='CENTER_PENDING'){
+  show('centerPanel');$('centerTitle').textContent=CENTER;
+  if(ROLE==='CENTER_PENDING'){
+   show('centerLocked');hide('centerWorkArea');$('centerStatus').textContent='WAITING FOR ADMIN 2 APPROVAL';
+  }else{
+   hide('centerLocked');show('centerWorkArea');$('centerStatus').textContent='APPROVED CENTER';
+   loadHistory();loadCentersForOther();refreshCenterChat();
+  }
  }else if(ROLE==='ADMIN1'){
-  show('admin1Panel');setDefaultDates();loadReportCenters();refreshAdmin1Chat();
+  show('admin1Panel');loadReportCenters();loadReport();
  }else if(ROLE==='ADMIN2'){
-  show('admin2Panel');setDefaultDates();loadAdminData();loadOtherRequests();
+  show('admin2Panel');loadAdminData();loadOtherRequests();
  }
- if(poller)clearInterval(poller);
- poller=setInterval(()=>{if(!TOKEN)return;if(ROLE==='CENTER')refreshCenterChat();if(ROLE==='ADMIN1')refreshAdmin1Chat();if(ROLE==='ADMIN2')refreshAdmin2Chat();},15000);
-}
-function resetLogin(){document.getElementById('password').value='';}
-async function logout(){
- try{await api('logout',{token:TOKEN});}catch(e){}
- TOKEN='';ROLE='';CENTER='';
- localStorage.removeItem('ds_token');localStorage.removeItem('ds_role');localStorage.removeItem('ds_center');
- if(poller)clearInterval(poller);
- hide('centerPanel');hide('admin1Panel');hide('admin2Panel');show('loginView');
- hide('approvalLock');resetLogin();initSavedCenter();
 }
 async function restoreSession(){
- const t=localStorage.getItem('ds_token');if(!t)return;
- try{const r=await api('session',{token:t});if(r.ok){TOKEN=t;ROLE=r.role;CENTER=r.center||'';enterApp(r);}}catch(e){}
+ const t=localStorage.getItem('ds_token');
+ if(!t)return;
+ TOKEN=t;ROLE=localStorage.getItem('ds_role')||'';CENTER=localStorage.getItem('ds_center')||'';
+ try{
+  const r=await api('session',{token:TOKEN});
+  if(!r.ok)throw Error('expired');
+  ROLE=r.role;CENTER=r.center||CENTER;
+  localStorage.setItem('ds_role',ROLE);localStorage.setItem('ds_center',CENTER);
+  enterApp();
+ }catch(e){TOKEN='';localStorage.removeItem('ds_token');savedCenter();}
 }
-function centerTab(which,btn){
- document.querySelectorAll('#centerPanel .tabs button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
- if(which==='stake'){show('centerStakeTab');hide('centerHistoryTab');}else{hide('centerStakeTab');show('centerHistoryTab');loadHistory();}
+async function logout(){
+ try{if(TOKEN)await api('logout',{token:TOKEN});}catch(e){}
+ TOKEN='';ROLE='';CENTER='';
+ ['ds_token','ds_role','ds_center'].forEach(k=>localStorage.removeItem(k));
+ hide('centerPanel');hide('admin1Panel');hide('admin2Panel');hide('maintenanceScreen');
+ show('loginView');$('password').value='';savedCenter();
 }
-function calcTotal(){document.getElementById('liveTotal').textContent=money(num('Australian')+num('England')+num('Trackside'));}
+async function changeCenter(){
+ if(!confirm('Change saved center name?'))return;
+ try{if(TOKEN)await api('logout',{token:TOKEN});}catch(e){}
+ TOKEN='';ROLE='';CENTER='';
+ ['ds_token','ds_role','ds_center','ds_saved_center'].forEach(k=>localStorage.removeItem(k));
+ $('username').disabled=false;$('username').value='';$('password').value='';
+ hide('passwordArea');hide('changeCenterLogin');show('loginView');
+ $('username').focus();
+}
+async function checkApproval(){
+ try{
+  const r=await api('session',{token:TOKEN});
+  if(r.role==='CENTER'){ROLE='CENTER';localStorage.setItem('ds_role',ROLE);enterApp();}
+  else message('centerStatus',r.limit?'Device limit reached. Ask Admin 2.':'Still waiting for Admin 2 approval.','error');
+ }catch(e){message('centerStatus',e.message,'error');}
+}
+function showMaintenance(){show('maintenanceScreen');hide('loginView');hide('centerPanel');hide('admin1Panel');hide('admin2Panel');}
+function calcTotal(){
+ const v=['Australian','England','Trackside'].reduce((a,id)=>a+(Number($(id).value)||0),0);
+ $('liveTotal').textContent=v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
 async function saveStake(){
- if(ROLE!=='CENTER'){msg('stakeMsg','Center login required');return;}
- const data={token:TOKEN,businessDate:val('stakeDate'),Australian:val('Australian'),England:val('England'),Trackside:val('Trackside'),Due:val('Due')};
- if(!data.businessDate){msg('stakeMsg','Select date');return;}
- document.getElementById('saveBtn').disabled=true;msg('stakeMsg','Saving...');
- try{const r=await api('save',data);msg('stakeMsg',r.message||(r.ok?'Saved successfully':'Save failed'));if(r.ok){['Australian','England','Trackside','Due'].forEach(x=>document.getElementById(x).value='');calcTotal();loadHistory();}}
- catch(e){msg('stakeMsg',e.message);}finally{document.getElementById('saveBtn').disabled=false;}
+ const b=$('saveBtn');b.disabled=true;
+ try{
+  const r=await api('save',{token:TOKEN,date:$('stakeDate').value,australian:$('Australian').value,england:$('England').value,trackside:$('Trackside').value,due:$('Due').value});
+  if(!r.ok)throw Error(r.error||'Save failed.');
+  message('centerStatus','Stake saved successfully.','success');loadHistory();
+ }catch(e){message('centerStatus',e.message,'error');}
+ finally{b.disabled=false;}
+}
+function centerTab(tab,btn){
+ document.querySelectorAll('#centerPanel .tabs .tab').forEach(x=>x.classList.remove('active'));
+ btn.classList.add('active');
+ if(tab==='new'){show('newStakeTab');hide('historyTab');}
+ else{hide('newStakeTab');show('historyTab');loadHistory();}
 }
 async function loadHistory(){
  if(!TOKEN)return;
- try{const r=await api('history',{token:TOKEN});const a=document.getElementById('historyArea');a.innerHTML='';
- (r.rows||[]).forEach(x=>{const d=document.createElement('div');d.className='listitem';d.textContent=x.BusinessDate+' | Total: '+money(x.Total)+' | Due: '+money(x.Due);a.appendChild(d);});
- if(!a.children.length)a.textContent='No history found';
- }catch(e){msg('historyArea',e.message);}
+ try{
+  const r=await api('history',{token:TOKEN});if(!r.ok)throw Error(r.error);
+  const a=r.rows||[];
+  $('historyArea').innerHTML=a.length?'<div class="tablewrap"><table><tr><th>Date</th><th>Australian</th><th>England</th><th>Trackside</th><th>Due</th><th>Total</th></tr>'+a.map(x=>`<tr><td>${x.BusinessDate}</td><td>${x.Australian}</td><td>${x.England}</td><td>${x.Trackside}</td><td>${x.Due}</td><td>${x.Total}</td></tr>`).join('')+'</table></div>':'<p class="muted">No stake history found.</p>';
+ }catch(e){$('historyArea').textContent=e.message;}
 }
-function toggleLoginChat(){document.getElementById('loginChatBody').classList.toggle('hidden');refreshLoginChat();}
+
+/* CHAT */
+
+function drawMessages(id,a){
+ $(id).innerHTML=(a||[]).map(m=>`<div class="bubble ${m.sender==='CENTER'?'':'me'}"><b>${m.sender||m.center||'MESSAGE'}</b><br>${escapeHtml(m.message||'')}<small>${m.sentAt?new Date(m.sentAt).toLocaleString():''}</small></div>`).join('')||'<small>No messages yet.</small>';
+ $(id).scrollTop=$(id).scrollHeight;
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 async function sendLoginMessage(){
- const center=val('username').trim(),message=val('loginChatInput').trim(),recipientRole=val('loginRecipient');
- if(!center||center.toLowerCase()==='admin'||!message){alert('Enter center name and message');return;}
- try{const r=await api('publicChatSend',{center,message,recipientRole});if(r.ok){document.getElementById('loginChatInput').value='';refreshLoginChat();}else alert(r.message||'Send failed');}catch(e){alert(e.message);}
+ const c=$('username').value.trim(),to=$('loginRecipient').value,m=$('loginChatInput').value.trim();
+ if(!c||c.toLowerCase()==='admin'||!m){message('loginMsg','Enter your center name and message.','error');return;}
+ try{const r=await api('publicChatSend',{center:c,recipientRole:to,message:m});if(!r.ok)throw Error(r.error);$('loginChatInput').value='';refreshLoginChat();}
+ catch(e){message('loginMsg',e.message,'error');}
 }
 async function refreshLoginChat(){
- const center=val('username').trim();if(!center||center.toLowerCase()==='admin')return;
- try{const r=await api('chatGet',{center,recipientRole:val('loginRecipient')});renderMessages('loginChatMessages',r.messages||[]);}catch(e){}
-}
-function renderMessages(id,items){
- const box=document.getElementById(id);box.innerHTML='';
- (items||[]).forEach(x=>{
-  const d=document.createElement('div');d.className='msg';
-  const s=document.createElement('small');s.textContent=(x.SenderRole||x.senderRole||'')+' • '+(x.SentAt||x.sentAt||'');
-  const t=document.createElement('div');t.textContent=x.Message||x.message||'';
-  d.append(s,t);box.appendChild(d);
- });box.scrollTop=box.scrollHeight;
+ const c=$('username').value.trim();if(!c||c.toLowerCase()==='admin')return;
+ try{const r=await api('publicChatGet',{center:c,recipientRole:$('loginRecipient').value});drawMessages('loginChatMessages',r.messages);}
+ catch(e){}
 }
 async function refreshCenterChat(){
- if(!TOKEN)return;
- try{const r=await api('chatGet',{token:TOKEN,recipientRole:val('centerRecipient')});renderMessages('centerChatMessages',r.messages||[]);}catch(e){}
+ try{const r=await api('chatGet',{token:TOKEN,recipientRole:$('centerRecipient').value});drawMessages('centerChatMessages',r.messages);}
+ catch(e){$('centerChatMessages').textContent=e.message;}
 }
 async function sendCenterMessage(){
- const message=val('centerChatInput').trim();if(!message)return;
- try{const r=await api('chatSend',{token:TOKEN,message,recipientRole:val('centerRecipient')});if(r.ok){document.getElementById('centerChatInput').value='';refreshCenterChat();}else alert(r.message||'Send failed');}catch(e){alert(e.message);}
+ const m=$('centerChatInput').value.trim();if(!m)return;
+ try{const r=await api('chatSend',{token:TOKEN,recipientRole:$('centerRecipient').value,message:m});if(!r.ok)throw Error(r.error);$('centerChatInput').value='';refreshCenterChat();}
+ catch(e){alert(e.message);}
 }
 async function loadReportCenters(){
- try{const r=await api('reportCenters',{token:TOKEN});CENTERS=r.centers||[];
- const s=document.getElementById('reportCenter');s.innerHTML='<option value="ALL">ALL CENTERS</option>';
- CENTERS.forEach(c=>{const o=document.createElement('option');o.value=c.Center||c.center;o.textContent=c.Center||c.center;s.appendChild(o);});
- loadReport();
- }catch(e){msg('reportArea',e.message);}
+ try{
+  const r=await api('reportCenters',{token:TOKEN});if(!r.ok)throw Error(r.error);
+  const a=r.centers||[];
+  const opts='<option value="ALL">ALL CENTERS</option>'+a.map(c=>`<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)} (${c.status})</option>`).join('');
+  $('reportCenter').innerHTML=opts;
+  $('admin1ChatCenter').innerHTML=a.map(c=>`<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`).join('');
+  loadReport();
+ }catch(e){$('reportArea').textContent=e.message;}
 }
 async function loadReport(){
  if(!TOKEN)return;
- const center=val('reportCenter'),date=val('reportDate')||todayBusinessDate();
  try{
-  const r=await api('report',{token:TOKEN,center,businessDate:date});
-  const area=document.getElementById('reportArea');area.innerHTML='';
-  const rows=r.rows||[];
-  if(!rows.length){area.textContent='No stake records for this date';refreshAdmin1Chat();return;}
-  rows.forEach(x=>{
-   const d=document.createElement('div');d.className='listitem';
-   const title=document.createElement('strong');title.textContent=x.Center;
-   const a=document.createElement('div');a.className='small';a.textContent='Australian: '+money(x.Australian)+' | England: '+money(x.England);
-   const b=document.createElement('div');b.className='small';b.textContent='Trackside: '+money(x.Trackside)+' | Due: '+money(x.Due)+' | TOTAL: '+money(x.Total);
-   d.append(title,a,b);area.appendChild(d);
-  });
- }catch(e){msg('reportArea',e.message);}
- refreshAdmin1Chat();
+  const r=await api('report',{token:TOKEN,center:$('reportCenter').value||'ALL',date:$('reportDate').value||todayBusinessDate()});
+  if(!r.ok)throw Error(r.error);
+  const a=r.rows||[],t=r.totals||{};
+  $('reportArea').innerHTML='<div class="grid3">'+[['AUSTRALIAN',t.Australian],['ENGLAND',t.England],['TRACKSIDE',t.Trackside],['DUE',t.Due],['TOTAL',t.Total]].map(x=>`<div class="stat"><span>${x[0]}</span><b>${Number(x[1]||0).toLocaleString()}</b></div>`).join('')+'</div><div class="tablewrap"><table><tr><th>Center</th><th>Australian</th><th>England</th><th>Trackside</th><th>Due</th><th>Total</th></tr>'+a.map(x=>`<tr><td>${escapeHtml(x.Center)}</td><td>${x.Australian}</td><td>${x.England}</td><td>${x.Trackside}</td><td>${x.Due}</td><td>${x.Total}</td></tr>`).join('')+'</table></div>';
+ }catch(e){$('reportArea').textContent=e.message;}
 }
 async function refreshAdmin1Chat(){
- if(!TOKEN)return;const center=val('reportCenter');
- if(!center||center==='ALL'){renderMessages('admin1ChatMessages',[]);return;}
- try{const r=await api('chatGet',{token:TOKEN,center});renderMessages('admin1ChatMessages',r.messages||[]);}catch(e){}
+ const c=$('admin1ChatCenter').value;if(!c)return;
+ try{const r=await api('chatGet',{token:TOKEN,center:c});drawMessages('admin1ChatMessages',r.messages);}
+ catch(e){$('admin1ChatMessages').textContent=e.message;}
 }
 async function sendAdmin1Message(){
- const center=val('reportCenter'),message=val('admin1ChatInput').trim();
- if(!center||center==='ALL'){alert('Select one center first');return;}if(!message)return;
- try{const r=await api('chatSend',{token:TOKEN,center,message});if(r.ok){document.getElementById('admin1ChatInput').value='';refreshAdmin1Chat();}else alert(r.message||'Send failed');}catch(e){alert(e.message);}
+ const c=$('admin1ChatCenter').value,m=$('admin1ChatInput').value.trim();if(!m||!c)return;
+ try{const r=await api('chatSend',{token:TOKEN,center:c,message:m});if(!r.ok)throw Error(r.error);$('admin1ChatInput').value='';refreshAdmin1Chat();}
+ catch(e){alert(e.message);}
 }
-function admin2Tab(which,btn){
- document.querySelectorAll('#admin2Tabs button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
- ['centers','devices','chat','requests','manual','settings'].forEach(x=>hide('a2'+x));show('a2'+which);
- if(which==='chat')refreshAdmin2Chat();if(which==='requests')loadOtherRequests();if(which==='manual')setDefaultDates();
+
+/* OTHER CENTER STAKE REQUEST */
+
+function toggleOther(){
+ $('otherEntryBox').classList.toggle('hidden');
+ if(!$('otherEntryBox').classList.contains('hidden'))loadCentersForOther();
 }
-async function loadAdminData(){
- try{
-  const r=await api('adminData',{token:TOKEN});CENTERS=r.centers||[];
-  document.getElementById('centerCount').textContent=CENTERS.length;
-  document.getElementById('deviceCount').textContent=(r.devices||[]).length;
-  const list=document.getElementById('centerList');list.innerHTML='';
-  const selectors=['admin2ChatCenter','manualCenter'];
-  selectors.forEach(id=>{const s=document.getElementById(id);if(s)s.innerHTML=id==='admin2ChatCenter'?'<option value="ALL">ALL CENTERS</option>':'';});
-  CENTERS.forEach(c=>{
-   const name=c.Center||c.center,status=c.Status||c.status;
-   const d=document.createElement('div');d.className='listitem';
-   const title=document.createElement('strong');title.textContent=name+' ';
-   const badge=document.createElement('span');badge.className='badge';badge.textContent=status;d.append(title,badge);
-   if(String(status).toUpperCase()!=='APPROVED'){const b=document.createElement('button');b.className='success';b.textContent='APPROVE';b.style.marginTop='9px';b.onclick=()=>approveCenter(name);d.appendChild(b);}
-   list.appendChild(d);
-   selectors.forEach(id=>{const s=document.getElementById(id);if(s){const o=document.createElement('option');o.value=name;o.textContent=name;s.appendChild(o);}});
-  });
-  const devices=document.getElementById('deviceList');devices.innerHTML='';
-  (r.devices||[]).forEach(x=>{
-   const d=document.createElement('div');d.className='listitem';
-   const t=document.createElement('div');t.textContent=x.Center+' • '+x.DeviceName+' • '+x.DeviceID;d.appendChild(t);
-   const b=document.createElement('button');b.className='danger';b.textContent='REMOVE DEVICE';b.style.marginTop='8px';b.onclick=()=>removeDevice(x.Center,x.DeviceID);d.appendChild(b);devices.appendChild(d);
-  });
-  loadCentersForOther();refreshAdmin2Chat();
- }catch(e){alert(e.message);}
-}
-async function approveCenter(center){
- if(!confirm('Approve '+center+'?'))return;
- try{const r=await api('approve',{token:TOKEN,center});alert(r.message||'Done');loadAdminData();}catch(e){alert(e.message);}
-}
-async function removeDevice(center,deviceId){
- if(!confirm('Remove this device?'))return;
- try{const r=await api('removeDevice',{token:TOKEN,center,deviceId});alert(r.message||'Removed');loadAdminData();}catch(e){alert(e.message);}
-}
-async function setMaintenance(enabled){
- try{const r=await api('maintenance',{token:TOKEN,enabled:String(enabled)});msg('maintenanceMsg',r.message||'Updated');}catch(e){msg('maintenanceMsg',e.message);}
-}
-async function refreshAdmin2Chat(){
- if(!TOKEN)return;
- try{const r=await api('chatGet',{token:TOKEN,center:val('admin2ChatCenter')||'ALL'});renderMessages('admin2ChatMessages',r.messages||[]);}catch(e){}
-}
-async function sendAdmin2Message(){
- const center=val('admin2ChatCenter'),message=val('admin2ChatInput').trim();
- if(!center||center==='ALL'){alert('Select one center to reply');return;}if(!message)return;
- try{const r=await api('chatSend',{token:TOKEN,center,message});if(r.ok){document.getElementById('admin2ChatInput').value='';refreshAdmin2Chat();}else alert(r.message||'Send failed');}catch(e){alert(e.message);}
-}
-function toggleOtherEntry(){document.getElementById('otherEntryBox').classList.toggle('hidden');}
 async function loadCentersForOther(){
- if(!TOKEN)return;
  try{
-  const r=await api('reportCenters',{token:TOKEN});CENTERS=r.centers||[];
-  const s=document.getElementById('otherTargetCenter');s.innerHTML='';
-  CENTERS.forEach(c=>{const name=c.Center||c.center;if(name===CENTER)return;const o=document.createElement('option');o.value=name;o.textContent=name;s.appendChild(o);});
- }catch(e){}
+  const r=await api('centerTargets',{token:TOKEN});if(!r.ok)throw Error(r.error);
+  $('otherTargetCenter').innerHTML=(r.centers||[]).map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+  if(!r.centers.length)$('otherTargetCenter').innerHTML='<option value="">No other approved centers</option>';
+ }catch(e){message('otherMsg',e.message,'error');}
 }
 async function sendOtherRequest(){
- const data={token:TOKEN,targetCenter:val('otherTargetCenter'),businessDate:val('otherDate'),Australian:val('otherAustralian'),England:val('otherEngland'),Trackside:val('otherTrackside'),Due:val('otherDue')};
- if(!data.targetCenter||!data.businessDate){msg('otherMsg','Select target center and date');return;}
- msg('otherMsg','Sending message to Admin 2...');
  try{
-  const r=await api('otherRequestSend',data);
-  msg('otherMsg',r.message||(r.ok?'Message sent to Admin 2':'Request failed'));
-  if(r.ok)['otherAustralian','otherEngland','otherTrackside','otherDue'].forEach(x=>document.getElementById(x).value='');
- }catch(e){msg('otherMsg',e.message);}
+  const r=await api('otherRequestSend',{token:TOKEN,targetCenter:$('otherTargetCenter').value,date:$('otherDate').value,australian:$('otherAustralian').value,england:$('otherEngland').value,trackside:$('otherTrackside').value,due:$('otherDue').value});
+  if(!r.ok)throw Error(r.error);
+  message('otherMsg','Request sent to Admin 2. It has not been added to official reports.','success');
+  ['otherAustralian','otherEngland','otherTrackside','otherDue'].forEach(id=>$(id).value='');
+ }catch(e){message('otherMsg',e.message,'error');}
+}
+
+/* ADMIN 2 */
+
+async function loadAdminData(){
+ try{
+  const r=await api('adminData',{token:TOKEN});if(!r.ok)throw Error(r.error);
+  ADMIN_CENTERS=r.centers||[];
+  $('centerCount').textContent=ADMIN_CENTERS.length;
+  $('deviceCount').textContent=(r.devices||[]).length;
+  $('centerList').innerHTML=ADMIN_CENTERS.map(c=>`<div class="request"><b>${escapeHtml(c.name)}</b><p>Status: ${escapeHtml(c.status)}</p><div class="actionrow">${c.status!=='APPROVED'?`<button class="primary" onclick="approveCenter('${escapeHtml(c.name)}','APPROVED')">APPROVE</button>`:''}<button class="secondary" onclick="approveCenter('${escapeHtml(c.name)}','PENDING')">SET PENDING</button><button class="danger" onclick="approveCenter('${escapeHtml(c.name)}','REVOKED')">REVOKE</button></div></div>`).join('')||'<p>No centers registered.</p>';
+  $('deviceList').innerHTML=(r.devices||[]).map(d=>`<div class="request"><b>${escapeHtml(d.center)}</b><p>${escapeHtml(d.deviceName)}<br><small>${escapeHtml(d.deviceID)}</small></p><button class="danger" onclick="removeDevice('${escapeHtml(d.center)}','${escapeHtml(d.deviceID)}')">REMOVE DEVICE</button></div>`).join('')||'<p>No registered devices.</p>';
+  const opts=ADMIN_CENTERS.map(c=>`<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`).join('');
+  $('manualCenter').innerHTML=opts;
+  $('admin2ChatCenter').innerHTML=opts;
+  if(r.maintenance)message('maintenanceMsg','Maintenance is ON.','error');
+ }catch(e){alert(e.message);}
+}
+async function approveCenter(center,status){
+ try{const r=await api('approve',{token:TOKEN,center,status});if(!r.ok)throw Error(r.error);loadAdminData();}
+ catch(e){alert(e.message);}
+}
+async function removeDevice(center,deviceID){
+ if(!confirm('Remove this device slot?'))return;
+ try{const r=await api('removeDevice',{token:TOKEN,center,deviceID});if(!r.ok)throw Error(r.error);loadAdminData();}
+ catch(e){alert(e.message);}
+}
+function admin2Tab(tab,btn){
+ document.querySelectorAll('#admin2Panel .tabs .tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
+ ['centers','devices','chat','requests','manual','settings'].forEach(x=>hide('admin2'+x));
+ show('admin2'+tab);
+ if(tab==='requests')loadOtherRequests();
+ if(tab==='chat')refreshAdmin2Chat();
+ if(tab==='devices'||tab==='centers')loadAdminData();
+}
+async function refreshAdmin2Chat(){
+ const c=$('admin2ChatCenter').value;if(!c)return;
+ try{const r=await api('chatGet',{token:TOKEN,center:c});drawMessages('admin2ChatMessages',r.messages);}
+ catch(e){$('admin2ChatMessages').textContent=e.message;}
+}
+async function sendAdmin2Message(){
+ const c=$('admin2ChatCenter').value,m=$('admin2ChatInput').value.trim();if(!m||!c)return;
+ try{const r=await api('chatSend',{token:TOKEN,center:c,message:m});if(!r.ok)throw Error(r.error);$('admin2ChatInput').value='';refreshAdmin2Chat();}
+ catch(e){alert(e.message);}
 }
 async function loadOtherRequests(){
- if(!TOKEN)return;
  try{
-  const r=await api('otherRequests',{token:TOKEN});otherRequestsCache=r.requests||r.rows||[];
-  const area=document.getElementById('otherRequestsArea');area.innerHTML='';
-  if(!otherRequestsCache.length){area.textContent='No requests found';return;}
-  otherRequestsCache.forEach(x=>{
-   const d=document.createElement('div');d.className='listitem';
-   const title=document.createElement('strong');title.textContent=(x.FromCenter||'')+' → '+(x.TargetCenter||'');
-   const info=document.createElement('div');info.className='small';info.textContent='Date: '+(x.BusinessDate||'')+' • Status: '+(x.Status||'PENDING');
-   const amounts=document.createElement('div');amounts.className='small';amounts.textContent='Australian: '+money(x.Australian)+' | England: '+money(x.England)+' | Trackside: '+money(x.Trackside)+' | Due: '+money(x.Due);
-   d.append(title,info,amounts);
-   const b=document.createElement('button');b.className='secondary';b.textContent='LOAD INTO MANUAL ENTRY';b.style.marginTop='9px';b.onclick=()=>loadRequestIntoManual(x);d.appendChild(b);area.appendChild(d);
-  });
- }catch(e){msg('otherRequestsArea',e.message);}
+  const r=await api('otherRequests',{token:TOKEN});if(!r.ok)throw Error(r.error);
+  const a=r.items||[];
+  $('otherRequestsArea').innerHTML=a.map(x=>`<div class="request"><b>${escapeHtml(x.fromCenter)} → ${escapeHtml(x.targetCenter)}</b><p>Date: ${escapeHtml(x.date)}<br>Australian: ${x.australian} | England: ${x.england}<br>Trackside: ${x.trackside} | Due: ${x.due}<br><b>Total: ${x.total}</b><br>Status: ${escapeHtml(x.status)}</p>${x.status==='PENDING'?`<button class="primary" onclick="loadRequestIntoManual('${escapeHtml(x.id)}','${escapeHtml(x.targetCenter)}','${escapeHtml(x.date)}',${x.australian},${x.england},${x.trackside},${x.due})">LOAD INTO MANUAL ENTRY</button>`:''}</div>`).join('')||'<p class="muted">No requests found.</p>';
+ }catch(e){$('otherRequestsArea').textContent=e.message;}
 }
-function loadRequestIntoManual(x){
- document.getElementById('manualCenter').value=x.TargetCenter||'';
- document.getElementById('manualDate').value=x.BusinessDate||todayBusinessDate();
- document.getElementById('manualAustralian').value=x.Australian||0;
- document.getElementById('manualEngland').value=x.England||0;
- document.getElementById('manualTrackside').value=x.Trackside||0;
- document.getElementById('manualDue').value=x.Due||0;
- calcManual();admin2Tab('manual',document.querySelectorAll('#admin2Tabs button')[4]);
+function loadRequestIntoManual(id,c,d,a,e,t,due){
+ CURRENT_REQUEST_ID=id;
+ $('manualCenter').value=c;$('manualDate').value=d;
+ $('manualAustralian').value=a;$('manualEngland').value=e;$('manualTrackside').value=t;$('manualDue').value=due;
+ manualTotal();
+ const tab=document.querySelector('#admin2Panel .tabs .tab:nth-child(5)');
+ admin2Tab('manual',tab);
+ message('manualMsg','Request loaded. Check the values and save to official stake.','success');
 }
-function calcManual(){
- document.getElementById('manualTotal').textContent=money(num('manualAustralian')+num('manualEngland')+num('manualTrackside'));
+function manualTotal(){
+ const v=['manualAustralian','manualEngland','manualTrackside'].reduce((s,id)=>s+(Number($(id).value)||0),0);
+ $('manualTotalValue').textContent=v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 }
 async function manualSave(){
- const data={token:TOKEN,center:val('manualCenter'),businessDate:val('manualDate'),Australian:val('manualAustralian'),England:val('manualEngland'),Trackside:val('manualTrackside'),Due:val('manualDue')};
- if(!data.center||!data.businessDate){msg('manualMsg','Select center and date');return;}
- msg('manualMsg','Saving official stake...');
- try{const r=await api('manualSave',data);msg('manualMsg',r.message||(r.ok?'Saved':'Save failed'));}catch(e){msg('manualMsg',e.message);}
+ try{
+  const r=await api('manualSave',{token:TOKEN,center:$('manualCenter').value,date:$('manualDate').value,australian:$('manualAustralian').value,england:$('manualEngland').value,trackside:$('manualTrackside').value,due:$('manualDue').value,requestId:CURRENT_REQUEST_ID});
+  if(!r.ok)throw Error(r.error);
+  CURRENT_REQUEST_ID='';message('manualMsg','Official stake saved successfully.','success');loadOtherRequests();
+ }catch(e){message('manualMsg',e.message,'error');}
 }
-document.getElementById('headerDate').textContent=todayBusinessDate();
-setDefaultDates();initSavedCenter();restoreSession();
+async function setMaintenance(on){
+ try{
+  const r=await api('maintenance',{token:TOKEN,value:on});if(!r.ok)throw Error(r.error);
+  message('maintenanceMsg',on?'Maintenance turned ON.':'Maintenance turned OFF.','success');
+ }catch(e){message('maintenanceMsg',e.message,'error');}
+}
+
+/* STARTUP */
+
+setDates();
+savedCenter();
+restoreSession();
+setInterval(()=>{
+ if(ROLE==='CENTER_PENDING')checkApproval();
+ if(ROLE==='CENTER')refreshCenterChat();
+},20000);
+setInterval(()=>{if(!$('loginView').classList.contains('hidden'))refreshLoginChat();},15000);
 </script>
 </body>
 </html>
+
