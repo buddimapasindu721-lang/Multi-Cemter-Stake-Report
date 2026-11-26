@@ -4,56 +4,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#071b16">
+<meta name="theme-color" content="#080d19">
 <title>Daily Stake - Multi Center</title>
 <style>
-:root{--gold:#e7c46b;--muted:#a8b8b1;--bg:#071b16;--panel:#102a22;--line:#29483c;--green:#20c77a;--red:#ef6464}
+:root{
+ --gold:#e9bd62;--muted:#9eafc4;--bg:#080d19;--panel:#101a2b;
+ --line:#293b56;--green:#19dfa0;--red:#ff647c;--blue:#35aaff;
+}
 *{box-sizing:border-box}
-body{margin:0;background:linear-gradient(145deg,#071b16,#10152a);color:#f4f7f5;font-family:Arial,sans-serif;min-height:100vh}
+body{margin:0;background:radial-gradient(ellipse at 15% 0%,#172b48 0%,#0a1221 42%,#050914 100%);color:#edf4ff;font-family:Arial,sans-serif;min-height:100vh}
 button,input,select{font:inherit}
-button{cursor:pointer;border:0;border-radius:11px;padding:12px 15px;background:linear-gradient(135deg,#d9b45d,#a77d30);color:#10170f;font-weight:bold}
-button:disabled{opacity:.45}
-input,select{width:100%;padding:13px;border-radius:10px;border:1px solid var(--line);background:#081c17;color:white;outline:none;margin:6px 0 12px}
-input:focus,select:focus{border-color:var(--gold)}
+button{cursor:pointer;border:1px solid #b98b43;border-radius:11px;padding:12px 15px;background:linear-gradient(135deg,#f0cf7d,#a8792d);color:#111827;font-weight:bold;box-shadow:0 5px 18px #0005}
+button:disabled{opacity:.4;cursor:not-allowed}
+input,select{width:100%;padding:13px;border-radius:10px;border:1px solid #344963;background:#0a1424;color:white;outline:none;margin:6px 0 12px}
+input:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 2px #19dfa022}
+input[readonly]{opacity:.85}
 label{font-size:12px;color:var(--muted);display:block;margin-top:8px}
-.wrap{max-width:900px;margin:auto;padding:16px}
+.wrap{max-width:960px;margin:auto;padding:16px}
 header{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0 18px}
-.brand{font-size:20px;font-weight:900;color:var(--gold);letter-spacing:1px}
-.sub{font-size:11px;color:var(--muted);margin-top:4px}
-.card{background:linear-gradient(145deg,#102a22,#111d29);border:1px solid var(--line);border-radius:17px;padding:16px;margin:12px 0;box-shadow:0 10px 28px #0004}
+.brand{font-size:22px;font-weight:900;color:var(--gold);letter-spacing:1px;text-shadow:0 0 20px #e9bd6255}
+.sub{font-size:11px;color:#9cb2cb;margin-top:4px;letter-spacing:1px}
+.card{background:linear-gradient(145deg,#14233aee,#0b1424f5);border:1px solid #344b69;border-radius:17px;padding:16px;margin:12px 0;box-shadow:0 12px 35px #0007,inset 0 1px #ffffff0c}
 h2{font-size:17px;color:var(--gold);margin:0 0 14px}
-h3{font-size:14px;color:var(--gold)}
+h3{font-size:14px;color:var(--green)}
 .small{font-size:12px;color:var(--muted)}
 .hidden{display:none!important}
 .row{display:flex;gap:9px;align-items:center}
 .row>*{flex:1;min-width:0}
 .tabs{display:flex;gap:7px;overflow:auto;margin:12px 0}
-.tabs button{white-space:nowrap;flex:1;background:#19382d;color:#dce9e2;border:1px solid var(--line);padding:11px 9px}
-.tabs button.active{background:linear-gradient(135deg,#d9b45d,#a77d30);color:#10170f}
+.tabs button{white-space:nowrap;flex:1;background:#101e32;color:#dce9fa;border:1px solid #344963;padding:11px 9px;box-shadow:none}
+.tabs button.active{background:linear-gradient(135deg,#1ce0a3,#087d70);color:#041a18;border-color:#35edb3}
 .statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.stat{background:#081c17;border:1px solid var(--line);padding:13px;border-radius:12px}
-.stat strong{display:block;color:var(--gold);font-size:22px;margin-top:5px}
+.stat{background:#091426;border:1px solid #304560;padding:13px;border-radius:12px}
+.stat strong{display:block;color:var(--green);font-size:22px;margin-top:5px}
 .amountgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 .amountgrid label{font-size:12px}
-.total{padding:15px;border-radius:12px;background:#071b16;border:1px solid #56745e;display:flex;justify-content:space-between;font-weight:bold;margin:12px 0}
-.total strong{color:var(--gold);font-size:20px}
-.msg{padding:10px;border-radius:10px;background:#18372c;margin:8px 0;overflow-wrap:anywhere}
+.total{padding:15px;border-radius:12px;background:#081426;border:1px solid #247c70;display:flex;justify-content:space-between;font-weight:bold;margin:12px 0}
+.total strong{color:var(--green);font-size:20px}
+.msg{padding:10px;border-radius:10px;background:#142b43;border:1px solid #2b4764;margin:8px 0;overflow-wrap:anywhere}
 .msg small{display:block;color:var(--gold);margin-bottom:5px}
-.chatMessages{height:210px;overflow:auto;padding:8px;background:#071b16;border:1px solid var(--line);border-radius:12px;margin:10px 0}
+.chatMessages{height:210px;overflow:auto;padding:8px;background:#081426;border:1px solid #344963;border-radius:12px;margin:10px 0}
 .chatSendRow{display:flex;gap:7px}
 .chatSendRow input{margin:0}
 .chatSendRow button{white-space:nowrap}
-.chatToggle{width:100%;background:#19382d;color:var(--gold);border:1px solid var(--line)}
-.listitem{padding:12px;border:1px solid var(--line);border-radius:11px;margin:8px 0;background:#0a211a}
-.badge{font-size:11px;padding:4px 8px;border-radius:20px;background:#284a3b;color:#a8f0c4}
-.danger{background:#783535;color:white}
-.secondary{background:#19382d;color:#eee;border:1px solid var(--line)}
-.success{background:#17643e;color:white}
-.notice{padding:12px;background:#3a2e16;border:1px solid #80642d;border-radius:10px;color:#f6d98f;margin:10px 0}
-#maintenanceScreen{position:fixed;inset:0;background:#06130f;z-index:9999;display:flex;align-items:center;justify-content:center;text-align:center;padding:25px}
+.chatToggle{width:100%;background:linear-gradient(120deg,#123d3b,#14233a);color:var(--green);border:1px solid #267d72}
+.listitem{padding:12px;border:1px solid #344963;border-radius:11px;margin:8px 0;background:#0b192b}
+.badge{font-size:11px;padding:4px 8px;border-radius:20px;background:#174a42;color:#9ff6d8}
+.danger{background:linear-gradient(120deg,#a42e49,#6d2038);color:white;border:1px solid #c74d67}
+.secondary{background:linear-gradient(120deg,#1a2c45,#101c30);color:#eee;border:1px solid #3b526e;box-shadow:none}
+.success{background:linear-gradient(120deg,#087e60,#145b53);color:white}
+.notice{padding:12px;background:#332a1b;border:1px solid #94713a;border-radius:10px;color:#f6d98f;margin:10px 0}
+#maintenanceScreen{position:fixed;inset:0;background:#050914;z-index:9999;display:flex;align-items:center;justify-content:center;text-align:center;padding:25px}
 #maintenanceScreen h1{color:var(--gold);font-size:30px}
-footer{text-align:center;color:#71877c;font-size:10px;padding:20px}
-@media(max-width:500px){.wrap{padding:11px}.brand{font-size:17px}.card{padding:13px}.row.mobileStack{display:block}.row.mobileStack>*{width:100%}}
+#approvalLock{background:radial-gradient(circle at top,#243b59,#0a1322 70%);border:1px solid #bd9149;border-radius:20px;padding:35px 20px;text-align:center;box-shadow:0 0 35px #e9bd621c}
+.lockIcon{font-size:76px;filter:drop-shadow(0 0 18px #e9bd62aa);margin-bottom:10px}
+.lockTitle{font-size:27px;color:var(--gold);font-weight:900;letter-spacing:1px}
+.lockSub{font-size:17px;font-weight:bold;margin:12px 0;color:#f4d28b}
+.lockPill{display:inline-block;padding:10px 18px;border:1px solid #d19e46;color:#ffd47d;border-radius:30px;margin:12px 0;font-weight:bold}
+footer{text-align:center;color:#7188a5;font-size:10px;padding:20px}
+@media(max-width:500px){.wrap{padding:11px}.brand{font-size:18px}.card{padding:13px}.row.mobileStack{display:block}.row.mobileStack>*{width:100%}.lockTitle{font-size:23px}}
 </style>
 </head>
 <body>
@@ -67,7 +76,6 @@ footer{text-align:center;color:#71877c;font-size:10px;padding:20px}
  <div id="headerDate" class="small"></div>
 </header>
 
-<!-- LOGIN -->
 <section id="loginView" class="card">
  <h2>Center Login</h2>
  <label>Center Name / Admin</label>
@@ -77,8 +85,18 @@ footer{text-align:center;color:#71877c;font-size:10px;padding:20px}
   <input id="password" type="password" placeholder="Enter password">
  </div>
  <button id="loginBtn" style="width:100%" onclick="login()">LOGIN</button>
- <button id="changeCenterLogin" class="secondary hidden" style="width:100%;margin-top:8px" onclick="resetLogin()">CHANGE CENTER</button>
+ <button id="changeCenterLogin" class="secondary hidden" style="width:100%;margin-top:8px" onclick="changeCenter()">CHANGE CENTER</button>
  <p id="loginMsg" class="small"></p>
+
+ <div id="approvalLock" class="hidden">
+  <div class="lockIcon">🔐</div>
+  <div class="lockTitle">NOT APPROVED</div>
+  <div class="lockSub">APPROVAL PENDING</div>
+  <p>Your center is waiting for Admin 2 approval.</p>
+  <div class="lockPill">🔒 STAKE ENTRY LOCKED</div>
+  <p class="small">You cannot enter or save stakes until approval is granted.</p>
+  <button class="secondary" onclick="retryApproval()" style="margin-top:10px">CHECK APPROVAL</button>
+ </div>
 
  <div class="card" style="margin-top:18px">
   <button class="chatToggle" onclick="toggleLoginChat()">CHAT • CONTACT ADMIN</button>
@@ -91,29 +109,30 @@ footer{text-align:center;color:#71877c;font-size:10px;padding:20px}
  </div>
 </section>
 
-<!-- CENTER -->
 <section id="centerPanel" class="hidden">
  <div class="card">
   <div class="row"><div><h2 id="centerTitle">CENTER</h2><div id="centerStatus" class="small"></div></div><button class="secondary" onclick="logout()">LOGOUT</button></div>
-  <div class="tabs">
-   <button class="active" onclick="centerTab('stake',this)">NEW STAKE</button>
-   <button onclick="centerTab('history',this)">STAKE HISTORY</button>
-  </div>
-  <div id="centerStakeTab">
-   <label>Business Date</label><input id="stakeDate" type="date">
-   <div class="amountgrid">
-    <div><label>Australian</label><input id="Australian" type="number" min="0" placeholder="0" oninput="calcTotal()"></div>
-    <div><label>England</label><input id="England" type="number" min="0" placeholder="0" oninput="calcTotal()"></div>
-    <div><label>Trackside</label><input id="Trackside" type="number" min="0" placeholder="0" oninput="calcTotal()"></div>
-    <div><label>Due (Not included in total)</label><input id="Due" type="number" min="0" placeholder="0" oninput="calcTotal()"></div>
+  <div id="centerApprovedContent">
+   <div class="tabs">
+    <button class="active" onclick="centerTab('stake',this)">NEW STAKE</button>
+    <button onclick="centerTab('history',this)">STAKE HISTORY</button>
    </div>
-   <div class="total"><span>TOTAL STAKE</span><strong id="liveTotal">0.00</strong></div>
-   <button id="saveBtn" style="width:100%" onclick="saveStake()">SAVE STAKE</button>
-   <p id="stakeMsg" class="small"></p>
-  </div>
-  <div id="centerHistoryTab" class="hidden">
-   <button onclick="loadHistory()" class="secondary">REFRESH HISTORY</button>
-   <div id="historyArea"></div>
+   <div id="centerStakeTab">
+    <label>Business Date</label><input id="stakeDate" type="date">
+    <div class="amountgrid">
+     <div><label>Australian</label><input id="Australian" type="number" min="0" placeholder="0" oninput="calcTotal()"></div>
+     <div><label>England</label><input id="England" type="number" min="0" placeholder="0" oninput="calcTotal()"></div>
+     <div><label>Trackside</label><input id="Trackside" type="number" min="0" placeholder="0" oninput="calcTotal()"></div>
+     <div><label>Due (Not included in total)</label><input id="Due" type="number" min="0" placeholder="0" oninput="calcTotal()"></div>
+    </div>
+    <div class="total"><span>TOTAL STAKE</span><strong id="liveTotal">0.00</strong></div>
+    <button id="saveBtn" style="width:100%" onclick="saveStake()">SAVE STAKE</button>
+    <p id="stakeMsg" class="small"></p>
+   </div>
+   <div id="centerHistoryTab" class="hidden">
+    <button onclick="loadHistory()" class="secondary">REFRESH HISTORY</button>
+    <div id="historyArea"></div>
+   </div>
   </div>
  </div>
 
@@ -137,13 +156,12 @@ footer{text-align:center;color:#71877c;font-size:10px;padding:20px}
     <div><label>Trackside</label><input id="otherTrackside" type="number" min="0" placeholder="0"></div>
     <div><label>Due</label><input id="otherDue" type="number" min="0" placeholder="0"></div>
    </div>
-   <button style="width:100%" onclick="sendOtherRequest()">SEND REQUEST TO ADMIN 2</button>
+   <button style="width:100%" onclick="sendOtherRequest()">SEND MESSAGE TO ADMIN 2</button>
    <p id="otherMsg" class="small"></p>
   </div>
  </div>
 </section>
 
-<!-- ADMIN 1 -->
 <section id="admin1Panel" class="hidden">
  <div class="card">
   <div class="row"><h2>ADMIN 1 • REPORTS</h2><button class="secondary" onclick="logout()">LOGOUT</button></div>
@@ -162,7 +180,6 @@ footer{text-align:center;color:#71877c;font-size:10px;padding:20px}
  </div>
 </section>
 
-<!-- ADMIN 2 -->
 <section id="admin2Panel" class="hidden">
  <div class="card">
   <div class="row"><h2>ADMIN 2 • SYSTEM CONTROL</h2><button class="secondary" onclick="logout()">LOGOUT</button></div>
@@ -178,15 +195,8 @@ footer{text-align:center;color:#71877c;font-size:10px;padding:20px}
    <button onclick="admin2Tab('manual',this)">MANUAL STAKE</button>
    <button onclick="admin2Tab('settings',this)">SETTINGS</button>
   </div>
-
-  <div id="a2centers">
-   <h3>REGISTERED CENTERS</h3>
-   <div id="centerList"></div>
-  </div>
-  <div id="a2devices" class="hidden">
-   <h3>REGISTERED DEVICES</h3>
-   <div id="deviceList"></div>
-  </div>
+  <div id="a2centers"><h3>REGISTERED CENTERS</h3><div id="centerList"></div></div>
+  <div id="a2devices" class="hidden"><h3>REGISTERED DEVICES</h3><div id="deviceList"></div></div>
   <div id="a2chat" class="hidden">
    <h3>PRIVATE CENTER CHAT</h3>
    <label>Inbox</label><select id="admin2ChatCenter" onchange="refreshAdmin2Chat()"><option value="ALL">ALL CENTERS</option></select>
@@ -225,8 +235,7 @@ footer{text-align:center;color:#71877c;font-size:10px;padding:20px}
 
 <script>
 const API='https://script.google.com/macros/s/AKfycbwVzKrmNhfTuAfynGQ-Ple1poFp5KH1EqXDwtxF-V9IWVZgPwh6S5JI5vRw5zzscag/exec';
-let TOKEN='',ROLE='',CENTER='',CENTERS=[],poller=null,otherRequestsCache=[];
-
+let TOKEN='',ROLE='',CENTER='',CENTERS=[],poller=null,otherRequestsCache=[],pendingCredentials=null;
 function api(action,data={}){
  return new Promise((resolve,reject)=>{
   const cb='cb_'+Date.now()+'_'+Math.floor(Math.random()*10000);
@@ -236,13 +245,11 @@ function api(action,data={}){
   function cleanup(){clearTimeout(timer);delete window[cb];script.remove();}
   window[cb]=res=>{cleanup();resolve(res)};
   script.onerror=()=>{cleanup();reject(new Error('Connection error'));};
-  script.src=API+'?'+params.toString();
-  document.body.appendChild(script);
+  script.src=API+'?'+params.toString();document.body.appendChild(script);
  });
 }
 function todayBusinessDate(){
- const d=new Date();
- const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Colombo',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hourCycle:'h23'}).formatToParts(d);
+ const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Colombo',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
  const p={};parts.forEach(x=>p[x.type]=x.value);
  let date=new Date(Number(p.year),Number(p.month)-1,Number(p.day));
  if(Number(p.hour)<4)date.setDate(date.getDate()-1);
@@ -259,29 +266,63 @@ function msg(id,t){let e=document.getElementById(id);if(e)e.textContent=t||'';}
 function show(id){document.getElementById(id).classList.remove('hidden');}
 function hide(id){document.getElementById(id).classList.add('hidden');}
 function setLoginMessage(t){msg('loginMsg',t);}
+
+function initSavedCenter(){
+ const saved=localStorage.getItem('ds_saved_center')||'';
+ const input=document.getElementById('username');
+ if(saved){
+  input.value=saved;
+  input.readOnly=true;
+  show('changeCenterLogin');
+ }else{
+  input.readOnly=false;
+  hide('changeCenterLogin');
+ }
+}
+function changeCenter(){
+ const input=document.getElementById('username');
+ input.readOnly=false;input.value='';input.focus();
+ hide('changeCenterLogin');hide('approvalLock');
+ setLoginMessage('Enter the new center name and login.');
+}
 document.getElementById('username').addEventListener('input',()=>{
  const u=val('username').trim().toLowerCase();
  if(u==='admin')show('passwordArea');else hide('passwordArea');
 });
-document.getElementById('manualAustralian').addEventListener('input',calcManual);
-document.getElementById('manualEngland').addEventListener('input',calcManual);
-document.getElementById('manualTrackside').addEventListener('input',calcManual);
-document.getElementById('manualDue').addEventListener('input',calcManual);
+['manualAustralian','manualEngland','manualTrackside','manualDue'].forEach(id=>document.getElementById(id).addEventListener('input',calcManual));
 
 async function login(){
  const username=val('username').trim();
  if(!username){setLoginMessage('Enter login name');return;}
  setLoginMessage('Connecting...');
+ pendingCredentials={username,password:val('password')};
  try{
   const r=await api('login',{username,password:val('password'),deviceId:getDeviceId(),deviceName:navigator.userAgent.slice(0,80)});
   if(!r.ok){setLoginMessage(r.message||'Login failed');return;}
-  if(r.role==='CENTER_PENDING'){setLoginMessage('Approval not granted. Please contact Admin 2.');return;}
+  if(r.role==='CENTER_PENDING'){
+   localStorage.setItem('ds_saved_center',username);
+   document.getElementById('username').value=username;
+   document.getElementById('username').readOnly=true;
+   show('changeCenterLogin');show('approvalLock');
+   hide('passwordArea');
+   setLoginMessage('');
+   return;
+  }
   TOKEN=r.token;ROLE=r.role;CENTER=r.center||'';
-  localStorage.setItem('ds_token',TOKEN);
-  localStorage.setItem('ds_role',ROLE);
-  localStorage.setItem('ds_center',CENTER);
+  if(ROLE==='CENTER')localStorage.setItem('ds_saved_center',CENTER||username);
+  localStorage.setItem('ds_token',TOKEN);localStorage.setItem('ds_role',ROLE);localStorage.setItem('ds_center',CENTER);
   enterApp(r);
  }catch(e){setLoginMessage('Connection error: '+e.message);}
+}
+async function retryApproval(){
+ if(!pendingCredentials){setLoginMessage('Please login again to check approval.');return;}
+ setLoginMessage('Checking approval...');
+ try{
+  const r=await api('login',{username:pendingCredentials.username,password:pendingCredentials.password,deviceId:getDeviceId(),deviceName:navigator.userAgent.slice(0,80)});
+  if(r.ok&&r.role==='CENTER_PENDING'){setLoginMessage('Still waiting for Admin 2 approval.');return;}
+  if(r.ok){TOKEN=r.token;ROLE=r.role;CENTER=r.center||'';localStorage.setItem('ds_saved_center',CENTER||pendingCredentials.username);localStorage.setItem('ds_token',TOKEN);localStorage.setItem('ds_role',ROLE);localStorage.setItem('ds_center',CENTER);hide('approvalLock');enterApp(r);}
+  else setLoginMessage(r.message||'Approval not granted yet.');
+ }catch(e){setLoginMessage(e.message);}
 }
 function getDeviceId(){
  let id=localStorage.getItem('ds_device');
@@ -293,6 +334,7 @@ function enterApp(r){
  if(ROLE==='CENTER'){
   show('centerPanel');document.getElementById('centerTitle').textContent=CENTER;
   msg('centerStatus','Approved center account');
+  show('centerApprovedContent');
   setDefaultDates();loadHistory();refreshCenterChat();loadCentersForOther();
  }else if(ROLE==='ADMIN1'){
   show('admin1Panel');setDefaultDates();loadReportCenters();refreshAdmin1Chat();
@@ -300,14 +342,16 @@ function enterApp(r){
   show('admin2Panel');setDefaultDates();loadAdminData();loadOtherRequests();
  }
  if(poller)clearInterval(poller);
- poller=setInterval(()=>{if(!TOKEN)return;if(ROLE==='CENTER')refreshCenterChat();if(ROLE==='ADMIN1')refreshAdmin1Chat();if(ROLE==='ADMIN2'){refreshAdmin2Chat();}},15000);
+ poller=setInterval(()=>{if(!TOKEN)return;if(ROLE==='CENTER')refreshCenterChat();if(ROLE==='ADMIN1')refreshAdmin1Chat();if(ROLE==='ADMIN2')refreshAdmin2Chat();},15000);
 }
-function resetLogin(){document.getElementById('username').value='';document.getElementById('password').value='';hide('passwordArea');}
+function resetLogin(){document.getElementById('password').value='';}
 async function logout(){
  try{await api('logout',{token:TOKEN});}catch(e){}
- TOKEN='';ROLE='';CENTER='';localStorage.removeItem('ds_token');localStorage.removeItem('ds_role');localStorage.removeItem('ds_center');
+ TOKEN='';ROLE='';CENTER='';
+ localStorage.removeItem('ds_token');localStorage.removeItem('ds_role');localStorage.removeItem('ds_center');
  if(poller)clearInterval(poller);
- hide('centerPanel');hide('admin1Panel');hide('admin2Panel');show('loginView');resetLogin();
+ hide('centerPanel');hide('admin1Panel');hide('admin2Panel');show('loginView');
+ hide('approvalLock');resetLogin();initSavedCenter();
 }
 async function restoreSession(){
  const t=localStorage.getItem('ds_token');if(!t)return;
@@ -317,15 +361,13 @@ function centerTab(which,btn){
  document.querySelectorAll('#centerPanel .tabs button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
  if(which==='stake'){show('centerStakeTab');hide('centerHistoryTab');}else{hide('centerStakeTab');show('centerHistoryTab');loadHistory();}
 }
-function calcTotal(){
- const total=num('Australian')+num('England')+num('Trackside');
- document.getElementById('liveTotal').textContent=money(total);
-}
+function calcTotal(){document.getElementById('liveTotal').textContent=money(num('Australian')+num('England')+num('Trackside'));}
 async function saveStake(){
+ if(ROLE!=='CENTER'){msg('stakeMsg','Center login required');return;}
  const data={token:TOKEN,businessDate:val('stakeDate'),Australian:val('Australian'),England:val('England'),Trackside:val('Trackside'),Due:val('Due')};
  if(!data.businessDate){msg('stakeMsg','Select date');return;}
  document.getElementById('saveBtn').disabled=true;msg('stakeMsg','Saving...');
- try{const r=await api('save',data);msg('stakeMsg',r.message|| (r.ok?'Saved successfully':'Save failed'));if(r.ok){['Australian','England','Trackside','Due'].forEach(x=>document.getElementById(x).value='');calcTotal();loadHistory();}}
+ try{const r=await api('save',data);msg('stakeMsg',r.message||(r.ok?'Saved successfully':'Save failed'));if(r.ok){['Australian','England','Trackside','Due'].forEach(x=>document.getElementById(x).value='');calcTotal();loadHistory();}}
  catch(e){msg('stakeMsg',e.message);}finally{document.getElementById('saveBtn').disabled=false;}
 }
 async function loadHistory(){
@@ -376,21 +418,20 @@ async function loadReport(){
   const r=await api('report',{token:TOKEN,center,businessDate:date});
   const area=document.getElementById('reportArea');area.innerHTML='';
   const rows=r.rows||[];
-  if(!rows.length){area.textContent='No stake records for this date';return;}
+  if(!rows.length){area.textContent='No stake records for this date';refreshAdmin1Chat();return;}
   rows.forEach(x=>{
    const d=document.createElement('div');d.className='listitem';
-   d.innerHTML='<strong></strong><div class="small"></div><div class="small"></div>';
-   d.children[0].textContent=x.Center;
-   d.children[1].textContent='Australian: '+money(x.Australian)+' | England: '+money(x.England);
-   d.children[2].textContent='Trackside: '+money(x.Trackside)+' | Due: '+money(x.Due)+' | TOTAL: '+money(x.Total);
-   area.appendChild(d);
+   const title=document.createElement('strong');title.textContent=x.Center;
+   const a=document.createElement('div');a.className='small';a.textContent='Australian: '+money(x.Australian)+' | England: '+money(x.England);
+   const b=document.createElement('div');b.className='small';b.textContent='Trackside: '+money(x.Trackside)+' | Due: '+money(x.Due)+' | TOTAL: '+money(x.Total);
+   d.append(title,a,b);area.appendChild(d);
   });
  }catch(e){msg('reportArea',e.message);}
  refreshAdmin1Chat();
 }
 async function refreshAdmin1Chat(){
- if(!TOKEN)return;
- const center=val('reportCenter');if(!center||center==='ALL'){renderMessages('admin1ChatMessages',[]);return;}
+ if(!TOKEN)return;const center=val('reportCenter');
+ if(!center||center==='ALL'){renderMessages('admin1ChatMessages',[]);return;}
  try{const r=await api('chatGet',{token:TOKEN,center});renderMessages('admin1ChatMessages',r.messages||[]);}catch(e){}
 }
 async function sendAdmin1Message(){
@@ -400,41 +441,33 @@ async function sendAdmin1Message(){
 }
 function admin2Tab(which,btn){
  document.querySelectorAll('#admin2Tabs button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
- ['centers','devices','chat','requests','manual','settings'].forEach(x=>hide('a2'+x));
- show('a2'+which);
- if(which==='chat')refreshAdmin2Chat();
- if(which==='requests')loadOtherRequests();
- if(which==='manual')setDefaultDates();
+ ['centers','devices','chat','requests','manual','settings'].forEach(x=>hide('a2'+x));show('a2'+which);
+ if(which==='chat')refreshAdmin2Chat();if(which==='requests')loadOtherRequests();if(which==='manual')setDefaultDates();
 }
 async function loadAdminData(){
  try{
-  const r=await api('adminData',{token:TOKEN});
-  CENTERS=r.centers||[];
+  const r=await api('adminData',{token:TOKEN});CENTERS=r.centers||[];
   document.getElementById('centerCount').textContent=CENTERS.length;
   document.getElementById('deviceCount').textContent=(r.devices||[]).length;
   const list=document.getElementById('centerList');list.innerHTML='';
-  const selectors=['admin2ChatCenter','manualCenter','otherTargetCenter'];
-  selectors.forEach(id=>{const s=document.getElementById(id);if(!s)return;s.innerHTML=id==='admin2ChatCenter'?'<option value="ALL">ALL CENTERS</option>':'';});
+  const selectors=['admin2ChatCenter','manualCenter'];
+  selectors.forEach(id=>{const s=document.getElementById(id);if(s)s.innerHTML=id==='admin2ChatCenter'?'<option value="ALL">ALL CENTERS</option>':'';});
   CENTERS.forEach(c=>{
    const name=c.Center||c.center,status=c.Status||c.status;
    const d=document.createElement('div');d.className='listitem';
    const title=document.createElement('strong');title.textContent=name+' ';
-   const badge=document.createElement('span');badge.className='badge';badge.textContent=status;
-   d.append(title,badge);
-   if(String(status).toUpperCase()!=='APPROVED'){
-    const b=document.createElement('button');b.className='success';b.textContent='APPROVE';b.style.marginTop='9px';b.onclick=()=>approveCenter(name);d.appendChild(b);
-   }
+   const badge=document.createElement('span');badge.className='badge';badge.textContent=status;d.append(title,badge);
+   if(String(status).toUpperCase()!=='APPROVED'){const b=document.createElement('button');b.className='success';b.textContent='APPROVE';b.style.marginTop='9px';b.onclick=()=>approveCenter(name);d.appendChild(b);}
    list.appendChild(d);
-   selectors.forEach(id=>{const s=document.getElementById(id);if(!s)return;const o=document.createElement('option');o.value=name;o.textContent=name;s.appendChild(o);});
+   selectors.forEach(id=>{const s=document.getElementById(id);if(s){const o=document.createElement('option');o.value=name;o.textContent=name;s.appendChild(o);}});
   });
   const devices=document.getElementById('deviceList');devices.innerHTML='';
   (r.devices||[]).forEach(x=>{
    const d=document.createElement('div');d.className='listitem';
-   const name=x.Center+' • '+x.DeviceName+' • '+x.DeviceID;
-   const t=document.createElement('div');t.textContent=name;d.appendChild(t);
+   const t=document.createElement('div');t.textContent=x.Center+' • '+x.DeviceName+' • '+x.DeviceID;d.appendChild(t);
    const b=document.createElement('button');b.className='danger';b.textContent='REMOVE DEVICE';b.style.marginTop='8px';b.onclick=()=>removeDevice(x.Center,x.DeviceID);d.appendChild(b);devices.appendChild(d);
   });
-  refreshAdmin2Chat();
+  loadCentersForOther();refreshAdmin2Chat();
  }catch(e){alert(e.message);}
 }
 async function approveCenter(center){
@@ -459,23 +492,27 @@ async function sendAdmin2Message(){
 }
 function toggleOtherEntry(){document.getElementById('otherEntryBox').classList.toggle('hidden');}
 async function loadCentersForOther(){
- try{const r=await api('reportCenters',{token:TOKEN});CENTERS=r.centers||[];
- const s=document.getElementById('otherTargetCenter');s.innerHTML='';
- CENTERS.forEach(c=>{const name=c.Center||c.center;if(name===CENTER)return;const o=document.createElement('option');o.value=name;o.textContent=name;s.appendChild(o);});
+ if(!TOKEN)return;
+ try{
+  const r=await api('reportCenters',{token:TOKEN});CENTERS=r.centers||[];
+  const s=document.getElementById('otherTargetCenter');s.innerHTML='';
+  CENTERS.forEach(c=>{const name=c.Center||c.center;if(name===CENTER)return;const o=document.createElement('option');o.value=name;o.textContent=name;s.appendChild(o);});
  }catch(e){}
 }
 async function sendOtherRequest(){
  const data={token:TOKEN,targetCenter:val('otherTargetCenter'),businessDate:val('otherDate'),Australian:val('otherAustralian'),England:val('otherEngland'),Trackside:val('otherTrackside'),Due:val('otherDue')};
  if(!data.targetCenter||!data.businessDate){msg('otherMsg','Select target center and date');return;}
- msg('otherMsg','Sending request...');
- try{const r=await api('otherRequestSend',data);msg('otherMsg',r.message||(r.ok?'Request sent':'Request failed'));if(r.ok)['otherAustralian','otherEngland','otherTrackside','otherDue'].forEach(x=>document.getElementById(x).value='');}
- catch(e){msg('otherMsg',e.message);}
+ msg('otherMsg','Sending message to Admin 2...');
+ try{
+  const r=await api('otherRequestSend',data);
+  msg('otherMsg',r.message||(r.ok?'Message sent to Admin 2':'Request failed'));
+  if(r.ok)['otherAustralian','otherEngland','otherTrackside','otherDue'].forEach(x=>document.getElementById(x).value='');
+ }catch(e){msg('otherMsg',e.message);}
 }
 async function loadOtherRequests(){
  if(!TOKEN)return;
  try{
-  const r=await api('otherRequests',{token:TOKEN});
-  otherRequestsCache=r.requests||r.rows||[];
+  const r=await api('otherRequests',{token:TOKEN});otherRequestsCache=r.requests||r.rows||[];
   const area=document.getElementById('otherRequestsArea');area.innerHTML='';
   if(!otherRequestsCache.length){area.textContent='No requests found';return;}
   otherRequestsCache.forEach(x=>{
@@ -484,8 +521,7 @@ async function loadOtherRequests(){
    const info=document.createElement('div');info.className='small';info.textContent='Date: '+(x.BusinessDate||'')+' • Status: '+(x.Status||'PENDING');
    const amounts=document.createElement('div');amounts.className='small';amounts.textContent='Australian: '+money(x.Australian)+' | England: '+money(x.England)+' | Trackside: '+money(x.Trackside)+' | Due: '+money(x.Due);
    d.append(title,info,amounts);
-   const b=document.createElement('button');b.className='secondary';b.textContent='LOAD INTO MANUAL ENTRY';b.style.marginTop='9px';b.onclick=()=>loadRequestIntoManual(x);d.appendChild(b);
-   area.appendChild(d);
+   const b=document.createElement('button');b.className='secondary';b.textContent='LOAD INTO MANUAL ENTRY';b.style.marginTop='9px';b.onclick=()=>loadRequestIntoManual(x);d.appendChild(b);area.appendChild(d);
   });
  }catch(e){msg('otherRequestsArea',e.message);}
 }
@@ -499,8 +535,7 @@ function loadRequestIntoManual(x){
  calcManual();admin2Tab('manual',document.querySelectorAll('#admin2Tabs button')[4]);
 }
 function calcManual(){
- const total=num('manualAustralian')+num('manualEngland')+num('manualTrackside');
- document.getElementById('manualTotal').textContent=money(total);
+ document.getElementById('manualTotal').textContent=money(num('manualAustralian')+num('manualEngland')+num('manualTrackside'));
 }
 async function manualSave(){
  const data={token:TOKEN,center:val('manualCenter'),businessDate:val('manualDate'),Australian:val('manualAustralian'),England:val('manualEngland'),Trackside:val('manualTrackside'),Due:val('manualDue')};
@@ -509,8 +544,7 @@ async function manualSave(){
  try{const r=await api('manualSave',data);msg('manualMsg',r.message||(r.ok?'Saved':'Save failed'));}catch(e){msg('manualMsg',e.message);}
 }
 document.getElementById('headerDate').textContent=todayBusinessDate();
-setDefaultDates();
-restoreSession();
+setDefaultDates();initSavedCenter();restoreSession();
 </script>
 </body>
 </html>
