@@ -4,161 +4,193 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#080510">
+<meta name="theme-color" content="#05040D">
 <title>Daily Stake - Multi Center</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
 <style>
 :root{
- --bg:#080510;--panel:#171020;--panel2:#21152f;
- --purple:#922cff;--pink:#e02cff;--green:#00e6a0;
- --red:#ff426d;--text:#fff;--muted:#aa9bb9;
+ --bg:#05040d;--panel:#100d1d;--panel2:#191329;
+ --purple:#9b45ff;--pink:#ff3dba;--green:#00e6a0;
+ --text:#fff;--muted:#a99bbd;
 }
 *{box-sizing:border-box}
 body{
- margin:0;min-height:100vh;color:var(--text);
- font-family:Arial,sans-serif;
+ margin:0;min-height:100vh;color:var(--text);font-family:Arial,sans-serif;
  background:
- radial-gradient(ellipse at 12% 5%,#45116b 0,transparent 35%),
- radial-gradient(ellipse at 95% 35%,#29104c 0,transparent 38%),
- radial-gradient(ellipse at 45% 100%,#102c35 0,transparent 40%),
- linear-gradient(145deg,#080510,#10091b 55%,#080510);
+ radial-gradient(ellipse at 10% 0%,#321052 0,transparent 34%),
+ radial-gradient(ellipse at 100% 30%,#211047 0,transparent 35%),
+ radial-gradient(ellipse at 50% 100%,#092a2b 0,transparent 42%),
+ linear-gradient(145deg,#05040d,#0b0816 55%,#05040d);
 }
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
 .hidden{display:none!important}
 header{
- position:sticky;top:0;z-index:20;padding:15px;
- background:#10091ced;backdrop-filter:blur(15px);
- border-bottom:1px solid #8f40c344;
+ position:sticky;top:0;z-index:20;padding:14px 16px;
+ background:#090713ed;backdrop-filter:blur(18px);
+ border-bottom:1px solid #a34aff40;
 }
 .brand{font-size:19px;font-weight:900;letter-spacing:1px}
-.brand span{color:#c45cff}
-.subbrand{font-size:9px;letter-spacing:2px;color:#aa9bb9;margin-top:4px}
-.wrap{max-width:1100px;margin:auto;padding:14px}
+.brand span{color:#c77aff}
+.subbrand{font-size:9px;letter-spacing:2px;color:#a99bbd;margin-top:4px}
+.wrap{max-width:1000px;margin:auto;padding:13px}
 .panel{
- background:linear-gradient(145deg,#21152fef,#100b19f5);
- border:1px solid #8745b744;border-radius:17px;
- padding:16px;margin-bottom:14px;
- box-shadow:0 12px 35px #0005;
+ background:linear-gradient(145deg,#1b1429f2,#0e0a18f5);
+ border:1px solid #8e4acb45;border-radius:17px;
+ padding:15px;margin-bottom:13px;
+ box-shadow:0 12px 35px #0007;
 }
 h2{font-size:18px;margin:0 0 14px}
-h3{font-size:14px;color:#d9b5ff;margin:0 0 12px}
+h3{font-size:13px;color:#e0c2ff;margin:0 0 12px}
 .muted{color:var(--muted);font-size:12px}
+label.muted{display:block;margin-top:7px}
 input,select,textarea{
  width:100%;padding:13px;border-radius:10px;
- background:#0d0915;color:white;border:1px solid #65427f;
+ background:#0b0813;color:white;border:1px solid #59416f;
  margin:6px 0 12px;outline:none;
 }
 input:focus,select:focus,textarea:focus{
- border-color:#c36aff;box-shadow:0 0 0 2px #a52cff22;
+ border-color:#c77aff;box-shadow:0 0 0 2px #a52cff25;
 }
 .btn{
- border:0;border-radius:10px;padding:13px 15px;
- color:white;font-weight:bold;
- background:linear-gradient(100deg,#7625dc,#c32cff);
- box-shadow:0 5px 17px #9b26e533;
- width:100%;margin:5px 0;
+ border:0;border-radius:11px;padding:13px 15px;color:white;
+ font-weight:bold;background:linear-gradient(110deg,#6520c9,#b52bff);
+ box-shadow:0 5px 18px #9b26e533;width:100%;margin:5px 0;
 }
-.btn.green{background:linear-gradient(100deg,#008e68,#00d69b);color:#001b13}
-.btn.red{background:linear-gradient(100deg,#a71949,#ff426d)}
-.btn.gray{background:#382a45}
+.btn.green{background:linear-gradient(110deg,#007e62,#00d9a0);color:#001b13}
+.btn.red{background:linear-gradient(110deg,#94133f,#f33b71)}
+.btn.gray{background:linear-gradient(110deg,#30243d,#49355c)}
 .btn.small{width:auto;padding:9px 12px;font-size:11px}
 .login{max-width:420px;margin:9vh auto;padding:22px}
 .login-logo{text-align:center;font-size:29px;font-weight:900;margin:10px}
-.login-logo span{color:#c45cff}
-.login-desc{text-align:center;color:#aa9bb9;font-size:11px;letter-spacing:2px;margin-bottom:24px}
-.clock{font-size:25px;font-weight:bold;color:#e3c0ff}
-.date{font-size:12px;color:#b7a5c8;margin-top:4px}
+.login-logo span{color:#c77aff}
+.login-desc{text-align:center;color:#a99bbd;font-size:11px;letter-spacing:2px;margin-bottom:24px}
+.clock{font-size:27px;font-weight:900;color:#e6c7ff;letter-spacing:2px}
+.date{font-size:12px;color:#c3afd8;margin-top:5px}
 .row{display:flex;align-items:center;justify-content:space-between;gap:9px;flex-wrap:wrap}
 .nav{display:flex;gap:7px;overflow-x:auto;padding:8px 0 14px;scrollbar-width:thin}
 .nav button{
  flex:0 0 auto;border:1px solid #7541a355;border-radius:10px;
- padding:11px 13px;background:#21172e;color:#d4c2e1;
+ padding:11px 13px;background:#1b1428;color:#d4c2e1;
  font-size:11px;font-weight:bold;white-space:nowrap;
 }
-.nav button.active{background:linear-gradient(100deg,#7925df,#d02cff);color:white;border-color:#d58aff}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.stat{
- padding:15px;border-radius:14px;
- background:linear-gradient(140deg,#2b1741,#171020);
- border:1px solid #a34cff44;
-}
-.stat small{font-size:11px;color:#c4b0d5}
-.stat b{display:block;font-size:21px;margin-top:8px;overflow-wrap:anywhere}
-.stat.green{background:linear-gradient(140deg,#073e35,#10251f)}
-.stat.orange{background:linear-gradient(140deg,#482817,#24150f)}
-.stat.pink{background:linear-gradient(140deg,#48133f,#241021)}
-.stat.blue{background:linear-gradient(140deg,#172a51,#11182b)}
+.nav button.active{background:linear-gradient(110deg,#6720c9,#ce37ff);color:white;border-color:#d58aff}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.stat{padding:15px;border-radius:14px;background:linear-gradient(140deg,#2b1741,#171020);border:1px solid #a34cff44}
+.stat small{font-size:10px;color:#c4b0d5}
+.stat b{display:block;font-size:20px;margin-top:8px;overflow-wrap:anywhere}
 .notice{padding:13px;border-radius:11px;background:#291c39;color:#e3c9ff;font-size:12px;margin:10px 0}
 .notice.error{background:#481626;color:#ffb3c4}
 .notice.success{background:#073d30;color:#8dffdc}
 .section-title{font-size:11px;letter-spacing:1px;color:#c68aff;margin:15px 0 9px}
-.item{padding:13px;background:#21172e;border-radius:12px;margin:8px 0;border:1px solid #ffffff12}
+.item{padding:13px;background:#171126;border-radius:12px;margin:8px 0;border:1px solid #ffffff15}
 .item .muted{margin-top:5px}
 .actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
 .actions button{flex:1}
 .tablewrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;min-width:500px;font-size:12px}
 th,td{padding:11px 9px;border-bottom:1px solid #ffffff16;text-align:left}
-th{color:#d5a5ff;background:#21172e}
+th{color:#e2baff;background:#21172e}
 .tag{display:inline-block;padding:5px 9px;border-radius:20px;font-size:10px;font-weight:bold}
 .approved{background:#064b38;color:#6dffce}
 .pending{background:#51370b;color:#ffd77a}
 .blocked{background:#54152a;color:#ff8ca8}
-.category{
- display:flex;align-items:center;justify-content:space-between;gap:10px;
- padding:13px;border-radius:12px;background:#21172e;margin:8px 0;
- border:1px solid #7541a344;
+
+/* SHARED CATEGORY CARDS */
+.category-grid{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;
+ margin:12px 0;
 }
-.category label{font-size:13px;font-weight:bold}
-.category input{width:130px;margin:0;text-align:right}
-.report-paper{
- background:#fff;color:#171020;padding:18px;border-radius:10px;
+.category-card{
+ min-width:0;min-height:112px;padding:13px 11px;
+ border-radius:15px;border:1px solid;
+ display:flex;flex-direction:column;justify-content:space-between;
+ box-shadow:inset 0 1px 0 #ffffff15,0 9px 20px #0005;
 }
-.report-paper h2,.report-paper h3{color:#28113e}
-.report-paper table{min-width:0;color:#171020}
-.report-paper th{background:#28113e;color:white}
-.report-paper td{color:#171020;border-bottom:1px solid #ddd}
-.report-paper .report-total{
- margin-top:15px;padding:14px;background:#eee2fa;
- border-radius:8px;font-size:18px;font-weight:bold;
+.category-card .cat-name{font-size:12px;font-weight:900;letter-spacing:.4px}
+.category-card .cat-icon{font-size:20px;margin-bottom:8px}
+.category-card input{
+ margin:12px 0 0;padding:11px 8px;text-align:center;
+ font-size:17px;font-weight:bold;background:#05040d99;
+ border:1px solid currentColor;color:white;border-radius:9px;
+ width:100%;
+}
+.category-card .amount{
+ font-size:19px;font-weight:900;margin-top:13px;
+ overflow-wrap:anywhere;
+}
+.cat-australian{
+ color:#f5c76b;border-color:#9c692c;
+ background:linear-gradient(145deg,#493015,#1c120b 80%);
+}
+.cat-england{
+ color:#85baff;border-color:#376cba;
+ background:linear-gradient(145deg,#172e58,#0b1328 85%);
+}
+.cat-trackside{
+ color:#ff8bd5;border-color:#a63880;
+ background:linear-gradient(145deg,#4c1742,#200d25 85%);
+}
+.cat-due{
+ color:#65f2d9;border-color:#208f85;
+ background:linear-gradient(145deg,#10443e,#0a201f 85%);
+}
+.cat-total{
+ color:#f2d28b;border-color:#9e73db;
+ background:linear-gradient(145deg,#38205b,#171027 85%);
+}
+.cat-total .amount{font-size:23px;color:#ffe2a0}
+.report-head{
+ padding:15px;border-radius:14px;
+ background:linear-gradient(120deg,#25133f,#101021);
+ border:1px solid #8b4ad655;margin-bottom:12px;
+}
+.report-capture{
+ padding:14px;border-radius:16px;
+ background:linear-gradient(145deg,#090711,#151027);
+ border:1px solid #9c6bd866;
+}
+.report-capture .report-head{text-align:center}
+.report-capture .report-head h2{margin:0;color:#f1d5ff}
+.report-capture .report-head div{font-size:10px;color:#bca4d7;margin-top:5px}
+.screenshot-btn{
+ background:linear-gradient(110deg,#5420b6,#b12cff);
+ border:1px solid #d49aff;color:white;
 }
 footer{text-align:center;color:#756780;font-size:10px;padding:22px}
 @media(min-width:650px){
- .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .wrap{padding:18px}
  .login{margin-top:12vh}
+ .category-grid{gap:14px}
+ .category-card{min-height:130px;padding:16px}
+ .category-card .cat-name{font-size:14px}
+ .category-card input{font-size:19px}
 }
 </style>
 </head>
-
 <body>
+
 <header>
  <div class="brand">DAILY STAKE <span>MULTI CENTER</span></div>
  <div class="subbrand">MULTI CENTER MANAGEMENT SYSTEM</div>
 </header>
 
-<!-- LOGIN -->
 <div id="loginScreen" class="wrap">
  <div class="panel login">
   <div class="login-logo">DAILY <span>STAKE</span></div>
   <div class="login-desc">SECURE CENTER LOGIN</div>
-
   <label class="muted">Center Name / Admin</label>
   <input id="username" placeholder="Enter center name or admin" autocomplete="username">
-
   <div id="passwordArea" class="hidden">
    <label class="muted">Admin Password</label>
    <input id="password" type="password" placeholder="Enter admin password">
   </div>
-
   <button class="btn" onclick="login()">LOGIN</button>
   <button id="changeCenterBtn" class="btn gray hidden" onclick="changeCenter()">CHANGE CENTER</button>
   <div id="loginMessage"></div>
  </div>
 </div>
 
-<!-- APP -->
 <div id="appScreen" class="hidden">
  <div class="wrap">
   <div class="panel">
@@ -179,7 +211,6 @@ footer{text-align:center;color:#756780;font-size:10px;padding:22px}
  </div>
 </div>
 
-<!-- MAINTENANCE -->
 <div id="maintenanceScreen" class="hidden">
  <div class="panel login" style="text-align:center;margin-top:25vh">
   <div style="font-size:48px">⚙️</div>
@@ -193,13 +224,8 @@ footer{text-align:center;color:#756780;font-size:10px;padding:22px}
 <script>
 const API_URL="https://script.google.com/macros/s/AKfycbwVzKrmNhfTuAfynGQ-Ple1poFp5KH1EqXDwtxF-V9IWVZgPwh6S5JI5vRw5zzscag/exec";
 
-let TOKEN="";
-let ROLE="";
-let CENTER="";
-let ADMIN_DATA=null;
-let APPROVED_CENTERS=[];
-let CURRENT_PAGE="";
-let CHAT_TIMER=null;
+let TOKEN="",ROLE="",CENTER="",ADMIN_DATA=null,APPROVED_CENTERS=[];
+let CURRENT_PAGE="",CHAT_TIMER=null,REPORT_TIMER=null;
 
 const $=id=>document.getElementById(id);
 const money=n=>"Rs. "+Number(n||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -216,11 +242,7 @@ function api(action,data={}){
   const params=new URLSearchParams({...data,action,callback});
   const script=document.createElement("script");
   const timer=setTimeout(()=>{cleanup();reject(new Error("Server response timeout"))},20000);
-  function cleanup(){
-   clearTimeout(timer);
-   delete window[callback];
-   script.remove();
-  }
+  function cleanup(){clearTimeout(timer);delete window[callback];script.remove()}
   window[callback]=result=>{cleanup();resolve(result)};
   script.onerror=()=>{cleanup();reject(new Error("Connection error"))};
   script.src=API_URL+"?"+params.toString();
@@ -230,24 +252,17 @@ function api(action,data={}){
 
 function deviceId(){
  let id=localStorage.getItem("ds_device_id");
- if(!id){
-  id="DS-"+Math.random().toString(36).slice(2)+Date.now();
-  localStorage.setItem("ds_device_id",id);
- }
+ if(!id){id="DS-"+Math.random().toString(36).slice(2)+Date.now();localStorage.setItem("ds_device_id",id)}
  return id;
 }
 function deviceName(){
  const ua=navigator.userAgent;
  return ua.includes("iPhone")?"iPhone":ua.includes("Android")?"Android Device":"Web Device";
 }
-
 function showLoginMessage(text,type=""){
  $("loginMessage").innerHTML=`<div class="notice ${type}">${escapeHTML(text)}</div>`;
 }
-
-function savedCenter(){
- return localStorage.getItem("ds_saved_center")||"";
-}
+function savedCenter(){return localStorage.getItem("ds_saved_center")||""}
 
 function initialiseLogin(){
  const saved=savedCenter();
@@ -268,52 +283,38 @@ function changeCenter(){
 }
 
 $("username").addEventListener("input",()=>{
- const isAdmin=$("username").value.trim().toLowerCase()==="admin";
- $("passwordArea").classList.toggle("hidden",!isAdmin);
+ $("passwordArea").classList.toggle("hidden",$("username").value.trim().toLowerCase()!=="admin");
 });
-
 $("username").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
 $("password").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
 
 async function login(){
- const username=$("username").value.trim();
- const password=$("password").value;
-
- if(!username){showLoginMessage("Enter center name","error");return}
- if(username.toLowerCase()==="admin"&&!password){
-  showLoginMessage("Enter admin password","error");return;
- }
-
+ const username=$("username").value.trim(),password=$("password").value;
+ if(!username){showLoginMessage("Enter center name.","error");return}
+ if(username.toLowerCase()==="admin"&&!password){showLoginMessage("Enter admin password.","error");return}
  showLoginMessage("Checking login...");
 
  try{
   const r=await api("login",{
-   username:username,
-   password:password,
-   deviceId:deviceId(),
-   deviceName:deviceName()
+   username,password,deviceId:deviceId(),deviceName:deviceName()
   });
 
   if(!r.ok){
-   showLoginMessage(r.error||"Login failed","error");
+   if(r.pending){
+    localStorage.setItem("ds_saved_center",username);
+    $("username").value=username;
+    $("username").readOnly=true;
+    $("changeCenterBtn").classList.remove("hidden");
+   }
+   if(r.maintenance){showMaintenance();return}
+   showLoginMessage(r.error||"Login failed.", "error");
    return;
   }
 
-  TOKEN=r.token;
-  ROLE=r.role;
-  CENTER=r.center||"";
-
-  if(ROLE==="CENTER_PENDING"){
-   localStorage.setItem("ds_saved_center",username);
-   $("username").readOnly=true;
-   $("changeCenterBtn").classList.remove("hidden");
-   showLoginMessage("APPROVAL NOT GRANTED. Admin 2 must approve this center before stake entry.","error");
-   return;
-  }
-
+  TOKEN=r.token;ROLE=r.role;CENTER=r.center||"";
   if(ROLE==="CENTER"){
-   localStorage.setItem("ds_saved_center",CENTER||username);
-   $("username").value=CENTER||username;
+   localStorage.setItem("ds_saved_center",CENTER);
+   $("username").value=CENTER;
    $("username").readOnly=true;
    $("changeCenterBtn").classList.remove("hidden");
   }
@@ -321,29 +322,21 @@ async function login(){
   localStorage.setItem("ds_token",TOKEN);
   localStorage.setItem("ds_role",ROLE);
   localStorage.setItem("ds_center",CENTER);
-
   await startApp();
-
- }catch(e){
-  showLoginMessage(e.message,"error");
- }
+ }catch(e){showLoginMessage(e.message,"error")}
 }
 
 async function restoreSession(){
  const token=localStorage.getItem("ds_token");
  if(!token)return;
-
  TOKEN=token;
  try{
   const r=await api("session",{token:TOKEN});
   if(r.maintenance){showMaintenance();return}
   if(!r.ok){clearSession();return}
-
-  ROLE=r.role;
-  CENTER=r.center||"";
-  if(ROLE==="CENTER_PENDING"){clearSession();return}
+  ROLE=r.role;CENTER=r.center||"";
   await startApp();
- }catch(e){}
+ }catch(e){clearSession()}
 }
 
 function clearSession(){
@@ -358,7 +351,6 @@ function clearSession(){
 async function logout(){
  try{await api("logout",{token:TOKEN})}catch(e){}
  clearSession();
- // Saved center name is deliberately retained after logout.
  initialiseLogin();
 }
 
@@ -368,128 +360,15 @@ function showMaintenance(){
  $("maintenanceScreen").classList.remove("hidden");
 }
 
-async function startApp(){
- $("loginScreen").classList.add("hidden");
- $("maintenanceScreen").classList.add("hidden");
- $("appScreen").classList.remove("hidden");
-
- $("welcome").textContent=ROLE==="ADMIN1"?"MR. HARSHANA":
- ROLE==="ADMIN2"?"MR. PASINDU":CENTER;
-
- $("roleText").textContent=ROLE==="ADMIN1"?"ADMIN 1 • REPORT ACCESS":
- ROLE==="ADMIN2"?"ADMIN 2 • SYSTEM CONTROL":"CENTER ACCOUNT";
-
- buildNavigation();
-
- if(ROLE==="ADMIN2"){
-  await loadAdminData();
-  openPage("dashboard");
- }else if(ROLE==="ADMIN1"){
-  await loadApprovedCenters();
-  openPage("reports");
- }else{
-  openPage("dashboard");
- }
-}
-
-function buildNavigation(){
- let tabs=[];
-
- if(ROLE==="ADMIN1"){
-  tabs=[
-   ["reports","📊 REPORTS"],
-   ["messages","💬 PRIVATE MESSAGES"]
-  ];
- }else if(ROLE==="ADMIN2"){
-  // Admin 2 has NO Reports tab.
-  tabs=[
-   ["dashboard","🏠 DASHBOARD"],
-   ["system","⚙️ SYSTEM ACCESS"],
-   ["centers","🏢 CENTER MANAGEMENT"],
-   ["devices","📱 DEVICES"],
-   ["manual","✍️ MANUAL ENTRY"],
-   ["requests","📩 OTHER REQUESTS"],
-   ["messages","💬 PRIVATE MESSAGES"]
-  ];
- }else{
-  tabs=[
-   ["dashboard","🏠 DASHBOARD"],
-   ["newstake","➕ NEW STAKE"],
-   ["records","📋 RECORDS"],
-   ["messages","💬 MESSAGES"]
-  ];
- }
-
- $("navigation").innerHTML=tabs.map(t=>
-  `<button id="nav_${t[0]}" onclick="openPage('${t[0]}')">${t[1]}</button>`
- ).join("");
-}
-
-async function openPage(page){
- CURRENT_PAGE=page;
- document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
- const active=$("nav_"+page);
- if(active)active.classList.add("active");
-
- if(CHAT_TIMER){clearInterval(CHAT_TIMER);CHAT_TIMER=null}
-
- // Enforce role-specific navigation.
- if(ROLE==="ADMIN2"&&page==="reports")return;
- if(ROLE==="ADMIN1"&&!["reports","messages"].includes(page))return;
- if(ROLE==="CENTER"&&!["dashboard","newstake","records","messages"].includes(page))return;
-
- $("content").innerHTML='<div class="panel muted">Loading...</div>';
-
- try{
-  if(page==="dashboard")await dashboardPage();
-  else if(page==="system")await systemPage();
-  else if(page==="centers")await centersPage();
-  else if(page==="devices")await devicesPage();
-  else if(page==="manual")await manualPage();
-  else if(page==="requests")await requestsPage();
-  else if(page==="reports")await reportsPage();
-  else if(page==="newstake")newStakePage();
-  else if(page==="records")await recordsPage();
-  else if(page==="messages")await messagesPage();
- }catch(e){
-  $("content").innerHTML=`<div class="notice error">${escapeHTML(e.message)}</div>`;
- }
-}
-
-async function loadAdminData(){
- const r=await api("adminData",{token:TOKEN});
- if(!r.ok)throw new Error(r.error||"Cannot load admin data");
- ADMIN_DATA=r;
-}
-
-async function loadApprovedCenters(){
- const r=await api("reportCenters",{token:TOKEN});
- if(!r.ok)throw new Error(r.error||"Cannot load centers");
- APPROVED_CENTERS=r.centers||[];
-}
-
-function centerNames(){
- return (ADMIN_DATA?.centers||[]).map(c=>typeof c==="string"?c:c.name).filter(Boolean);
-}
-function approvedNames(){
- return APPROVED_CENTERS.map(c=>typeof c==="string"?c:c.name).filter(Boolean);
-}
-function statusTag(status){
- const s=String(status||"PENDING").toUpperCase();
- const cls=s==="APPROVED"?"approved":s==="BLOCKED"?"blocked":"pending";
- return `<span class="tag ${cls}">${escapeHTML(s)}</span>`;
-}
-
 function businessDateLocal(){
- const now=new Date();
  const parts=new Intl.DateTimeFormat("en-CA",{
   timeZone:"Asia/Colombo",year:"numeric",month:"2-digit",day:"2-digit",
   hour:"2-digit",hourCycle:"h23"
- }).formatToParts(now);
+ }).formatToParts(new Date());
  const o={};parts.forEach(p=>o[p.type]=p.value);
- let d=new Date(Number(o.year),Number(o.month)-1,Number(o.day));
- if(Number(o.hour)<4)d.setDate(d.getDate()-1);
- return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+ let d=new Date(Date.UTC(Number(o.year),Number(o.month)-1,Number(o.day)));
+ if(Number(o.hour)<4)d.setUTCDate(d.getUTCDate()-1);
+ return d.toISOString().slice(0,10);
 }
 function todayISO(){return businessDateLocal()}
 
@@ -503,29 +382,147 @@ function updateClock(){
 setInterval(updateClock,1000);
 updateClock();
 
+async function startApp(){
+ $("loginScreen").classList.add("hidden");
+ $("maintenanceScreen").classList.add("hidden");
+ $("appScreen").classList.remove("hidden");
+
+ $("welcome").textContent=ROLE==="ADMIN1"?"MR. HARSHANA":
+  ROLE==="ADMIN2"?"MR. PASINDU":CENTER;
+ $("roleText").textContent=ROLE==="ADMIN1"?"ADMIN 1 • REPORT ACCESS":
+  ROLE==="ADMIN2"?"ADMIN 2 • SYSTEM CONTROL":"APPROVED CENTER ACCOUNT";
+
+ buildNavigation();
+ if(ROLE==="ADMIN2"){await loadAdminData();openPage("dashboard")}
+ else if(ROLE==="ADMIN1"){await loadApprovedCenters();openPage("reports")}
+ else openPage("dashboard");
+}
+
+function buildNavigation(){
+ let tabs=[];
+ if(ROLE==="ADMIN1"){
+  tabs=[["reports","📊 REPORTS"],["messages","💬 PRIVATE MESSAGES"]];
+ }else if(ROLE==="ADMIN2"){
+  tabs=[
+   ["dashboard","🏠 DASHBOARD"],["system","⚙️ SYSTEM ACCESS"],
+   ["centers","🏢 CENTER MANAGEMENT"],["devices","📱 DEVICES"],
+   ["manual","✍️ MANUAL ENTRY"],["requests","📩 OTHER REQUESTS"],
+   ["messages","💬 PRIVATE MESSAGES"]
+  ];
+ }else{
+  tabs=[
+   ["dashboard","🏠 DASHBOARD"],["newstake","➕ NEW STAKE"],
+   ["records","📋 RECORDS"],["messages","💬 MESSAGES"]
+  ];
+ }
+ $("navigation").innerHTML=tabs.map(t=>
+  `<button id="nav_${t[0]}" onclick="openPage('${t[0]}')">${t[1]}</button>`
+ ).join("");
+}
+
+async function openPage(page){
+ CURRENT_PAGE=page;
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+ const active=$("nav_"+page);if(active)active.classList.add("active");
+ if(CHAT_TIMER){clearInterval(CHAT_TIMER);CHAT_TIMER=null}
+ if(REPORT_TIMER){clearInterval(REPORT_TIMER);REPORT_TIMER=null}
+
+ if(ROLE==="ADMIN2"&&["reports","newstake","records"].includes(page))return;
+ if(ROLE==="ADMIN1"&&!["reports","messages"].includes(page))return;
+ if(ROLE==="CENTER"&&!["dashboard","newstake","records","messages"].includes(page))return;
+
+ $("content").innerHTML='<div class="panel muted">Loading...</div>';
+ try{
+  if(page==="dashboard")await dashboardPage();
+  else if(page==="system")await systemPage();
+  else if(page==="centers")await centersPage();
+  else if(page==="devices")await devicesPage();
+  else if(page==="manual")await manualPage();
+  else if(page==="requests")await requestsPage();
+  else if(page==="reports")await reportsPage();
+  else if(page==="newstake")await newStakePage();
+  else if(page==="records")await recordsPage();
+  else if(page==="messages")await messagesPage();
+ }catch(e){$("content").innerHTML=`<div class="notice error">${escapeHTML(e.message)}</div>`}
+}
+
+async function loadAdminData(){
+ const r=await api("adminData",{token:TOKEN});
+ if(!r.ok)throw new Error(r.error||"Cannot load admin data");
+ ADMIN_DATA=r;
+}
+async function loadApprovedCenters(){
+ const r=await api("reportCenters",{token:TOKEN});
+ if(!r.ok)throw new Error(r.error||"Cannot load centers");
+ APPROVED_CENTERS=r.centers||[];
+}
+function centerNames(){return (ADMIN_DATA?.centers||[]).map(c=>c.name).filter(Boolean)}
+function approvedNames(){return APPROVED_CENTERS.filter(Boolean)}
+function statusTag(status){
+ const s=String(status||"PENDING").toUpperCase();
+ return `<span class="tag ${s==="APPROVED"?"approved":s==="BLOCKED"?"blocked":"pending"}">${escapeHTML(s)}</span>`;
+}
+
+/* SHARED CATEGORY CARD BUILDER */
+function categoryCard(name,icon,css,value,id){
+ const amount=id
+  ?`<input id="${id}" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal">`
+  :`<div class="amount">${money(value)}</div>`;
+ return `<div class="category-card ${css}">
+  <div><div class="cat-icon">${icon}</div><div class="cat-name">${name}</div></div>
+  ${amount}
+ </div>`;
+}
+function stakeInputCards(prefix=""){
+ return `<div class="category-grid">
+  ${categoryCard("AUSTRALIAN","🇦🇺","cat-australian",0,prefix+"australian")}
+  ${categoryCard("ENGLAND","🏴","cat-england",0,prefix+"england")}
+  ${categoryCard("TRACKSIDE","🏇","cat-trackside",0,prefix+"trackside")}
+  ${categoryCard("DUE","💰","cat-due",0,prefix+"due")}
+ </div>`;
+}
+function stakeValueCards(data){
+ const x=data||{};
+ return `<div class="category-grid">
+  ${categoryCard("AUSTRALIAN","🇦🇺","cat-australian",x.australian)}
+  ${categoryCard("ENGLAND","🏴","cat-england",x.england)}
+  ${categoryCard("TRACKSIDE","🏇","cat-trackside",x.trackside)}
+  ${categoryCard("DUE","💰","cat-due",x.due)}
+ </div>
+ <div class="category-card cat-total">
+  <div><div class="cat-icon">💎</div><div class="cat-name">TOTAL • DUE EXCLUDED</div></div>
+  <div class="amount">${money(x.total)}</div>
+ </div>`;
+}
+function sumRows(rows){
+ const s={australian:0,england:0,trackside:0,due:0,total:0};
+ (rows||[]).forEach(r=>{
+  Object.keys(s).forEach(k=>s[k]+=Number(r[k]||0));
+ });
+ return s;
+}
+
+/* DASHBOARDS */
 async function dashboardPage(){
  if(ROLE==="ADMIN2"){
   await loadAdminData();
   const cs=ADMIN_DATA.centers||[];
-  const approved=cs.filter(c=>String(c.status).toUpperCase()==="APPROVED").length;
-  const pending=cs.filter(c=>String(c.status).toUpperCase()==="PENDING").length;
-  const blocked=cs.filter(c=>String(c.status).toUpperCase()==="BLOCKED").length;
-  const devices=(ADMIN_DATA.devices||[]).length;
-
+  const approved=cs.filter(c=>c.status==="APPROVED").length;
+  const pending=cs.filter(c=>c.status==="PENDING").length;
+  const blocked=cs.filter(c=>c.status==="BLOCKED").length;
   $("content").innerHTML=`
    <h2>Admin 2 Dashboard</h2>
    <div class="grid">
     <div class="stat"><small>REGISTERED CENTERS</small><b>${cs.length}</b></div>
-    <div class="stat green"><small>APPROVED CENTERS</small><b>${approved}</b></div>
-    <div class="stat orange"><small>PENDING APPROVALS</small><b>${pending}</b></div>
-    <div class="stat pink"><small>BLOCKED CENTERS</small><b>${blocked}</b></div>
-    <div class="stat blue"><small>REGISTERED DEVICES</small><b>${devices}</b></div>
+    <div class="stat"><small>APPROVED CENTERS</small><b>${approved}</b></div>
+    <div class="stat"><small>PENDING APPROVALS</small><b>${pending}</b></div>
+    <div class="stat"><small>BLOCKED CENTERS</small><b>${blocked}</b></div>
+    <div class="stat"><small>REGISTERED DEVICES</small><b>${ADMIN_DATA.devices.length}</b></div>
     <div class="stat"><small>MAINTENANCE</small><b>${ADMIN_DATA.maintenance?"ON":"OFF"}</b></div>
    </div>
    <div class="panel" style="margin-top:14px">
     <h3>SYSTEM CONTROL</h3>
-    <p class="muted">Manage center approvals, devices, maintenance and stake requests.</p>
-    <button class="btn" onclick="openPage('system')">OPEN SYSTEM ACCESS</button>
+    <button class="btn" onclick="openPage('system')">SYSTEM ACCESS</button>
     <button class="btn gray" onclick="openPage('centers')">CENTER MANAGEMENT</button>
     <button class="btn gray" onclick="openPage('devices')">DEVICE MANAGEMENT</button>
    </div>`;
@@ -533,40 +530,30 @@ async function dashboardPage(){
  }
 
  if(ROLE==="CENTER"){
-  const r=await api("history",{token:TOKEN,center:CENTER,date:todayISO()});
+  const r=await api("history",{token:TOKEN,date:todayISO()});
   if(!r.ok)throw new Error(r.error||"Could not load dashboard");
-  const rows=r.rows||[];
-  const rec=rows.length?rows[rows.length-1]:{};
+  const sums=sumRows(r.rows);
   $("content").innerHTML=`
    <h2>${escapeHTML(CENTER)} Dashboard</h2>
-   <div class="grid">
-    <div class="stat green"><small>AUSTRALIAN</small><b>${money(rec.australian)}</b></div>
-    <div class="stat orange"><small>ENGLAND</small><b>${money(rec.england)}</b></div>
-    <div class="stat pink"><small>TRACKSIDE</small><b>${money(rec.trackside)}</b></div>
-    <div class="stat blue"><small>DUE</small><b>${money(rec.due)}</b></div>
+   <div class="report-head">
+    <b>${escapeHTML(CENTER)}</b>
+    <div class="muted">BUSINESS DATE: ${todayISO()}</div>
    </div>
-   <div class="panel" style="margin-top:14px">
-    <div class="muted">TODAY'S STAKE TOTAL (Due excluded)</div>
-    <div style="font-size:28px;font-weight:bold;color:#72ffcb;margin-top:8px">${money(rec.total)}</div>
-    <button class="btn" onclick="openPage('newstake')">ADD NEW STAKE</button>
-    <button class="btn gray" onclick="openPage('records')">VIEW RECORDS</button>
-   </div>`;
+   ${stakeValueCards(sums)}
+   <button class="btn" onclick="openPage('newstake')">ADD NEW STAKE</button>
+   <button class="btn gray" onclick="openPage('records')">VIEW RECORDS</button>`;
  }
 }
 
+/* ADMIN 2 PAGES */
 async function systemPage(){
- if(ROLE!=="ADMIN2")return;
  await loadAdminData();
  const on=!!ADMIN_DATA.maintenance;
-
  $("content").innerHTML=`
   <h2>System Access</h2>
   <div class="panel">
    <h3>MAINTENANCE CONTROL</h3>
-   <div class="notice ${on?"error":"success"}">
-    SYSTEM STATUS: <b>${on?"UNDER MAINTENANCE":"ACTIVE"}</b>
-   </div>
-   <p class="muted">When maintenance is ON, center users cannot access the system.</p>
+   <div class="notice ${on?"error":"success"}">SYSTEM STATUS: <b>${on?"UNDER MAINTENANCE":"ACTIVE"}</b></div>
    <button class="btn ${on?"green":"red"}" onclick="setMaintenance('${on?"OFF":"ON"}')">
     TURN MAINTENANCE ${on?"OFF":"ON"}
    </button>
@@ -574,74 +561,56 @@ async function systemPage(){
   <div class="panel">
    <h3>CENTER ACCESS SUMMARY</h3>
    <div class="grid">
-    <div class="stat"><small>ALL CENTERS</small><b>${(ADMIN_DATA.centers||[]).length}</b></div>
-    <div class="stat green"><small>ACTIVE DEVICES</small><b>${(ADMIN_DATA.devices||[]).length}</b></div>
+    <div class="stat"><small>ALL CENTERS</small><b>${ADMIN_DATA.centers.length}</b></div>
+    <div class="stat"><small>REGISTERED DEVICES</small><b>${ADMIN_DATA.devices.length}</b></div>
    </div>
-   <button class="btn gray" onclick="openPage('centers')">MANAGE CENTERS</button>
-   <button class="btn gray" onclick="openPage('devices')">MANAGE DEVICES</button>
   </div>`;
 }
-
 async function setMaintenance(value){
  if(!confirm("Set maintenance "+value+"?"))return;
  const r=await api("maintenance",{token:TOKEN,value});
  if(!r.ok){alert(r.error||"Update failed");return}
- await loadAdminData();
  await systemPage();
 }
-
 async function centersPage(){
- if(ROLE!=="ADMIN2")return;
  await loadAdminData();
-
  const centers=ADMIN_DATA.centers||[];
  $("content").innerHTML=`
   <h2>Center Management</h2>
-  <div class="notice">Approve a center before it can enter and save stake.</div>
-  <button class="btn gray" onclick="refreshCenters()">REFRESH CENTERS</button>
+  <div class="notice">Admin 2 approval is required before a center can log in.</div>
+  <button class="btn gray" onclick="centersPage()">REFRESH CENTERS</button>
   <div class="section-title">REGISTERED CENTERS (${centers.length})</div>
-  ${centers.length?centers.map(c=>{
-   const name=typeof c==="string"?c:c.name;
-   const status=typeof c==="string"?"PENDING":c.status;
-   return `<div class="item">
-    <div class="row"><b>${escapeHTML(name)}</b>${statusTag(status)}</div>
-    <div class="muted">Center account</div>
+  ${centers.map(c=>`
+   <div class="item">
+    <div class="row"><b>${escapeHTML(c.name)}</b>${statusTag(c.status)}</div>
+    <div class="muted">Created: ${escapeHTML(c.created)}</div>
     <div class="actions">
-     <button class="btn green small" onclick="approveCenter('${escapeHTML(name)}','APPROVED')">APPROVE</button>
-     <button class="btn red small" onclick="approveCenter('${escapeHTML(name)}','BLOCKED')">BLOCK</button>
-     <button class="btn gray small" onclick="approveCenter('${escapeHTML(name)}','PENDING')">PENDING</button>
+     <button class="btn green small" onclick="approveCenter('${escapeHTML(c.name)}','APPROVED')">APPROVE</button>
+     <button class="btn red small" onclick="approveCenter('${escapeHTML(c.name)}','BLOCKED')">BLOCK</button>
+     <button class="btn gray small" onclick="approveCenter('${escapeHTML(c.name)}','PENDING')">PENDING</button>
     </div>
-   </div>`;
-  }).join(""):'<div class="notice">No registered centers.</div>'}`;
+   </div>`).join("")||'<div class="notice">No registered centers.</div>'}`;
 }
-
-async function refreshCenters(){await centersPage()}
-
 async function approveCenter(center,status){
  const r=await api("approve",{token:TOKEN,center,status});
  if(!r.ok){alert(r.error||"Could not update center");return}
- await loadAdminData();
  await centersPage();
 }
-
 async function devicesPage(){
- if(ROLE!=="ADMIN2")return;
  await loadAdminData();
  const devices=ADMIN_DATA.devices||[];
-
  $("content").innerHTML=`
   <h2>Device Management</h2>
-  <div class="notice">Each center can use a maximum of 2 registered devices.</div>
+  <div class="notice">Each center can use a maximum of 2 devices.</div>
   <button class="btn gray" onclick="devicesPage()">REFRESH DEVICES</button>
-  ${devices.length?devices.map(d=>`
+  ${devices.map(d=>`
    <div class="item">
     <b>${escapeHTML(d.center)}</b>
-    <div class="muted">${escapeHTML(d.deviceName||"Device")} • ${escapeHTML(d.deviceId)}</div>
-    <div class="muted">Last active: ${escapeHTML(d.lastSeen||"")}</div>
+    <div class="muted">${escapeHTML(d.deviceName)} • ${escapeHTML(d.deviceId)}</div>
+    <div class="muted">Last active: ${escapeHTML(d.lastSeen)}</div>
     <button class="btn red small" onclick="removeDevice('${escapeHTML(d.center)}','${escapeHTML(d.deviceId)}')">REMOVE DEVICE</button>
-   </div>`).join(""):'<div class="notice">No registered devices.</div>'}`;
+   </div>`).join("")||'<div class="notice">No registered devices.</div>'}`;
 }
-
 async function removeDevice(center,id){
  if(!confirm("Remove this device?"))return;
  const r=await api("removeDevice",{token:TOKEN,center,deviceId:id});
@@ -649,56 +618,83 @@ async function removeDevice(center,id){
  await devicesPage();
 }
 
-function amountField(id,label){
- return `<div class="category"><label>${label}</label><input id="${id}" type="number" min="0" step="0.01" placeholder="0.00"></div>`;
-}
-
-function newStakePage(){
+/* CENTER STAKE ENTRY */
+async function newStakePage(){
  if(ROLE!=="CENTER")return;
  $("content").innerHTML=`
-  <h2>New Stake</h2>
-  <div class="notice success">Center: <b>${escapeHTML(CENTER)}</b> • Business Date: <b>${todayISO()}</b></div>
+  <h2>New Stake Entry</h2>
+  <div class="report-head">
+   <b>${escapeHTML(CENTER)}</b>
+   <div class="muted">BUSINESS DATE: ${todayISO()}</div>
+  </div>
   <div class="panel">
-   ${amountField("australian","🇦🇺 Australian")}
-   ${amountField("england","🏴 England")}
-   ${amountField("trackside","🏇 Trackside")}
-   ${amountField("due","💰 Due")}
-   <div class="notice">Due is recorded separately and excluded from the total.</div>
+   <h3>ENTER STAKE AMOUNTS</h3>
+   ${stakeInputCards()}
+   <div class="notice">Due is recorded separately and excluded from Total.</div>
    <button class="btn green" onclick="saveStake()">SAVE STAKE</button>
-   <button class="btn gray" onclick="clearStakeFields()">CLEAR</button>
+   <button class="btn gray" onclick="clearStakeFields()">CLEAR FIELDS</button>
    <div id="saveMessage"></div>
+  </div>
+  <div class="panel">
+   <h3>SEND STAKE REQUEST TO ANOTHER CENTER</h3>
+   <p class="muted">Send a stake entry request to Admin 2 for another approved center.</p>
+   <label class="muted">Target Center</label>
+   <select id="requestTarget"><option value="">Loading centers...</option></select>
+   <label class="muted">Business Date</label>
+   <input id="requestDate" type="date" value="${todayISO()}">
+   ${stakeInputCards("request_")}
+   <label class="muted">Message (Optional)</label>
+   <textarea id="requestMessage" rows="2" placeholder="Enter a note for Admin 2"></textarea>
+   <button class="btn" onclick="sendOtherRequest()">SEND OTHER CENTER REQUEST</button>
+   <div id="requestMessageResult"></div>
   </div>`;
+ await loadRequestTargets();
 }
-
 function clearStakeFields(){
  ["australian","england","trackside","due"].forEach(id=>$(id).value="");
 }
-
 async function saveStake(){
- if(ROLE!=="CENTER"){alert("Center access only");return}
+ if(ROLE!=="CENTER")return;
  const data={
-  token:TOKEN,
-  australian:$("australian").value||0,
-  england:$("england").value||0,
-  trackside:$("trackside").value||0,
+  token:TOKEN,australian:$("australian").value||0,
+  england:$("england").value||0,trackside:$("trackside").value||0,
   due:$("due").value||0
  };
  $("saveMessage").innerHTML='<div class="notice">Saving...</div>';
  try{
   const r=await api("save",data);
-  if(!r.ok){
-   $("saveMessage").innerHTML=`<div class="notice error">${escapeHTML(r.error||"Save failed. Approval may be required.")}</div>`;
-   return;
-  }
-  $("saveMessage").innerHTML='<div class="notice success">Stake saved successfully.</div>';
+  if(!r.ok){$("saveMessage").innerHTML=`<div class="notice error">${escapeHTML(r.error||"Save failed")}</div>`;return}
+  $("saveMessage").innerHTML=`<div class="notice success">Stake saved successfully. Total: ${money(r.total)}</div>`;
   clearStakeFields();
- }catch(e){
-  $("saveMessage").innerHTML=`<div class="notice error">${escapeHTML(e.message)}</div>`;
- }
+ }catch(e){$("saveMessage").innerHTML=`<div class="notice error">${escapeHTML(e.message)}</div>`}
+}
+async function loadRequestTargets(){
+ const r=await api("centerTargets",{token:TOKEN});
+ if(!r.ok){$("requestTarget").innerHTML='<option value="">Could not load centers</option>';return}
+ $("requestTarget").innerHTML='<option value="">Select another center</option>'+
+  (r.centers||[]).map(n=>`<option value="${escapeHTML(n)}">${escapeHTML(n)}</option>`).join("");
+}
+async function sendOtherRequest(){
+ const targetCenter=$("requestTarget").value;
+ if(!targetCenter){alert("Select target center.");return}
+ const data={
+  token:TOKEN,targetCenter,date:$("requestDate").value,
+  australian:$("request_australian").value||0,
+  england:$("request_england").value||0,
+  trackside:$("request_trackside").value||0,
+  due:$("request_due").value||0
+ };
+ const msg=$("requestMessage").value.trim();
+ data.message=msg;
+ $("requestMessageResult").innerHTML='<div class="notice">Sending request...</div>';
+ const r=await api("otherRequestSend",data);
+ $("requestMessageResult").innerHTML=r.ok?
+  '<div class="notice success">Request sent to Admin 2 successfully.</div>':
+  `<div class="notice error">${escapeHTML(r.error||"Request failed")}</div>`;
 }
 
+/* CENTER RECORDS */
 async function recordsPage(){
- if(ROLE!=="CENTER")return;
  $("content").innerHTML=`
   <h2>Stake Records</h2>
   <label class="muted">Select Business Date</label>
@@ -707,148 +703,134 @@ async function recordsPage(){
   <div id="recordsResult"></div>`;
  await loadRecords();
 }
-
 async function loadRecords(){
  const date=$("recordDate").value;
- const r=await api("history",{token:TOKEN,center:CENTER,date});
- if(!r.ok){$("recordsResult").innerHTML=`<div class="notice error">${escapeHTML(r.error||"Could not load records")}</div>`;return}
- const rows=r.rows||[];
- $("recordsResult").innerHTML=rows.length?`
-  <div class="panel">
-   <h3>${escapeHTML(CENTER)} • ${escapeHTML(date)}</h3>
-   <div class="tablewrap"><table>
-    <tr><th>Category</th><th>Amount</th></tr>
-    <tr><td>Australian</td><td>${money(rows[0].australian)}</td></tr>
-    <tr><td>England</td><td>${money(rows[0].england)}</td></tr>
-    <tr><td>Trackside</td><td>${money(rows[0].trackside)}</td></tr>
-    <tr><td>Due</td><td>${money(rows[0].due)}</td></tr>
-   </table></div>
-   <div class="report-total">Total (Due excluded): ${money(rows[0].total)}</div>
-  </div>`:'<div class="notice">No records found for this date.</div>';
+ const r=await api("history",{token:TOKEN,date});
+ if(!r.ok){$("recordsResult").innerHTML=`<div class="notice error">${escapeHTML(r.error)}</div>`;return}
+ const sums=sumRows(r.rows);
+ $("recordsResult").innerHTML=(r.rows||[]).length?`
+  <div class="report-head"><b>${escapeHTML(CENTER)}</b><div>BUSINESS DATE: ${escapeHTML(date)}</div></div>
+  ${stakeValueCards(sums)}
+  <div class="notice">Entries saved: ${(r.rows||[]).length}</div>`:
+  '<div class="notice">No records found for this date.</div>';
 }
 
-/* ADMIN 1 REPORTS ONLY */
+/* ADMIN 1 REPORT */
 async function reportsPage(){
  if(ROLE!=="ADMIN1")return;
  await loadApprovedCenters();
-
- const options=approvedNames().map(n=>`<option value="${escapeHTML(n)}">${escapeHTML(n)}</option>`).join("");
+ const names=approvedNames();
+ if(!names.length){
+  $("content").innerHTML='<h2>Daily Reports</h2><div class="notice">No approved centers found.</div>';
+  return;
+ }
  $("content").innerHTML=`
   <h2>Daily Reports</h2>
   <div class="panel">
-   <label class="muted">Business Date</label>
-   <input id="reportDate" type="date" value="${todayISO()}">
-   <label class="muted">Center</label>
+   <label class="muted">Select Center</label>
    <select id="reportCenter">
     <option value="ALL">ALL CENTERS</option>
-    ${options}
+    ${names.map(n=>`<option value="${escapeHTML(n)}">${escapeHTML(n)}</option>`).join("")}
    </select>
+   <label class="muted">Select Business Date</label>
+   <input id="reportDate" type="date" value="${todayISO()}">
    <button class="btn" onclick="loadReport()">VIEW REPORT</button>
   </div>
   <div id="reportResult"></div>`;
+ $("reportCenter").addEventListener("change",loadReport);
+ $("reportDate").addEventListener("change",loadReport);
  await loadReport();
 }
-
 async function loadReport(){
  if(ROLE!=="ADMIN1")return;
- const date=$("reportDate").value;
- const center=$("reportCenter").value;
+ const date=$("reportDate")?.value||todayISO();
+ const center=$("reportCenter")?.value||"ALL";
+ $("reportResult").innerHTML='<div class="notice">Loading report...</div>';
  const r=await api("report",{token:TOKEN,date,center});
  if(!r.ok){
   $("reportResult").innerHTML=`<div class="notice error">${escapeHTML(r.error||"Report loading failed")}</div>`;
   return;
  }
-
  const rows=r.rows||[];
- const totals=r.totals||{};
- const resultRows=rows.map(x=>`
-  <tr>
-   <td>${escapeHTML(x.center||x.name||"")}</td>
-   <td>${money(x.australian)}</td>
-   <td>${money(x.england)}</td>
-   <td>${money(x.trackside)}</td>
-   <td>${money(x.due)}</td>
-   <td><b>${money(x.total)}</b></td>
-  </tr>`).join("");
+ const total=r.total||{};
+
+ let cards="";
+ if(center==="ALL"){
+  cards=rows.map(x=>`
+   <div class="panel">
+    <div class="report-head"><b>${escapeHTML(x.center)}</b><div>${escapeHTML(date)}</div></div>
+    ${stakeValueCards(x)}
+   </div>`).join("");
+ }else{
+  const x=rows[0]||{australian:0,england:0,trackside:0,due:0,total:0};
+  cards=`
+   <div class="report-head"><b>${escapeHTML(center)}</b><div>BUSINESS DATE: ${escapeHTML(date)}</div></div>
+   ${stakeValueCards(x)}`;
+ }
 
  $("reportResult").innerHTML=`
   <div class="panel">
    <div class="row">
     <h3>REPORT PREVIEW</h3>
-    <button class="btn green small" onclick="takeReportScreenshot()">📸 TAKE SCREENSHOT</button>
+    <button class="btn screenshot-btn small" onclick="takeReportScreenshot()">📸 SCREENSHOT</button>
    </div>
-   <div id="reportCapture" class="report-paper">
-    <div style="text-align:center;margin-bottom:15px">
-     <h2 style="margin:0">DAILY STAKE REPORT</h2>
-     <div style="font-size:12px">MULTI CENTER MANAGEMENT SYSTEM</div>
+   <div id="reportCapture" class="report-capture">
+    <div class="report-head">
+     <h2>DAILY STAKE REPORT</h2>
+     <div>MULTI CENTER MANAGEMENT SYSTEM</div>
+     <div>BUSINESS DATE: ${escapeHTML(date)}</div>
+     <div>CENTER: ${escapeHTML(center==="ALL"?"ALL CENTERS":center)}</div>
     </div>
-    <p><b>Business Date:</b> ${escapeHTML(date)}</p>
-    <p><b>Center:</b> ${escapeHTML(center==="ALL"?"ALL CENTERS":center)}</p>
-    <div style="overflow-x:auto">
-     <table>
-      <tr><th>Center</th><th>Australian</th><th>England</th><th>Trackside</th><th>Due</th><th>Total</th></tr>
-      ${resultRows||'<tr><td colspan="6">No report data</td></tr>'}
-     </table>
-    </div>
-    <div class="report-total">
-     GRAND TOTAL (DUE EXCLUDED): ${money(totals.total)}
-    </div>
-    <div style="font-size:10px;color:#666;margin-top:18px;text-align:center">
+    ${cards||'<div class="notice">No report data found.</div>'}
+    ${center==="ALL"?`
+     <div class="category-card cat-total">
+      <div><div class="cat-icon">💎</div><div class="cat-name">GRAND TOTAL • DUE EXCLUDED</div></div>
+      <div class="amount">${money(total.total)}</div>
+     </div>`:""}
+    <div style="font-size:10px;color:#aa9bbd;margin-top:16px;text-align:center">
      DAILY STAKE • ${escapeHTML(date)}
     </div>
    </div>
   </div>`;
 }
-
 async function takeReportScreenshot(){
  if(ROLE!=="ADMIN1")return;
  const target=$("reportCapture");
  if(!target){alert("Load a report first.");return}
- if(!window.html2canvas){alert("Screenshot tool could not load. Check your internet connection.");return}
+ if(!window.html2canvas){alert("Screenshot tool could not load.");return}
  try{
-  const canvas=await html2canvas(target,{scale:2,backgroundColor:"#ffffff",useCORS:true});
+  const canvas=await html2canvas(target,{scale:2,backgroundColor:"#090711",useCORS:true});
   const link=document.createElement("a");
-  link.download="Daily-Stake-Report-"+$("reportDate").value+".png";
+  link.download="Daily-Stake-"+$("reportCenter").value+"-"+$("reportDate").value+".png";
   link.href=canvas.toDataURL("image/png");
   link.click();
- }catch(e){
-  alert("Screenshot failed: "+e.message);
- }
+ }catch(e){alert("Screenshot failed: "+e.message)}
 }
 
 /* ADMIN 2 MANUAL ENTRY */
 async function manualPage(){
- if(ROLE!=="ADMIN2")return;
  await loadAdminData();
  const names=centerNames();
-
  $("content").innerHTML=`
   <h2>Manual Stake Entry</h2>
   <div class="panel">
    <label class="muted">Select Center</label>
    <select id="manualCenter">${names.map(n=>`<option value="${escapeHTML(n)}">${escapeHTML(n)}</option>`).join("")}</select>
-   <label class="muted">Select Business Date</label>
+   <label class="muted">Business Date</label>
    <input id="manualDate" type="date" value="${todayISO()}">
-   ${amountField("manualAustralian","🇦🇺 Australian")}
-   ${amountField("manualEngland","🏴 England")}
-   ${amountField("manualTrackside","🏇 Trackside")}
-   ${amountField("manualDue","💰 Due")}
+   ${stakeInputCards("manual")}
    <button class="btn green" onclick="saveManual()">SAVE MANUAL STAKE</button>
    <div id="manualMessage"></div>
   </div>`;
 }
-
 async function saveManual(){
- const data={
-  token:TOKEN,
-  center:$("manualCenter").value,
-  date:$("manualDate").value,
-  australian:$("manualAustralian").value||0,
-  england:$("manualEngland").value||0,
-  trackside:$("manualTrackside").value||0,
-  due:$("manualDue").value||0
- };
- const r=await api("manualSave",data);
+ const r=await api("manualSave",{
+  token:TOKEN,center:$("manualCenter").value,date:$("manualDate").value,
+  australian:$("manualaustralian").value||0,
+  england:$("manualengland").value||0,
+  trackside:$("manualtrackside").value||0,
+  due:$("manualdue").value||0
+ });
  $("manualMessage").innerHTML=r.ok?
   '<div class="notice success">Manual stake saved.</div>':
   `<div class="notice error">${escapeHTML(r.error||"Save failed")}</div>`;
@@ -856,34 +838,28 @@ async function saveManual(){
 
 /* ADMIN 2 OTHER CENTER REQUESTS */
 async function requestsPage(){
- if(ROLE!=="ADMIN2")return;
  const r=await api("otherRequests",{token:TOKEN});
  if(!r.ok)throw new Error(r.error||"Could not load requests");
- const requests=r.requests||[];
-
+ const requests=(r.requests||[]).filter(q=>q.status!=="ENTERED");
  $("content").innerHTML=`
   <h2>Other Center Stake Requests</h2>
-  ${requests.length?requests.map(q=>`
+  ${requests.map(q=>`
    <div class="item">
-    <b>${escapeHTML(q.center||q.fromCenter||"Center")}</b>
-    <div class="muted">Target: ${escapeHTML(q.targetCenter||"")} • Date: ${escapeHTML(q.date||"")}</div>
+    <b>${escapeHTML(q.fromCenter)}</b>
+    <div class="muted">Target Center: ${escapeHTML(q.targetCenter)} • Date: ${escapeHTML(q.date)}</div>
     <div class="muted">Australian: ${money(q.australian)} | England: ${money(q.england)}</div>
     <div class="muted">Trackside: ${money(q.trackside)} | Due: ${money(q.due)}</div>
-    <div class="actions">
-     <button class="btn green small" onclick="enterRequest('${escapeHTML(q.id)}','${escapeHTML(q.targetCenter||q.center||"")}','${escapeHTML(q.date||"")}','${q.australian||0}','${q.england||0}','${q.trackside||0}','${q.due||0}')">ENTER STAKE</button>
-    </div>
-   </div>`).join(""):'<div class="notice">No pending requests.</div>'}`;
+    <div class="muted">Total (Due excluded): ${money(q.total)}</div>
+    <button class="btn green small" onclick="enterRequest('${escapeHTML(q.id)}','${escapeHTML(q.targetCenter)}','${escapeHTML(q.date)}','${q.australian}','${q.england}','${q.trackside}','${q.due}')">ENTER STAKE</button>
+   </div>`).join("")||'<div class="notice">No pending requests.</div>'}`;
 }
-
 async function enterRequest(id,center,date,australian,england,trackside,due){
- if(!confirm("Save this request as stake for "+center+"?"))return;
- const r=await api("manualSave",{
-  token:TOKEN,center,date,australian,england,trackside,due
- });
+ if(!confirm("Save this stake for "+center+"?"))return;
+ const r=await api("manualSave",{token:TOKEN,center,date,australian,england,trackside,due});
  if(!r.ok){alert(r.error||"Could not save request");return}
  const marked=await api("markRequestEntered",{token:TOKEN,id});
- if(!marked.ok){alert("Stake saved, but request status could not be updated: "+(marked.error||""));return}
- alert("Request stake saved.");
+ if(!marked.ok){alert("Stake saved, but request status could not be updated.");return}
+ alert("Request stake saved successfully.");
  await requestsPage();
 }
 
@@ -893,7 +869,6 @@ async function messagesPage(){
  if(isAdmin){
   if(ROLE==="ADMIN2")await loadAdminData();
   else await loadApprovedCenters();
-
   const names=ROLE==="ADMIN2"?centerNames():approvedNames();
   $("content").innerHTML=`
    <h2>Private Messages</h2>
@@ -916,10 +891,9 @@ async function messagesPage(){
  await loadMessages();
  CHAT_TIMER=setInterval(()=>loadMessages(true),10000);
 }
-
 async function loadMessages(silent=false){
  const isAdmin=ROLE==="ADMIN1"||ROLE==="ADMIN2";
- let center=isAdmin?($("chatCenter")?.value||""):CENTER;
+ const center=isAdmin?($("chatCenter")?.value||""):CENTER;
  const r=await api("chatGet",{token:TOKEN,center});
  if(!r.ok){
   if(!silent)$("chatArea").innerHTML=`<div class="notice error">${escapeHTML(r.error||"Messages unavailable")}</div>`;
@@ -928,35 +902,30 @@ async function loadMessages(silent=false){
  const msgs=r.messages||[];
  const html=msgs.map(m=>`
   <div class="item">
-   <b>${escapeHTML(m.sender||m.from||"Message")}</b>
-   <div style="margin-top:6px">${escapeHTML(m.message||m.text||"")}</div>
-   <div class="muted">${escapeHTML(m.time||m.date||"")}</div>
+   <b>${escapeHTML(m.senderRole||"Message")} → ${escapeHTML(m.recipientRole||"")}</b>
+   <div style="margin-top:6px">${escapeHTML(m.message)}</div>
+   <div class="muted">${escapeHTML(m.sentAt)}</div>
   </div>`).join("");
-
  $("chatArea").innerHTML=`
   <div class="panel" style="max-height:340px;overflow:auto">${html||'<div class="muted">No messages yet.</div>'}</div>
   <textarea id="chatMessage" rows="3" placeholder="Type your message..."></textarea>
   <button class="btn" onclick="sendMessage()">SEND MESSAGE</button>`;
 }
-
 async function sendMessage(){
  const message=$("chatMessage").value.trim();
  if(!message)return;
  const isAdmin=ROLE==="ADMIN1"||ROLE==="ADMIN2";
  const data={token:TOKEN,message};
- if(isAdmin){
-  data.center=$("chatCenter").value;
-  data.target="CENTER";
- }else{
-  data.target=$("chatTarget").value;
- }
+ if(isAdmin)data.center=$("chatCenter").value;
+ else data.recipientRole=$("chatTarget").value;
  const r=await api("chatSend",data);
  if(!r.ok){alert(r.error||"Message could not be sent");return}
  await loadMessages();
 }
 
-/* STARTUP */
+/* START */
 initialiseLogin();
+updateClock();
 restoreSession();
 </script>
 </body>
