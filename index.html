@@ -43,7 +43,7 @@ input,select,textarea{
 input:focus,select:focus,textarea:focus{
  border-color:var(--green);box-shadow:0 0 0 3px #25dfa022;
 }
-input:disabled{opacity:.7;color:#c8d2ee}
+input:disabled{opacity:.7;color:#c8d2ee;cursor:not-allowed}
 label{
  display:block;font-size:11px;color:#bdc8e7;
  font-weight:900;letter-spacing:1px;
@@ -198,7 +198,6 @@ footer{text-align:center;color:#7e8aaa;font-size:10px;padding:25px}
 
 <div class="wrap">
 
-<!-- LOGIN -->
 <section id="loginView">
  <div class="hero">
   <div class="sub">WELCOME TO</div>
@@ -220,8 +219,6 @@ footer{text-align:center;color:#7e8aaa;font-size:10px;padding:25px}
 
   <button id="changeCenterLogin" class="secondary hidden" style="width:100%;margin-top:9px" onclick="changeCenter()">CHANGE CENTER</button>
 
-  <button id="adminLoginToggle" class="secondary" style="width:100%;margin-top:9px" onclick="adminLoginMode()">ADMIN LOGIN</button>
-
   <div id="loginMsg"></div>
  </div>
 
@@ -240,7 +237,6 @@ footer{text-align:center;color:#7e8aaa;font-size:10px;padding:25px}
  </div>
 </section>
 
-<!-- CENTER -->
 <section id="centerPanel" class="hidden">
  <div class="hero">
   <div class="sub">CENTER DASHBOARD</div>
@@ -285,7 +281,6 @@ footer{text-align:center;color:#7e8aaa;font-size:10px;padding:25px}
   </div>
  </div>
 
- <!-- PRIVATE CENTER CHAT + OTHER CENTER ENTRY -->
  <div id="centerChatPanel" class="panel hidden">
   <h2>PRIVATE CHAT</h2>
   <label>MESSAGE TO</label>
@@ -328,7 +323,6 @@ footer{text-align:center;color:#7e8aaa;font-size:10px;padding:25px}
  <button class="danger" style="width:100%" onclick="logout()">LOGOUT</button>
 </section>
 
-<!-- ADMIN 1 -->
 <section id="admin1Panel" class="hidden">
  <div class="hero">
   <div class="sub">REPORTING CONTROL</div>
@@ -364,7 +358,6 @@ footer{text-align:center;color:#7e8aaa;font-size:10px;padding:25px}
  <button class="danger" style="width:100%" onclick="logout()">LOGOUT</button>
 </section>
 
-<!-- ADMIN 2 -->
 <section id="admin2Panel" class="hidden">
  <div class="hero">
   <div class="sub">SYSTEM CONTROL</div>
@@ -460,7 +453,6 @@ footer{text-align:center;color:#7e8aaa;font-size:10px;padding:25px}
 const API='https://script.google.com/macros/s/AKfycbwVzKrmNhfTuAfynGQ-Ple1poFp5KH1EqXDwtxF-V9IWVZgPwh6S5JI5vRw5zzscag/exec';
 
 let TOKEN='',ROLE='',CENTER='',CURRENT_REQUEST_ID='',ADMIN_CENTERS=[];
-let ADMIN_MODE=false;
 
 function $(id){return document.getElementById(id)}
 function show(id){$(id).classList.remove('hidden')}
@@ -544,55 +536,69 @@ function setDates(){
  ['stakeDate','otherDate','reportDate','manualDate'].forEach(id=>{
   if($(id))$(id).value=todayBusinessDate();
  });
+
 }
+
+/* SAVED CENTER LOGIN */
 
 function savedCenter(){
  const v=localStorage.getItem('ds_saved_center')||'';
  $('username').value=v;
  $('username').disabled=!!v;
- if(v)show('changeCenterLogin');
- else hide('changeCenterLogin');
-}
 
-function adminLoginMode(){
- ADMIN_MODE=!ADMIN_MODE;
-
- if(ADMIN_MODE){
-  $('username').disabled=false;
-  $('username').value='admin';
-  show('passwordArea');
-  hide('changeCenterLogin');
-  $('adminLoginToggle').textContent='BACK TO CENTER LOGIN';
-  $('password').focus();
+ if(v){
+  show('changeCenterLogin');
  }else{
-  $('username').value=localStorage.getItem('ds_saved_center')||'';
-  $('username').disabled=!!localStorage.getItem('ds_saved_center');
-  $('password').value='';
-  hide('passwordArea');
-  $('adminLoginToggle').textContent='ADMIN LOGIN';
-  if(localStorage.getItem('ds_saved_center'))show('changeCenterLogin');
+  hide('changeCenterLogin');
  }
+
+ $('password').value='';
+ hide('passwordArea');
 }
 
 $('username').addEventListener('input',()=>{
- if($('username').value.trim().toLowerCase()==='admin'){
+ const isAdmin=$('username').value.trim().toLowerCase()==='admin';
+
+ if(isAdmin){
   show('passwordArea');
  }else{
   hide('passwordArea');
+  $('password').value='';
  }
+
+ refreshLoginChat();
 });
+
+/* CHANGE CENTER UNLOCKS THE SAME LOGIN BOX.
+   It does not erase the saved center immediately.
+   A new center is saved only after successful center login. */
+
+async function changeCenter(){
+ $('username').disabled=false;
+ $('username').value='';
+ $('password').value='';
+ hide('passwordArea');
+ hide('changeCenterLogin');
+ $('loginMsg').textContent='';
+ $('username').focus();
+}
+
+/* LOGIN */
 
 async function login(){
  const username=$('username').value.trim();
  const password=$('password').value;
+ const saved=localStorage.getItem('ds_saved_center')||'';
+ const isAdmin=username.toLowerCase()==='admin';
 
  if(!username){
   message('loginMsg','Enter login name.','error');
   return;
  }
 
- if(username.toLowerCase()!=='admin'){
-  localStorage.setItem('ds_saved_center',username);
+ if(saved&&!isAdmin&&username.toLowerCase()!==saved.toLowerCase()){
+  message('loginMsg','Use CHANGE CENTER to change your center name.','error');
+  return;
  }
 
  $('loginBtn').disabled=true;
@@ -617,11 +623,18 @@ async function login(){
   ROLE=r.role;
   CENTER=r.center||'';
 
+  /* Only a successful center login changes the saved center.
+     Admin login never overwrites or deletes it. */
+  if(ROLE==='CENTER'||ROLE==='CENTER_PENDING'){
+   localStorage.setItem('ds_saved_center',CENTER);
+  }
+
   localStorage.setItem('ds_token',TOKEN);
   localStorage.setItem('ds_role',ROLE);
   localStorage.setItem('ds_center',CENTER);
 
   enterApp();
+
  }catch(e){
   message('loginMsg',e.message,'error');
  }finally{
@@ -667,6 +680,7 @@ function enterApp(){
 
 async function restoreSession(){
  const t=localStorage.getItem('ds_token');
+
  if(!t){
   savedCenter();
   return;
@@ -714,32 +728,7 @@ async function logout(){
  hide('maintenanceScreen');
  show('loginView');
 
- $('password').value='';
- ADMIN_MODE=false;
- $('adminLoginToggle').textContent='ADMIN LOGIN';
  savedCenter();
-}
-
-async function changeCenter(){
- if(!confirm('Change saved center name?'))return;
-
- try{
-  if(TOKEN)await api('logout',{token:TOKEN});
- }catch(e){}
-
- TOKEN='';
- ROLE='';
- CENTER='';
-
- ['ds_token','ds_role','ds_center','ds_saved_center'].forEach(k=>localStorage.removeItem(k));
-
- $('username').disabled=false;
- $('username').value='';
- $('password').value='';
- hide('passwordArea');
- hide('changeCenterLogin');
- show('loginView');
- $('username').focus();
 }
 
 async function checkApproval(){
@@ -770,14 +759,25 @@ function showMaintenance(){
  hide('admin2Panel');
 }
 
+/* STAKE ENTRY */
+
 function calcTotal(){
  const v=['Australian','England','Trackside'].reduce(
   (a,id)=>a+(Number($(id).value)||0),0
  );
+
  $('liveTotal').textContent=v.toLocaleString('en-US',{
   minimumFractionDigits:2,
   maximumFractionDigits:2
  });
+}
+
+function clearStakeEntry(){
+ ['stakeDate','Australian','England','Trackside','Due'].forEach(id=>{
+  $(id).value='';
+ });
+
+ $('liveTotal').textContent='0.00';
 }
 
 async function saveStake(){
@@ -795,6 +795,9 @@ async function saveStake(){
   });
 
   if(!r.ok)throw Error(r.error||'Save failed.');
+
+  /* Clear fields only after server confirms successful save. */
+  clearStakeEntry();
 
   message('centerStatus','Stake saved successfully.','success');
   loadHistory();
