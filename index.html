@@ -1,193 +1,120 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#080b1d">
+<meta name="theme-color" content="#050711">
 <title>Daily Stake - Multi Center</title>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root{
- --bg:#080b1d;
- --panel:#141a35;
- --panel2:#202747;
- --line:#3c466c;
- --gold:#f5d47a;
- --green:#29e0a5;
- --blue:#65baff;
- --red:#ff647f;
- --muted:#aab5d4;
- --purple:#9e88ff;
- --cyan:#38e5ed;
+ --bg:#050711;--panel:#101629;--panel2:#171f37;--line:#293653;
+ --gold:#ffd778;--green:#21e6a0;--blue:#51baff;--red:#ff617d;
+ --muted:#9eaccb;--purple:#a68aff;--cyan:#35e5ed
 }
 *{box-sizing:border-box}
 html{min-height:100%;background:var(--bg)}
 body{
- margin:0;
- min-height:100vh;
- color:#f4f6ff;
+ margin:0;min-height:100vh;color:#f5f7ff;
  font-family:Arial,Helvetica,sans-serif;
  background:
- radial-gradient(ellipse at 5% 0%,#493b82 0,transparent 35%),
- radial-gradient(ellipse at 100% 12%,#075b63 0,transparent 34%),
- radial-gradient(ellipse at 50% 100%,#24245a 0,transparent 40%),
- linear-gradient(145deg,#070a19,#11172e 50%,#071e29);
- background-attachment:fixed;
+ radial-gradient(ellipse at 8% 5%,#40247755,transparent 34%),
+ radial-gradient(ellipse at 95% 15%,#007d8750,transparent 32%),
+ radial-gradient(ellipse at 50% 100%,#173b6655,transparent 40%),
+ linear-gradient(135deg,#040610,#080e1d 48%,#07151c);
+ background-attachment:fixed
 }
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+ background:linear-gradient(120deg,transparent 30%,#ffffff04 50%,transparent 70%);
+ animation:glowMove 12s linear infinite
+}
+@keyframes glowMove{from{transform:translateX(-30%)}to{transform:translateX(30%)}}
 button,input,select,textarea{font:inherit}
-button{cursor:pointer}
+button{cursor:pointer;border:0;border-radius:11px;padding:12px 15px;font-weight:bold;font-size:12px;color:#06121c;background:linear-gradient(110deg,#35e5ed,#21e6a0);transition:.2s}
+button:active{transform:scale(.98)}
+button.secondary{color:#e9efff;background:#202b46;border:1px solid #3c4b6c}
+button.gold{background:linear-gradient(110deg,#ffe39a,#e5ad43)}
+button.danger{background:linear-gradient(110deg,#ff8298,#f04469);color:white}
+button.purple{background:linear-gradient(110deg,#b49aff,#7962ee);color:white}
+button:disabled{opacity:.5;cursor:not-allowed}
 .hidden{display:none!important}
 .app{max-width:1100px;margin:auto;padding:15px}
-.topbar{
- display:flex;align-items:center;justify-content:space-between;
- gap:10px;flex-wrap:wrap;margin-bottom:18px
-}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:18px}
 .brand{display:flex;align-items:center;gap:11px}
-.logo{
- width:45px;height:45px;border-radius:15px;
- display:grid;place-items:center;font-size:22px;
- background:linear-gradient(135deg,#7c5cff,#11d6b2);
- box-shadow:0 0 25px #755bff66
-}
+.logo{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;font-size:23px;background:linear-gradient(135deg,#875bff,#13dcb6);box-shadow:0 0 28px #795cff66}
 .brand h1{font-size:17px;margin:0;letter-spacing:1px}
 .brand small{display:block;color:var(--muted);font-size:10px;margin-top:4px}
 .top-actions{display:flex;gap:7px;flex-wrap:wrap}
 .card{
- background:linear-gradient(145deg,#171d3beF,#10172deF);
- border:1px solid #515b8580;
- border-radius:19px;
- padding:17px;
- margin-bottom:14px;
- box-shadow:0 12px 35px #0005, inset 0 1px #ffffff0a;
- backdrop-filter:blur(12px)
+ background:linear-gradient(145deg,#131c31ed,#0c1426f2);
+ border:1px solid #344361aa;border-radius:18px;padding:17px;margin-bottom:14px;
+ box-shadow:0 14px 38px #0007,inset 0 1px #ffffff0a;
+ backdrop-filter:blur(14px)
 }
 .card h2{font-size:16px;margin:0 0 14px}
 .card h3{font-size:13px;margin:0 0 12px;color:var(--gold)}
 .muted{color:var(--muted);font-size:12px}
-label{
- display:block;font-size:11px;color:var(--muted);
- margin:12px 0 6px
-}
-input,select,textarea{
- width:100%;padding:13px 12px;border-radius:11px;
- border:1px solid #475277;background:#090f25;
- color:#fff;outline:none;font-size:14px
-}
-input:focus,select:focus,textarea:focus{
- border-color:var(--cyan);box-shadow:0 0 0 2px #38e5ed22
-}
+label{display:block;font-size:11px;color:var(--muted);margin:12px 0 6px}
+input,select,textarea{width:100%;padding:13px 12px;border-radius:11px;border:1px solid #344361;background:#080f20;color:#fff;outline:none;font-size:14px}
+input:focus,select:focus,textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 2px #35e5ed22}
 textarea{min-height:75px;resize:vertical}
-button{
- border:0;border-radius:11px;padding:12px 15px;
- color:#071322;font-weight:bold;font-size:12px;
- background:linear-gradient(110deg,#38e5ed,#29e0a5);
-}
-button.secondary{
- color:#e9eaff;background:#303858;border:1px solid #566184
-}
-button.gold{background:linear-gradient(110deg,#ffe29a,#e4ad43)}
-button.danger{background:linear-gradient(110deg,#ff8a9d,#ff526f);color:#fff}
-button.purple{background:linear-gradient(110deg,#b49aff,#7864ee);color:#fff}
-button:disabled{opacity:.5;cursor:not-allowed}
+.full{width:100%}
 .btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
 .btnrow button{flex:1}
-.full{width:100%}
 .login-wrap{max-width:440px;margin:7vh auto 20px}
 .login-title{text-align:center;margin-bottom:20px}
 .login-title .logo{margin:0 auto 13px;width:65px;height:65px;font-size:30px}
-.login-title h2{font-size:22px;margin:0 0 7px}
+.login-title h2{font-size:23px;margin:0 0 7px;letter-spacing:1px}
 .login-title p{color:var(--muted);font-size:12px}
-.msg{
- padding:11px;border-radius:10px;font-size:12px;
- margin-top:10px;display:none;line-height:1.5
-}
+.msg{padding:11px;border-radius:10px;font-size:12px;margin-top:10px;display:none;line-height:1.5}
 .msg.show{display:block}
-.msg.error{background:#5d2035;color:#ffd5df;border:1px solid #a63b5c}
-.msg.success{background:#124b40;color:#c5ffec;border:1px solid #238c75}
-.msg.info{background:#1c345e;color:#d5e8ff;border:1px solid #426db0}
+.msg.error{background:#511d31;color:#ffd5df;border:1px solid #a63b5c}
+.msg.success{background:#104638;color:#c5ffec;border:1px solid #238c75}
+.msg.info{background:#1b3154;color:#d5e8ff;border:1px solid #426db0}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.tab{
- padding:10px 14px;border-radius:10px;
- background:#252d4b;color:#cbd3f0;
- border:1px solid #4c587d;font-size:11px
-}
-.tab.active{
- color:#071322;background:linear-gradient(110deg,#45e5df,#29e0a5);
- border-color:transparent
-}
+.tab{padding:10px 14px;border-radius:10px;background:#1b2741;color:#cbd3f0;border:1px solid #344361;font-size:11px}
+.tab.active{color:#06121c;background:linear-gradient(110deg,#45e5df,#21e6a0);border-color:transparent}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.stat{
- padding:14px;border-radius:14px;
- background:linear-gradient(135deg,#222b50,#111a34);
- border:1px solid #53618a66
-}
+.stat{padding:14px;border-radius:13px;background:linear-gradient(135deg,#1b2944,#10182b);border:1px solid #3a4b6c88}
 .stat small{display:block;color:var(--muted);font-size:10px}
-.stat strong{display:block;font-size:19px;margin-top:8px;color:var(--green)}
-.stat.gold strong{color:var(--gold)}
-.stat.purple strong{color:#bba9ff}
-.stat.blue strong{color:var(--blue)}
-.section{display:none}
-.section.active{display:block}
+.stat strong{display:block;font-size:18px;margin-top:8px;color:var(--green);overflow-wrap:anywhere}
+.stat.gold strong{color:var(--gold)}.stat.purple strong{color:#bba9ff}.stat.blue strong{color:var(--blue)}
+.section{display:none}.section.active{display:block}
 .table-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;min-width:520px;font-size:11px}
-th,td{padding:11px 9px;text-align:left;border-bottom:1px solid #3a4568}
-th{color:var(--gold);background:#ffffff08}
-td{color:#e7eaff}
-.status{
- display:inline-block;padding:5px 8px;border-radius:20px;
- font-size:9px;font-weight:bold
-}
-.status.pending{background:#664d19;color:#ffe29a}
-.status.approved{background:#135c4b;color:#a8ffe2}
-.status.blocked{background:#67263b;color:#ffc0cf}
-.status.entered{background:#21466c;color:#c8e7ff}
-.chatbox{
- height:240px;overflow:auto;background:#090f25;
- border:1px solid #3b466b;border-radius:12px;
- padding:10px;margin-bottom:10px
-}
-.chatmsg{padding:9px 11px;border-radius:10px;margin:7px 0;max-width:90%;font-size:12px;line-height:1.5;background:#252e50}
-.chatmsg.mine{margin-left:auto;background:#164c49}
+th,td{padding:11px 9px;text-align:left;border-bottom:1px solid #293653}
+th{color:var(--gold);background:#ffffff08}td{color:#e7eaff}
+.status{display:inline-block;padding:5px 8px;border-radius:20px;font-size:9px;font-weight:bold}
+.status.pending{background:#664d19;color:#ffe29a}.status.approved{background:#135c4b;color:#a8ffe2}.status.blocked{background:#67263b;color:#ffc0cf}.status.entered{background:#21466c;color:#c8e7ff}
+.chatbox{height:240px;overflow:auto;background:#080f20;border:1px solid #293b5a;border-radius:12px;padding:10px;margin-bottom:10px}
+.chatmsg{padding:9px 11px;border-radius:10px;margin:7px 0;max-width:90%;font-size:12px;line-height:1.5;background:#202d4b;overflow-wrap:anywhere}
+.chatmsg.mine{margin-left:auto;background:#124b43}
 .chatmsg small{display:block;color:#b5c2e2;font-size:9px;margin-top:5px}
-.chat-compose{display:flex;gap:7px}
-.chat-compose input{flex:1;min-width:0}
-.chat-compose button{padding:10px 14px}
+.chat-compose{display:flex;gap:7px}.chat-compose input{flex:1;min-width:0}.chat-compose button{padding:10px 14px}
 .center-name{color:var(--cyan);font-size:12px;font-weight:bold}
-.amount-total{
- font-size:27px;font-weight:bold;color:var(--green);
- text-align:center;padding:16px 5px
-}
+.amount-total{font-size:28px;font-weight:bold;color:var(--green);text-align:center;padding:16px 5px;text-shadow:0 0 20px #21e6a044}
 hr{border:0;border-top:1px solid #ffffff19;margin:15px 0}
-#maintenanceScreen{
- position:fixed;inset:0;z-index:9999;
- display:none;align-items:center;justify-content:center;
- text-align:center;padding:25px;
- background:
- radial-gradient(ellipse at 20% 20%,#53358a 0,transparent 40%),
- radial-gradient(ellipse at 80% 80%,#075b63 0,transparent 40%),
- #080b1d
-}
+#maintenanceScreen{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;text-align:center;padding:25px;background:radial-gradient(ellipse at 20% 20%,#53358a 0,transparent 40%),radial-gradient(ellipse at 80% 80%,#075b63 0,transparent 40%),#050711}
 #maintenanceScreen.show{display:flex}
-.maintenance-inner{max-width:420px}
-.maintenance-inner .symbol{font-size:55px;margin-bottom:15px}
-.maintenance-inner h1{font-size:27px;letter-spacing:2px;color:var(--gold)}
-.maintenance-inner p{color:#c5cde8;font-size:13px;line-height:1.7}
-.footer{text-align:center;color:#7885a8;font-size:10px;padding:15px}
+.maintenance-inner{max-width:420px}.maintenance-inner .symbol{font-size:55px;margin-bottom:15px}.maintenance-inner h1{font-size:27px;letter-spacing:2px;color:var(--gold)}.maintenance-inner p{color:#c5cde8;font-size:13px;line-height:1.7}
+.footer{text-align:center;color:#667594;font-size:10px;padding:15px}
+#reportCapture{padding:12px;border-radius:14px;background:#091222}
+.report-heading{text-align:center;padding:10px 5px 16px}
+.report-heading h2{color:#fff;margin:0 0 5px}
+.report-heading p{color:#aab8d7;font-size:11px;margin:0}
 @media(max-width:600px){
- .app{padding:11px}
- .card{padding:14px;border-radius:16px}
- .grid3{grid-template-columns:1fr 1fr}
- .brand h1{font-size:14px}
- .topbar{align-items:flex-start}
- .top-actions{width:100%}
- .top-actions button{flex:1}
+ .app{padding:11px}.card{padding:14px;border-radius:16px}
+ .grid3{grid-template-columns:1fr 1fr}.brand h1{font-size:14px}
+ .topbar{align-items:flex-start}.top-actions{width:100%}.top-actions button{flex:1}
  .login-wrap{margin-top:5vh}
 }
 </style>
 </head>
-
 <body>
+
 <div id="maintenanceScreen">
  <div class="maintenance-inner">
   <div class="symbol">⚙️</div>
@@ -200,10 +127,7 @@ hr{border:0;border-top:1px solid #ffffff19;margin:15px 0}
 <header class="topbar">
  <div class="brand">
   <div class="logo">🏇</div>
-  <div>
-   <h1>DAILY STAKE</h1>
-   <small>MULTI CENTER MANAGEMENT SYSTEM</small>
-  </div>
+  <div><h1>DAILY STAKE</h1><small>MULTI CENTER MANAGEMENT SYSTEM</small></div>
  </div>
  <div class="top-actions">
   <button id="refreshBtn" class="secondary hidden" onclick="refreshDashboard()">↻ REFRESH</button>
@@ -218,61 +142,35 @@ hr{border:0;border-top:1px solid #ffffff19;margin:15px 0}
   <h2>DAILY STAKE</h2>
   <p>Multi Center Secure Login</p>
  </div>
-
  <div class="card">
   <h2>Login to your account</h2>
-
   <label>Center Name / Admin</label>
   <input id="username" placeholder="Enter center name or admin" autocomplete="username">
-
   <div id="passwordArea" class="hidden">
    <label>Admin Password</label>
    <input id="password" type="password" placeholder="Enter admin password" autocomplete="current-password">
   </div>
-
-  <div id="changeCenterLogin" class="hidden">
-   <button class="secondary full" onclick="changeCenter()">CHANGE CENTER</button>
-  </div>
-
+  <div id="changeCenterLogin" class="hidden"><button class="secondary full" onclick="changeCenter()">CHANGE CENTER</button></div>
   <button id="loginBtn" class="full" style="margin-top:15px" onclick="login()">LOGIN</button>
   <div id="loginMsg" class="msg"></div>
-  <p class="muted" style="line-height:1.6;margin-top:14px">
-   Center accounts require Admin 2 approval before entering stake records.
-  </p>
- </div>
-
- <div class="card">
-  <h3>💬 SUPPORT MESSAGE</h3>
-  <div id="publicChatBox" class="chatbox"></div>
-  <label>Your center name (optional)</label>
-  <input id="publicChatName" placeholder="Center name">
-  <div class="chat-compose" style="margin-top:8px">
-   <input id="publicChatInput" placeholder="Type your message...">
-   <button onclick="sendPublicChat()">SEND</button>
-  </div>
-  <div id="publicChatMsg" class="msg"></div>
+  <p class="muted" style="line-height:1.6;margin-top:14px">Center accounts require Admin 2 approval before entering stake records.</p>
  </div>
 </section>
 
-<!-- CENTER APP -->
+<!-- CENTER -->
 <section id="centerView" class="hidden">
  <div class="card">
-  <div class="row" style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">
-   <div>
-    <div class="muted">LOGGED IN CENTER</div>
-    <div class="center-name" id="centerTitle">CENTER</div>
-   </div>
+  <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">
+   <div><div class="muted">LOGGED IN CENTER</div><div class="center-name" id="centerTitle">CENTER</div></div>
    <div class="status approved" id="centerStatusBadge">APPROVED</div>
   </div>
  </div>
-
  <div id="pendingBox" class="card hidden">
-  <h2>⏳ APPROVAL PENDING</h2>
+  <h2>🔐 APPROVAL PENDING</h2>
   <p class="muted">Admin 2 approval has not been granted yet. Stake entry is locked until approval.</p>
   <button class="secondary" onclick="checkApproval()">CHECK APPROVAL</button>
   <div id="pendingMsg" class="msg"></div>
  </div>
-
  <div id="centerMain" class="hidden">
   <div class="tabs">
    <button class="tab active" onclick="centerTab('stake',this)">NEW STAKE</button>
@@ -280,29 +178,15 @@ hr{border:0;border-top:1px solid #ffffff19;margin:15px 0}
    <button class="tab" onclick="centerTab('chat',this)">MESSAGES</button>
    <button class="tab" onclick="centerTab('other',this)">OTHER CENTER</button>
   </div>
-
   <div id="centerStake" class="section active">
    <div class="card">
     <h2>Daily Stake Entry</h2>
-    <label>Business Date</label>
-    <input type="date" id="stakeDate">
+    <label>Business Date</label><input type="date" id="stakeDate">
     <div class="grid">
-     <div>
-      <label>Australian</label>
-      <input type="number" id="Australian" min="0" step="0.01" placeholder="0.00" oninput="calculateTotal()">
-     </div>
-     <div>
-      <label>England</label>
-      <input type="number" id="England" min="0" step="0.01" placeholder="0.00" oninput="calculateTotal()">
-     </div>
-     <div>
-      <label>Trackside</label>
-      <input type="number" id="Trackside" min="0" step="0.01" placeholder="0.00" oninput="calculateTotal()">
-     </div>
-     <div>
-      <label>Due (Excluded from total)</label>
-      <input type="number" id="Due" min="0" step="0.01" placeholder="0.00">
-     </div>
+     <div><label>🇦🇺 Australian</label><input type="number" id="Australian" min="0" step="0.01" placeholder="0.00" oninput="calculateTotal()"></div>
+     <div><label>🇬🇧 England</label><input type="number" id="England" min="0" step="0.01" placeholder="0.00" oninput="calculateTotal()"></div>
+     <div><label>🏁 Trackside</label><input type="number" id="Trackside" min="0" step="0.01" placeholder="0.00" oninput="calculateTotal()"></div>
+     <div><label>💰 Due (Excluded from total)</label><input type="number" id="Due" min="0" step="0.01" placeholder="0.00"></div>
     </div>
     <div class="amount-total" id="liveTotal">0.00</div>
     <div class="muted" style="text-align:center">TOTAL STAKE (Due excluded)</div>
@@ -310,50 +194,35 @@ hr{border:0;border-top:1px solid #ffffff19;margin:15px 0}
     <div id="saveMsg" class="msg"></div>
    </div>
   </div>
-
   <div id="centerHistory" class="section">
    <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
-     <h2>Stake History</h2>
-     <button class="secondary" onclick="loadHistory()">REFRESH</button>
-    </div>
-    <label>Filter Date</label>
-    <input type="date" id="historyDate">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h2>Stake History</h2><button class="secondary" onclick="loadHistory()">REFRESH</button></div>
+    <label>Filter Date</label><input type="date" id="historyDate">
     <button class="secondary full" style="margin-top:9px" onclick="loadHistory()">SEARCH</button>
     <div id="historyContent" style="margin-top:15px"></div>
    </div>
   </div>
-
   <div id="centerChat" class="section">
    <div class="card">
     <h2>Private Messages</h2>
     <label>Send message to</label>
-    <select id="centerChatRecipient">
-     <option value="ADMIN2">MR. PASINDU (ADMIN 2)</option>
-     <option value="ADMIN1">MR. HARSHANA (ADMIN 1)</option>
-    </select>
+    <select id="centerChatRecipient"><option value="ADMIN2">MR. PASINDU (ADMIN 2)</option><option value="ADMIN1">MR. HARSHANA (ADMIN 1)</option></select>
     <div id="centerChatBox" class="chatbox"></div>
-    <div class="chat-compose">
-     <input id="centerChatInput" placeholder="Write a message...">
-     <button onclick="sendCenterChat()">SEND</button>
-    </div>
+    <div class="chat-compose"><input id="centerChatInput" placeholder="Write a message..."><button onclick="sendCenterChat()">SEND</button></div>
     <div id="centerChatMsg" class="msg"></div>
    </div>
   </div>
-
   <div id="centerOther" class="section">
    <div class="card">
     <h2>Other Center Stake Request</h2>
     <p class="muted">Send another center's stake details to Admin 2. These details will not enter the official report until Admin 2 saves them.</p>
-    <label>Target Center</label>
-    <select id="otherTarget"></select>
-    <label>Business Date</label>
-    <input type="date" id="otherDate">
+    <label>Target Center</label><select id="otherTarget"></select>
+    <label>Business Date</label><input type="date" id="otherDate">
     <div class="grid">
-     <div><label>Australian</label><input id="otherAustralian" type="number" min="0" step="0.01"></div>
-     <div><label>England</label><input id="otherEngland" type="number" min="0" step="0.01"></div>
-     <div><label>Trackside</label><input id="otherTrackside" type="number" min="0" step="0.01"></div>
-     <div><label>Due</label><input id="otherDue" type="number" min="0" step="0.01"></div>
+     <div><label>🇦🇺 Australian</label><input id="otherAustralian" type="number" min="0" step="0.01"></div>
+     <div><label>🇬🇧 England</label><input id="otherEngland" type="number" min="0" step="0.01"></div>
+     <div><label>🏁 Trackside</label><input id="otherTrackside" type="number" min="0" step="0.01"></div>
+     <div><label>💰 Due</label><input id="otherDue" type="number" min="0" step="0.01"></div>
     </div>
     <button class="full" style="margin-top:15px" onclick="sendOtherRequest()">SEND REQUEST TO ADMIN 2</button>
     <div id="otherMsg" class="msg"></div>
@@ -364,41 +233,32 @@ hr{border:0;border-top:1px solid #ffffff19;margin:15px 0}
 
 <!-- ADMIN 1 -->
 <section id="admin1View" class="hidden">
- <div class="card">
-  <h2>ADMIN 1 — REPORTS</h2>
-  <div class="muted">MR. HARSHANA · VIEW ONLY</div>
- </div>
-
+ <div class="card"><h2>ADMIN 1 — REPORTS</h2><div class="muted">MR. HARSHANA · VIEW ONLY</div></div>
  <div class="tabs">
   <button class="tab active" onclick="admin1Tab('report',this)">REPORTS</button>
   <button class="tab" onclick="admin1Tab('chat',this)">MESSAGES</button>
  </div>
-
  <div id="admin1Report" class="section active">
   <div class="card">
    <h2>Center Stake Report</h2>
    <label>Select Center</label>
-   <select id="reportCenter" onchange="loadReport()">
-    <option value="ALL">ALL CENTERS</option>
-   </select>
-   <label>Select Date</label>
-   <input type="date" id="reportDate">
+   <select id="reportCenter" onchange="loadReport()"><option value="ALL">ALL CENTERS</option></select>
+   <label>Select Date</label><input type="date" id="reportDate">
    <button class="full" style="margin-top:12px" onclick="loadReport()">VIEW REPORT</button>
-   <div id="reportSummary" style="margin-top:15px"></div>
-   <div id="reportContent" style="margin-top:15px"></div>
+   <button class="full purple" style="margin-top:9px" onclick="captureReport()">📸 SCREENSHOT / SAVE REPORT</button>
+   <div id="reportCapture" style="margin-top:15px">
+    <div class="report-heading"><h2>DAILY STAKE REPORT</h2><p id="captureReportInfo">MULTI CENTER MANAGEMENT SYSTEM</p></div>
+    <div id="reportSummary"></div>
+    <div id="reportContent" style="margin-top:15px"></div>
+   </div>
+   <div id="captureMsg" class="msg"></div>
   </div>
  </div>
-
  <div id="admin1Chat" class="section">
   <div class="card">
-   <h2>Center Messages</h2>
-   <label>Select Center</label>
-   <select id="admin1ChatCenter" onchange="loadAdminChat()"></select>
+   <h2>Center Messages</h2><label>Select Center</label><select id="admin1ChatCenter" onchange="loadAdminChat()"></select>
    <div id="admin1ChatBox" class="chatbox" style="margin-top:12px"></div>
-   <div class="chat-compose">
-    <input id="admin1ChatInput" placeholder="Reply to center...">
-    <button onclick="sendAdmin1Chat()">SEND</button>
-   </div>
+   <div class="chat-compose"><input id="admin1ChatInput" placeholder="Reply to center..."><button onclick="sendAdmin1Chat()">SEND</button></div>
    <div id="admin1ChatMsg" class="msg"></div>
   </div>
  </div>
@@ -406,11 +266,7 @@ hr{border:0;border-top:1px solid #ffffff19;margin:15px 0}
 
 <!-- ADMIN 2 -->
 <section id="admin2View" class="hidden">
- <div class="card">
-  <h2>ADMIN 2 — SYSTEM CONTROL</h2>
-  <div class="muted">MR. PASINDU · SYSTEM ADMINISTRATOR</div>
- </div>
-
+ <div class="card"><h2>ADMIN 2 — SYSTEM CONTROL</h2><div class="muted">MR. PASINDU · SYSTEM ADMINISTRATOR</div></div>
  <div class="tabs">
   <button class="tab active" onclick="admin2Tab('centers',this)">CENTERS</button>
   <button class="tab" onclick="admin2Tab('devices',this)">DEVICES</button>
@@ -419,1235 +275,436 @@ hr{border:0;border-top:1px solid #ffffff19;margin:15px 0}
   <button class="tab" onclick="admin2Tab('chat',this)">MESSAGES</button>
   <button class="tab" onclick="admin2Tab('settings',this)">SETTINGS</button>
  </div>
-
  <div id="admin2Centers" class="section active">
   <div class="card">
-   <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
-    <h2>Registered Centers</h2>
-    <button class="secondary" onclick="loadAdminData()">REFRESH</button>
-   </div>
+   <h2>REGISTER NEW CENTER</h2>
+   <label>Center Name</label><input id="newCenterName" placeholder="Enter new center name">
+   <button class="full" style="margin-top:10px" onclick="registerCenter()">REGISTER CENTER</button>
+   <div id="registerMsg" class="msg"></div>
+  </div>
+  <div class="card">
+   <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2>Registered Centers</h2><button class="secondary" onclick="loadAdminData()">REFRESH</button></div>
    <div id="centersList"></div>
   </div>
  </div>
-
- <div id="admin2Devices" class="section">
-  <div class="card">
-   <h2>Registered Devices</h2>
-   <div id="devicesList"></div>
-  </div>
- </div>
-
- <div id="admin2Requests" class="section">
-  <div class="card">
-   <h2>Other Center Requests</h2>
-   <div id="requestsList"></div>
-  </div>
- </div>
-
+ <div id="admin2Devices" class="section"><div class="card"><h2>Registered Devices</h2><div id="devicesList"></div></div></div>
+ <div id="admin2Requests" class="section"><div class="card"><h2>Other Center Requests</h2><div id="requestsList"></div></div></div>
  <div id="admin2Manual" class="section">
   <div class="card">
    <h2>Manual Official Stake Entry</h2>
-   <label>Center</label>
-   <select id="manualCenter"></select>
-   <label>Business Date</label>
-   <input type="date" id="manualDate">
+   <label>Center</label><select id="manualCenter"></select>
+   <label>Business Date</label><input type="date" id="manualDate">
    <div class="grid">
-    <div><label>Australian</label><input id="manualAustralian" type="number" min="0" step="0.01"></div>
-    <div><label>England</label><input id="manualEngland" type="number" min="0" step="0.01"></div>
-    <div><label>Trackside</label><input id="manualTrackside" type="number" min="0" step="0.01"></div>
-    <div><label>Due</label><input id="manualDue" type="number" min="0" step="0.01"></div>
+    <div><label>🇦🇺 Australian</label><input id="manualAustralian" type="number" min="0" step="0.01"></div>
+    <div><label>🇬🇧 England</label><input id="manualEngland" type="number" min="0" step="0.01"></div>
+    <div><label>🏁 Trackside</label><input id="manualTrackside" type="number" min="0" step="0.01"></div>
+    <div><label>💰 Due</label><input id="manualDue" type="number" min="0" step="0.01"></div>
    </div>
    <button class="full" style="margin-top:15px" onclick="manualSave()">SAVE OFFICIAL STAKE</button>
    <div id="manualMsg" class="msg"></div>
   </div>
  </div>
-
  <div id="admin2Chat" class="section">
   <div class="card">
-   <h2>Center Messages</h2>
-   <label>Select Center</label>
-   <select id="admin2ChatCenter" onchange="loadAdmin2Chat()"></select>
+   <h2>Center Messages</h2><label>Select Center</label><select id="admin2ChatCenter" onchange="loadAdmin2Chat()"></select>
    <div id="admin2ChatBox" class="chatbox" style="margin-top:12px"></div>
-   <div class="chat-compose">
-    <input id="admin2ChatInput" placeholder="Write a reply...">
-    <button onclick="sendAdmin2Chat()">SEND</button>
-   </div>
+   <div class="chat-compose"><input id="admin2ChatInput" placeholder="Write a reply..."><button onclick="sendAdmin2Chat()">SEND</button></div>
    <div id="admin2ChatMsg" class="msg"></div>
   </div>
  </div>
-
  <div id="admin2Settings" class="section">
   <div class="card">
    <h2>System Maintenance</h2>
    <p class="muted">When maintenance is ON, center users cannot enter the system.</p>
    <div id="maintenanceStatus" class="msg info show">Checking system status...</div>
-   <div class="btnrow">
-    <button class="danger" onclick="setMaintenance('ON')">TURN MAINTENANCE ON</button>
-    <button onclick="setMaintenance('OFF')">TURN MAINTENANCE OFF</button>
-   </div>
+   <div class="btnrow"><button class="danger" onclick="setMaintenance('ON')">TURN MAINTENANCE ON</button><button onclick="setMaintenance('OFF')">TURN MAINTENANCE OFF</button></div>
   </div>
  </div>
 </section>
-
 <div class="footer">DAILY STAKE MULTI CENTER · ASIA/COLOMBO</div>
 </div>
 
 <script>
 const API='https://script.google.com/macros/s/AKfycbwVzKrmNhfTuAfynGQ-Ple1poFp5KH1EqXDwtxF-V9IWVZgPwh6S5JI5vRw5zzscag/exec';
-
-let TOKEN='';
-let ROLE='';
-let CENTER='';
-let refreshTimer=null;
-let pendingTimer=null;
-let chatTimer=null;
-let publicTimer=null;
-let refreshing=false;
-
+let TOKEN='',ROLE='',CENTER='',pendingTimer=null,chatTimer=null,refreshing=false;
 const $=id=>document.getElementById(id);
-
 function show(id){$(id).classList.remove('hidden')}
 function hide(id){$(id).classList.add('hidden')}
-
-function msg(id,text,type='info'){
- const el=$(id);
- if(!el)return;
- el.className='msg show '+type;
- el.textContent=text;
-}
-
-function clearMsg(id){
- const el=$(id);
- if(el)el.className='msg';
-}
-
-function money(v){
- return Number(v||0).toLocaleString('en-US',{
-  minimumFractionDigits:2,
-  maximumFractionDigits:2
- });
-}
-
+function msg(id,text,type='info'){const el=$(id);if(!el)return;el.className='msg show '+type;el.textContent=text}
+function clearMsg(id){if($(id))$(id).className='msg'}
+function money(v){return Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
 function todayDate(){
- const now=new Date();
- const local=new Date(now.toLocaleString('en-US',{timeZone:'Asia/Colombo'}));
- const y=local.getFullYear();
- const m=String(local.getMonth()+1).padStart(2,'0');
- const d=String(local.getDate()).padStart(2,'0');
- return `${y}-${m}-${d}`;
+ const local=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Colombo'}));
+ return `${local.getFullYear()}-${String(local.getMonth()+1).padStart(2,'0')}-${String(local.getDate()).padStart(2,'0')}`;
 }
-
 function todayBusinessDate(){
- const now=new Date();
- const local=new Date(now.toLocaleString('en-US',{timeZone:'Asia/Colombo'}));
- if(local.getHours()<4){
-  local.setDate(local.getDate()-1);
- }
- const y=local.getFullYear();
- const m=String(local.getMonth()+1).padStart(2,'0');
- const d=String(local.getDate()).padStart(2,'0');
- return `${y}-${m}-${d}`;
+ const local=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Colombo'}));
+ if(local.getHours()<4)local.setDate(local.getDate()-1);
+ return `${local.getFullYear()}-${String(local.getMonth()+1).padStart(2,'0')}-${String(local.getDate()).padStart(2,'0')}`;
 }
-
 function setDates(){
  const d=todayBusinessDate();
- [
-  'stakeDate','historyDate','reportDate','otherDate','manualDate'
- ].forEach(id=>{
-  if($(id))$(id).value=d;
- });
+ ['stakeDate','historyDate','reportDate','otherDate','manualDate'].forEach(id=>{if($(id))$(id).value=d});
 }
-
 function api(action,data={}){
  return new Promise((resolve,reject)=>{
   const cb='ds_cb_'+Math.random().toString(36).slice(2);
-  const q=new URLSearchParams({
-   action,
-   callback:cb,
-   ...data
-  });
-
+  const q=new URLSearchParams({action,callback:cb,...data});
   const script=document.createElement('script');
-
-  const timer=setTimeout(()=>{
-   cleanup();
-   reject(new Error('Server timeout. Check Apps Script deployment.'));
-  },18000);
-
-  function cleanup(){
-   clearTimeout(timer);
-   delete window[cb];
-   script.remove();
-  }
-
-  window[cb]=result=>{
-   cleanup();
-   resolve(result);
-  };
-
-  script.onerror=()=>{
-   cleanup();
-   reject(new Error('Could not connect to server.'));
-  };
-
-  script.src=API+'?'+q.toString();
-  document.body.appendChild(script);
+  const timer=setTimeout(()=>{cleanup();reject(new Error('Server timeout. Check Apps Script deployment.'))},18000);
+  function cleanup(){clearTimeout(timer);delete window[cb];script.remove()}
+  window[cb]=result=>{cleanup();resolve(result)};
+  script.onerror=()=>{cleanup();reject(new Error('Could not connect to server.'))};
+  script.src=API+'?'+q.toString();document.body.appendChild(script);
  });
 }
-
 function deviceInfo(){
  let id=localStorage.getItem('ds_device_id');
- if(!id){
-  id='DS-'+Math.random().toString(36).slice(2)+Date.now().toString(36);
-  localStorage.setItem('ds_device_id',id);
- }
- return {
-  deviceId:id,
-  deviceName:navigator.userAgent.slice(0,100)
- };
+ if(!id){id='DS-'+Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('ds_device_id',id)}
+ return {deviceId:id,deviceName:navigator.userAgent.slice(0,100)};
 }
-
 function savedCenter(){
  const value=localStorage.getItem('ds_saved_center')||'';
- $('username').value=value;
- $('username').disabled=!!value;
- $('password').value='';
- hide('passwordArea');
-
- if(value)show('changeCenterLogin');
- else hide('changeCenterLogin');
+ $('username').value=value;$('username').disabled=!!value;$('password').value='';hide('passwordArea');
+ if(value)show('changeCenterLogin');else hide('changeCenterLogin');
 }
-
 $('username').addEventListener('input',()=>{
- if($('username').value.trim().toLowerCase()==='admin'){
-  show('passwordArea');
- }else{
-  hide('passwordArea');
-  $('password').value='';
- }
+ if($('username').value.trim().toLowerCase()==='admin')show('passwordArea');
+ else{hide('passwordArea');$('password').value=''}
 });
-
-function changeCenter(){
- $('username').disabled=false;
- $('username').value='';
- $('password').value='';
- hide('passwordArea');
- hide('changeCenterLogin');
- $('username').focus();
-}
-
+$('password').addEventListener('keydown',e=>{if(e.key==='Enter')login()});
+$('username').addEventListener('keydown',e=>{if(e.key==='Enter')login()});
+function changeCenter(){$('username').disabled=false;$('username').value='';$('password').value='';hide('passwordArea');hide('changeCenterLogin');$('username').focus()}
 async function login(){
- const username=$('username').value.trim();
- const password=$('password').value;
-
- if(!username){
-  msg('loginMsg','Enter center name or admin','error');
-  return;
- }
-
- $('loginBtn').disabled=true;
- $('loginBtn').textContent='PLEASE WAIT...';
- clearMsg('loginMsg');
-
+ const username=$('username').value.trim(),password=$('password').value;
+ if(!username){msg('loginMsg','Enter center name or admin','error');return}
+ $('loginBtn').disabled=true;$('loginBtn').textContent='PLEASE WAIT...';clearMsg('loginMsg');
  try{
-  const r=await api('login',{
-   username,
-   password,
-   ...deviceInfo()
-  });
-
-  if(!r.ok){
-   if(r.maintenance){
-    showMaintenance();
-    return;
-   }
-   throw new Error(r.error||'Login failed');
-  }
-
-  TOKEN=r.token;
-  ROLE=r.role;
-  CENTER=r.center||'';
-
-  localStorage.setItem('ds_token',TOKEN);
-
-  if(username.toLowerCase()!=='admin'){
-   localStorage.setItem('ds_saved_center',username);
-  }
-
+  const r=await api('login',{username,password,...deviceInfo()});
+  if(!r.ok){if(r.maintenance){showMaintenance();return}throw new Error(r.error||'Login failed')}
+  TOKEN=r.token;ROLE=r.role;CENTER=r.center||'';localStorage.setItem('ds_token',TOKEN);
+  if(username.toLowerCase()!=='admin')localStorage.setItem('ds_saved_center',username);
   enterApp();
-
- }catch(e){
-  msg('loginMsg',e.message,'error');
- }finally{
-  $('loginBtn').disabled=false;
-  $('loginBtn').textContent='LOGIN';
- }
+ }catch(e){msg('loginMsg',e.message,'error')}
+ finally{$('loginBtn').disabled=false;$('loginBtn').textContent='LOGIN'}
 }
-
 function enterApp(){
- hide('loginView');
- hide('centerView');
- hide('admin1View');
- hide('admin2View');
-
- show('refreshBtn');
- show('logoutBtn');
- hideMaintenance();
-
+ ['loginView','centerView','admin1View','admin2View'].forEach(hide);
+ show('refreshBtn');show('logoutBtn');hideMaintenance();
  if(ROLE==='CENTER'||ROLE==='CENTER_PENDING'){
-  show('centerView');
-  $('centerTitle').textContent=CENTER;
+  show('centerView');$('centerTitle').textContent=CENTER;
   if(ROLE==='CENTER_PENDING'){
-   show('pendingBox');
-   hide('centerMain');
-   $('centerStatusBadge').textContent='PENDING';
-   $('centerStatusBadge').className='status pending';
-   startPendingCheck();
+   show('pendingBox');hide('centerMain');$('centerStatusBadge').textContent='PENDING';$('centerStatusBadge').className='status pending';startPendingCheck();
   }else{
-   hide('pendingBox');
-   show('centerMain');
-   $('centerStatusBadge').textContent='APPROVED';
-   $('centerStatusBadge').className='status approved';
-   loadHistory();
-   loadCentersForOther();
-   refreshCenterChat();
-   startChatRefresh();
+   hide('pendingBox');show('centerMain');$('centerStatusBadge').textContent='APPROVED';$('centerStatusBadge').className='status approved';
+   loadHistory();loadCentersForOther();refreshCenterChat();startChatRefresh();
   }
  }
-
- if(ROLE==='ADMIN1'){
-  show('admin1View');
-  loadReportCenters();
- }
-
- if(ROLE==='ADMIN2'){
-  show('admin2View');
-  loadAdminData();
-  loadOtherRequests();
- }
+ if(ROLE==='ADMIN1'){show('admin1View');loadReportCenters()}
+ if(ROLE==='ADMIN2'){show('admin2View');loadAdminData();loadOtherRequests()}
 }
-
-function stopTimers(){
- if(pendingTimer)clearInterval(pendingTimer);
- if(chatTimer)clearInterval(chatTimer);
- if(publicTimer)clearInterval(publicTimer);
- pendingTimer=null;
- chatTimer=null;
- publicTimer=null;
-}
-
+function stopTimers(){if(pendingTimer)clearInterval(pendingTimer);if(chatTimer)clearInterval(chatTimer);pendingTimer=chatTimer=null}
 async function logout(){
- stopTimers();
-
- try{
-  if(TOKEN)await api('logout',{token:TOKEN});
- }catch(e){}
-
- localStorage.removeItem('ds_token');
-
- TOKEN='';
- ROLE='';
- CENTER='';
-
- hide('centerView');
- hide('admin1View');
- hide('admin2View');
- hide('refreshBtn');
- hide('logoutBtn');
- hideMaintenance();
- show('loginView');
-
- $('username').disabled=false;
- savedCenter();
- startPublicChat();
+ stopTimers();try{if(TOKEN)await api('logout',{token:TOKEN})}catch(e){}
+ localStorage.removeItem('ds_token');TOKEN='';ROLE='';CENTER='';
+ ['centerView','admin1View','admin2View','refreshBtn','logoutBtn'].forEach(hide);
+ hideMaintenance();show('loginView');$('username').disabled=false;savedCenter();
 }
-
 async function restoreSession(){
- const token=localStorage.getItem('ds_token');
- if(!token)return;
-
+ const token=localStorage.getItem('ds_token');if(!token)return;
  try{
-  TOKEN=token;
-
-  const r=await api('session',{token:TOKEN});
-
-  if(!r.ok)throw new Error(r.error||'Session expired');
-
-  if(r.maintenance&&
-   ['CENTER','CENTER_PENDING'].includes(r.role)){
-   showMaintenance();
-   return;
-  }
-
-  ROLE=r.role;
-  CENTER=r.center||'';
-  enterApp();
-
- }catch(e){
-  localStorage.removeItem('ds_token');
-  TOKEN='';
-  ROLE='';
-  CENTER='';
-  show('loginView');
-  savedCenter();
- }
+  TOKEN=token;const r=await api('session',{token:TOKEN});if(!r.ok)throw new Error(r.error||'Session expired');
+  if(r.maintenance&&['CENTER','CENTER_PENDING'].includes(r.role)){showMaintenance();return}
+  ROLE=r.role;CENTER=r.center||'';enterApp();
+ }catch(e){localStorage.removeItem('ds_token');TOKEN='';ROLE='';CENTER='';show('loginView');savedCenter()}
 }
-
 function showMaintenance(){
  $('maintenanceScreen').classList.add('show');
- hide('loginView');
- hide('centerView');
- hide('admin1View');
- hide('admin2View');
- hide('refreshBtn');
- hide('logoutBtn');
+ ['loginView','centerView','admin1View','admin2View','refreshBtn','logoutBtn'].forEach(hide);
 }
-
-function hideMaintenance(){
- $('maintenanceScreen').classList.remove('show');
-}
-
+function hideMaintenance(){$('maintenanceScreen').classList.remove('show')}
 function centerTab(name,button){
  document.querySelectorAll('#centerView .tab').forEach(b=>b.classList.remove('active'));
  document.querySelectorAll('#centerMain .section').forEach(s=>s.classList.remove('active'));
-
- button.classList.add('active');
- $('center'+name.charAt(0).toUpperCase()+name.slice(1)).classList.add('active');
-
- if(name==='history')loadHistory();
- if(name==='chat')refreshCenterChat();
- if(name==='other')loadCentersForOther();
+ button.classList.add('active');$('center'+name[0].toUpperCase()+name.slice(1)).classList.add('active');
+ if(name==='history')loadHistory();if(name==='chat')refreshCenterChat();if(name==='other')loadCentersForOther();
 }
-
 function admin1Tab(name,button){
  document.querySelectorAll('#admin1View .tab').forEach(b=>b.classList.remove('active'));
  document.querySelectorAll('#admin1View .section').forEach(s=>s.classList.remove('active'));
- button.classList.add('active');
- $('admin1'+name.charAt(0).toUpperCase()+name.slice(1)).classList.add('active');
+ button.classList.add('active');$('admin1'+name[0].toUpperCase()+name.slice(1)).classList.add('active');
  if(name==='chat')loadAdminChat();
 }
-
 function admin2Tab(name,button){
  document.querySelectorAll('#admin2View .tab').forEach(b=>b.classList.remove('active'));
  document.querySelectorAll('#admin2View .section').forEach(s=>s.classList.remove('active'));
- button.classList.add('active');
- $('admin2'+name.charAt(0).toUpperCase()+name.slice(1)).classList.add('active');
-
- if(name==='centers'||name==='devices')loadAdminData();
- if(name==='requests')loadOtherRequests();
- if(name==='chat')loadAdmin2Chat();
+ button.classList.add('active');$('admin2'+name[0].toUpperCase()+name.slice(1)).classList.add('active');
+ if(name==='centers'||name==='devices')loadAdminData();if(name==='requests')loadOtherRequests();if(name==='chat')loadAdmin2Chat();
 }
-
 function calculateTotal(){
- const total=
-  Number($('Australian').value||0)+
-  Number($('England').value||0)+
-  Number($('Trackside').value||0);
-
+ const total=Number($('Australian').value||0)+Number($('England').value||0)+Number($('Trackside').value||0);
  $('liveTotal').textContent=money(total);
 }
-
 async function saveStake(){
- const date=$('stakeDate').value||todayBusinessDate();
-
- const data={
-  token:TOKEN,
-  date,
-  australian:$('Australian').value||0,
-  england:$('England').value||0,
-  trackside:$('Trackside').value||0,
-  due:$('Due').value||0
- };
-
- $('saveBtn').disabled=true;
- $('saveBtn').textContent='SAVING...';
- clearMsg('saveMsg');
-
+ const data={token:TOKEN,date:$('stakeDate').value||todayBusinessDate(),australian:$('Australian').value||0,england:$('England').value||0,trackside:$('Trackside').value||0,due:$('Due').value||0};
+ $('saveBtn').disabled=true;$('saveBtn').textContent='SAVING...';clearMsg('saveMsg');
  try{
-  const r=await api('save',data);
-  if(!r.ok)throw new Error(r.error||'Save failed');
-
-  $('Australian').value='';
-  $('England').value='';
-  $('Trackside').value='';
-  $('Due').value='';
-  $('liveTotal').textContent='0.00';
-  $('stakeDate').value=todayBusinessDate();
-
-  msg('saveMsg','Stake saved successfully. Total: '+money(r.total),'success');
-  loadHistory();
-
- }catch(e){
-  msg('saveMsg',e.message,'error');
- }finally{
-  $('saveBtn').disabled=false;
-  $('saveBtn').textContent='SAVE STAKE';
- }
+  const r=await api('save',data);if(!r.ok)throw new Error(r.error||'Save failed');
+  ['Australian','England','Trackside','Due'].forEach(id=>$(id).value='');
+  $('liveTotal').textContent='0.00';$('stakeDate').value=todayBusinessDate();
+  msg('saveMsg','Stake saved successfully. Total: '+money(r.total),'success');loadHistory();
+ }catch(e){msg('saveMsg',e.message,'error')}
+ finally{$('saveBtn').disabled=false;$('saveBtn').textContent='SAVE STAKE'}
 }
-
 async function loadHistory(){
  if(!TOKEN)return;
-
- const date=$('historyDate').value||'';
-
  try{
-  const r=await api('history',{token:TOKEN,date});
-  if(!r.ok)throw new Error(r.error||'History failed');
-
-  const rows=r.rows||[];
-
-  if(!rows.length){
-   $('historyContent').innerHTML='<p class="muted">No stake records found.</p>';
-   return;
-  }
-
-  let html='<div class="table-wrap"><table><thead><tr>'+
-   '<th>Date</th><th>Australian</th><th>England</th>'+
-   '<th>Trackside</th><th>Due</th><th>Total</th>'+
-   '</tr></thead><tbody>';
-
-  rows.forEach(row=>{
-   html+=`<tr>
-    <td>${escapeHTML(row.date)}</td>
-    <td>${money(row.australian)}</td>
-    <td>${money(row.england)}</td>
-    <td>${money(row.trackside)}</td>
-    <td>${money(row.due)}</td>
-    <td style="color:var(--green);font-weight:bold">${money(row.total)}</td>
-   </tr>`;
-  });
-
-  html+='</tbody></table></div>';
-  $('historyContent').innerHTML=html;
-
- }catch(e){
-  $('historyContent').innerHTML='<p class="muted">'+escapeHTML(e.message)+'</p>';
- }
+  const r=await api('history',{token:TOKEN,date:$('historyDate').value||''});if(!r.ok)throw new Error(r.error||'History failed');
+  const rows=r.rows||[];if(!rows.length){$('historyContent').innerHTML='<p class="muted">No stake records found.</p>';return}
+  let h='<div class="table-wrap"><table><thead><tr><th>Date</th><th>🇦🇺 Australian</th><th>🇬🇧 England</th><th>🏁 Trackside</th><th>💰 Due</th><th>Total</th></tr></thead><tbody>';
+  rows.forEach(x=>h+=`<tr><td>${escapeHTML(x.date)}</td><td>${money(x.australian)}</td><td>${money(x.england)}</td><td>${money(x.trackside)}</td><td>${money(x.due)}</td><td style="color:var(--green);font-weight:bold">${money(x.total)}</td></tr>`);
+  $('historyContent').innerHTML=h+'</tbody></table></div>';
+ }catch(e){$('historyContent').innerHTML='<p class="muted">'+escapeHTML(e.message)+'</p>'}
 }
-
 async function checkApproval(){
  try{
-  const r=await api('session',{token:TOKEN});
-
-  if(r.maintenance){
-   showMaintenance();
-   return;
-  }
-
+  const r=await api('session',{token:TOKEN});if(r.maintenance){showMaintenance();return}
   if(r.role==='CENTER'){
-   ROLE='CENTER';
-   hide('pendingBox');
-   show('centerMain');
-   $('centerStatusBadge').textContent='APPROVED';
-   $('centerStatusBadge').className='status approved';
-   loadHistory();
-   loadCentersForOther();
-   startChatRefresh();
-   msg('pendingMsg','Center approved successfully.','success');
-  }else{
-   msg('pendingMsg','Approval not granted yet. Please wait for Admin 2.','info');
-  }
- }catch(e){
-  msg('pendingMsg',e.message,'error');
- }
+   ROLE='CENTER';hide('pendingBox');show('centerMain');$('centerStatusBadge').textContent='APPROVED';$('centerStatusBadge').className='status approved';
+   loadHistory();loadCentersForOther();refreshCenterChat();startChatRefresh();msg('pendingMsg','Center approved successfully.','success');
+  }else msg('pendingMsg','Approval not granted yet. Please wait for Admin 2.','info');
+ }catch(e){msg('pendingMsg',e.message,'error')}
 }
-
-function startPendingCheck(){
- if(pendingTimer)clearInterval(pendingTimer);
- pendingTimer=setInterval(checkApproval,20000);
-}
-
+function startPendingCheck(){if(pendingTimer)clearInterval(pendingTimer);pendingTimer=setInterval(checkApproval,20000)}
 async function loadCentersForOther(){
  try{
-  const r=await api('centerTargets',{token:TOKEN});
-  if(!r.ok)throw new Error(r.error||'Cannot load centers');
-
-  const select=$('otherTarget');
-  select.innerHTML='<option value="">Select center</option>';
-
-  (r.centers||[]).forEach(name=>{
-   if(name.toLowerCase()!==CENTER.toLowerCase()){
-    const op=document.createElement('option');
-    op.value=name;
-    op.textContent=name;
-    select.appendChild(op);
-   }
-  });
+  const r=await api('centerTargets',{token:TOKEN});if(!r.ok)return;
+  const s=$('otherTarget');s.innerHTML='<option value="">Select center</option>';
+  (r.centers||[]).forEach(n=>{if(n.toLowerCase()!==CENTER.toLowerCase()){const o=document.createElement('option');o.value=n;o.textContent=n;s.appendChild(o)}});
  }catch(e){}
 }
-
 async function sendOtherRequest(){
- const data={
-  token:TOKEN,
-  targetCenter:$('otherTarget').value,
-  date:$('otherDate').value||todayBusinessDate(),
-  australian:$('otherAustralian').value||0,
-  england:$('otherEngland').value||0,
-  trackside:$('otherTrackside').value||0,
-  due:$('otherDue').value||0
- };
-
+ const data={token:TOKEN,targetCenter:$('otherTarget').value,date:$('otherDate').value||todayBusinessDate(),australian:$('otherAustralian').value||0,england:$('otherEngland').value||0,trackside:$('otherTrackside').value||0,due:$('otherDue').value||0};
  try{
-  const r=await api('otherRequestSend',data);
-  if(!r.ok)throw new Error(r.error||'Request failed');
-
-  ['otherAustralian','otherEngland','otherTrackside','otherDue'].forEach(id=>$(id).value='');
-  msg('otherMsg','Request sent to Admin 2 successfully.','success');
- }catch(e){
-  msg('otherMsg',e.message,'error');
- }
+  const r=await api('otherRequestSend',data);if(!r.ok)throw new Error(r.error||'Request failed');
+  ['otherAustralian','otherEngland','otherTrackside','otherDue'].forEach(id=>$(id).value='');msg('otherMsg','Request sent to Admin 2 successfully.','success');
+ }catch(e){msg('otherMsg',e.message,'error')}
 }
-
-// ===============================
-// CENTER CHAT
-// ===============================
-
 function renderChat(id,messages){
- const box=$(id);
- box.innerHTML='';
-
+ const box=$(id);box.innerHTML='';
  (messages||[]).forEach(m=>{
-  const mine=
-   m.senderRole==='CENTER'||
-   m.senderRole==='ADMIN1'||
-   m.senderRole==='ADMIN2'||
-   m.senderRole==='GUEST';
-
-  const div=document.createElement('div');
-  div.className='chatmsg'+(m.center===CENTER?' mine':'');
-
-  const sender=m.senderRole==='CENTER'
-   ?m.center
-   :m.senderRole;
-
-  div.innerHTML=
-   '<b>'+escapeHTML(sender)+'</b><br>'+
-   escapeHTML(m.message)+
-   '<small>'+escapeHTML(m.sentAt||'')+'</small>';
-
+  const div=document.createElement('div');div.className='chatmsg'+(m.center===CENTER?' mine':'');
+  const sender=m.senderRole==='CENTER'?m.center:m.senderRole;
+  div.innerHTML='<b>'+escapeHTML(sender)+'</b><br>'+escapeHTML(m.message)+'<small>'+escapeHTML(m.sentAt||'')+'</small>';
   box.appendChild(div);
  });
-
  box.scrollTop=box.scrollHeight;
 }
-
 async function refreshCenterChat(){
  if(!TOKEN||ROLE!=='CENTER')return;
-
- try{
-  const r=await api('chatGet',{token:TOKEN});
-  if(r.ok)renderChat('centerChatBox',r.messages);
- }catch(e){}
+ try{const r=await api('chatGet',{token:TOKEN});if(r.ok)renderChat('centerChatBox',r.messages)}catch(e){}
 }
-
 async function sendCenterChat(){
- const message=$('centerChatInput').value.trim();
- if(!message)return;
-
+ const message=$('centerChatInput').value.trim();if(!message)return;
  try{
-  const r=await api('chatSend',{
-   token:TOKEN,
-   message,
-   recipientRole:$('centerChatRecipient').value
-  });
-
+  const r=await api('chatSend',{token:TOKEN,message,recipientRole:$('centerChatRecipient').value});
   if(!r.ok)throw new Error(r.error||'Message failed');
-
-  $('centerChatInput').value='';
-  refreshCenterChat();
-  msg('centerChatMsg','Message sent.','success');
-
- }catch(e){
-  msg('centerChatMsg',e.message,'error');
- }
+  $('centerChatInput').value='';refreshCenterChat();msg('centerChatMsg','Message sent.','success');
+ }catch(e){msg('centerChatMsg',e.message,'error')}
 }
-
-function startChatRefresh(){
- if(chatTimer)clearInterval(chatTimer);
- chatTimer=setInterval(refreshCenterChat,20000);
-}
-
-// ===============================
-// PUBLIC SUPPORT CHAT
-// ===============================
-
-async function sendPublicChat(){
- const message=$('publicChatInput').value.trim();
- if(!message)return;
-
- try{
-  const r=await api('publicChatSend',{
-   center:$('publicChatName').value.trim()||'Guest',
-   message
-  });
-
-  if(!r.ok)throw new Error(r.error||'Message failed');
-
-  $('publicChatInput').value='';
-  msg('publicChatMsg','Message sent.','success');
-  loadPublicChat();
-
- }catch(e){
-  msg('publicChatMsg',e.message,'error');
- }
-}
-
-async function loadPublicChat(){
- try{
-  const r=await api('publicChatGet');
-  if(!r.ok)return;
-
-  const box=$('publicChatBox');
-  box.innerHTML='';
-
-  (r.messages||[]).forEach(m=>{
-   const div=document.createElement('div');
-   div.className='chatmsg'+(m.senderRole==='GUEST'?' mine':'');
-   div.innerHTML=
-    '<b>'+escapeHTML(m.center)+'</b><br>'+
-    escapeHTML(m.message)+
-    '<small>'+escapeHTML(m.sentAt||'')+'</small>';
-   box.appendChild(div);
-  });
-
-  box.scrollTop=box.scrollHeight;
- }catch(e){}
-}
-
-function startPublicChat(){
- if(publicTimer)clearInterval(publicTimer);
- loadPublicChat();
- publicTimer=setInterval(loadPublicChat,15000);
-}
-
-// ===============================
-// ADMIN 1 REPORT
-// ===============================
-
+function startChatRefresh(){if(chatTimer)clearInterval(chatTimer);chatTimer=setInterval(refreshCenterChat,20000)}
 async function loadReportCenters(){
  try{
-  const r=await api('reportCenters',{token:TOKEN});
-  if(!r.ok)throw new Error(r.error||'Cannot load centers');
-
-  const select=$('reportCenter');
-  const chatSelect=$('admin1ChatCenter');
-
-  select.innerHTML='<option value="ALL">ALL CENTERS</option>';
-  chatSelect.innerHTML='';
-
-  (r.centers||[]).forEach(name=>{
-   [select,chatSelect].forEach(s=>{
-    const op=document.createElement('option');
-    op.value=name;
-    op.textContent=name;
-    s.appendChild(op);
-   });
-  });
-
-  loadReport();
- }catch(e){
-  msg('reportSummary',e.message,'error');
- }
+  const r=await api('reportCenters',{token:TOKEN});if(!r.ok)throw new Error(r.error||'Cannot load centers');
+  const s=$('reportCenter'),c=$('admin1ChatCenter'),old=s.value;
+  s.innerHTML='<option value="ALL">ALL CENTERS</option>';c.innerHTML='';
+  (r.centers||[]).forEach(n=>[s,c].forEach(x=>{const o=document.createElement('option');o.value=n;o.textContent=n;x.appendChild(o)}));
+  if(old)s.value=old;loadReport();
+ }catch(e){msg('reportSummary',e.message,'error')}
 }
-
 async function loadReport(){
  if(!TOKEN)return;
-
- const date=$('reportDate').value||todayBusinessDate();
- const center=$('reportCenter').value||'ALL';
-
+ const date=$('reportDate').value||todayBusinessDate(),center=$('reportCenter').value||'ALL';
  try{
-  const r=await api('report',{
-   token:TOKEN,
-   date,
-   center
-  });
-
-  if(!r.ok)throw new Error(r.error||'Report failed');
-
+  const r=await api('report',{token:TOKEN,date,center});if(!r.ok)throw new Error(r.error||'Report failed');
   const t=r.total||{};
-
-  $('reportSummary').innerHTML=`
-   <div class="grid3">
-    <div class="stat"><small>AUSTRALIAN</small><strong>${money(t.australian)}</strong></div>
-    <div class="stat blue"><small>ENGLAND</small><strong>${money(t.england)}</strong></div>
-    <div class="stat purple"><small>TRACKSIDE</small><strong>${money(t.trackside)}</strong></div>
-    <div class="stat gold"><small>DUE</small><strong>${money(t.due)}</strong></div>
-    <div class="stat"><small>TOTAL STAKE</small><strong>${money(t.total)}</strong></div>
-    <div class="stat blue"><small>BUSINESS DATE</small><strong style="font-size:13px">${escapeHTML(r.date)}</strong></div>
-   </div>`;
-
+  $('captureReportInfo').textContent=(center==='ALL'?'ALL CENTERS':center)+' · BUSINESS DATE: '+r.date;
+  $('reportSummary').innerHTML=`<div class="grid3">
+   <div class="stat"><small>🇦🇺 AUSTRALIAN</small><strong>${money(t.australian)}</strong></div>
+   <div class="stat blue"><small>🇬🇧 ENGLAND</small><strong>${money(t.england)}</strong></div>
+   <div class="stat purple"><small>🏁 TRACKSIDE</small><strong>${money(t.trackside)}</strong></div>
+   <div class="stat gold"><small>💰 DUE</small><strong>${money(t.due)}</strong></div>
+   <div class="stat"><small>TOTAL STAKE</small><strong>${money(t.total)}</strong></div>
+   <div class="stat blue"><small>BUSINESS DATE</small><strong style="font-size:13px">${escapeHTML(r.date)}</strong></div>
+  </div>`;
   const rows=r.rows||[];
-
-  if(!rows.length){
-   $('reportContent').innerHTML='<p class="muted">No records for this date.</p>';
-   return;
+  if(!rows.length){$('reportContent').innerHTML='<p class="muted">No records for this date.</p>';return}
+  let h='<div class="table-wrap"><table><thead><tr><th>Center</th><th>🇦🇺 Australian</th><th>🇬🇧 England</th><th>🏁 Trackside</th><th>💰 Due</th><th>Total</th></tr></thead><tbody>';
+  rows.forEach(x=>h+=`<tr><td>${escapeHTML(x.center)}</td><td>${money(x.australian)}</td><td>${money(x.england)}</td><td>${money(x.trackside)}</td><td>${money(x.due)}</td><td style="color:var(--green);font-weight:bold">${money(x.total)}</td></tr>`);
+  $('reportContent').innerHTML=h+'</tbody></table></div>';
+ }catch(e){$('reportContent').innerHTML='<p class="muted">'+escapeHTML(e.message)+'</p>'}
+}
+async function captureReport(){
+ const area=$('reportCapture');clearMsg('captureMsg');
+ if(!window.html2canvas){msg('captureMsg','Screenshot library could not load. Check internet connection.','error');return}
+ try{
+  const canvas=await html2canvas(area,{scale:2,backgroundColor:'#091222',useCORS:true,logging:false});
+  const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));
+  if(!blob)throw new Error('Could not create report image');
+  const file=new File([blob],'Daily-Stake-Report-'+($('reportDate').value||todayBusinessDate())+'.png',{type:'image/png'});
+  if(navigator.canShare&&navigator.canShare({files:[file]})){
+   await navigator.share({files:[file],title:'Daily Stake Report'});
+  }else{
+   const url=URL.createObjectURL(blob),a=document.createElement('a');
+   a.href=url;a.download=file.name;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+   msg('captureMsg','Report screenshot saved.','success');
   }
-
-  let html='<div class="table-wrap"><table><thead><tr>'+
-   '<th>Center</th><th>Australian</th><th>England</th>'+
-   '<th>Trackside</th><th>Due</th><th>Total</th>'+
-   '</tr></thead><tbody>';
-
-  rows.forEach(row=>{
-   html+=`<tr>
-    <td>${escapeHTML(row.center)}</td>
-    <td>${money(row.australian)}</td>
-    <td>${money(row.england)}</td>
-    <td>${money(row.trackside)}</td>
-    <td>${money(row.due)}</td>
-    <td style="color:var(--green);font-weight:bold">${money(row.total)}</td>
-   </tr>`;
-  });
-
-  html+='</tbody></table></div>';
-  $('reportContent').innerHTML=html;
-
  }catch(e){
-  $('reportContent').innerHTML='<p class="muted">'+escapeHTML(e.message)+'</p>';
+  if(e.name!=='AbortError')msg('captureMsg','Screenshot failed: '+e.message,'error');
  }
 }
-
 async function loadAdminChat(){
- const center=$('admin1ChatCenter').value;
- if(!center)return;
-
- try{
-  const r=await api('chatGet',{
-   token:TOKEN,
-   center
-  });
-  if(r.ok)renderChat('admin1ChatBox',r.messages);
- }catch(e){}
+ const center=$('admin1ChatCenter').value;if(!center)return;
+ try{const r=await api('chatGet',{token:TOKEN,center});if(r.ok)renderChat('admin1ChatBox',r.messages)}catch(e){}
 }
-
 async function sendAdmin1Chat(){
- const center=$('admin1ChatCenter').value;
- const message=$('admin1ChatInput').value.trim();
- if(!center||!message)return;
-
+ const center=$('admin1ChatCenter').value,message=$('admin1ChatInput').value.trim();if(!center||!message)return;
  try{
-  const r=await api('chatSend',{
-   token:TOKEN,
-   center,
-   recipientRole:'CENTER',
-   recipientCenter:center,
-   message
-  });
-
+  const r=await api('chatSend',{token:TOKEN,center,recipientRole:'CENTER',recipientCenter:center,message});
   if(!r.ok)throw new Error(r.error||'Send failed');
-
-  $('admin1ChatInput').value='';
-  loadAdminChat();
-  msg('admin1ChatMsg','Message sent.','success');
-
- }catch(e){
-  msg('admin1ChatMsg',e.message,'error');
- }
+  $('admin1ChatInput').value='';loadAdminChat();msg('admin1ChatMsg','Message sent.','success');
+ }catch(e){msg('admin1ChatMsg',e.message,'error')}
 }
-
-// ===============================
-// ADMIN 2 CENTERS / DEVICES
-// ===============================
-
-let adminCenters=[];
-let adminDevices=[];
-
+let adminCenters=[],adminDevices=[],selectedRequest=null;
 async function loadAdminData(){
  try{
-  const r=await api('adminData',{token:TOKEN});
-  if(!r.ok)throw new Error(r.error||'Cannot load admin data');
-
-  adminCenters=r.centers||[];
-  adminDevices=r.devices||[];
-
-  renderCenters();
-  renderDevices();
-  fillAdminCenterOptions();
-
-  $('maintenanceStatus').textContent=
-   r.maintenance?'MAINTENANCE IS ON':'SYSTEM IS ACTIVE';
-
-  $('maintenanceStatus').className=
-   'msg show '+(r.maintenance?'error':'success');
-
- }catch(e){
-  $('centersList').innerHTML='<p class="muted">'+escapeHTML(e.message)+'</p>';
- }
+  const r=await api('adminData',{token:TOKEN});if(!r.ok)throw new Error(r.error||'Cannot load admin data');
+  adminCenters=r.centers||[];adminDevices=r.devices||[];renderCenters();renderDevices();fillAdminCenterOptions();
+  $('maintenanceStatus').textContent=r.maintenance?'MAINTENANCE IS ON':'SYSTEM IS ACTIVE';
+  $('maintenanceStatus').className='msg show '+(r.maintenance?'error':'success');
+ }catch(e){$('centersList').innerHTML='<p class="muted">'+escapeHTML(e.message)+'</p>'}
 }
-
+async function registerCenter(){
+ const center=$('newCenterName').value.trim();if(!center){msg('registerMsg','Enter center name.','error');return}
+ try{
+  const r=await api('approve',{token:TOKEN,center,status:'PENDING'});if(!r.ok)throw new Error(r.error||'Registration failed');
+  $('newCenterName').value='';msg('registerMsg','Center registered as PENDING.','success');loadAdminData();
+ }catch(e){msg('registerMsg',e.message,'error')}
+}
 function renderCenters(){
- const box=$('centersList');
-
- if(!adminCenters.length){
-  box.innerHTML='<p class="muted">No registered centers.</p>';
-  return;
- }
-
- let html='<div class="table-wrap"><table><thead><tr>'+
-  '<th>Center</th><th>Status</th><th>Created</th><th>Action</th>'+
-  '</tr></thead><tbody>';
-
+ const box=$('centersList');if(!adminCenters.length){box.innerHTML='<p class="muted">No registered centers.</p>';return}
+ let h='<div class="table-wrap"><table><thead><tr><th>Center</th><th>Status</th><th>Created</th><th>Action</th></tr></thead><tbody>';
  adminCenters.forEach(c=>{
   const status=c.status.toLowerCase();
-  html+=`<tr>
-   <td>${escapeHTML(c.name)}</td>
-   <td><span class="status ${status}">${escapeHTML(c.status)}</span></td>
-   <td>${escapeHTML(c.created)}</td>
-   <td>
-    <button class="secondary" onclick="approveCenter('${escapeJS(c.name)}','APPROVED')">APPROVE</button>
-    <button class="danger" onclick="approveCenter('${escapeJS(c.name)}','BLOCKED')">BLOCK</button>
-   </td>
-  </tr>`;
+  h+=`<tr><td>${escapeHTML(c.name)}</td><td><span class="status ${status}">${escapeHTML(c.status)}</span></td><td>${escapeHTML(c.created)}</td><td><button class="secondary" onclick="approveCenter('${escapeJS(c.name)}','APPROVED')">APPROVE</button> <button class="danger" onclick="approveCenter('${escapeJS(c.name)}','BLOCKED')">BLOCK</button></td></tr>`;
  });
-
- html+='</tbody></table></div>';
- box.innerHTML=html;
+ box.innerHTML=h+'</tbody></table></div>';
 }
-
 function renderDevices(){
- const box=$('devicesList');
-
- if(!adminDevices.length){
-  box.innerHTML='<p class="muted">No registered devices.</p>';
-  return;
- }
-
- let html='<div class="table-wrap"><table><thead><tr>'+
-  '<th>Center</th><th>Device</th><th>Last Seen</th><th>Action</th>'+
-  '</tr></thead><tbody>';
-
- adminDevices.forEach(d=>{
-  html+=`<tr>
-   <td>${escapeHTML(d.center)}</td>
-   <td>${escapeHTML(d.deviceName)}</td>
-   <td>${escapeHTML(d.lastSeen)}</td>
-   <td><button class="danger" onclick="removeDevice('${escapeJS(d.center)}','${escapeJS(d.deviceId)}')">REMOVE</button></td>
-  </tr>`;
- });
-
- html+='</tbody></table></div>';
- box.innerHTML=html;
+ const box=$('devicesList');if(!adminDevices.length){box.innerHTML='<p class="muted">No registered devices.</p>';return}
+ let h='<div class="table-wrap"><table><thead><tr><th>Center</th><th>Device</th><th>Last Seen</th><th>Action</th></tr></thead><tbody>';
+ adminDevices.forEach(d=>h+=`<tr><td>${escapeHTML(d.center)}</td><td>${escapeHTML(d.deviceName)}</td><td>${escapeHTML(d.lastSeen)}</td><td><button class="danger" onclick="removeDevice('${escapeJS(d.center)}','${escapeJS(d.deviceId)}')">REMOVE</button></td></tr>`);
+ box.innerHTML=h+'</tbody></table></div>';
 }
-
 function fillAdminCenterOptions(){
- const ids=['manualCenter','admin2ChatCenter'];
-
- ids.forEach(id=>{
-  const select=$(id);
-  const old=select.value;
-  select.innerHTML='';
-
-  adminCenters
-   .filter(c=>c.status.toUpperCase()==='APPROVED')
-   .forEach(c=>{
-    const op=document.createElement('option');
-    op.value=c.name;
-    op.textContent=c.name;
-    select.appendChild(op);
-   });
-
-  if(old)select.value=old;
+ ['manualCenter','admin2ChatCenter'].forEach(id=>{
+  const s=$(id),old=s.value;s.innerHTML='';
+  adminCenters.filter(c=>c.status.toUpperCase()==='APPROVED').forEach(c=>{const o=document.createElement('option');o.value=c.name;o.textContent=c.name;s.appendChild(o)});
+  if(old)s.value=old;
  });
 }
-
 async function approveCenter(center,status){
  if(!confirm('Set '+center+' to '+status+'?'))return;
-
- try{
-  const r=await api('approve',{
-   token:TOKEN,
-   center,
-   status
-  });
-
-  if(!r.ok)throw new Error(r.error||'Update failed');
-
-  loadAdminData();
-
- }catch(e){
-  alert(e.message);
- }
+ try{const r=await api('approve',{token:TOKEN,center,status});if(!r.ok)throw new Error(r.error||'Update failed');loadAdminData()}
+ catch(e){alert(e.message)}
 }
-
 async function removeDevice(center,deviceId){
  if(!confirm('Remove this device?'))return;
-
- try{
-  const r=await api('removeDevice',{
-   token:TOKEN,
-   center,
-   deviceId
-  });
-
-  if(!r.ok)throw new Error(r.error||'Remove failed');
-
-  loadAdminData();
-
- }catch(e){
-  alert(e.message);
- }
+ try{const r=await api('removeDevice',{token:TOKEN,center,deviceId});if(!r.ok)throw new Error(r.error||'Remove failed');loadAdminData()}
+ catch(e){alert(e.message)}
 }
-
-// ===============================
-// ADMIN 2 OTHER REQUESTS
-// ===============================
-
 async function loadOtherRequests(){
  try{
-  const r=await api('otherRequests',{token:TOKEN});
-  if(!r.ok)throw new Error(r.error||'Cannot load requests');
-
-  const requests=r.requests||[];
-  const box=$('requestsList');
-
-  if(!requests.length){
-   box.innerHTML='<p class="muted">No requests received.</p>';
-   return;
-  }
-
-  let html='';
-
+  const r=await api('otherRequests',{token:TOKEN});if(!r.ok)throw new Error(r.error||'Cannot load requests');
+  const requests=r.requests||[],box=$('requestsList');
+  if(!requests.length){box.innerHTML='<p class="muted">No requests received.</p>';return}
+  let h='';
   requests.forEach(q=>{
-   html+=`
-   <div class="card" style="background:#0e1730">
-    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
-     <b>${escapeHTML(q.fromCenter)} → ${escapeHTML(q.targetCenter)}</b>
-     <span class="status ${q.status.toLowerCase()==='entered'?'entered':'pending'}">${escapeHTML(q.status)}</span>
-    </div>
+   h+=`<div class="card" style="background:#0b1427">
+    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><b>${escapeHTML(q.fromCenter)} → ${escapeHTML(q.targetCenter)}</b><span class="status ${q.status.toLowerCase()==='entered'?'entered':'pending'}">${escapeHTML(q.status)}</span></div>
     <p class="muted">Date: ${escapeHTML(q.date)}</p>
     <div class="grid">
-     <div class="stat"><small>AUSTRALIAN</small><strong>${money(q.australian)}</strong></div>
-     <div class="stat blue"><small>ENGLAND</small><strong>${money(q.england)}</strong></div>
-     <div class="stat purple"><small>TRACKSIDE</small><strong>${money(q.trackside)}</strong></div>
-     <div class="stat gold"><small>DUE</small><strong>${money(q.due)}</strong></div>
+     <div class="stat"><small>🇦🇺 AUSTRALIAN</small><strong>${money(q.australian)}</strong></div>
+     <div class="stat blue"><small>🇬🇧 ENGLAND</small><strong>${money(q.england)}</strong></div>
+     <div class="stat purple"><small>🏁 TRACKSIDE</small><strong>${money(q.trackside)}</strong></div>
+     <div class="stat gold"><small>💰 DUE</small><strong>${money(q.due)}</strong></div>
     </div>
     <p style="color:var(--green);font-weight:bold">Total: ${money(q.total)}</p>
-    <div class="btnrow">
-     <button onclick="useRequest('${escapeJS(q.id)}')">USE IN MANUAL SAVE</button>
-     <button class="secondary" onclick="markRequestEntered('${escapeJS(q.id)}')">MARK ENTERED</button>
-    </div>
+    <div class="btnrow"><button onclick="useRequest('${escapeJS(q.id)}')">USE IN MANUAL SAVE</button><button class="secondary" onclick="markRequestEntered('${escapeJS(q.id)}')">MARK ENTERED</button></div>
    </div>`;
   });
-
-  box.innerHTML=html;
-
- }catch(e){
-  $('requestsList').innerHTML='<p class="muted">'+escapeHTML(e.message)+'</p>';
- }
+  box.innerHTML=h;
+ }catch(e){$('requestsList').innerHTML='<p class="muted">'+escapeHTML(e.message)+'</p>'}
 }
-
-let selectedRequest=null;
-
 async function useRequest(id){
  try{
-  const r=await api('otherRequests',{token:TOKEN});
-  if(!r.ok)throw new Error(r.error||'Cannot load request');
-
-  selectedRequest=(r.requests||[]).find(x=>x.id===id);
-  if(!selectedRequest)throw new Error('Request not found');
-
-  $('manualCenter').value=selectedRequest.targetCenter;
-  $('manualDate').value=selectedRequest.date;
-  $('manualAustralian').value=selectedRequest.australian;
-  $('manualEngland').value=selectedRequest.england;
-  $('manualTrackside').value=selectedRequest.trackside;
-  $('manualDue').value=selectedRequest.due;
-
+  const r=await api('otherRequests',{token:TOKEN});if(!r.ok)throw new Error(r.error||'Cannot load request');
+  selectedRequest=(r.requests||[]).find(x=>x.id===id);if(!selectedRequest)throw new Error('Request not found');
+  $('manualCenter').value=selectedRequest.targetCenter;$('manualDate').value=selectedRequest.date;
+  $('manualAustralian').value=selectedRequest.australian;$('manualEngland').value=selectedRequest.england;
+  $('manualTrackside').value=selectedRequest.trackside;$('manualDue').value=selectedRequest.due;
   admin2Tab('manual',document.querySelector('#admin2View .tabs button:nth-child(4)'));
-
- }catch(e){
-  alert(e.message);
- }
+ }catch(e){alert(e.message)}
 }
-
 async function markRequestEntered(id){
- try{
-  const r=await api('markRequestEntered',{
-   token:TOKEN,
-   id
-  });
-
-  if(!r.ok)throw new Error(r.error||'Update failed');
-
-  loadOtherRequests();
-
- }catch(e){
-  alert(e.message);
- }
+ try{const r=await api('markRequestEntered',{token:TOKEN,id});if(!r.ok)throw new Error(r.error||'Update failed');loadOtherRequests()}
+ catch(e){alert(e.message)}
 }
-
-// ===============================
-// ADMIN 2 MANUAL SAVE
-// ===============================
-
 async function manualSave(){
- const data={
-  token:TOKEN,
-  center:$('manualCenter').value,
-  date:$('manualDate').value||todayBusinessDate(),
-  australian:$('manualAustralian').value||0,
-  england:$('manualEngland').value||0,
-  trackside:$('manualTrackside').value||0,
-  due:$('manualDue').value||0
- };
-
+ const data={token:TOKEN,center:$('manualCenter').value,date:$('manualDate').value||todayBusinessDate(),australian:$('manualAustralian').value||0,england:$('manualEngland').value||0,trackside:$('manualTrackside').value||0,due:$('manualDue').value||0};
  try{
-  const r=await api('manualSave',data);
-  if(!r.ok)throw new Error(r.error||'Save failed');
-
+  const r=await api('manualSave',data);if(!r.ok)throw new Error(r.error||'Save failed');
   msg('manualMsg','Official stake saved. Total: '+money(r.total),'success');
-
-  if(selectedRequest){
-   await markRequestEntered(selectedRequest.id);
-   selectedRequest=null;
-  }
-
+  if(selectedRequest){await markRequestEntered(selectedRequest.id);selectedRequest=null}
   ['manualAustralian','manualEngland','manualTrackside','manualDue'].forEach(id=>$(id).value='');
-
- }catch(e){
-  msg('manualMsg',e.message,'error');
- }
+ }catch(e){msg('manualMsg',e.message,'error')}
 }
-
-// ===============================
-// ADMIN 2 CHAT
-// ===============================
-
 async function loadAdmin2Chat(){
- const center=$('admin2ChatCenter').value;
- if(!center)return;
-
- try{
-  const r=await api('chatGet',{
-   token:TOKEN,
-   center
-  });
-
-  if(r.ok)renderChat('admin2ChatBox',r.messages);
- }catch(e){}
+ const center=$('admin2ChatCenter').value;if(!center)return;
+ try{const r=await api('chatGet',{token:TOKEN,center});if(r.ok)renderChat('admin2ChatBox',r.messages)}catch(e){}
 }
-
 async function sendAdmin2Chat(){
- const center=$('admin2ChatCenter').value;
- const message=$('admin2ChatInput').value.trim();
- if(!center||!message)return;
-
+ const center=$('admin2ChatCenter').value,message=$('admin2ChatInput').value.trim();if(!center||!message)return;
  try{
-  const r=await api('chatSend',{
-   token:TOKEN,
-   center,
-   recipientRole:'CENTER',
-   recipientCenter:center,
-   message
-  });
-
+  const r=await api('chatSend',{token:TOKEN,center,recipientRole:'CENTER',recipientCenter:center,message});
   if(!r.ok)throw new Error(r.error||'Send failed');
-
-  $('admin2ChatInput').value='';
-  loadAdmin2Chat();
-  msg('admin2ChatMsg','Message sent.','success');
-
- }catch(e){
-  msg('admin2ChatMsg',e.message,'error');
- }
+  $('admin2ChatInput').value='';loadAdmin2Chat();msg('admin2ChatMsg','Message sent.','success');
+ }catch(e){msg('admin2ChatMsg',e.message,'error')}
 }
-
-// ===============================
-// MAINTENANCE CONTROL
-// ===============================
-
 async function setMaintenance(value){
- const text=value==='ON'
-  ?'Turn maintenance ON? Center users will be blocked.'
-  :'Turn maintenance OFF?';
-
- if(!confirm(text))return;
-
+ if(!confirm(value==='ON'?'Turn maintenance ON? Center users will be blocked.':'Turn maintenance OFF?'))return;
  try{
-  const r=await api('maintenance',{
-   token:TOKEN,
-   value
-  });
-
-  if(!r.ok)throw new Error(r.error||'Update failed');
-
-  msg(
-   'maintenanceStatus',
-   value==='ON'?'MAINTENANCE IS ON':'SYSTEM IS ACTIVE',
-   value==='ON'?'error':'success'
-  );
-
- }catch(e){
-  msg('maintenanceStatus',e.message,'error');
- }
+  const r=await api('maintenance',{token:TOKEN,value});if(!r.ok)throw new Error(r.error||'Update failed');
+  msg('maintenanceStatus',value==='ON'?'MAINTENANCE IS ON':'SYSTEM IS ACTIVE',value==='ON'?'error':'success');
+ }catch(e){msg('maintenanceStatus',e.message,'error')}
 }
-
-// ===============================
-// REFRESH BUTTON
-// ===============================
-
 async function refreshDashboard(){
- if(refreshing)return;
-
- refreshing=true;
- const btn=$('refreshBtn');
- btn.disabled=true;
- btn.textContent='REFRESHING...';
-
+ if(refreshing)return;refreshing=true;const btn=$('refreshBtn');btn.disabled=true;btn.textContent='REFRESHING...';
  try{
-  if(ROLE==='CENTER_PENDING'){
-   await checkApproval();
-  }else if(ROLE==='CENTER'){
-   await Promise.all([
-    loadHistory(),
-    refreshCenterChat(),
-    loadCentersForOther()
-   ]);
-  }else if(ROLE==='ADMIN1'){
-   await loadReportCenters();
-   await loadReport();
-  }else if(ROLE==='ADMIN2'){
-   await loadAdminData();
-   await loadOtherRequests();
-   await loadAdmin2Chat();
-  }
- }finally{
-  refreshing=false;
-  btn.disabled=false;
-  btn.textContent='↻ REFRESH';
- }
+  if(ROLE==='CENTER_PENDING')await checkApproval();
+  else if(ROLE==='CENTER')await Promise.all([loadHistory(),refreshCenterChat(),loadCentersForOther()]);
+  else if(ROLE==='ADMIN1'){await loadReportCenters();await loadReport()}
+  else if(ROLE==='ADMIN2'){await loadAdminData();await loadOtherRequests();await loadAdmin2Chat()}
+ }finally{refreshing=false;btn.disabled=false;btn.textContent='↻ REFRESH'}
 }
-
-// ===============================
-// HTML SAFETY
-// ===============================
-
 function escapeHTML(value){
- return String(value==null?'':value)
-  .replace(/&/g,'&amp;')
-  .replace(/</g,'&lt;')
-  .replace(/>/g,'&gt;')
-  .replace(/"/g,'&quot;')
-  .replace(/'/g,'&#039;');
+ return String(value==null?'':value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
 }
-
 function escapeJS(value){
- return String(value==null?'':value)
-  .replace(/\\/g,'\\\\')
-  .replace(/'/g,"\\'")
-  .replace(/"/g,'\\"')
-  .replace(/\n/g,' ')
-  .replace(/\r/g,' ');
+ return String(value==null?'':value).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'\\"').replace(/\n/g,' ').replace(/\r/g,' ');
 }
-
-// ===============================
-// START
-// ===============================
-
 setDates();
 savedCenter();
-startPublicChat();
 restoreSession();
 </script>
 </body>
