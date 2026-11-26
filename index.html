@@ -5,8 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#071b16">
-<title>Daily Stake - Multi Centers</title>
-
+<title>Daily Stake - Multi Center</title>
 <style>
 :root{--gold:#e7c46b;--muted:#a8b8b1}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -60,16 +59,19 @@ footer b{font-size:18px;color:var(--gold)}
 .pendingIcon{font-size:55px;margin-bottom:12px}
 .pendingTitle{font-size:30px;font-weight:900;color:#ffd778;letter-spacing:2px}
 .pendingText{color:#f0dfbd;font-size:14px;line-height:1.8;margin-top:12px}
-@media(max-width:420px){.card{padding:14px}.clock{font-size:27px}.pendingTitle{font-size:27px}}
-@media print{
-body{background:white;color:black}
-button,footer,.top,.no-print{display:none!important}
-.card{background:white;color:black;box-shadow:none;border:1px solid #ccc}
-th{color:black}
-}
+.chatMessages{height:260px;overflow-y:auto;background:#071b16aa;border:1px solid #ffffff20;border-radius:12px;padding:10px;margin:12px 0}
+.chatMsg{padding:10px;margin:8px 0;border-radius:11px;background:#ffffff12;max-width:90%;overflow-wrap:anywhere}
+.chatMsg.mine{margin-left:auto;background:#285b43}
+.chatMsg.admin{border-left:3px solid var(--gold)}
+.chatMsg small{display:block;color:#c1cfc8;font-size:10px;margin-bottom:5px}
+.chatMsg p{margin:0;font-size:13px;line-height:1.5;white-space:pre-wrap}
+.chatSendRow{display:flex;gap:8px;align-items:center}
+.chatSendRow input{flex:1;min-width:0}
+.chatSendRow button{width:auto;min-width:85px;margin:0}
+@media(max-width:420px){.card{padding:14px}.clock{font-size:27px}.pendingTitle{font-size:27px}.chatSendRow button{min-width:72px;padding:12px 8px}}
+@media print{body{background:white;color:black}button,footer,.top,.no-print{display:none!important}.card{background:white;color:black;box-shadow:none;border:1px solid #ccc}th{color:black}}
 </style>
 </head>
-
 <body>
 <div class="wrap">
 
@@ -86,7 +88,6 @@ th{color:black}
 
 <section id="loginView" class="card">
 <h2 class="center">SYSTEM LOGIN</h2>
-
 <label>Center Name / Admin</label>
 <input id="username" placeholder="Enter center name or admin" autocomplete="username">
 
@@ -97,9 +98,22 @@ th{color:black}
 
 <button class="btn" id="loginBtn" onclick="login()">LOGIN</button>
 <button class="btn secondary hidden" id="centerSwitch" onclick="switchCenterLogin()">CENTER LOGIN</button>
-
 <div id="loginMsg" class="status hidden"></div>
 <p class="muted center">New centers require Admin 2 approval.</p>
+</section>
+
+<!-- LOGIN PAGE CHAT -->
+<section id="loginChat" class="card">
+<h2>CONTACT ADMIN 2</h2>
+<p class="muted">Enter your center name above and send a message to the system administrator.</p>
+<div id="loginChatMessages" class="chatMessages">
+<div class="muted center">Login to view previous messages. You can send a new message below.</div>
+</div>
+<div class="chatSendRow">
+<input id="loginChatInput" placeholder="Type your message..." maxlength="1000">
+<button class="btn green" onclick="sendLoginMessage()">SEND</button>
+</div>
+<div id="loginChatStatus" class="status hidden"></div>
 </section>
 
 <section id="appView" class="hidden">
@@ -111,7 +125,6 @@ th{color:black}
 <button class="btn secondary" onclick="logout()">LOG OUT</button>
 </div>
 
-<!-- CENTER APPROVAL MESSAGE -->
 <section id="pendingPanel" class="hidden">
 <div class="pendingBox">
 <div class="pendingIcon">🔒</div>
@@ -125,9 +138,19 @@ Please contact the system administrator.
 </div>
 </section>
 
-<!-- CENTER AREA -->
-<section id="centerPanel" class="hidden">
+<!-- CENTER CHAT: APPROVED AND PENDING CENTERS -->
+<section id="centerChatPanel" class="card hidden">
+<h2>SUPPORT CHAT • ADMIN 2</h2>
+<div id="centerChatMessages" class="chatMessages"></div>
+<div class="chatSendRow">
+<input id="centerChatInput" placeholder="Type your message..." maxlength="1000">
+<button class="btn green" onclick="sendCenterMessage()">SEND</button>
+</div>
+<div id="centerChatStatus" class="status hidden"></div>
+<button class="btn secondary" onclick="refreshCenterChat()">REFRESH MESSAGES</button>
+</section>
 
+<section id="centerPanel" class="hidden">
 <div class="tabs">
 <button class="tab active" id="newTab" onclick="showCenterTab('new')">NEW STAKE</button>
 <button class="tab" id="historyTab" onclick="showCenterTab('history')">STAKE HISTORY</button>
@@ -135,32 +158,23 @@ Please contact the system administrator.
 
 <div id="newStake" class="card">
 <h2>NEW STAKE ENTRY</h2>
-
 <label>Select Stake Date</label>
 <input type="date" id="stakeDate">
 
 <label>Australian</label>
 <input class="amount" id="Australian" type="number" min="0" step="0.01" placeholder="0.00" oninput="calcTotal()">
-
 <label>England</label>
 <input class="amount" id="England" type="number" min="0" step="0.01" placeholder="0.00" oninput="calcTotal()">
-
 <label>Trackside</label>
 <input class="amount" id="Trackside" type="number" min="0" step="0.01" placeholder="0.00" oninput="calcTotal()">
-
 <label>Due (Excluded from Total)</label>
 <input class="amount" id="Due" type="number" min="0" step="0.01" placeholder="0.00">
 
-<div class="total">
-<small>TOTAL STAKE</small>
-<strong id="liveTotal">0.00</strong>
-</div>
-
+<div class="total"><small>TOTAL STAKE</small><strong id="liveTotal">0.00</strong></div>
 <div class="grid">
 <button class="btn danger" onclick="clearStake()">CLEAR</button>
 <button class="btn green" id="saveBtn" onclick="saveStake()">SAVE STAKE</button>
 </div>
-
 <div id="saveMsg" class="status hidden"></div>
 </div>
 
@@ -169,54 +183,71 @@ Please contact the system administrator.
 <button class="btn secondary" onclick="loadHistory()">REFRESH HISTORY</button>
 <div id="historyList" class="muted" style="margin-top:12px">Loading...</div>
 </div>
-
 </section>
 
 <!-- ADMIN 1 -->
 <section id="admin1Panel" class="hidden">
 <div class="card">
 <h2>ADMIN 1 • REPORTS</h2>
-
 <label>Select Center</label>
-<select id="reportCenter" onchange="loadReport()">
+<select id="reportCenter" onchange="loadReport();refreshAdmin1Chat()">
 <option value="ALL">ALL CENTERS</option>
 </select>
-
 <label>Select Business Date</label>
 <input type="date" id="reportDate" onchange="loadReport()">
-
 <button class="btn" onclick="loadReport()">VIEW REPORT</button>
 <div id="reportArea"></div>
+</div>
+
+<div class="card">
+<h2>ADMIN 1 • CENTER CHAT</h2>
+<p class="muted">Select a center above to view its messages and send a reply.</p>
+<div id="admin1ChatMessages" class="chatMessages"></div>
+<div class="chatSendRow">
+<input id="admin1ChatInput" placeholder="Message selected center..." maxlength="1000">
+<button class="btn green" onclick="sendAdmin1Message()">SEND</button>
+</div>
+<div id="admin1ChatStatus" class="status hidden"></div>
+<button class="btn secondary" onclick="refreshAdmin1Chat()">REFRESH CHAT</button>
 </div>
 </section>
 
 <!-- ADMIN 2 -->
 <section id="admin2Panel" class="hidden">
-
 <div class="card">
 <h2>ADMIN 2 • SYSTEM CONTROL</h2>
-
 <div class="statgrid">
 <div class="stat"><small>REGISTERED CENTERS</small><b id="centerCount">0</b></div>
 <div class="stat"><small>REGISTERED DEVICES</small><b id="deviceCount">0</b></div>
 </div>
-
 <div class="row"><span>Maintenance</span><b id="maintState">OFF</b></div>
-
 <button class="btn danger" id="maintBtn" onclick="toggleMaintenance()">TURN MAINTENANCE ON</button>
 <button class="btn secondary" onclick="loadAdminData()">REFRESH SYSTEM DATA</button>
+</div>
+
+<div class="card">
+<h2>ADMIN 2 • ALL CENTER MESSAGES</h2>
+<label>Select Center</label>
+<select id="admin2ChatCenter" onchange="refreshAdmin2Chat()">
+<option value="ALL">ALL CENTERS</option>
+</select>
+<div id="admin2ChatMessages" class="chatMessages"></div>
+<div class="chatSendRow">
+<input id="admin2ChatInput" placeholder="Reply to selected center..." maxlength="1000">
+<button class="btn green" onclick="sendAdmin2Message()">SEND</button>
+</div>
+<div id="admin2ChatStatus" class="status hidden"></div>
+<button class="btn secondary" onclick="refreshAdmin2Chat()">REFRESH MESSAGES</button>
 </div>
 
 <div class="card">
 <h2>REGISTERED CENTERS / APPROVALS</h2>
 <div id="centerList"></div>
 </div>
-
 <div class="card">
 <h2>REGISTERED DEVICES</h2>
 <div id="deviceList"></div>
 </div>
-
 </section>
 </section>
 
@@ -226,7 +257,6 @@ Please contact the system administrator.
 <div>Pasindu</div>
 <div>DAILY STAKE • MULTI CENTER • SRI LANKA TIME</div>
 </footer>
-
 </div>
 
 <div id="maintenanceOverlay" class="overlay hidden">
@@ -240,45 +270,27 @@ Please contact the system administrator.
 <script>
 const API='https://script.google.com/macros/s/AKfycbwVzKrmNhfTuAfynGQ-Ple1poFp5KH1EqXDwtxF-V9IWVZgPwh6S5JI5vRw5zzscag/exec';
 
-let TOKEN='';
-let ROLE='';
-let CENTER='';
-let saving=false;
-let maintenanceOn=false;
+let TOKEN='',ROLE='',CENTER='',saving=false,maintenanceOn=false;
+let chatTimer=null;
 
 function $(id){return document.getElementById(id)}
-
-function money(n){
-return (Number(n)||0).toLocaleString('en-US',{
-minimumFractionDigits:2,
-maximumFractionDigits:2
-});
-}
-
-function escapeHtml(v){
-return String(v??'').replace(/[&<>"']/g,c=>({
-'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-}[c]));
-}
+function money(n){return (Number(n)||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 
 function deviceId(){
 let id=localStorage.getItem('ds_device_id');
-
 if(!id){
 id='DS-'+(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random());
 localStorage.setItem('ds_device_id',id);
 }
-
 return id;
 }
 
-/* API CONNECTION */
 function api(action,data={}){
 return new Promise((resolve,reject)=>{
 const callback='ds_callback_'+Date.now()+'_'+Math.floor(Math.random()*99999);
 const script=document.createElement('script');
 let finished=false;
-
 function cleanup(){
 if(finished)return;
 finished=true;
@@ -286,41 +298,34 @@ clearTimeout(timer);
 delete window[callback];
 script.remove();
 }
-
 const timer=setTimeout(()=>{
 cleanup();
 reject(new Error('Server timeout. Check Apps Script deployment.'));
 },25000);
-
 window[callback]=result=>{
 cleanup();
 if(result&&result.ok)resolve(result);
 else reject(new Error(result?.error||'Request failed'));
 };
-
 script.onerror=()=>{
 cleanup();
 reject(new Error('Cannot connect to Apps Script.'));
 };
-
 const params=new URLSearchParams();
 params.set('action',action);
 params.set('p',JSON.stringify(data));
 params.set('callback',callback);
 params.set('_',String(Date.now()));
-
 script.src=API+'?'+params.toString();
 document.body.appendChild(script);
 });
 }
 
-/* ADMIN PASSWORD */
+/* LOGIN FIELD */
 $('username').addEventListener('input',()=>{
 const isAdmin=$('username').value.trim().toLowerCase()==='admin';
-
 $('passwordArea').classList.toggle('hidden',!isAdmin);
 $('centerSwitch').classList.toggle('hidden',!isAdmin);
-
 if(!isAdmin)$('password').value='';
 });
 
@@ -333,73 +338,41 @@ $('loginMsg').classList.add('hidden');
 $('username').focus();
 }
 
-$('username').addEventListener('keydown',e=>{
-if(e.key==='Enter')login();
-});
+$('username').addEventListener('keydown',e=>{if(e.key==='Enter')login()});
+$('password').addEventListener('keydown',e=>{if(e.key==='Enter')login()});
+$('loginChatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendLoginMessage()});
+$('centerChatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendCenterMessage()});
+$('admin1ChatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendAdmin1Message()});
+$('admin2ChatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendAdmin2Message()});
 
-$('password').addEventListener('keydown',e=>{
-if(e.key==='Enter')login();
-});
-
-/* SRI LANKA BUSINESS DATE */
+/* BUSINESS DATE AND CLOCK */
 function getBusinessDate(){
 const parts=new Intl.DateTimeFormat('en-CA',{
-timeZone:'Asia/Colombo',
-year:'numeric',
-month:'2-digit',
-day:'2-digit',
-hour:'2-digit',
-minute:'2-digit',
-hourCycle:'h23'
+timeZone:'Asia/Colombo',year:'numeric',month:'2-digit',day:'2-digit',
+hour:'2-digit',minute:'2-digit',hourCycle:'h23'
 }).formatToParts(new Date());
-
 const get=t=>parts.find(p=>p.type===t).value;
-
-let y=Number(get('year'));
-let m=Number(get('month'));
-let d=Number(get('day'));
-
+let y=Number(get('year')),m=Number(get('month')),d=Number(get('day'));
 const time=get('hour')+':'+get('minute');
 let date=new Date(Date.UTC(y,m-1,d));
-
 if(time<'03:45')date.setUTCDate(date.getUTCDate()-1);
-
 return date.toISOString().slice(0,10);
 }
 
 function updateClock(){
 const now=new Date();
-
 $('clock').textContent=new Intl.DateTimeFormat('en-GB',{
-timeZone:'Asia/Colombo',
-hour:'2-digit',
-minute:'2-digit',
-second:'2-digit',
-hour12:false
+timeZone:'Asia/Colombo',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false
 }).format(now);
-
 $('clockdate').textContent=new Intl.DateTimeFormat('en-GB',{
-timeZone:'Asia/Colombo',
-weekday:'long',
-day:'2-digit',
-month:'long',
-year:'numeric'
+timeZone:'Asia/Colombo',weekday:'long',day:'2-digit',month:'long',year:'numeric'
 }).format(now);
-
 const date=getBusinessDate();
-
 $('businessDate').textContent=date;
 $('bizLabel').textContent=date;
-
-if($('reportDate')&&!$('reportDate').value){
-$('reportDate').value=date;
+if($('reportDate')&&!$('reportDate').value)$('reportDate').value=date;
+if($('stakeDate')&&!$('stakeDate').value)$('stakeDate').value=date;
 }
-
-if($('stakeDate')&&!$('stakeDate').value){
-$('stakeDate').value=date;
-}
-}
-
 updateClock();
 setInterval(updateClock,1000);
 
@@ -412,56 +385,34 @@ $(id).classList.remove('hidden');
 async function login(){
 const username=$('username').value.trim();
 const password=$('password').value;
-
-if(!username){
-showMessage('loginMsg','Enter center name or admin.');
-return;
-}
-
+if(!username){showMessage('loginMsg','Enter center name or admin.');return}
 if(username.toLowerCase()==='admin'&&!password){
 $('passwordArea').classList.remove('hidden');
 $('password').focus();
 showMessage('loginMsg','Please enter admin password.');
 return;
 }
-
-/* Save center name immediately, including pending centers. */
-if(username.toLowerCase()!=='admin'){
-localStorage.setItem('ds_center_name',username);
-}
+if(username.toLowerCase()!=='admin')localStorage.setItem('ds_center_name',username);
 
 showMessage('loginMsg','Connecting to server...');
-
 $('loginBtn').disabled=true;
 $('loginBtn').textContent='PLEASE WAIT...';
 
 try{
 const result=await api('login',{
-username:username,
-password:password,
-deviceId:deviceId(),
+username,password,deviceId:deviceId(),
 deviceName:navigator.userAgent.slice(0,100)
 });
-
-TOKEN=result.token;
-ROLE=result.role;
-CENTER=result.center||'';
-
+TOKEN=result.token;ROLE=result.role;CENTER=result.center||'';
 localStorage.setItem('ds_token',TOKEN);
 localStorage.setItem('ds_role',ROLE);
 localStorage.setItem('ds_center',CENTER);
-
-if(CENTER){
-localStorage.setItem('ds_center_name',CENTER);
-}
-
+if(CENTER)localStorage.setItem('ds_center_name',CENTER);
 openApp();
-
 if(result.maintenance){
 maintenanceOn=true;
 $('maintenanceOverlay').classList.remove('hidden');
 }
-
 }catch(err){
 showMessage('loginMsg',err.message);
 }finally{
@@ -470,92 +421,80 @@ $('loginBtn').textContent='LOGIN';
 }
 }
 
-/* OPEN DASHBOARD */
+/* DASHBOARD */
 function openApp(){
 $('loginView').classList.add('hidden');
+$('loginChat').classList.add('hidden');
 $('appView').classList.remove('hidden');
 
-$('who').textContent=
-ROLE==='CENTER'||ROLE==='CENTER_PENDING'
-?CENTER
-:ROLE==='ADMIN1'?'ADMIN 1':'ADMIN 2';
+$('who').textContent=(ROLE==='CENTER'||ROLE==='CENTER_PENDING')
+?CENTER:ROLE==='ADMIN1'?'ADMIN 1':'ADMIN 2';
 
 const isCenter=ROLE==='CENTER'||ROLE==='CENTER_PENDING';
-
 $('centerPanel').classList.toggle('hidden',!isCenter);
+$('centerChatPanel').classList.toggle('hidden',!isCenter);
 $('pendingPanel').classList.toggle('hidden',ROLE!=='CENTER_PENDING');
 $('admin1Panel').classList.toggle('hidden',ROLE!=='ADMIN1');
 $('admin2Panel').classList.toggle('hidden',ROLE!=='ADMIN2');
 
-if(ROLE==='CENTER_PENDING'){
-$('centerPanel').classList.add('hidden');
-}
-
+if(ROLE==='CENTER_PENDING')$('centerPanel').classList.add('hidden');
 if(ROLE==='CENTER'){
 $('pendingPanel').classList.add('hidden');
 $('centerPanel').classList.remove('hidden');
 showCenterTab('new');
 }
-
 if(ROLE==='ADMIN1'){
 $('reportDate').value=getBusinessDate();
 loadReportCenters();
 }
-
-if(ROLE==='ADMIN2'){
-loadAdminData();
-}
+if(ROLE==='ADMIN2')loadAdminData();
 
 updateClock();
+startChatPolling();
+if(isCenter)refreshCenterChat();
+}
+
+function stopChatPolling(){
+if(chatTimer){clearInterval(chatTimer);chatTimer=null;}
+}
+function startChatPolling(){
+stopChatPolling();
+chatTimer=setInterval(()=>{
+if(!TOKEN)return;
+if(ROLE==='CENTER'||ROLE==='CENTER_PENDING')refreshCenterChat(true);
+if(ROLE==='ADMIN1')refreshAdmin1Chat(true);
+if(ROLE==='ADMIN2')refreshAdmin2Chat(true);
+},15000);
 }
 
 /* CHANGE CENTER */
 async function changeCenter(){
 if(!confirm('Change to another center?'))return;
-
-try{
-if(TOKEN)await api('logout',{token:TOKEN});
-}catch(e){}
-
-TOKEN='';
-ROLE='';
-CENTER='';
-
-localStorage.removeItem('ds_token');
-localStorage.removeItem('ds_role');
-localStorage.removeItem('ds_center');
-localStorage.removeItem('ds_center_name');
-
+try{if(TOKEN)await api('logout',{token:TOKEN})}catch(e){}
+stopChatPolling();
+TOKEN='';ROLE='';CENTER='';
+['ds_token','ds_role','ds_center','ds_center_name'].forEach(k=>localStorage.removeItem(k));
 $('appView').classList.add('hidden');
 $('loginView').classList.remove('hidden');
-
+$('loginChat').classList.remove('hidden');
 $('username').value='';
 $('password').value='';
 $('passwordArea').classList.add('hidden');
 $('centerSwitch').classList.add('hidden');
 $('loginMsg').classList.add('hidden');
 $('maintenanceOverlay').classList.add('hidden');
-
 $('username').focus();
 }
 
 /* LOGOUT */
 async function logout(){
-try{
-if(TOKEN)await api('logout',{token:TOKEN});
-}catch(e){}
-
-TOKEN='';
-ROLE='';
-CENTER='';
-
-localStorage.removeItem('ds_token');
-localStorage.removeItem('ds_role');
-localStorage.removeItem('ds_center');
-
+try{if(TOKEN)await api('logout',{token:TOKEN})}catch(e){}
+stopChatPolling();
+TOKEN='';ROLE='';CENTER='';
+['ds_token','ds_role','ds_center'].forEach(k=>localStorage.removeItem(k));
 $('appView').classList.add('hidden');
 $('loginView').classList.remove('hidden');
-
+$('loginChat').classList.remove('hidden');
 $('username').value=localStorage.getItem('ds_center_name')||'';
 $('password').value='';
 $('passwordArea').classList.add('hidden');
@@ -567,29 +506,15 @@ $('maintenanceOverlay').classList.add('hidden');
 /* CHECK APPROVAL */
 async function checkApproval(){
 const savedCenter=localStorage.getItem('ds_center_name')||CENTER;
-
-if(!savedCenter){
-alert('Center name not found.');
-return;
-}
-
-try{
-if(TOKEN)await api('logout',{token:TOKEN});
-}catch(e){}
-
-TOKEN='';
-ROLE='';
-CENTER='';
-
-localStorage.removeItem('ds_token');
-localStorage.removeItem('ds_role');
-localStorage.removeItem('ds_center');
-
+if(!savedCenter){alert('Center name not found.');return}
+try{if(TOKEN)await api('logout',{token:TOKEN})}catch(e){}
+TOKEN='';ROLE='';CENTER='';
+['ds_token','ds_role','ds_center'].forEach(k=>localStorage.removeItem(k));
 $('appView').classList.add('hidden');
 $('loginView').classList.remove('hidden');
+$('loginChat').classList.remove('hidden');
 $('username').value=savedCenter;
 $('password').value='';
-
 await login();
 }
 
@@ -597,27 +522,16 @@ await login();
 function showCenterTab(tab){
 $('newStake').classList.toggle('hidden',tab!=='new');
 $('historyPanel').classList.toggle('hidden',tab!=='history');
-
 $('newTab').classList.toggle('active',tab==='new');
 $('historyTab').classList.toggle('active',tab==='history');
-
 if(tab==='history')loadHistory();
 }
-
-/* TOTAL */
 function calcTotal(){
-const total=['Australian','England','Trackside'].reduce(
-(sum,id)=>sum+(Number($(id).value)||0),0
-);
-
+const total=['Australian','England','Trackside'].reduce((sum,id)=>sum+(Number($(id).value)||0),0);
 $('liveTotal').textContent=money(total);
 }
-
 function clearStake(){
-['Australian','England','Trackside','Due'].forEach(id=>{
-$(id).value='';
-});
-
+['Australian','England','Trackside','Due'].forEach(id=>$(id).value='');
 calcTotal();
 $('saveMsg').classList.add('hidden');
 }
@@ -625,304 +539,239 @@ $('saveMsg').classList.add('hidden');
 /* SAVE STAKE */
 async function saveStake(){
 if(saving)return;
-
 if(ROLE!=='CENTER'){
 showMessage('saveMsg','NOT APPROVED. Please wait for Admin 2 approval.');
 return;
 }
-
 const selectedDate=$('stakeDate').value;
-
-if(!selectedDate){
-showMessage('saveMsg','Please select stake date.');
-return;
-}
-
-const data={
-token:TOKEN,
-date:selectedDate
-};
-
+if(!selectedDate){showMessage('saveMsg','Please select stake date.');return}
+const data={token:TOKEN,date:selectedDate};
 for(const id of ['Australian','England','Trackside','Due']){
-const raw=$(id).value.trim();
-const value=raw===''?0:Number(raw);
-
+const raw=$(id).value.trim(),value=raw===''?0:Number(raw);
 if(!Number.isFinite(value)||value<0){
-showMessage('saveMsg','Please enter a valid amount for '+id);
-return;
+showMessage('saveMsg','Please enter a valid amount for '+id);return;
 }
-
 data[id]=value;
 }
-
 if(!confirm('Save stake for '+selectedDate+'?'))return;
-
 saving=true;
 $('saveBtn').disabled=true;
 $('saveBtn').textContent='SAVING...';
-
 try{
 const r=await api('save',data);
-
-showMessage(
-'saveMsg',
-'✓ '+r.message+'\nDate: '+r.date+'\nTotal: '+money(r.total)
-);
-
-}catch(e){
-showMessage('saveMsg',e.message);
-}finally{
-saving=false;
-$('saveBtn').disabled=false;
-$('saveBtn').textContent='SAVE STAKE';
-}
+showMessage('saveMsg','✓ '+r.message+'\nDate: '+r.date+'\nTotal: '+money(r.total));
+}catch(e){showMessage('saveMsg',e.message)}
+finally{saving=false;$('saveBtn').disabled=false;$('saveBtn').textContent='SAVE STAKE'}
 }
 
 /* HISTORY */
 async function loadHistory(){
 $('historyList').textContent='Loading...';
-
 try{
 const r=await api('history',{token:TOKEN});
-
-if(!r.items||!r.items.length){
-$('historyList').textContent='No saved stake records yet.';
-return;
-}
-
+if(!r.items||!r.items.length){$('historyList').textContent='No saved stake records yet.';return}
 $('historyList').innerHTML=r.items.map(x=>`
-<div class="row">
-<div>
-<b>${escapeHtml(x[0])}</b>
-<div class="muted">
-Australian ${money(x[2])} • England ${money(x[3])}
-• Trackside ${money(x[4])} • Due ${money(x[5])}
-</div>
-</div>
-<b>${money(x[6])}</b>
-</div>
-`).join('');
-
-}catch(e){
-$('historyList').textContent=e.message;
-}
-}
-
-/* ADMIN 1 REPORT CENTERS */
-async function loadReportCenters(){
-try{
-const r=await api('reportCenters',{token:TOKEN});
-
-$('reportCenter').innerHTML=
-'<option value="ALL">ALL CENTERS</option>'+
-r.centers.map(c=>`
-<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>
-`).join('');
-
-await loadReport();
-
-}catch(e){
-$('reportArea').textContent=e.message;
-}
+<div class="row"><div><b>${escapeHtml(x[0])}</b>
+<div class="muted">Australian ${money(x[2])} • England ${money(x[3])} • Trackside ${money(x[4])} • Due ${money(x[5])}</div>
+</div><b>${money(x[6])}</b></div>`).join('');
+}catch(e){$('historyList').textContent=e.message}
 }
 
 /* ADMIN 1 REPORT */
+async function loadReportCenters(){
+try{
+const r=await api('reportCenters',{token:TOKEN});
+$('reportCenter').innerHTML='<option value="ALL">ALL CENTERS</option>'+
+r.centers.map(c=>`<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`).join('');
+await loadReport();
+refreshAdmin1Chat();
+}catch(e){$('reportArea').textContent=e.message}
+}
+
 async function loadReport(){
 if(!TOKEN||ROLE!=='ADMIN1')return;
-
-if(!$('reportDate').value){
-$('reportArea').textContent='Please select a date.';
-return;
-}
-
+if(!$('reportDate').value){$('reportArea').textContent='Please select a date.';return}
 $('reportArea').innerHTML='<div class="status">Loading report...</div>';
-
 try{
-const r=await api('report',{
-token:TOKEN,
-date:$('reportDate').value,
-center:$('reportCenter').value
-});
-
+const r=await api('report',{token:TOKEN,date:$('reportDate').value,center:$('reportCenter').value});
 const s=r.sums;
-
 $('reportArea').innerHTML=`
-<div class="total">
-<small>${escapeHtml(r.center)} • ${escapeHtml(r.date)}</small>
-<strong>${money(s.Total)}</strong>
-<small>TOTAL STAKE • DUE EXCLUDED</small>
-</div>
-
+<div class="total"><small>${escapeHtml(r.center)} • ${escapeHtml(r.date)}</small><strong>${money(s.Total)}</strong><small>TOTAL STAKE • DUE EXCLUDED</small></div>
 <div class="statgrid" style="margin-top:12px">
-${[
-['AUSTRALIAN',s.Australian],
-['ENGLAND',s.England],
-['TRACKSIDE',s.Trackside],
-['DUE',s.Due]
-].map(x=>`
-<div class="stat">
-<small>${x[0]}</small>
-<b>${money(x[1])}</b>
+${[['AUSTRALIAN',s.Australian],['ENGLAND',s.England],['TRACKSIDE',s.Trackside],['DUE',s.Due]].map(x=>`
+<div class="stat"><small>${x[0]}</small><b>${money(x[1])}</b></div>`).join('')}
 </div>
-`).join('')}
-</div>
-
 <h2 style="margin-top:20px">CENTER DETAILS</h2>
-
-<div class="tablewrap">
-<table>
-<thead>
-<tr>
-<th>Center</th>
-<th>Australian</th>
-<th>England</th>
-<th>Trackside</th>
-<th>Due</th>
-<th>Total</th>
-</tr>
-</thead>
-<tbody>
-${r.items.map(x=>`
-<tr>
-${x.slice(1,7).map((v,i)=>`
-<td>${i===0?escapeHtml(v):money(v)}</td>
-`).join('')}
-</tr>
-`).join('')||'<tr><td colspan="6">No records for this date</td></tr>'}
-</tbody>
-</table>
-</div>
-
-<button class="btn secondary no-print" onclick="window.print()">
-PRINT / SAVE REPORT
-</button>
-`;
-
-}catch(e){
-$('reportArea').textContent=e.message;
-}
+<div class="tablewrap"><table><thead><tr><th>Center</th><th>Australian</th><th>England</th><th>Trackside</th><th>Due</th><th>Total</th></tr></thead>
+<tbody>${r.items.map(x=>`<tr>${x.slice(1,7).map((v,i)=>`<td>${i===0?escapeHtml(v):money(v)}</td>`).join('')}</tr>`).join('')||'<tr><td colspan="6">No records for this date</td></tr>'}</tbody></table></div>
+<button class="btn secondary no-print" onclick="window.print()">PRINT / SAVE REPORT</button>`;
+}catch(e){$('reportArea').textContent=e.message}
 }
 
 /* ADMIN 2 DATA */
 async function loadAdminData(){
 try{
 const r=await api('adminData',{token:TOKEN});
-
 maintenanceOn=r.maintenance;
-
 $('centerCount').textContent=r.centers.length;
 $('deviceCount').textContent=r.devices.length;
 $('maintState').textContent=maintenanceOn?'ON':'OFF';
+$('maintBtn').textContent=maintenanceOn?'TURN MAINTENANCE OFF':'TURN MAINTENANCE ON';
 
-$('maintBtn').textContent=
-maintenanceOn?'TURN MAINTENANCE OFF':'TURN MAINTENANCE ON';
+const chatSelect=$('admin2ChatCenter');
+const old=chatSelect.value;
+chatSelect.innerHTML='<option value="ALL">ALL CENTERS - INBOX</option>'+
+r.centers.map(c=>`<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`).join('');
+if([...chatSelect.options].some(o=>o.value===old))chatSelect.value=old;
 
 $('centerList').innerHTML=r.centers.map(c=>`
-<div class="row">
-<div>
-<b>${escapeHtml(c.name)}</b>
-<div class="muted">${escapeHtml(c.status)}</div>
-</div>
-
-<button class="btn small ${c.status==='APPROVED'?'danger':'green'}"
-onclick="approveCenter('${encodeURIComponent(c.name)}',${c.status!=='APPROVED'})">
-${c.status==='APPROVED'?'REVOKE':'APPROVE'}
-</button>
-</div>
-`).join('')||'No centers registered.';
+<div class="row"><div><b>${escapeHtml(c.name)}</b><div class="muted">${escapeHtml(c.status)}</div></div>
+<button class="btn small ${c.status==='APPROVED'?'danger':'green'}" onclick="approveCenter('${encodeURIComponent(c.name)}',${c.status!=='APPROVED'})">${c.status==='APPROVED'?'REVOKE':'APPROVE'}</button></div>`).join('')||'No centers registered.';
 
 $('deviceList').innerHTML=r.devices.map(d=>`
-<div class="row">
-<div>
-<b>${escapeHtml(d.center)}</b>
-<div class="muted">
-${escapeHtml(d.name)}<br>
-${escapeHtml(d.id)}<br>
-${escapeHtml(d.lastSeen)}
-</div>
-</div>
+<div class="row"><div><b>${escapeHtml(d.center)}</b><div class="muted">${escapeHtml(d.name)}<br>${escapeHtml(d.id)}<br>${escapeHtml(d.lastSeen)}</div></div>
+<button class="btn small danger" onclick="removeDevice('${encodeURIComponent(d.center)}','${encodeURIComponent(d.id)}')">REMOVE</button></div>`).join('')||'No registered devices.';
 
-<button class="btn small danger"
-onclick="removeDevice('${encodeURIComponent(d.center)}','${encodeURIComponent(d.id)}')">
-REMOVE
-</button>
-</div>
-`).join('')||'No registered devices.';
-
-}catch(e){
-alert(e.message);
-}
+await refreshAdmin2Chat(true);
+}catch(e){alert(e.message)}
 }
 
-/* APPROVE CENTER */
 async function approveCenter(encodedName,approved){
 try{
-await api('approve',{
-token:TOKEN,
-center:decodeURIComponent(encodedName),
-approved:approved
-});
-
+await api('approve',{token:TOKEN,center:decodeURIComponent(encodedName),approved});
 await loadAdminData();
-
-}catch(e){
-alert(e.message);
+}catch(e){alert(e.message)}
 }
-}
-
-/* REMOVE DEVICE */
 async function removeDevice(encodedCenter,encodedId){
 if(!confirm('Remove this device from the center?'))return;
-
 try{
-await api('removeDevice',{
-token:TOKEN,
-center:decodeURIComponent(encodedCenter),
-deviceId:decodeURIComponent(encodedId)
-});
-
+await api('removeDevice',{token:TOKEN,center:decodeURIComponent(encodedCenter),deviceId:decodeURIComponent(encodedId)});
 await loadAdminData();
-
-}catch(e){
-alert(e.message);
+}catch(e){alert(e.message)}
 }
-}
-
-/* MAINTENANCE */
 async function toggleMaintenance(){
 const enabled=!maintenanceOn;
-
 if(!confirm(enabled?'Turn maintenance ON?':'Turn maintenance OFF?'))return;
-
-try{
-await api('maintenance',{
-token:TOKEN,
-enabled:enabled
-});
-
-await loadAdminData();
-
-}catch(e){
-alert(e.message);
+try{await api('maintenance',{token:TOKEN,enabled});await loadAdminData()}
+catch(e){alert(e.message)}
 }
+
+/* CHAT DISPLAY */
+function renderChat(containerId,messages,currentRole){
+const box=$(containerId);
+if(!messages||!messages.length){
+box.innerHTML='<div class="muted center">No messages yet.</div>';
+return;
+}
+box.innerHTML=messages.map(m=>{
+const mine=(currentRole==='CENTER'||currentRole==='CENTER_PENDING')
+?m.sender==='CENTER'
+:m.sender===currentRole;
+const sender=m.sender==='CENTER'?'CENTER':m.sender==='ADMIN1'?'ADMIN 1':'ADMIN 2';
+return `<div class="chatMsg ${mine?'mine':'admin'}">
+<small>${escapeHtml(m.center)} • ${sender} • ${escapeHtml(m.time)}</small>
+<p>${escapeHtml(m.message)}</p></div>`;
+}).join('');
+box.scrollTop=box.scrollHeight;
+}
+
+/* LOGIN PAGE MESSAGE */
+async function sendLoginMessage(){
+const center=$('username').value.trim();
+const message=$('loginChatInput').value.trim();
+if(!center||center.toLowerCase()==='admin'){
+showMessage('loginChatStatus','Enter your center name in the login box first.');
+return;
+}
+if(!message){showMessage('loginChatStatus','Type your message first.');return}
+$('loginChatStatus').classList.add('hidden');
+try{
+await api('publicChatSend',{center,message});
+$('loginChatInput').value='';
+showMessage('loginChatStatus','Message sent to Admin 2.');
+}catch(e){showMessage('loginChatStatus',e.message)}
+}
+
+/* CENTER CHAT */
+async function refreshCenterChat(silent=false){
+if(!TOKEN||!(ROLE==='CENTER'||ROLE==='CENTER_PENDING'))return;
+try{
+const r=await api('chatGet',{token:TOKEN});
+renderChat('centerChatMessages',r.messages,ROLE);
+}catch(e){if(!silent)showMessage('centerChatStatus',e.message)}
+}
+async function sendCenterMessage(){
+const message=$('centerChatInput').value.trim();
+if(!message){showMessage('centerChatStatus','Type your message first.');return}
+try{
+await api('chatSend',{token:TOKEN,message});
+$('centerChatInput').value='';
+$('centerChatStatus').classList.add('hidden');
+await refreshCenterChat();
+}catch(e){showMessage('centerChatStatus',e.message)}
+}
+
+/* ADMIN 1 CHAT */
+async function refreshAdmin1Chat(silent=false){
+if(!TOKEN||ROLE!=='ADMIN1')return;
+const center=$('reportCenter').value;
+if(!center||center==='ALL'){
+$('admin1ChatMessages').innerHTML='<div class="muted center">Select one center above to open its chat.</div>';
+return;
+}
+try{
+const r=await api('chatGet',{token:TOKEN,center});
+renderChat('admin1ChatMessages',r.messages,ROLE);
+}catch(e){if(!silent)showMessage('admin1ChatStatus',e.message)}
+}
+async function sendAdmin1Message(){
+const center=$('reportCenter').value;
+const message=$('admin1ChatInput').value.trim();
+if(!center||center==='ALL'){showMessage('admin1ChatStatus','Select one center above first.');return}
+if(!message){showMessage('admin1ChatStatus','Type your message first.');return}
+try{
+await api('chatSend',{token:TOKEN,center,message});
+$('admin1ChatInput').value='';
+$('admin1ChatStatus').classList.add('hidden');
+await refreshAdmin1Chat();
+}catch(e){showMessage('admin1ChatStatus',e.message)}
+}
+
+/* ADMIN 2 CHAT */
+async function refreshAdmin2Chat(silent=false){
+if(!TOKEN||ROLE!=='ADMIN2')return;
+const center=$('admin2ChatCenter').value||'ALL';
+try{
+const r=await api('chatGet',{token:TOKEN,center});
+renderChat('admin2ChatMessages',r.messages,ROLE);
+}catch(e){if(!silent)showMessage('admin2ChatStatus',e.message)}
+}
+async function sendAdmin2Message(){
+const center=$('admin2ChatCenter').value;
+const message=$('admin2ChatInput').value.trim();
+if(!center||center==='ALL'){showMessage('admin2ChatStatus','Select a specific center to reply.');return}
+if(!message){showMessage('admin2ChatStatus','Type your message first.');return}
+try{
+await api('chatSend',{token:TOKEN,center,message});
+$('admin2ChatInput').value='';
+$('admin2ChatStatus').classList.add('hidden');
+await refreshAdmin2Chat();
+}catch(e){showMessage('admin2ChatStatus',e.message)}
 }
 
 /* RESTORE SESSION */
 (function restoreSession(){
 const token=localStorage.getItem('ds_token');
 const role=localStorage.getItem('ds_role');
-
 if(token&&role){
-TOKEN=token;
-ROLE=role;
-CENTER=localStorage.getItem('ds_center')||'';
+TOKEN=token;ROLE=role;CENTER=localStorage.getItem('ds_center')||'';
 openApp();
 }else{
 $('username').value=localStorage.getItem('ds_center_name')||'';
 }
 })();
 </script>
-
 </body>
 </html>
+
 
