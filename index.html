@@ -135,7 +135,6 @@ th{color:#e2baff;background:#21172e}
 .report-capture .report-head h2{margin:0;color:#f1d5ff}
 .report-capture .report-head div{font-size:10px;color:#bca4d7;margin-top:5px}
 .screenshot-btn{background:linear-gradient(110deg,#5420b6,#b12cff);border:1px solid #d49aff;color:white}
-footer{text-align:center;color:#756780;font-size:10px;padding:22px}
 
 /* PREMIUM ACCESS LOCK ANIMATION */
 @keyframes lockPulse{
@@ -148,6 +147,8 @@ footer{text-align:center;color:#756780;font-size:10px;padding:22px}
   box-shadow:0 0 40px #c05affaa;
  }
 }
+
+footer{text-align:center;color:#756780;font-size:10px;padding:22px}
 
 @media(min-width:650px){
  .wrap{padding:18px}
@@ -219,6 +220,10 @@ const API_URL="https://script.google.com/macros/s/AKfycbwVzKrmNhfTuAfynGQ-Ple1po
 let TOKEN="",ROLE="",CENTER="",ADMIN_DATA=null,APPROVED_CENTERS=[];
 let CURRENT_PAGE="",CHAT_TIMER=null,REPORT_TIMER=null;
 let apiBusy=false;
+
+/* AUTO APPROVAL CHECK */
+let approvalTimer=null;
+let approvalChecking=false;
 
 const $=id=>document.getElementById(id);
 const money=n=>"Rs. "+Number(n||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -306,6 +311,7 @@ function initialiseLogin(){
 }
 
 function changeCenter(){
+ stopApprovalChecking();
  $("username").readOnly=false;
  $("username").value="";
  $("username").focus();
@@ -323,8 +329,16 @@ $("password").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
 /* LOGIN WITH PREMIUM PENDING APPROVAL SCREEN */
 async function login(){
  const username=$("username").value.trim(),password=$("password").value;
- if(!username){showLoginMessage("Enter center name.","error");return}
- if(username.toLowerCase()==="admin"&&!password){showLoginMessage("Enter admin password.","error");return}
+
+ if(!username){
+  showLoginMessage("Enter center name.","error");
+  return;
+ }
+
+ if(username.toLowerCase()==="admin"&&!password){
+  showLoginMessage("Enter admin password.","error");
+  return;
+ }
 
  showLoginMessage("Checking login...");
 
@@ -475,21 +489,28 @@ async function login(){
        font-weight:700;
       ">🔒 WAITING FOR ADMIN 2</div>
 
-      <div style="
+      <div id="approvalCheckText" style="
        font-size:10px;
        color:#8d7a9f;
        margin-top:8px;
-      ">Access will be enabled after approval.</div>
+      ">Checking approval automatically...</div>
 
      </div>`;
 
+    startApprovalChecking(username);
     return;
    }
 
-   if(r.maintenance){showMaintenance();return}
+   if(r.maintenance){
+    showMaintenance();
+    return;
+   }
+
    showLoginMessage(r.error||"Login failed.","error");
    return;
   }
+
+  stopApprovalChecking();
 
   TOKEN=r.token;ROLE=r.role;CENTER=r.center||"";
 
@@ -503,11 +524,80 @@ async function login(){
   localStorage.setItem("ds_token",TOKEN);
   localStorage.setItem("ds_role",ROLE);
   localStorage.setItem("ds_center",CENTER);
+
   await startApp();
 
  }catch(e){
   showLoginMessage(e.message,"error");
  }
+}
+
+/* AUTOMATIC APPROVAL CHECK EVERY 5 SECONDS */
+function stopApprovalChecking(){
+ if(approvalTimer){
+  clearInterval(approvalTimer);
+  approvalTimer=null;
+ }
+ approvalChecking=false;
+}
+
+function startApprovalChecking(username){
+ stopApprovalChecking();
+
+ approvalTimer=setInterval(async()=>{
+  if(approvalChecking)return;
+
+  approvalChecking=true;
+
+  try{
+   const r=await api("login",{
+    username:username,
+    password:"",
+    deviceId:deviceId(),
+    deviceName:deviceName()
+   });
+
+   if(r.maintenance){
+    stopApprovalChecking();
+    showMaintenance();
+    return;
+   }
+
+   if(r.ok && r.token){
+    stopApprovalChecking();
+
+    TOKEN=r.token;
+    ROLE=r.role;
+    CENTER=r.center||username;
+
+    localStorage.setItem("ds_token",TOKEN);
+    localStorage.setItem("ds_role",ROLE);
+    localStorage.setItem("ds_center",CENTER);
+    localStorage.setItem("ds_saved_center",CENTER);
+
+    $("username").value=CENTER;
+    $("username").readOnly=true;
+    $("changeCenterBtn").classList.remove("hidden");
+
+    await startApp();
+    return;
+   }
+
+   const status=$("approvalCheckText");
+   if(status){
+    status.textContent="Still waiting for Admin 2 approval...";
+   }
+
+  }catch(e){
+   const status=$("approvalCheckText");
+   if(status){
+    status.textContent="Connection checking... Retrying automatically.";
+   }
+  }finally{
+   approvalChecking=false;
+  }
+
+ },5000);
 }
 
 async function restoreSession(){
@@ -525,6 +615,7 @@ async function restoreSession(){
 }
 
 function clearSession(){
+ stopApprovalChecking();
  TOKEN="";ROLE="";CENTER="";
  localStorage.removeItem("ds_token");
  localStorage.removeItem("ds_role");
@@ -534,12 +625,14 @@ function clearSession(){
 }
 
 async function logout(){
+ stopApprovalChecking();
  try{await api("logout",{token:TOKEN})}catch(e){}
  clearSession();
  initialiseLogin();
 }
 
 function showMaintenance(){
+ stopApprovalChecking();
  $("loginScreen").classList.add("hidden");
  $("appScreen").classList.add("hidden");
  $("maintenanceScreen").classList.remove("hidden");
@@ -815,7 +908,7 @@ async function devicesPage(){
     <div class="muted">${escapeHTML(d.deviceName)} • ${escapeHTML(d.deviceId)}</div>
     <div class="muted">Last active: ${escapeHTML(d.lastSeen)}</div>
     <button class="btn red small" onclick="removeDevice('${escapeHTML(d.center)}','${escapeHTML(d.deviceId)}')">REMOVE DEVICE</button>
-   </div>`).join("")||'<div class="notice">No registered devices.</div>'}`;
+   </div>`).join("")||'<div class="notice">No devices registered.</div>'}`;
 }
 async function removeDevice(center,id){
  if(!confirm("Remove this device?"))return;
@@ -1252,3 +1345,4 @@ restoreSession();
 </script>
 </body>
 </html>
+
