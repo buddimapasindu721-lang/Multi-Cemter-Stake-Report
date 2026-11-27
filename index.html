@@ -7,6 +7,7 @@
 <meta name="theme-color" content="#05040D">
 <title>Daily Stake - Multi Center</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+
 <style>
 :root{
  --bg:#05040d;--panel:#100d1d;--panel2:#191329;
@@ -135,6 +136,19 @@ th{color:#e2baff;background:#21172e}
 .report-capture .report-head div{font-size:10px;color:#bca4d7;margin-top:5px}
 .screenshot-btn{background:linear-gradient(110deg,#5420b6,#b12cff);border:1px solid #d49aff;color:white}
 footer{text-align:center;color:#756780;font-size:10px;padding:22px}
+
+/* PREMIUM ACCESS LOCK ANIMATION */
+@keyframes lockPulse{
+ 0%,100%{
+  transform:scale(1);
+  box-shadow:0 0 20px #a34aff55;
+ }
+ 50%{
+  transform:scale(1.04);
+  box-shadow:0 0 40px #c05affaa;
+ }
+}
+
 @media(min-width:650px){
  .wrap{padding:18px}
  .login{margin-top:12vh}
@@ -145,6 +159,7 @@ footer{text-align:center;color:#756780;font-size:10px;padding:22px}
 }
 </style>
 </head>
+
 <body>
 
 <header>
@@ -214,7 +229,7 @@ function escapeHTML(v){
  }[c]));
 }
 
-/* UPDATED API CONNECTION FUNCTION */
+/* API CONNECTION */
 function api(action,data={}){
  return new Promise((resolve,reject)=>{
   const callback="ds_cb_"+Date.now()+"_"+Math.floor(Math.random()*999999);
@@ -262,7 +277,6 @@ function api(action,data={}){
   script.src=API_URL+"?"+params.toString();
   document.body.appendChild(script);
  });
-
 }
 
 function deviceId(){
@@ -306,6 +320,7 @@ $("username").addEventListener("input",()=>{
 $("username").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
 $("password").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
 
+/* LOGIN WITH PREMIUM PENDING APPROVAL SCREEN */
 async function login(){
  const username=$("username").value.trim(),password=$("password").value;
  if(!username){showLoginMessage("Enter center name.","error");return}
@@ -319,12 +334,158 @@ async function login(){
   });
 
   if(!r.ok){
+
    if(r.pending){
     localStorage.setItem("ds_saved_center",username);
     $("username").value=username;
     $("username").readOnly=true;
     $("changeCenterBtn").classList.remove("hidden");
+
+    $("loginMessage").innerHTML=`
+     <div style="
+      margin-top:20px;
+      padding:25px 18px;
+      min-height:430px;
+      border-radius:22px;
+      background:linear-gradient(145deg,#080611,#160b29,#090611);
+      border:1px solid #633b91;
+      box-shadow:0 0 35px #922cff35,inset 0 0 25px #7020a522;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      overflow:hidden;
+     ">
+
+      <div style="
+       font-size:13px;
+       font-weight:900;
+       letter-spacing:3px;
+       color:#d5a6ff;
+      ">DAILY STAKE</div>
+
+      <div style="
+       font-size:10px;
+       letter-spacing:4px;
+       color:#9d83b9;
+       margin-top:5px;
+      ">MULTI CENTER</div>
+
+      <div style="
+       width:175px;
+       height:175px;
+       margin:28px 0 20px;
+       border-radius:50%;
+       border:2px solid #a34aff;
+       background:radial-gradient(circle,#35145a,#170d29 70%);
+       box-shadow:0 0 25px #a34aff88,inset 0 0 25px #a34aff44;
+       display:flex;
+       align-items:center;
+       justify-content:center;
+       animation:lockPulse 2.5s infinite;
+      ">
+       <div style="
+        width:125px;
+        height:125px;
+        border-radius:50%;
+        border:2px solid #7041a8;
+        background:linear-gradient(145deg,#392052,#170d29);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:72px;
+        box-shadow:inset 0 0 25px #a34aff55;
+       ">🔐</div>
+      </div>
+
+      <div style="
+       font-size:29px;
+       font-weight:1000;
+       letter-spacing:2px;
+       color:#e8c4ff;
+       text-shadow:0 0 15px #b44aff88;
+      ">ACCESS LOCKED</div>
+
+      <div style="
+       font-size:13px;
+       font-weight:900;
+       color:#ffffff;
+       margin-top:10px;
+       letter-spacing:1px;
+      ">ADMIN 2 APPROVAL REQUIRED</div>
+
+      <div style="
+       font-size:12px;
+       color:#bca8d0;
+       margin-top:10px;
+      ">Your center is waiting for authorization.</div>
+
+      <div style="
+       width:100%;
+       box-sizing:border-box;
+       margin-top:25px;
+       padding:17px;
+       border-radius:17px;
+       background:linear-gradient(145deg,#21152f,#130d1d);
+       border:1px solid #593477;
+       text-align:left;
+      ">
+       <div style="
+        font-size:10px;
+        font-weight:900;
+        color:#a995c4;
+        letter-spacing:2px;
+       ">CENTER NAME</div>
+
+       <div style="
+        font-size:17px;
+        font-weight:900;
+        color:#ffffff;
+        margin-top:7px;
+       ">${escapeHTML(username)}</div>
+
+       <div style="height:1px;background:#49305f;margin:14px 0"></div>
+
+       <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:5px;
+       ">
+        <span style="font-size:12px;color:#d8c8e8;font-weight:bold">
+         CENTER STATUS
+        </span>
+
+        <span style="
+         background:#50330b;
+         color:#ffda83;
+         padding:7px 11px;
+         border-radius:20px;
+         font-size:10px;
+         font-weight:900;
+        ">⏳ PENDING APPROVAL</span>
+       </div>
+      </div>
+
+      <div style="
+       margin-top:20px;
+       font-size:12px;
+       color:#c9b6dc;
+       font-weight:700;
+      ">🔒 WAITING FOR ADMIN 2</div>
+
+      <div style="
+       font-size:10px;
+       color:#8d7a9f;
+       margin-top:8px;
+      ">Access will be enabled after approval.</div>
+
+     </div>`;
+
+    return;
    }
+
    if(r.maintenance){showMaintenance();return}
    showLoginMessage(r.error||"Login failed.","error");
    return;
@@ -343,7 +504,10 @@ async function login(){
   localStorage.setItem("ds_role",ROLE);
   localStorage.setItem("ds_center",CENTER);
   await startApp();
- }catch(e){showLoginMessage(e.message,"error")}
+
+ }catch(e){
+  showLoginMessage(e.message,"error");
+ }
 }
 
 async function restoreSession(){
@@ -498,7 +662,6 @@ function statusTag(status){
 }
 
 /* CATEGORY CARDS */
-
 function categoryCard(name,icon,css,value,id){
  const amount=id
   ?`<input id="${id}" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal">`
@@ -512,7 +675,7 @@ function categoryCard(name,icon,css,value,id){
 function stakeInputCards(prefix=""){
  return `<div class="category-grid">
   ${categoryCard("AUSTRALIAN","🇦🇺","cat-australian",0,prefix+"australian")}
-  ${categoryCard("ENGLAND","🇬🇧","cat-england",0,prefix+"england")}
+  ${categoryCard("ENGLAND","🏴","cat-england",0,prefix+"england")}
   ${categoryCard("TRACKSIDE","🏇","cat-trackside",0,prefix+"trackside")}
   ${categoryCard("DUE","💰","cat-due",0,prefix+"due")}
  </div>`;
@@ -521,12 +684,12 @@ function stakeValueCards(data){
  const x=data||{};
  return `<div class="category-grid">
   ${categoryCard("AUSTRALIAN","🇦🇺","cat-australian",x.australian)}
-  ${categoryCard("ENGLAND","🇬🇧","cat-england",x.england)}
+  ${categoryCard("ENGLAND","🏴","cat-england",x.england)}
   ${categoryCard("TRACKSIDE","🏇","cat-trackside",x.trackside)}
   ${categoryCard("DUE","💰","cat-due",x.due)}
  </div>
  <div class="category-card cat-total">
-  <div><div class="cat-icon">💶</div><div class="cat-name">TOTAL • DUE EXCLUDED</div></div>
+  <div><div class="cat-icon">💎</div><div class="cat-name">TOTAL • DUE EXCLUDED</div></div>
   <div class="amount">${money(x.total)}</div>
  </div>`;
 }
@@ -539,7 +702,6 @@ function sumRows(rows){
 }
 
 /* DASHBOARDS */
-
 async function dashboardPage(){
  if(ROLE==="ADMIN2"){
   await loadAdminData();
@@ -587,7 +749,6 @@ async function dashboardPage(){
 }
 
 /* ADMIN 2 PAGES */
-
 async function systemPage(){
  await loadAdminData();
  const on=!!ADMIN_DATA.maintenance;
@@ -664,7 +825,6 @@ async function removeDevice(center,id){
 }
 
 /* CENTER STAKE ENTRY */
-
 async function newStakePage(){
  if(ROLE!=="CENTER")return;
 
@@ -781,7 +941,6 @@ async function sendOtherRequest(){
 }
 
 /* CENTER RECORDS */
-
 async function recordsPage(){
  $("content").innerHTML=`
   <h2>Stake Records</h2>
@@ -812,7 +971,6 @@ async function loadRecords(){
 }
 
 /* ADMIN 1 REPORT */
-
 async function reportsPage(){
  if(ROLE!=="ADMIN1")return;
 
@@ -927,7 +1085,6 @@ async function takeReportScreenshot(){
 }
 
 /* ADMIN 2 MANUAL ENTRY */
-
 async function manualPage(){
  await loadAdminData();
  const names=centerNames();
@@ -977,7 +1134,6 @@ async function saveManual(){
 }
 
 /* ADMIN 2 OTHER CENTER REQUESTS */
-
 async function requestsPage(){
  const r=await api("otherRequests",{token:TOKEN});
  if(!r.ok)throw new Error(r.error||"Could not load requests");
@@ -1014,7 +1170,6 @@ async function enterRequest(id,center,date,australian,england,trackside,due){
 }
 
 /* PRIVATE MESSAGES */
-
 async function messagesPage(){
  const isAdmin=ROLE==="ADMIN1"||ROLE==="ADMIN2";
 
@@ -1091,11 +1246,9 @@ async function sendMessage(){
 }
 
 /* START */
-
 initialiseLogin();
 updateClock();
 restoreSession();
 </script>
 </body>
 </html>
-
