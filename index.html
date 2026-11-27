@@ -768,7 +768,7 @@ function categoryCard(name,icon,css,value,id){
 function stakeInputCards(prefix=""){
  return `<div class="category-grid">
   ${categoryCard("AUSTRALIAN","🇦🇺","cat-australian",0,prefix+"australian")}
-  ${categoryCard("ENGLAND","🏴","cat-england",0,prefix+"england")}
+  ${categoryCard("ENGLAND","🇬🇧","cat-england",0,prefix+"england")}
   ${categoryCard("TRACKSIDE","🏇","cat-trackside",0,prefix+"trackside")}
   ${categoryCard("DUE","💰","cat-due",0,prefix+"due")}
  </div>`;
@@ -777,12 +777,12 @@ function stakeValueCards(data){
  const x=data||{};
  return `<div class="category-grid">
   ${categoryCard("AUSTRALIAN","🇦🇺","cat-australian",x.australian)}
-  ${categoryCard("ENGLAND","🏴","cat-england",x.england)}
+  ${categoryCard("ENGLAND","🇬🇧","cat-england",x.england)}
   ${categoryCard("TRACKSIDE","🏇","cat-trackside",x.trackside)}
   ${categoryCard("DUE","💰","cat-due",x.due)}
  </div>
  <div class="category-card cat-total">
-  <div><div class="cat-icon">💎</div><div class="cat-name">TOTAL • DUE EXCLUDED</div></div>
+  <div><div class="cat-icon">💶</div><div class="cat-name">TOTAL • DUE EXCLUDED</div></div>
   <div class="amount">${money(x.total)}</div>
  </div>`;
 }
